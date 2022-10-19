@@ -178,9 +178,4 @@ public class PlayerController : MonoBehaviour
         if (isGrounded) return rbody.velocity.y <= minVerticalVelocityForJump;
         else return (isClimbing && canWallJump) || isWithinCoyoteTime || remainingAirJumps > 0;
     }
-
-    private bool CanWallJump()
-    {
-        return false;
-    }
 }
