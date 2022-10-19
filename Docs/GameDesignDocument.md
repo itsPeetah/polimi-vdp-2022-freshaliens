@@ -11,18 +11,17 @@ overcome obstacles with his movement skills, the other one is a good shooter abl
 ### 1.1 Plot
 
 In a remote galaxy there is an ancient alien race that use to conquer as many planets as they can. Their children are trained since their birth to conquer planets and when they turn 10 are sent to conquer their first planets.
-Two cute aliens, Gün and Jümp, are the main character of our aventure.
+Two cute aliens, Gün and Jümp, are the main character of our aventure.  
 Gün has been trained to kill, he has no fear and has learnt to use all kind of alien weapons but he always use his favorite one.
 Jümp has been trained to overcome every obstacle he can face. Has no fear of highness and there is no wall he cannot climb.
 Gün and Jümp have also learnt to collaborate together as a couple of partners sholud ever do.
 Will they be able to conquer all their assigned planets?
 
 ## 2 Description of the game
-
 ### 2.1 Technical specifics
 
-Freshaliens is a PC offline game where the players play using the keyboard and the mouse as input, also controller input will be provided and suggested.
-It is developed using Unity as graphic engine and C# scripts.
+Freshaliens is a PC offline game where the players play using the keyboard and the mouse as input, also controller input will be provided and suggested.  
+It is developed using Unity as graphic engine and C# scripts.  
 The game has a 2D graphic with an horizontal scrolling view (like Super Mario Bros for instance).
 
 ## 3 Gameplay design
@@ -36,7 +35,7 @@ The game has a 2D graphic with an horizontal scrolling view (like Super Mario Br
 |                  /                  |    Can climb walls by jumping on them    |
 | Can shoot to enemies with his gun\* | Can only stun enemies with melee attacks |
 
-\*Gün's gun will upgrade in the game, getting more powerful and a cooler design.
+*Gün's gun will upgrade in the game, getting more powerful and a cooler design.
 
 ### 3.2 Cooperative Mechanics
 
@@ -68,15 +67,19 @@ The planets of the same solar system will be characterized by the same design: r
 
 KEYBOARD: Jümp will use W-A-D to move and jump, Gün will use ← ↑ → to move and jump and the mouse to aim and shoot.
 The aim system of Gün will be radial: he has a pointer and will use the mouse to choose the direction and the left button to shoot.
-Some other keys could be used for special actions.
+Some other keys could be used for special actions.  
 CONTROLLER: Jümp will use the arrows (or the left stick) to move and one button to jump. Gün will use the arrows (or the left stick) to move, the right stick to aim and a right trigger to shoot.
 
 ### 3.7 Enemies
 
-On the planets there are different kind of enemies (each one with its own attack style, maybe? could be cool). Flying and not enemies.
+On the planets there are different kind of enemies (each one with its own attack style, maybe? could be cool). Flying and not flying enemies.
 
 ### 3.8 Bosses
 
 ### 3.9 Music
 
 ### 3.10 Assets
+
+### 3.11 Menu
+Once the game starts it is shown the main menu. From it is possible to start a new game, load a previous one or change the settings.  
+When the game starts it will show the actual solar system and the player have to choose the level to play.  
