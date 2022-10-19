@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private string horizontalAxis = "Horizontal";
     [SerializeField] private string jumpAxis = "Jump";
 
-    [Header("Stats")]
+    [Header("Walking")]
     [SerializeField] private float movementSpeedStart = 5.0f;
     [SerializeField] private float movementSpeedMax = 6.0f;
     [SerializeField] private float walkAcceleration = 1.0f;
@@ -129,10 +129,10 @@ public class PlayerController : MonoBehaviour
                 velocity.y = jumpForceGrounded;
             }
         }
-        else
-        {
-            velocity.y = Mathf.Clamp(rbody.velocity.y, -terminalVelocity, terminalVelocity);
-        }
+
+        // Clamp terminal velocity
+        velocity.y = Mathf.Clamp(rbody.velocity.y, -terminalVelocity, terminalVelocity);
+        
 
         // Gravity
         if (isClimbing && rbody.velocity.y <= minVerticalVelocityForJump) rbody.gravityScale = gravityScaleClimbing;
@@ -150,6 +150,7 @@ public class PlayerController : MonoBehaviour
     {
         int l = groundChecks.Length;
         isGrounded = false;
+        // TODO Change to two separate objects and unroll loop
         for (int i = 0; i < l; i++)
         {
             isGrounded |= Physics2D.OverlapCircle(groundChecks[i].position, groundCheckRadius, groundLayers) != null;
