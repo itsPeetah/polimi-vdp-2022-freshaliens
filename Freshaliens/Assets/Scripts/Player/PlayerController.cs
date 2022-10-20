@@ -129,11 +129,12 @@ public class PlayerController : MonoBehaviour
                 velocity.y = jumpForceGrounded;
             }
         }
-
-        // Clamp terminal velocity
-        velocity.y = Mathf.Clamp(rbody.velocity.y, -terminalVelocity, terminalVelocity);
+        else
+        {
+            // Clamp terminal velocity
+            velocity.y = Mathf.Clamp(rbody.velocity.y, -terminalVelocity, terminalVelocity);
+        }
         
-
         // Gravity
         if (isClimbing && rbody.velocity.y <= minVerticalVelocityForJump) rbody.gravityScale = gravityScaleClimbing;
         else if (isGrounded || rbody.velocity.y <= minVerticalVelocityForJump) rbody.gravityScale = gravityScaleFalling;
