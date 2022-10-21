@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [Header("Input")]
     [SerializeField] private string horizontalAxis = "Horizontal";
     [SerializeField] private string jumpAxis = "Jump";
+    [SerializeField] private string hit = "Hit";
 
     [Header("Walking")]
     [SerializeField] private float movementSpeedStart = 5.0f;
@@ -53,12 +54,17 @@ public class PlayerController : MonoBehaviour
     private bool facingWallRight = false;
     private bool facingWallLeft = false;
     private bool jumpQueued = false;
+    private bool coolDown = false;
     private int remainingAirJumps = 0;
     private float currentSpeed = 0f;
     private float jumpPressedTimestamp = 0f;
     private float lastGroundedTimestamp = 0f;
     private float wallJumpTimestamp = 0f;
     private Vector2 velocity = Vector2.zero;
+
+    [Header("Lives")]
+    [SerializeField] private LivesManager livesManager;
+    [SerializeField] private SpriteRenderer[] _spriteRenderers;
 
     // Components
     private Rigidbody2D rbody = null;
@@ -145,6 +151,19 @@ public class PlayerController : MonoBehaviour
 
         // Persist state
         wasGrounded = isGrounded;
+        
+        //Loosing of a life (now with an input key, then with a condition)
+        if (Input.GetButtonDown(hit))
+        {
+            if (!coolDown)
+            {
+                //Debug.Log("Hit button pressed");
+                if (livesManager)
+                {
+                    livesManager.PlayerHit(this);
+                }
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -179,5 +198,51 @@ public class PlayerController : MonoBehaviour
     private bool CanJump() {
         if (isGrounded) return rbody.velocity.y <= minVerticalVelocityForJump;
         else return (isClimbing && canWallJump) || isWithinCoyoteTime || remainingAirJumps > 0;
+    }
+    
+    //public method to be called from lives manager when the player get hit
+    public void ActivateCoolDown()
+    {
+        StartCoroutine(ActivateCoolDownCoroutine());
+    }
+    
+    //sets the player immune after it get hit, calls BlinkCoroutine, set the player to vulnerable again
+    private IEnumerator ActivateCoolDownCoroutine()
+    {
+        coolDown = true;
+        yield return BlinkCoroutine(_spriteRenderers, 5f, 2f);
+        coolDown = false;
+        
+        yield return null;
+    }
+    
+    //makes the player blinking to show its immune property during cool down time
+    private IEnumerator BlinkCoroutine(SpriteRenderer[] spriteRenderers, float duration, float speed)
+    {
+        var elapsedTime = 0f;
+        while( elapsedTime <= duration )
+        {
+            foreach (var t in spriteRenderers)
+            {
+                Color color = t.color;
+                
+                color.a = 0.25f + Mathf.PingPong( elapsedTime * speed, .5f );
+
+                t.color = color;
+            }
+            
+            elapsedTime += Time.deltaTime;
+            
+            yield return null;
+        }
+        
+        // resets all the alpha to one
+        foreach (var t in spriteRenderers)
+        {
+            Color color = t.color;
+            color.a = 1f;
+            t.color = color;
+        }
+        
     }
 }

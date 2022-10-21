@@ -123,6 +123,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &481471383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 481471385}
+  - component: {fileID: 481471384}
+  m_Layer: 0
+  m_Name: LivesManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &481471384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481471383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4255132e5ec14a7cb90d3ed82e44c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialNumberOfLives: 3
+--- !u!4 &481471385
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481471383}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.4098436, y: -0.10073759, z: -0.21040988}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,6 +805,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4154248916612903217, guid: e07c537b6479a4afdbc885054b945d75, type: 3}
+      propertyPath: livesManager
+      value: 
+      objectReference: {fileID: 481471384}
+    - target: {fileID: 4154248916612903217, guid: e07c537b6479a4afdbc885054b945d75, type: 3}
+      propertyPath: movementSpeedMax
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4154248916612903217, guid: e07c537b6479a4afdbc885054b945d75, type: 3}
+      propertyPath: walkAcceleration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4154248916612903217, guid: e07c537b6479a4afdbc885054b945d75, type: 3}
+      propertyPath: movementSpeedStart
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4154248916612903219, guid: e07c537b6479a4afdbc885054b945d75, type: 3}
       propertyPath: m_Name
       value: Player (Soldier)
@@ -817,6 +878,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5444438913041132578, guid: add405116417a4533932708b9d6a2545, type: 3}
+      propertyPath: livesManager
+      value: 
+      objectReference: {fileID: 481471384}
     - target: {fileID: 5444438913041132579, guid: add405116417a4533932708b9d6a2545, type: 3}
       propertyPath: m_RootOrder
       value: 4
