@@ -31,6 +31,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private bool _canIncreaseCameraSize;
     [SerializeField] private bool _canMoveCamera;
     [SerializeField] private bool _dynamicHorizontalOffset;
+    [SerializeField] private bool _showMessagePlayersTooDistant;
     // //Sensitivity is only for manual zoom
     // [SerializeField] private float sensitivity = 1f;
     
@@ -56,12 +57,15 @@ public class CameraManager : MonoBehaviour
     private float _currentVerticalOffset;
 
     //Camera State
+    private Vector3 _initialCameraPosition;
+    private float _initialCameraPositionXCoordinate;
     private Vector3 _currentCameraPosition;
     private float _currentCameraSize;
     private float _currentScreenWidth;
     private float _currentScreenHeight;
     private bool _canMoveCameraRight;
     private bool _canMoveCameraLeft;
+    private bool _mustShowMessageTooDistant;
     private float _top;
     private float _left;
     private float _right;
@@ -88,19 +92,24 @@ public class CameraManager : MonoBehaviour
         //Set initial CameraManager state
         _transform.position += new Vector3(0, _defaultVerticalOffset, 0);
         _currentPosition = _transform.position;
+        
         _currentHorizontalOffset = _defaultHorizontalOffset;
         _currentVerticalOffset = _defaultVerticalOffset;
 
         //Set initial camera state
-        // _canIncreaseCameraSize = true;
-        // _canMoveCamera = true;
+        _canIncreaseCameraSize = true;
+        _canMoveCamera = true;
+        _showMessagePlayersTooDistant = true;
         _cameraTransform.position = _currentPosition;
         _currentCameraPosition = _currentPosition;
+        // _initialCameraPosition = _currentPosition;
+        // _initialCameraPositionXCoordinate = _currentPosition.x;
         _currentCameraSize = _camera.orthographicSize;
         _currentScreenHeight = _currentCameraSize;
         _currentScreenWidth = _currentScreenHeight * 16 / 9;
         _canMoveCameraRight = true;
         _canMoveCameraLeft = true;
+        _mustShowMessageTooDistant = true;
         _top = _currentCameraPosition.y + _currentScreenHeight;
         _left = _currentCameraPosition.x - _currentScreenWidth;
         _right = _currentCameraPosition.x + _currentScreenWidth;
@@ -240,10 +249,27 @@ public class CameraManager : MonoBehaviour
     {
         _canMoveCameraRight = true;
         _canMoveCameraLeft = true;
-        if(_leftBorderCollider.IsTouching(_player1Collider) || _leftBorderCollider.IsTouching(_player2Collider))
+
+        bool leftColliderIsTouched = _leftBorderCollider.IsTouching(_player1Collider) || _leftBorderCollider.IsTouching(_player2Collider);
+        bool rightColliderIsTouched = _rightBorderCollider.IsTouching(_player1Collider) || _rightBorderCollider.IsTouching(_player2Collider);
+        if(leftColliderIsTouched)
             _canMoveCameraRight = false;
-        if(_rightBorderCollider.IsTouching(_player1Collider) || _rightBorderCollider.IsTouching(_player2Collider))
+        if(rightColliderIsTouched)
             _canMoveCameraLeft = false;
+
+        if (leftColliderIsTouched && rightColliderIsTouched)
+        {
+            if (_mustShowMessageTooDistant)
+            {
+                _mustShowMessageTooDistant = false;
+                //Show Message Players Too Distant
+                Debug.Log("PLAYERS TOO DISTANT!");
+            }
+        }
+        else
+        {
+            _mustShowMessageTooDistant = true;
+        }
     }
     
     //This method can be used to set zoom with mouse
