@@ -120,14 +120,21 @@ public class CameraManager : MonoBehaviour
         float rightBorderDistance = (_maxCameraSize * 16 / 9) * _ratioPlayableScreen;
         float topBorderDistance = _maxCameraSize - _collisionDistanceFromBorders;
         
+        Vector3 sideBordersScale = new Vector3(0.1f, _maxCameraSize*2, 0f);
+        Vector3 topBorderScale = new Vector3(_maxCameraSize*2*16f/9, 0.1f, 0f);
+        
         Vector3 leftBorderPosition = new Vector3(_currentCameraPosition.x - leftBorderDistance, _currentCameraPosition.y, _currentCameraPosition.z);
         _leftBorder.transform.SetPositionAndRotation(leftBorderPosition, Quaternion.identity);
-        
+
         Vector3 rightBorderPosition = new Vector3(_currentCameraPosition.x +rightBorderDistance, _currentCameraPosition.y, _currentCameraPosition.z);
         _rightBorder.transform.SetPositionAndRotation(rightBorderPosition, Quaternion.identity);
         
         Vector3 topBorderPosition = new Vector3(_currentCameraPosition.x , _currentCameraPosition.y + topBorderDistance, _currentCameraPosition.z);
         _topBorder.transform.SetPositionAndRotation(topBorderPosition, Quaternion.identity);
+        
+        _leftBorder.transform.localScale = sideBordersScale;
+        _rightBorder.transform.localScale = sideBordersScale;
+        _topBorder.transform.localScale = topBorderScale;
     }
 
 

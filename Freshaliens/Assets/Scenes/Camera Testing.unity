@@ -772,6 +772,7 @@ MonoBehaviour:
   _canIncreaseCameraSize: 0
   _canMoveCamera: 0
   _dynamicHorizontalOffset: 0
+  _showMessagePlayersTooDistant: 0
 --- !u!4 &1502060865
 Transform:
   m_ObjectHideFlags: 0
