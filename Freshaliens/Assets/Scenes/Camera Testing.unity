@@ -378,7 +378,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -761,12 +761,13 @@ MonoBehaviour:
   _rightBorder: {fileID: 1751133659}
   _topBorder: {fileID: 1649217205}
   _defaultHorizontalOffset: 2
-  _defaultVerticalOffset: 4
+  _defaultVerticalOffset: 2
   _minCameraSize: 5
   _maxCameraSize: 10
   _collisionDistanceFromBorders: 0.5
   _playerMarginBeforeZoom: 1
   _ratioPlayableScreen: 0.5
+  _cameraZoomSpeed: 5
 --- !u!4 &1502060865
 Transform:
   m_ObjectHideFlags: 0
@@ -1447,6 +1448,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4154248916612903217, guid: e07c537b6479a4afdbc885054b945d75, type: 3}
+      propertyPath: movementSpeedMax
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4154248916612903217, guid: e07c537b6479a4afdbc885054b945d75, type: 3}
+      propertyPath: walkAcceleration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4154248916612903217, guid: e07c537b6479a4afdbc885054b945d75, type: 3}
+      propertyPath: movementSpeedStart
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4154248916612903219, guid: e07c537b6479a4afdbc885054b945d75, type: 3}
       propertyPath: m_Name
       value: Player (Soldier)

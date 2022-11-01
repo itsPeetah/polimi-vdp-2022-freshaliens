@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 
 public class CameraManager : MonoBehaviour
 {
-    [Header("Players&Camera")]
+    [Header("Players")]
     [SerializeField] private GameObject _player1;
     [SerializeField] private GameObject _player2;
 
@@ -27,7 +27,7 @@ public class CameraManager : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float _ratioPlayableScreen = 0.5f;
     
-    // [SerializeField] private float _cameraZoomSpeed = 30f;
+    [SerializeField] private float _cameraZoomSpeed = 5f;
     // //Sensitivity is only for manual zoom
     // [SerializeField] private float sensitivity = 1f;
     
@@ -133,11 +133,16 @@ public class CameraManager : MonoBehaviour
         Vector3 positionPlayer2 = _player2Transform.position;
 
         //to Finish: zoom
-        bool zoomNeeded = NeedZoom(positionPlayer1, positionPlayer2);
+        bool zoomNeeded = NeedToIncreaseCameraSize(positionPlayer1, positionPlayer2);
         if (zoomNeeded)
         {
-            //zoom
+            ChangeCameraSize(_maxCameraSize);
         }
+        // else if (CanDecreaseCameraSize())
+        // else if (_currentCameraSize>_minCameraSize)
+        // {
+        //     ChangeCameraSize(_minCameraSize);
+        // }
 
         //Update CameraManager position and, if needed, camera position 
         if (_canMoveCamera)
@@ -171,7 +176,7 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    private bool NeedZoom(Vector3 positionPlayer1, Vector3 positionPlayer2)
+    private bool NeedToIncreaseCameraSize(Vector3 positionPlayer1, Vector3 positionPlayer2)
     {
         bool zoomNeeded = false;
 
@@ -191,6 +196,19 @@ public class CameraManager : MonoBehaviour
         return zoomNeeded;
     }
 
+    private void ChangeCameraSize(float targetSize)
+    {
+        float newCameraSize = Mathf.MoveTowards(_currentCameraSize, targetSize, _cameraZoomSpeed * Time.deltaTime);
+        _camera.orthographicSize = newCameraSize;
+        _currentCameraSize = newCameraSize;
+        _currentScreenHeight = newCameraSize;
+        _currentScreenWidth = newCameraSize * 16 / 9;
+        _top = _currentCameraPosition.y + _currentScreenHeight;
+        _left = _currentCameraPosition.x - _currentScreenWidth;
+        _right = _currentCameraPosition.x + _currentScreenWidth;
+        _rightCollision = _currentCameraPosition.x + _currentScreenWidth*_ratioPlayableScreen;
+    }
+
     public void CheckCameraCanMoveSideWay()
     {
         _canMoveCameraRight = true;
@@ -201,19 +219,21 @@ public class CameraManager : MonoBehaviour
             _canMoveCameraLeft = false;
     }
     
-    
+    //This method can be used to set zoom with mouse
     // public void OrthographicZoom()
     // {
-    //     Vector3 positionPlayer1 = _player1.position;
-    //     Vector3 positionPlayer2 = _player2.position;
     //     float _targetCameraSize = _currentCameraSize;
-    //     
-    //     // _targetCameraSize -= Input.mouseScrollDelta.y * sensitivity;
+    //     _targetCameraSize -= Input.mouseScrollDelta.y * sensitivity;
     //     _targetCameraSize = Mathf.Clamp(_targetCameraSize, _minCameraSize, _maxCameraSize);
-    // float newSize = Mathf.MoveTowards(_camera.orthographicSize, _targetCameraSize, _cameraZoomSpeed * Time.deltaTime);
-    //     _camera.orthographicSize = newSize;
-    //     _currentCameraSize = newSize;
-    //
+    //     float newCameraSize = Mathf.MoveTowards(_currentCameraSize, _targetCameraSize, _cameraZoomSpeed * Time.deltaTime);
+    //     _camera.orthographicSize = newCameraSize;
+    //     _currentCameraSize = newCameraSize;
+    //     _currentScreenHeight = newCameraSize;
+    //     _currentScreenWidth = newCameraSize * 16 / 9;
+    //     _top = _currentCameraPosition.y + _currentScreenHeight;
+    //     _left = _currentCameraPosition.x - _currentScreenWidth;
+    //     _right = _currentCameraPosition.x + _currentScreenWidth;
+    //     _rightCollision = _currentCameraPosition.x + _currentScreenWidth*_ratioPlayableScreen;
     // }
     
 }
