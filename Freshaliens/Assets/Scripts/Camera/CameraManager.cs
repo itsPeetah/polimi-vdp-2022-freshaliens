@@ -23,17 +23,18 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float _minCameraSize = 5f;
     [SerializeField] private float _maxCameraSize = 10f;
     [SerializeField] private float _collisionDistanceFromBorders = 0.5f;
-    [SerializeField] private float _playerMarginBeforeZoom = 1f;
+    [SerializeField] private float _playerMarginBeforeZoomOut = 1f;
+    [SerializeField] private float _playerMarginBeforeZoomIn = 2.5f;
+    [SerializeField] private float _cameraZoomSpeed = 5f;
     [Range(0f, 1f)]
     [SerializeField] private float _ratioPlayableScreen = 0.5f;
-    
-    [SerializeField] private float _cameraZoomSpeed = 5f;
+    [SerializeField] private bool _canIncreaseCameraSize;
+    [SerializeField] private bool _canMoveCamera;
+    [SerializeField] private bool _dynamicHorizontalOffset;
     // //Sensitivity is only for manual zoom
     // [SerializeField] private float sensitivity = 1f;
     
-
     //References
-    
     //Transforms & Camera
     private Transform _transform;
     private Transform _player1Transform;
@@ -49,20 +50,16 @@ public class CameraManager : MonoBehaviour
     private Rigidbody2D _player1Rigidbody2D;
     private Rigidbody2D _player2Rigidbody2D;
 
-    
     //CameraManager State
     private Vector3 _currentPosition;
     private float _currentHorizontalOffset;
     private float _currentVerticalOffset;
 
-    
     //Camera State
     private Vector3 _currentCameraPosition;
     private float _currentCameraSize;
     private float _currentScreenWidth;
     private float _currentScreenHeight;
-    private bool _canIncreaseCameraSize;
-    private bool _canMoveCamera;
     private bool _canMoveCameraRight;
     private bool _canMoveCameraLeft;
     private float _top;
@@ -95,13 +92,13 @@ public class CameraManager : MonoBehaviour
         _currentVerticalOffset = _defaultVerticalOffset;
 
         //Set initial camera state
+        // _canIncreaseCameraSize = true;
+        // _canMoveCamera = true;
         _cameraTransform.position = _currentPosition;
         _currentCameraPosition = _currentPosition;
         _currentCameraSize = _camera.orthographicSize;
         _currentScreenHeight = _currentCameraSize;
         _currentScreenWidth = _currentScreenHeight * 16 / 9;
-        _canIncreaseCameraSize = true;
-        _canMoveCamera = true;
         _canMoveCameraRight = true;
         _canMoveCameraLeft = true;
         _top = _currentCameraPosition.y + _currentScreenHeight;
@@ -132,31 +129,36 @@ public class CameraManager : MonoBehaviour
         Vector3 positionPlayer1 = _player1Transform.position;
         Vector3 positionPlayer2 = _player2Transform.position;
 
-        //to Finish: zoom
-        bool zoomNeeded = NeedToIncreaseCameraSize(positionPlayer1, positionPlayer2);
-        if (zoomNeeded)
+        //Manage zoom
+        if (_canIncreaseCameraSize)
         {
-            ChangeCameraSize(_maxCameraSize);
+            bool zoomNeeded = NeedToIncreaseCameraSize(positionPlayer1, positionPlayer2);
+            if (zoomNeeded)
+            {
+                ChangeCameraSize(_maxCameraSize);
+            }
+            else if (CanDecreaseCameraSize(positionPlayer1, positionPlayer2))
+            {
+                ChangeCameraSize(_minCameraSize);
+            }
         }
-        // else if (CanDecreaseCameraSize())
-        // else if (_currentCameraSize>_minCameraSize)
-        // {
-        //     ChangeCameraSize(_minCameraSize);
-        // }
 
-        //Update CameraManager position and, if needed, camera position 
+        //Manage CameraManager and MainCamera position 
         if (_canMoveCamera)
         {
-            // _currentHorizontalOffset = _defaultHorizontalOffset*(_currentCameraSize/_minCameraSize);
-
+            //Manage CameraManager position 
+            if (_dynamicHorizontalOffset)
+            {
+                _currentHorizontalOffset = _defaultHorizontalOffset*(_currentCameraSize/_minCameraSize);
+            }
             float currentXCoordinate = _currentPosition.x;
             float newXCoordinate = ((positionPlayer1.x + positionPlayer2.x) / 2) + _currentHorizontalOffset;
             float horizontalDifference = newXCoordinate - currentXCoordinate;
             Vector3 positionDifference = new Vector3(horizontalDifference, 0, 0);
             _transform.position += positionDifference;
             _currentPosition += positionDifference;
-            
-            
+
+            //Manage MainCamera position 
             CheckCameraCanMoveSideWay();
             if ((horizontalDifference > 0) && !_canMoveCameraRight)
             {
@@ -178,22 +180,42 @@ public class CameraManager : MonoBehaviour
 
     private bool NeedToIncreaseCameraSize(Vector3 positionPlayer1, Vector3 positionPlayer2)
     {
-        bool zoomNeeded = false;
+        bool needToIncreaseCameraSize = false;
 
         float highestPlayerHeight = Mathf.Max(positionPlayer1.y, positionPlayer2.y);
         float distanceFromTopBorder = _top - highestPlayerHeight;
-        bool tooHigh = distanceFromTopBorder < _playerMarginBeforeZoom;
+        bool tooHigh = distanceFromTopBorder < _playerMarginBeforeZoomOut;
 
         float mostLeftPlayerPosition = Mathf.Min(positionPlayer1.x, positionPlayer2.x);
         float distanceFromLeftBorder = mostLeftPlayerPosition - _left;
-        bool tooLeft = distanceFromLeftBorder < _playerMarginBeforeZoom;
+        bool tooLeft = distanceFromLeftBorder < _playerMarginBeforeZoomOut;
         
         float mostRightPlayerPosition = Mathf.Max(positionPlayer1.x, positionPlayer2.x);
         float distanceFromRightBorder = _rightCollision - mostRightPlayerPosition;
-        bool tooRight = distanceFromRightBorder < _playerMarginBeforeZoom;
+        bool tooRight = distanceFromRightBorder < _playerMarginBeforeZoomOut;
 
-        zoomNeeded = (tooHigh || tooLeft || tooRight);
-        return zoomNeeded;
+        needToIncreaseCameraSize = (tooHigh || tooLeft || tooRight);
+        return needToIncreaseCameraSize;
+    }
+    
+    private bool CanDecreaseCameraSize(Vector3 positionPlayer1, Vector3 positionPlayer2)
+    {
+        bool canDecreaseCameraSize = false;
+
+        float highestPlayerHeight = Mathf.Max(positionPlayer1.y, positionPlayer2.y);
+        float distanceFromTopBorder = _top - highestPlayerHeight;
+        bool notTooHigh = distanceFromTopBorder > _playerMarginBeforeZoomIn;
+
+        float mostLeftPlayerPosition = Mathf.Min(positionPlayer1.x, positionPlayer2.x);
+        float distanceFromLeftBorder = mostLeftPlayerPosition - _left;
+        bool notTooLeft = distanceFromLeftBorder > _playerMarginBeforeZoomIn;
+        
+        float mostRightPlayerPosition = Mathf.Max(positionPlayer1.x, positionPlayer2.x);
+        float distanceFromRightBorder = _rightCollision - mostRightPlayerPosition;
+        bool notTooRight = distanceFromRightBorder > _playerMarginBeforeZoomIn;
+
+        canDecreaseCameraSize = (notTooHigh && notTooLeft && notTooRight);
+        return canDecreaseCameraSize;
     }
 
     private void ChangeCameraSize(float targetSize)
@@ -203,6 +225,11 @@ public class CameraManager : MonoBehaviour
         _currentCameraSize = newCameraSize;
         _currentScreenHeight = newCameraSize;
         _currentScreenWidth = newCameraSize * 16 / 9;
+
+        _currentVerticalOffset = _defaultVerticalOffset + (newCameraSize - _minCameraSize);
+        _currentCameraPosition = new Vector3(_currentCameraPosition.x, _currentVerticalOffset, _currentCameraPosition.z);
+        _cameraTransform.position = _currentCameraPosition;
+        
         _top = _currentCameraPosition.y + _currentScreenHeight;
         _left = _currentCameraPosition.x - _currentScreenWidth;
         _right = _currentCameraPosition.x + _currentScreenWidth;

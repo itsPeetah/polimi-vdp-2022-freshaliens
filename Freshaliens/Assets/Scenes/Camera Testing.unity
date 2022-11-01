@@ -765,9 +765,13 @@ MonoBehaviour:
   _minCameraSize: 5
   _maxCameraSize: 10
   _collisionDistanceFromBorders: 0.5
-  _playerMarginBeforeZoom: 1
-  _ratioPlayableScreen: 0.5
+  _playerMarginBeforeZoomOut: 1
+  _playerMarginBeforeZoomIn: 2.5
   _cameraZoomSpeed: 5
+  _ratioPlayableScreen: 0.5
+  _canIncreaseCameraSize: 0
+  _canMoveCamera: 0
+  _dynamicHorizontalOffset: 0
 --- !u!4 &1502060865
 Transform:
   m_ObjectHideFlags: 0
