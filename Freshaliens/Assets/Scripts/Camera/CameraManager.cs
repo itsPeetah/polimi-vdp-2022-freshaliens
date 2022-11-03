@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,11 +13,6 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject _player1;
     [SerializeField] private GameObject _player2;
 
-    [Header("CollisionBorders")]
-    [SerializeField] private GameObject _leftBorder;
-    [SerializeField] private GameObject _rightBorder;
-    [SerializeField] private GameObject _topBorder;
-    
     [Header("Camera Parameters")] 
     [SerializeField] private float _defaultHorizontalOffset = 2f;
     [SerializeField] private float _defaultVerticalOffset = 2f;
@@ -32,6 +28,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private bool _canMoveCamera;
     [SerializeField] private bool _dynamicHorizontalOffset;
     [SerializeField] private bool _showMessagePlayersTooDistant;
+    [SerializeField] private float _timerMessagePlayersTooDistant = 5f;
     // //Sensitivity is only for manual zoom
     // [SerializeField] private float sensitivity = 1f;
     
@@ -47,9 +44,6 @@ public class CameraManager : MonoBehaviour
     private Collider2D _player2Collider;
     private Collider2D _leftBorderCollider;
     private Collider2D _rightBorderCollider;
-    //RigidBodies
-    private Rigidbody2D _player1Rigidbody2D;
-    private Rigidbody2D _player2Rigidbody2D;
 
     //CameraManager State
     private Vector3 _currentPosition;
@@ -70,6 +64,7 @@ public class CameraManager : MonoBehaviour
     private float _left;
     private float _right;
     private float _rightCollision;
+    private float _lastDistantMessageTime;
 
     private void Start()
     {
@@ -83,11 +78,6 @@ public class CameraManager : MonoBehaviour
         //Colliders
         _player1Collider = _player1.gameObject.GetComponent<Collider2D>();
         _player2Collider = _player2.gameObject.GetComponent<Collider2D>();
-        _leftBorderCollider = _leftBorder.GetComponent<Collider2D>();
-        _rightBorderCollider = _rightBorder.GetComponent<Collider2D>();
-        //RigidBodies
-        _player1Rigidbody2D = _player1.GetComponent<Rigidbody2D>();
-        _player2Rigidbody2D = _player2.GetComponent<Rigidbody2D>();
 
         //Set initial CameraManager state
         _transform.position += new Vector3(0, _defaultVerticalOffset, 0);
@@ -104,37 +94,55 @@ public class CameraManager : MonoBehaviour
         _currentCameraPosition = _currentPosition;
         // _initialCameraPosition = _currentPosition;
         // _initialCameraPositionXCoordinate = _currentPosition.x;
-        _currentCameraSize = _camera.orthographicSize;
+        _currentCameraSize = _minCameraSize;
+        _camera.orthographicSize = _currentCameraSize;
         _currentScreenHeight = _currentCameraSize;
         _currentScreenWidth = _currentScreenHeight * 16 / 9;
         _canMoveCameraRight = true;
         _canMoveCameraLeft = true;
         _mustShowMessageTooDistant = true;
+        _lastDistantMessageTime = -1f;
         _top = _currentCameraPosition.y + _currentScreenHeight;
         _left = _currentCameraPosition.x - _currentScreenWidth;
         _right = _currentCameraPosition.x + _currentScreenWidth;
         _rightCollision = _currentCameraPosition.x + _currentScreenWidth*_ratioPlayableScreen;
 
         //Set boundaries
+        InitializeBorders();
+    }
+
+    private void InitializeBorders()
+    {
+        //Instantiate
+        Vector3 sideBordersScale = new Vector3(0.1f, _maxCameraSize*2, 0f);
+        Vector3 topBorderScale = new Vector3(_maxCameraSize*2*16f/9, 0.1f, 0f);
+        GameObject leftBorder = InstantiateBorder("LeftBorder", sideBordersScale);
+        GameObject rightBorder = InstantiateBorder("RightBorder", sideBordersScale);
+        GameObject topBorder = InstantiateBorder("TopBorder", topBorderScale);
+        
+        //Set positions
         float leftBorderDistance = (_maxCameraSize * 16 / 9) - _collisionDistanceFromBorders;
         float rightBorderDistance = (_maxCameraSize * 16 / 9) * _ratioPlayableScreen;
         float topBorderDistance = _maxCameraSize - _collisionDistanceFromBorders;
-        
-        Vector3 sideBordersScale = new Vector3(0.1f, _maxCameraSize*2, 0f);
-        Vector3 topBorderScale = new Vector3(_maxCameraSize*2*16f/9, 0.1f, 0f);
-        
         Vector3 leftBorderPosition = new Vector3(_currentCameraPosition.x - leftBorderDistance, _currentCameraPosition.y, _currentCameraPosition.z);
-        _leftBorder.transform.SetPositionAndRotation(leftBorderPosition, Quaternion.identity);
-
-        Vector3 rightBorderPosition = new Vector3(_currentCameraPosition.x +rightBorderDistance, _currentCameraPosition.y, _currentCameraPosition.z);
-        _rightBorder.transform.SetPositionAndRotation(rightBorderPosition, Quaternion.identity);
-        
+        Vector3 rightBorderPosition = new Vector3(_currentCameraPosition.x + rightBorderDistance, _currentCameraPosition.y, _currentCameraPosition.z);
         Vector3 topBorderPosition = new Vector3(_currentCameraPosition.x , _currentCameraPosition.y + topBorderDistance, _currentCameraPosition.z);
-        _topBorder.transform.SetPositionAndRotation(topBorderPosition, Quaternion.identity);
+        leftBorder.transform.SetPositionAndRotation(leftBorderPosition, Quaternion.identity);
+        rightBorder.transform.SetPositionAndRotation(rightBorderPosition, Quaternion.identity);
+        topBorder.transform.SetPositionAndRotation(topBorderPosition, Quaternion.identity);
         
-        _leftBorder.transform.localScale = sideBordersScale;
-        _rightBorder.transform.localScale = sideBordersScale;
-        _topBorder.transform.localScale = topBorderScale;
+        //Saves colliders
+        _leftBorderCollider = leftBorder.GetComponent<Collider2D>();
+        _rightBorderCollider = rightBorder.GetComponent<Collider2D>();
+    }
+
+    private GameObject InstantiateBorder(String name, Vector3 scale)
+    {
+        GameObject newBorder = new GameObject(name);
+        newBorder.transform.parent = _camera.transform;
+        newBorder.transform.localScale = scale;
+        newBorder.AddComponent<BoxCollider2D>();
+        return newBorder;
     }
 
 
@@ -264,18 +272,27 @@ public class CameraManager : MonoBehaviour
         if(rightColliderIsTouched)
             _canMoveCameraLeft = false;
 
-        if (leftColliderIsTouched && rightColliderIsTouched)
+        if (_showMessagePlayersTooDistant)
         {
-            if (_mustShowMessageTooDistant)
+            if (leftColliderIsTouched && rightColliderIsTouched)
             {
-                _mustShowMessageTooDistant = false;
-                //Show Message Players Too Distant
-                Debug.Log("PLAYERS TOO DISTANT!");
+                float currentTime = Time.time;
+                if (_mustShowMessageTooDistant)
+                {
+                    bool canShowMessageTooDistant = (currentTime - _lastDistantMessageTime) > _timerMessagePlayersTooDistant;
+                    if (canShowMessageTooDistant)
+                    {
+                        _mustShowMessageTooDistant = false;
+                        //Show Message Players Too Distant
+                        Debug.Log("PLAYERS TOO DISTANT!");
+                    }
+                }
+                _lastDistantMessageTime = currentTime;
             }
-        }
-        else
-        {
-            _mustShowMessageTooDistant = true;
+            else
+            {
+                _mustShowMessageTooDistant = true;
+            }
         }
     }
     
