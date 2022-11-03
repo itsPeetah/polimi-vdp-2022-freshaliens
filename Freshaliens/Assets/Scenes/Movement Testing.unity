@@ -154,7 +154,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 1382878331}
   player2: {fileID: 1390365494}
+  _spriteRenderers:
+  - {fileID: 1390365496}
   initialNumberOfLives: 3
+  hit_p1: Hit_P1
+  hit_p2: Hit_P2
 --- !u!4 &481471385
 Transform:
   m_ObjectHideFlags: 0
