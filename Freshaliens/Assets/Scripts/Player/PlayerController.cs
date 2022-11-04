@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerInputHandler))]
 public class PlayerController : MonoBehaviour
 {
     private const float minVerticalVelocityForJump = 0.001f;
-
-    // TODO Move input handling to its own class
-    [Header("Input")]
-    [SerializeField] private string horizontalAxis = "Horizontal";
-    [SerializeField] private string jumpAxis = "Jump";
 
     [Header("Walking")]
     [SerializeField] private float movementSpeedStart = 5.0f;
@@ -61,10 +56,12 @@ public class PlayerController : MonoBehaviour
     private Vector2 velocity = Vector2.zero;
 
     // Components
+    private PlayerInputHandler input = null;
     private Rigidbody2D rbody = null;
 
     private void Start()
     {
+        input = GetComponent<PlayerInputHandler>();
         rbody = GetComponent<Rigidbody2D>();
 
         remainingAirJumps = maxAirJumps;
@@ -74,8 +71,8 @@ public class PlayerController : MonoBehaviour
     {
         // Input
 
-        float direction = Input.GetAxisRaw(horizontalAxis);
-        if (Input.GetButtonDown(jumpAxis))
+        float direction = input.GetWalkingDirection();
+        if (input.GetJumpInput())
         {
             jumpPressedTimestamp = Time.time;
             jumpQueued = true;
