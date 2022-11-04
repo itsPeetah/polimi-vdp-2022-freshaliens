@@ -865,5 +865,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (Ninja)
       objectReference: {fileID: 0}
+    - target: {fileID: 8425014593099896585, guid: add405116417a4533932708b9d6a2545, type: 3}
+      propertyPath: jumpAxis
+      value: P1_Jump
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425014593099896585, guid: add405116417a4533932708b9d6a2545, type: 3}
+      propertyPath: horizontalAxis
+      value: P1_Horizontal
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: add405116417a4533932708b9d6a2545, type: 3}
