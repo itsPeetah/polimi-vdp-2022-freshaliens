@@ -258,8 +258,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 340bdab859b2c4e3385145493d9648f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalAxis: P1_Horizontal
-  jumpAxis: P1_Jump
   movementSpeedStart: 5
   movementSpeedMax: 6
   walkAcceleration: 1
@@ -268,10 +266,10 @@ MonoBehaviour:
   jumpQueueFrame: 0.15
   wallJumpAngle: 45
   canWallJump: 1
-  wallJumpIgnoreInputFrame: 0.1
+  wallJumpIgnoreInputFrame: 0.5
   gravityScaleDefault: 1
   gravityScaleFalling: 1.8
-  gravityScaleClimbing: 0.2
+  gravityScaleClimbing: 0
   terminalVelocity: 20
   coyoteTimeFrame: 0.1
   groundChecks:

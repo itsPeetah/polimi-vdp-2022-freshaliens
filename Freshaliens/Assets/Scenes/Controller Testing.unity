@@ -817,6 +817,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5444438913041132578, guid: add405116417a4533932708b9d6a2545, type: 3}
+      propertyPath: gravityScaleClimbing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5444438913041132578, guid: add405116417a4533932708b9d6a2545, type: 3}
+      propertyPath: wallJumpIgnoreInputFrame
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5444438913041132579, guid: add405116417a4533932708b9d6a2545, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -864,14 +872,6 @@ PrefabInstance:
     - target: {fileID: 5444438913041132581, guid: add405116417a4533932708b9d6a2545, type: 3}
       propertyPath: m_Name
       value: Player (Ninja)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8425014593099896585, guid: add405116417a4533932708b9d6a2545, type: 3}
-      propertyPath: jumpAxis
-      value: P1_Jump
-      objectReference: {fileID: 0}
-    - target: {fileID: 8425014593099896585, guid: add405116417a4533932708b9d6a2545, type: 3}
-      propertyPath: horizontalAxis
-      value: P1_Horizontal
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: add405116417a4533932708b9d6a2545, type: 3}
