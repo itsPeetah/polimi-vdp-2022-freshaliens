@@ -50,9 +50,9 @@ public class PlayerController : MonoBehaviour
     private bool jumpQueued = false;
     private int remainingAirJumps = 0;
     private float currentSpeed = 0f;
-    private float jumpPressedTimestamp = 0f;
-    private float lastGroundedTimestamp = 0f;
-    private float wallJumpTimestamp = 0f;
+    private float jumpPressedTimestamp = 0f;    // time of last jump press (for buffering)
+    private float lastGroundedTimestamp = 0f;   // time player was last grounded (for coyote time)
+    private float wallJumpTimestamp = 0f;   // time of last wall jump (to disable airborne control)
     private Vector2 velocity = Vector2.zero;
 
     // Components
@@ -158,23 +158,23 @@ public class PlayerController : MonoBehaviour
         facingWallLeft = Physics2D.OverlapCircle(wallCheckLeft.position, groundCheckRadius, groundLayers) != null;
     }
 
-    private void OnDrawGizmos()
-    {
-        int l = groundChecks.Length;
-            Gizmos.color = Color.yellow;
-        for (int i = 0; i < l; i++)
-        {
-            Gizmos.DrawWireSphere(groundChecks[i].position, groundCheckRadius);
-        }
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(wallCheckRight.position, groundCheckRadius);
-        Gizmos.DrawWireSphere(wallCheckLeft.position, groundCheckRadius);
-
-    }
-
     private bool CanJump() {
         if (isGrounded) return rbody.velocity.y <= minVerticalVelocityForJump;
         else return (isClimbing && canWallJump) || isWithinCoyoteTime || remainingAirJumps > 0;
     }
+
+    //private void OnDrawGizmos()
+    //{
+    //    int l = groundChecks.Length;
+    //        Gizmos.color = Color.yellow;
+    //    for (int i = 0; i < l; i++)
+    //    {
+    //        Gizmos.DrawWireSphere(groundChecks[i].position, groundCheckRadius);
+    //    }
+
+    //    Gizmos.color = Color.green;
+    //    Gizmos.DrawWireSphere(wallCheckRight.position, groundCheckRadius);
+    //    Gizmos.DrawWireSphere(wallCheckLeft.position, groundCheckRadius);
+
+    //}
 }
