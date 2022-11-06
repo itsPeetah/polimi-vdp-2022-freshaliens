@@ -71,7 +71,7 @@ public class ProjectilePool : MonoBehaviour
     }
     public Projectile Spawn(Vector3 position, Vector2 velocity) => Spawn(position, Quaternion.identity, velocity);
 
-    public void Despawn(Projectile p) {
+    public void Reclaim(Projectile p) {
         p.transform.parent = poolContainer;
     }
 }
