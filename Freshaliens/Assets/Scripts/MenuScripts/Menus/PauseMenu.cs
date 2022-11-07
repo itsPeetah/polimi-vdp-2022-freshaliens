@@ -8,7 +8,9 @@ namespace MenuManagement
 {
     public class PauseMenu : Menu<PauseMenu>
     {
-        public static bool _gameIsPaused = false;
+        private static bool _gameIsPaused = false;
+        public static bool GameIsPaused => _gameIsPaused;
+
         public void OnResumePressed()
         {
             Time.timeScale = 1f;
