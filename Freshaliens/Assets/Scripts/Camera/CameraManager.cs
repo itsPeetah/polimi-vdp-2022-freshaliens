@@ -29,6 +29,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private bool _dynamicHorizontalOffset;
     [SerializeField] private bool _showMessagePlayersTooDistant;
     [SerializeField] private float _timerMessagePlayersTooDistant = 5f;
+    [SerializeField] private int _boundaryLayer = 11;
     // //Sensitivity is only for manual zoom
     // [SerializeField] private float sensitivity = 1f;
     
@@ -139,6 +140,7 @@ public class CameraManager : MonoBehaviour
     private GameObject InstantiateBorder(String name, Vector3 scale)
     {
         GameObject newBorder = new GameObject(name);
+        newBorder.layer = _boundaryLayer;
         newBorder.transform.parent = _camera.transform;
         newBorder.transform.localScale = scale;
         newBorder.AddComponent<BoxCollider2D>();

@@ -32,10 +32,26 @@ public class Projectile : MonoBehaviour
     {
         int layer = collision.gameObject.layer;
         // If object is on a hittable layer
-        if ((layer & hitLayers) == layer) {
+
+
+        /*
+         *      lm: 0001100110
+         *      gl: 0000100000 (5)
+         *       &: 0000100000
+         *       
+         *      lm: 0001010100
+         *      gl: 0000100000 (5)
+         *       &: 0000000000
+         */
+
+        if (( (1 << layer) & hitLayers) != 0) {
             ownerPool.Reclaim(this);
-            Debug.Log("HIT!");
-            // TODO ADD DAMAGING LOGIC
+            Debug.Log($"Hit! {collision.gameObject.name}");
+
+            ProjectileTarget target = collision.GetComponent<ProjectileTarget>();
+            if (target != null) {
+                target.Hit();
+            }
         }
     }
 }
