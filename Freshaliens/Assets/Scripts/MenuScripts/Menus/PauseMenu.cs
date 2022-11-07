@@ -9,7 +9,7 @@ namespace MenuManagement
     public class PauseMenu : Menu<PauseMenu>
     {
         private static bool _gameIsPaused = false;
-        public static bool GameIsPaused => _gameIsPaused;
+        public static bool GameIsPaused { get => _gameIsPaused; set => _gameIsPaused = value; }
 
         public void OnResumePressed()
         {

@@ -10,7 +10,7 @@ namespace MenuManagement
  
         public void OnPausePressed()
         {
-            PauseMenu._gameIsPaused = !PauseMenu._gameIsPaused;
+            PauseMenu.GameIsPaused = !PauseMenu.GameIsPaused;
             Time.timeScale = 0f;
             PauseMenu.Open();
         }
@@ -27,7 +27,7 @@ namespace MenuManagement
         {
 
             Time.timeScale = 0f;
-            PauseMenu._gameIsPaused = true;
+            PauseMenu.GameIsPaused = true;
             PauseMenu.Open();
             
         }
