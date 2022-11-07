@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerInputHandler))]
 public class PlayerController : MonoBehaviour
 {
     private const float minVerticalVelocityForJump = 0.001f;
-
-    // TODO Move input handling to its own class
-    [Header("Input")]
-    [SerializeField] private string horizontalAxis = "Horizontal";
-    [SerializeField] private string jumpAxis = "Jump";
 
     [Header("Walking")]
     [SerializeField] private float movementSpeedStart = 5.0f;
@@ -55,16 +50,18 @@ public class PlayerController : MonoBehaviour
     private bool jumpQueued = false;
     private int remainingAirJumps = 0;
     private float currentSpeed = 0f;
-    private float jumpPressedTimestamp = 0f;
-    private float lastGroundedTimestamp = 0f;
-    private float wallJumpTimestamp = 0f;
+    private float jumpPressedTimestamp = 0f;    // time of last jump press (for buffering)
+    private float lastGroundedTimestamp = 0f;   // time player was last grounded (for coyote time)
+    private float wallJumpTimestamp = 0f;   // time of last wall jump (to disable airborne control)
     private Vector2 velocity = Vector2.zero;
 
     // Components
+    private PlayerInputHandler input = null;
     private Rigidbody2D rbody = null;
 
     private void Start()
     {
+        input = GetComponent<PlayerInputHandler>();
         rbody = GetComponent<Rigidbody2D>();
 
         remainingAirJumps = maxAirJumps;
@@ -74,8 +71,8 @@ public class PlayerController : MonoBehaviour
     {
         // Input
 
-        float direction = Input.GetAxisRaw(horizontalAxis);
-        if (Input.GetButtonDown(jumpAxis))
+        float direction = input.GetWalkingDirection();
+        if (input.GetJumpInput())
         {
             jumpPressedTimestamp = Time.time;
             jumpQueued = true;
@@ -161,23 +158,23 @@ public class PlayerController : MonoBehaviour
         facingWallLeft = Physics2D.OverlapCircle(wallCheckLeft.position, groundCheckRadius, groundLayers) != null;
     }
 
-    private void OnDrawGizmos()
-    {
-        int l = groundChecks.Length;
-            Gizmos.color = Color.yellow;
-        for (int i = 0; i < l; i++)
-        {
-            Gizmos.DrawWireSphere(groundChecks[i].position, groundCheckRadius);
-        }
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(wallCheckRight.position, groundCheckRadius);
-        Gizmos.DrawWireSphere(wallCheckLeft.position, groundCheckRadius);
-
-    }
-
     private bool CanJump() {
         if (isGrounded) return rbody.velocity.y <= minVerticalVelocityForJump;
         else return (isClimbing && canWallJump) || isWithinCoyoteTime || remainingAirJumps > 0;
     }
+
+    //private void OnDrawGizmos()
+    //{
+    //    int l = groundChecks.Length;
+    //        Gizmos.color = Color.yellow;
+    //    for (int i = 0; i < l; i++)
+    //    {
+    //        Gizmos.DrawWireSphere(groundChecks[i].position, groundCheckRadius);
+    //    }
+
+    //    Gizmos.color = Color.green;
+    //    Gizmos.DrawWireSphere(wallCheckRight.position, groundCheckRadius);
+    //    Gizmos.DrawWireSphere(wallCheckLeft.position, groundCheckRadius);
+
+    //}
 }
