@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -10,16 +11,19 @@ public class InvisiblePlatform : Interactable
     [Range(0,0.5f)]
     [SerializeField] private float _minAlpha;
 
-   private SpriteRenderer _spriteRenderer;
+    
+    private GameObject _gameObject;
+    private Collider2D _collider;
+    private SpriteRenderer _spriteRenderer;
     
     
     void Start()
     {
         _gameObject = gameObject;
+        _collider = GetComponent<Collider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         ChangeAlpha(_minAlpha);
     }
-    
 
     private void ChangeAlpha(float newAlpha)
     {
@@ -27,12 +31,18 @@ public class InvisiblePlatform : Interactable
         currentColor.a = newAlpha;
         _spriteRenderer.color = currentColor;
     }
+    
+    protected void ChangeLayer(string newLayerName)
+    {
+        int newLayer = LayerMask.NameToLayer(newLayerName);
+        _gameObject.layer = newLayer;
+    }
 
     
     public override void OnFairyEnter()
     {
         ChangeAlpha(_maxAlpha);
-        ChangeLayer("TouchablePlatform");
+        ChangeLayer("Ground");
     }
     
     public override void OnFairyExit()
@@ -40,5 +50,5 @@ public class InvisiblePlatform : Interactable
         ChangeAlpha(_minAlpha);
         ChangeLayer("InvisiblePlatform");
     }
-
+    
 }
