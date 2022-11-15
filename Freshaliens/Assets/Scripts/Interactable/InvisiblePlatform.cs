@@ -12,17 +12,19 @@ public class InvisiblePlatform : Interactable
     [SerializeField] private float _minAlpha;
 
     
-    private GameObject _gameObject;
-    private Collider2D _collider;
+    private GameObject _thisGameObject;
+    private GameObject _childGameObject;
     private SpriteRenderer _spriteRenderer;
     
     
     void Start()
     {
-        _gameObject = gameObject;
-        _collider = GetComponent<Collider2D>();
+        _thisGameObject = gameObject;
+        _childGameObject = _thisGameObject.GetComponentInChildren<Transform>().GetChild(0).gameObject;
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        
         ChangeAlpha(_minAlpha);
+        _childGameObject.SetActive(false);
     }
 
     private void ChangeAlpha(float newAlpha)
@@ -30,26 +32,27 @@ public class InvisiblePlatform : Interactable
         Color currentColor = _spriteRenderer.color;
         currentColor.a = newAlpha;
         _spriteRenderer.color = currentColor;
-        Debug.Log("changed");
     }
     
     protected void ChangeLayer(string newLayerName)
     {
         int newLayer = LayerMask.NameToLayer(newLayerName);
-        _gameObject.layer = newLayer;
+        _thisGameObject.layer = newLayer;
     }
 
     
     public override void OnFairyEnter()
     {
         ChangeAlpha(_maxAlpha);
-        ChangeLayer("Ground");
+        // ChangeLayer("Ground");
+        _childGameObject.SetActive(true);
     }
     
     public override void OnFairyExit()
     {
         ChangeAlpha(_minAlpha);
-        ChangeLayer("InvisiblePlatform");
+        // ChangeLayer("InvisiblePlatform");
+        _childGameObject.SetActive(false);
     }
     
 }
