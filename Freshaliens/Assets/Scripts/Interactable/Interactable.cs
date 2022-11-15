@@ -32,9 +32,11 @@ public abstract class Interactable : MonoBehaviour
 
     public abstract void OnInteract();
 
-    public abstract void OnFatinaEnter();
+    public abstract void OnFairyEnter();
     
-    public abstract void OnFatinaExit();
+    public abstract void OnFairyExit();
+    
+    public abstract void OnFairyStay();
     
 
 }
