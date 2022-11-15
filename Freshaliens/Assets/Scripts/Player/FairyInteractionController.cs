@@ -8,6 +8,8 @@ public class FairyInteractionController : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private LayerMask interactableLayers = -1;
 
+    // State
+    private Interactable storedInteractable = null;
 
     // Components
     private PlayerInputHandler input;
@@ -15,6 +17,13 @@ public class FairyInteractionController : MonoBehaviour
     private void Start()
     {
         input = GetComponent<PlayerInputHandler>();
+    }
+
+    private void Update()
+    {
+        if (input.GetFireInput() && storedInteractable != null) {
+            storedInteractable.OnInteract();
+        }
     }
 
     /**
@@ -30,41 +39,35 @@ public class FairyInteractionController : MonoBehaviour
      * 1 << layer -> 1 << 5 -> 100000
      * 
      */
-    private bool CheckLayer(int layer) {
+
+    private bool CheckLayer(int layer)
+    {
         return ((1 << layer) & interactableLayers) != 0;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (CheckLayer(collision.gameObject.layer)) {
-            /*
-             * Comp c = collision.GetComponent<Comp>();
-             * if(c != null) c.OnEnter();
-            */
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (CheckLayer(collision.gameObject.layer))
+        if (CheckLayer(collision.gameObject.layer) && collision.gameObject.TryGetComponent(out Interactable interactable))
         {
-            
-            /*
-             * Comp c = collision.GetComponent<Comp>();
-             * if(c != null) c.OnExit();
-            */
+            storedInteractable = interactable;
+            interactable.OnFairyEnter();
         }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-            if (CheckLayer(collision.gameObject.layer))
-            {
-                
-            /*
-             * Comp c = collision.GetComponent<Comp>();
-             * if(c != null) c.OnStay();
-            */
+        if (CheckLayer(collision.gameObject.layer) && collision.gameObject.TryGetComponent(out Interactable interactable))
+        {
+            interactable.OnFairyStay();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (CheckLayer(collision.gameObject.layer) && collision.gameObject.TryGetComponent(out Interactable interactable))
+        {
+            storedInteractable = null;
+            interactable.OnFairyExit();
         }
     }
 }

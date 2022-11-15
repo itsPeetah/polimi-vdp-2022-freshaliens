@@ -28,7 +28,6 @@ public class InvisiblePlatform : Interactable
         _spriteRenderer.color = currentColor;
     }
 
-    public override void OnInteract(){}
     
     public override void OnFairyEnter()
     {
@@ -42,5 +41,4 @@ public class InvisiblePlatform : Interactable
         ChangeLayer("InvisiblePlatform");
     }
 
-    public override void OnFairyStay(){}
 }
