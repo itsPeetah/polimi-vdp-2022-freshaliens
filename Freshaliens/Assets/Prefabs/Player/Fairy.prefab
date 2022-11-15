@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4393433180720674308}
   - component: {fileID: 4393433180720674331}
   - component: {fileID: -1565459617342072838}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fairy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

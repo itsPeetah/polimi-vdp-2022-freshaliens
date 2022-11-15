@@ -5,36 +5,44 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-    //State
-    protected bool _isActive;
-    protected GameObject _gameObject;
+    protected const int FAIRYLAYER = 8;
     
-
-    protected void Activate()
+    protected bool CheckLayer(int layer)
     {
-        _isActive = true;
-    }
-    protected void Disactivate()
-    {
-        _isActive = false;
+        return ((1 << layer) & FAIRYLAYER) != 0;
     }
     
-    protected void ChangeState()
-    {
-        _isActive = !_isActive;
-    }
-    
-    protected void ChangeLayer(string newLayerName)
-    {
-        int newLayer = LayerMask.NameToLayer(newLayerName);
-        _gameObject.layer = newLayer;
-    }
-
     public virtual void OnInteract() { }
-
+    
     public virtual void OnFairyEnter() { }
-
+    
     public virtual void OnFairyExit() { }
-
+    
     public virtual void OnFairyStay() { }
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (CheckLayer(collision.gameObject.layer) && collision.gameObject.TryGetComponent(out FairyInteractionController fairy))
+        {
+            fairy.SetStoredInteractable(this);
+            OnFairyEnter();
+        }
+    }
+    
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (CheckLayer(collision.gameObject.layer) && collision.gameObject.TryGetComponent(out FairyInteractionController fairy))
+        {
+            OnFairyStay();
+        }
+    }
+    
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (CheckLayer(collision.gameObject.layer) && collision.gameObject.TryGetComponent(out FairyInteractionController fairy))
+        {
+            fairy.SetStoredInteractable(null);
+            OnFairyExit();
+        }
+    }
 }

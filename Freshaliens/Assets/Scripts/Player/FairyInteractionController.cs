@@ -40,35 +40,41 @@ public class FairyInteractionController : MonoBehaviour
      * 
      */
 
-    private bool CheckLayer(int layer)
-    {
-        return ((1 << layer) & interactableLayers) != 0;
-    }
+    // private bool CheckLayer(int layer)
+    // {
+    //     return ((1 << layer) & interactableLayers) != 0;
+    // }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (CheckLayer(collision.gameObject.layer) && collision.gameObject.TryGetComponent(out Interactable interactable))
-        {
-            storedInteractable = interactable;
-            interactable.OnFairyEnter();
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (CheckLayer(collision.gameObject.layer) && collision.gameObject.TryGetComponent(out Interactable interactable))
-        {
-            interactable.OnFairyStay();
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (CheckLayer(collision.gameObject.layer) && collision.gameObject.TryGetComponent(out Interactable interactable))
-        {
-            storedInteractable = null;
-            interactable.OnFairyExit();
-        }
+    // private void OnTriggerEnter2D(Collider2D collision)
+    // {
+    //     if (CheckLayer(collision.gameObject.layer) && collision.gameObject.TryGetComponent(out Interactable interactable))
+    //     {
+    //         storedInteractable = interactable;
+    //         interactable.OnFairyEnter();
+    //     }
+    // }
+    //
+    // private void OnTriggerStay2D(Collider2D collision)
+    // {
+    //     if (CheckLayer(collision.gameObject.layer) && collision.gameObject.TryGetComponent(out Interactable interactable))
+    //     {
+    //         interactable.OnFairyStay();
+    //     }
+    // }
+    //
+    // private void OnTriggerExit2D(Collider2D collision)
+    // {
+    //     if (CheckLayer(collision.gameObject.layer) && collision.gameObject.TryGetComponent(out Interactable interactable))
+    //     {
+    //         storedInteractable = null;
+    //         interactable.OnFairyExit();
+    //     }
+    // }
+    
+    public void SetStoredInteractable(Interactable interactable, bool triggerEvents = false) {
+        if (triggerEvents && interactable != storedInteractable && storedInteractable != null) storedInteractable.OnFairyExit();
+        storedInteractable = interactable;
+        if (triggerEvents && storedInteractable != null) interactable.OnFairyEnter();
     }
 }
 

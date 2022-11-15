@@ -26,8 +26,6 @@ public class FairyMovementController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("Update");
-
         // Input
         movementDirection = new Vector2(input.GetHorizontal(), input.GetVertical());
         isMoving = movementDirection != Vector2.zero;
