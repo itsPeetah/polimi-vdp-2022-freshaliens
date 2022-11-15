@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerInputHandler : MonoBehaviour
 {
     [SerializeField] private string horizontalAxis = "Horizontal";
+    [SerializeField] private string verticalAxis = "Vertical";
     [SerializeField] private string jumpAxis = "Jump";
     [SerializeField] private string fireAxis = "Fire";
 
@@ -12,8 +13,12 @@ public class PlayerInputHandler : MonoBehaviour
         return Input.GetButtonDown(jumpAxis);
     }
 
-    public float GetWalkingDirection() {
+    public float GetHorizontal() {
         return Input.GetAxisRaw(horizontalAxis);
+    }
+
+    public float GetVertical() {
+        return Input.GetAxisRaw(verticalAxis);
     }
 
     public Vector2 GetAimPosition() {

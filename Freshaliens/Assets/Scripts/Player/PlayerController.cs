@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
     {
         // Input
 
-        float direction = input.GetWalkingDirection();
+        float direction = input.GetHorizontal();
         if (input.GetJumpInput())
         {
             jumpPressedTimestamp = Time.time;
