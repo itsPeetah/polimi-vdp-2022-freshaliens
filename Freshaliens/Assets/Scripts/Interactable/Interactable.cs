@@ -30,13 +30,11 @@ public abstract class Interactable : MonoBehaviour
         _gameObject.layer = newLayer;
     }
 
-    public abstract void OnInteract();
+    public virtual void OnInteract() { }
 
-    public abstract void OnFairyEnter();
-    
-    public abstract void OnFairyExit();
-    
-    public abstract void OnFairyStay();
-    
+    public virtual void OnFairyEnter() { }
 
+    public virtual void OnFairyExit() { }
+
+    public virtual void OnFairyStay() { }
 }
