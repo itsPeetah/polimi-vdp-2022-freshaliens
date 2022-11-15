@@ -28,19 +28,19 @@ public class InvisiblePlatform : Interactable
         _spriteRenderer.color = currentColor;
     }
 
-    public override void OnInteract()
-    {
-    }
+    public override void OnInteract(){}
     
-    public override void OnFatinaEnter()
+    public override void OnFairyEnter()
     {
         ChangeAlpha(_maxAlpha);
         ChangeLayer("TouchablePlatform");
     }
     
-    public override void OnFatinaExit()
+    public override void OnFairyExit()
     {
         ChangeAlpha(_minAlpha);
         ChangeLayer("InvisiblePlatform");
     }
+
+    public override void OnFairyStay(){}
 }
