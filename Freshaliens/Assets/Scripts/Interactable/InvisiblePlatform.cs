@@ -30,6 +30,7 @@ public class InvisiblePlatform : Interactable
         Color currentColor = _spriteRenderer.color;
         currentColor.a = newAlpha;
         _spriteRenderer.color = currentColor;
+        Debug.Log("changed");
     }
     
     protected void ChangeLayer(string newLayerName)

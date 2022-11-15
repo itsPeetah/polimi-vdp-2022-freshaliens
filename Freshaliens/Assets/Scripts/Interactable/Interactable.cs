@@ -9,7 +9,7 @@ public abstract class Interactable : MonoBehaviour
     
     protected bool CheckLayer(int layer)
     {
-        return ((1 << layer) & FAIRYLAYER) != 0;
+        return layer == FAIRYLAYER;
     }
     
     public virtual void OnInteract() { }
