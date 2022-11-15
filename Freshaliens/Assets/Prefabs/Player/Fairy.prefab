@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4393433180720674330}
   - component: {fileID: 4393433180720674329}
   - component: {fileID: 4393433180720674328}
+  - component: {fileID: 3617771200518521141}
   - component: {fileID: 4393433180720674308}
   - component: {fileID: 4393433180720674331}
   - component: {fileID: -1565459617342072838}
@@ -109,6 +110,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &3617771200518521141
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4393433180720674334}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.21133333}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!114 &4393433180720674308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +141,7 @@ MonoBehaviour:
   horizontalAxis: P2_Horizontal
   verticalAxis: P2_Vertical
   jumpAxis: Jump
-  fireAxis: Fire
+  fireAxis: P2_Interact
 --- !u!114 &4393433180720674331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,4 +171,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableLayers:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 2147483647
