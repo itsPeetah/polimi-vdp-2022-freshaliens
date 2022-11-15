@@ -806,8 +806,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ec75ddbb3030cb4a9fa155140488ad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player1: {fileID: 1931419637}
-  _player2: {fileID: 1213551381}
+  _ninja: {fileID: 1213551381}
+  _fairy: {fileID: 1931419637}
   _defaultHorizontalOffset: 2
   _defaultVerticalOffset: 2
   _minCameraSize: 5
@@ -823,6 +823,7 @@ MonoBehaviour:
   _showMessagePlayersTooDistant: 0
   _timerMessagePlayersTooDistant: 5
   _boundaryLayer: 11
+  _currentTrackingMode: 0
 --- !u!4 &1502060865
 Transform:
   m_ObjectHideFlags: 0
