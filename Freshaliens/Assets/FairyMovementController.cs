@@ -43,8 +43,6 @@ public class FairyMovementController : MonoBehaviour
         float dampen = Mathf.Clamp01(acceleration * Time.deltaTime / maxSpeed);
         rbody.velocity = currentVelocity + dampen * deltaVelocity;
         
-
-
     }
 
 
