@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4393433180720674328}
   - component: {fileID: 4393433180720674308}
   - component: {fileID: 4393433180720674331}
+  - component: {fileID: -1565459617342072838}
   m_Layer: 0
   m_Name: Fairy
   m_TagString: Untagged
@@ -139,3 +140,18 @@ MonoBehaviour:
   maxSpeed: 6
   movementAcceleration: 5
   movementDeceleration: 20
+--- !u!114 &-1565459617342072838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4393433180720674334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45038d69ddda149eca9acc226d126193, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableLayers:
+    serializedVersion: 2
+    m_Bits: 192
