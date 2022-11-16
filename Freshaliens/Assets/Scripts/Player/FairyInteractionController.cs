@@ -22,7 +22,7 @@ public class FairyInteractionController : MonoBehaviour
     private void Update()
     {
         if (input.GetActionInput() && storedInteractable != null) {
-            storedInteractable.OnInteract();
+            storedInteractable.OnInteract(); // TODO Change to event + listener in Interactable?
         }
     }
 
