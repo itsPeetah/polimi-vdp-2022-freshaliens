@@ -6,6 +6,9 @@ using System;
 [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerInputHandler))]
 public class PlayerMovementController : MonoBehaviour
 {
+    private static PlayerMovementController instance = null;
+    public static PlayerMovementController Instance { get => instance; private set => instance = value; }
+
     private const float minVerticalVelocityForJump = 0.001f;
 
     [Header("Walking")]
@@ -58,11 +61,22 @@ public class PlayerMovementController : MonoBehaviour
     // Components
     private PlayerInputHandler input = null;
     private Rigidbody2D rbody = null;
+    private Transform ownTransform = null;
+
+    // Properties
+    public Vector3 Position => ownTransform.position;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
         input = GetComponent<PlayerInputHandler>();
         rbody = GetComponent<Rigidbody2D>();
+        ownTransform = transform;
+
 
         remainingAirJumps = maxAirJumps;
     }
