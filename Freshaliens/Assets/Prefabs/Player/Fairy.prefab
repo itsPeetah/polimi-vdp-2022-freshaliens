@@ -157,6 +157,10 @@ MonoBehaviour:
   maxSpeed: 6
   movementAcceleration: 5
   movementDeceleration: 20
+  maxDistanceBeforeReturn: 15
+  returnDistance: 10
+  returnAcceleration: 40
+  maxReturnSpeed: 20
 --- !u!114 &-1565459617342072838
 MonoBehaviour:
   m_ObjectHideFlags: 0
