@@ -48,7 +48,7 @@ public class FairyMovementController : MonoBehaviour
         movementDirection = new Vector2(input.GetHorizontal(), input.GetVertical());
         isMoving = movementDirection != Vector2.zero;
 
-        // Calculate acceleration based on wether the player wants to move or stop
+        // Calculate acceleration based on whether the player wants to move or stop
         float acceleration = !isMoving ? movementDeceleration : movementAcceleration;
         float currentMaxSpeed = maxSpeed;
 
