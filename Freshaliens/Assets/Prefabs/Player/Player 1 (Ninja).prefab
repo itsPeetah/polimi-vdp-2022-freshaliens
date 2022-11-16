@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 5444438913041132578}
   m_Layer: 7
   m_Name: Player 1 (Ninja)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -245,7 +245,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalAxis: P1_Horizontal
+  verticalAxis: Vertical
   jumpAxis: P1_Jump
+  actionAxis: P1_Jump
 --- !u!114 &5444438913041132578
 MonoBehaviour:
   m_ObjectHideFlags: 0

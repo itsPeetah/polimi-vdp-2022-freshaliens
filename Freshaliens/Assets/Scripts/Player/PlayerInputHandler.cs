@@ -7,7 +7,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private string horizontalAxis = "Horizontal";
     [SerializeField] private string verticalAxis = "Vertical";
     [SerializeField] private string jumpAxis = "Jump";
-    [SerializeField] private string fireAxis = "Fire";
+    [SerializeField] private string actionAxis = "Fire";
 
     public bool GetJumpInput() {
         return Input.GetButtonDown(jumpAxis);
@@ -25,8 +25,8 @@ public class PlayerInputHandler : MonoBehaviour
         return Input.mousePosition;
     }
 
-    public bool GetFireInput() {
-        return Input.GetButtonDown(fireAxis);
+    public bool GetActionInput() {
+        return Input.GetButtonDown(actionAxis);
     }
 
 }

@@ -141,7 +141,7 @@ MonoBehaviour:
   horizontalAxis: P2_Horizontal
   verticalAxis: P2_Vertical
   jumpAxis: Jump
-  fireAxis: P2_Interact
+  actionAxis: P2_Interact
 --- !u!114 &4393433180720674331
 MonoBehaviour:
   m_ObjectHideFlags: 0

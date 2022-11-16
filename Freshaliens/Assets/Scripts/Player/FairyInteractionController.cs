@@ -21,7 +21,7 @@ public class FairyInteractionController : MonoBehaviour
 
     private void Update()
     {
-        if (input.GetFireInput() && storedInteractable != null) {
+        if (input.GetActionInput() && storedInteractable != null) {
             storedInteractable.OnInteract();
         }
     }
