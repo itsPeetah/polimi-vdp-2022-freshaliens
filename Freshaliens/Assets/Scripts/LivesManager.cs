@@ -5,8 +5,8 @@ using UnityEngine.UIElements;
 
 public class LivesManager : MonoBehaviour
 {
-    [SerializeField] private PlayerController player1;
-    [SerializeField] private PlayerController player2;
+    [SerializeField] private PlayerMovementController player1;
+    [SerializeField] private PlayerMovementController player2;
     [SerializeField] private SpriteRenderer[] _spriteRenderers;
     [SerializeField] private int initialNumberOfLives = 10;
     private int numberOfLives;
@@ -48,7 +48,7 @@ public class LivesManager : MonoBehaviour
         }
     }
 
-    public void PlayerHit(PlayerController hitPlayer)
+    public void PlayerHit(PlayerMovementController hitPlayer)
     {
         numberOfLives--;
         if (numberOfLives == 0)
