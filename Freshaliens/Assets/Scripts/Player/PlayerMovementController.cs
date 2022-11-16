@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerInputHandler))]
-public class PlayerController : MonoBehaviour
+public class PlayerMovementController : MonoBehaviour
 {
     private const float minVerticalVelocityForJump = 0.001f;
 
