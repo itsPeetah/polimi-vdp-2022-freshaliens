@@ -6,12 +6,14 @@ using UnityEngine;
 
 public class InvisiblePlatform : Interactable
 {
+    //Parameters
     [Range(0.5f,1f)]
     [SerializeField] private float _maxAlpha;
     [Range(0,0.5f)]
     [SerializeField] private float _minAlpha;
+    [SerializeField] private float _activeTimeAfterFairyExit = 1f;
 
-    
+    //State
     private GameObject _thisGameObject;
     private GameObject _childGameObject;
     private SpriteRenderer _spriteRenderer;
@@ -44,15 +46,20 @@ public class InvisiblePlatform : Interactable
     public override void OnFairyEnter()
     {
         ChangeAlpha(_maxAlpha);
-        // ChangeLayer("Ground");
         _childGameObject.SetActive(true);
     }
     
     public override void OnFairyExit()
     {
+        StartCoroutine(DeactivateAfterTimer());
+    }
+
+    IEnumerator DeactivateAfterTimer()
+    {
+        yield return new WaitForSeconds(_activeTimeAfterFairyExit);
         ChangeAlpha(_minAlpha);
-        // ChangeLayer("InvisiblePlatform");
         _childGameObject.SetActive(false);
+        yield return null;
     }
     
 }
