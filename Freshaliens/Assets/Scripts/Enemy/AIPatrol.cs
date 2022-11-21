@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class AIPatrol : MonoBehaviour
 {
-    public enum EnemyType
+     public enum EnemyType
     {
         Blob, Shooter
     }
@@ -15,7 +15,7 @@ public class AIPatrol : MonoBehaviour
    private bool mustTurn, canShoot;
     
    
-    [SerializeField]public float walkSpeed, aggroRange;
+    [SerializeField]public float walkSpeed, aggroRange, stopRange;
     private float distToPlayer;
     public Transform player;
     
@@ -24,6 +24,7 @@ public class AIPatrol : MonoBehaviour
     [SerializeField]public Transform groundCheckPos;
     [SerializeField]public LayerMask groundLayer;
     [SerializeField] public Collider2D collider;
+    [SerializeField] public EnemyType type;
     float weaponAngleRadians = 0;
     float fireTimer = 0;
     
@@ -46,28 +47,33 @@ public class AIPatrol : MonoBehaviour
             ChasePlayer();
             mustPatrol = false;
 
-        } 
-       
-       Patrol();
-       
-        /*if (distToPlayer <= range)
-        {
-            if (player.position.x > transform.position.x && transform.localScale.x < 0 ||
-                player.position.x < transform.position.x && transform.localScale.x > 0)
-            {
-                Flip();
-            }
-
-            mustPatrol = false;
-             
-           if (enemyType == EnemyType.Shooter)
-            {
-                if(canShoot)
-                StartCoroutine(Shoot());
-                
-            }
         }
-        mustPatrol = true;*/
+       if(type == EnemyType.Shooter)
+       PatrolShooter();
+        else if (type == EnemyType.Blob)
+        {
+            PatrolFighter();
+        }
+
+
+       /*if (distToPlayer <= range)
+       {
+           if (player.position.x > transform.position.x && transform.localScale.x < 0 ||
+               player.position.x < transform.position.x && transform.localScale.x > 0)
+           {
+               Flip();
+           }
+
+           mustPatrol = false;
+            
+          if (enemyType == EnemyType.Shooter)
+           {
+               if(canShoot)
+               StartCoroutine(Shoot());
+               
+           }
+       }
+       mustPatrol = true;*/
     }
 
     private void FixedUpdate()
@@ -78,16 +84,17 @@ public class AIPatrol : MonoBehaviour
         }
     }
 
-    void Patrol()
+    void PatrolShooter()
     {
         if (mustPatrol)
         {
             rb.velocity = new Vector2(walkSpeed, rb.velocity.y);
         }
-        else
-        {
+        else 
+        {   
             rb.velocity = Vector2.zero;
-        }
+        } 
+       
         
         if (mustTurn == true || collider.IsTouchingLayers(groundLayer))
         {
@@ -96,6 +103,25 @@ public class AIPatrol : MonoBehaviour
         
         
     }
+    
+    void PatrolFighter() //to patrol blob just set aggrorange to 0
+    {
+        rb.velocity = new Vector2(walkSpeed, rb.velocity.y);
+        
+        if (mustTurn == true || collider.IsTouchingLayers(groundLayer))
+        {
+            Flip();
+        }
+
+        if (distToPlayer < stopRange)
+        {
+            rb.velocity = Vector2.zero;
+        }
+
+        
+    }
+    
+   
 
     void Flip()
     {
@@ -113,19 +139,6 @@ public class AIPatrol : MonoBehaviour
         }
     }
 
-    void StopChase()
-    {
-        rb.velocity = new Vector2(0, 0);
-    }
-    /*
-    IEnumerator Shoot()
-    {
-        canShoot = false;
-        yield return new WaitForSeconds(timeBTWShots);
-        GameObject newBullet = Instantiate(bullet, shootPos.position, Quaternion.identity);
-        newBullet.GetComponent<Rigidbody2D>().velocity = new Vector2(shootSpeed * Time.fixedDeltaTime, 0f);
-        canShoot = true;
-    }
+    
 
-*/
 }
