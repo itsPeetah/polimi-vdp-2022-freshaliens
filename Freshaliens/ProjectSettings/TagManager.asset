@@ -16,8 +16,8 @@ TagManager:
   - Player 2
   - Wall
   - Enemy
-  - 
-  - 
+  - Camera Bounds
+  - InvisiblePlatform
   - 
   - 
   - 

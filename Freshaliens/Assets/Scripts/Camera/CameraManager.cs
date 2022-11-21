@@ -10,8 +10,8 @@ using UnityEngine.Serialization;
 public class CameraManager : MonoBehaviour
 {
     [Header("Players")]
-    [SerializeField] private GameObject _player1;
-    [SerializeField] private GameObject _player2;
+    [SerializeField] private GameObject _ninja;
+    [SerializeField] private GameObject _fairy;
 
     [Header("Camera Parameters")] 
     [SerializeField] private float _defaultHorizontalOffset = 2f;
@@ -29,19 +29,27 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private bool _dynamicHorizontalOffset;
     [SerializeField] private bool _showMessagePlayersTooDistant;
     [SerializeField] private float _timerMessagePlayersTooDistant = 5f;
+    [SerializeField] private int _boundaryLayer = 11;
     // //Sensitivity is only for manual zoom
     // [SerializeField] private float sensitivity = 1f;
+    [SerializeField] private TrackingMode _currentTrackingMode;
+    private enum TrackingMode
+    {
+        Ninja, 
+        Fairy, 
+        Both
+    }
     
     //References
     //Transforms & Camera
     private Transform _transform;
-    private Transform _player1Transform;
-    private Transform _player2Transform;
+    private Transform _ninjaTransform;
+    private Transform _fairyTransform;
     private Camera _camera;
     private Transform _cameraTransform;
     //Colliders
-    private Collider2D _player1Collider;
-    private Collider2D _player2Collider;
+    private Collider2D _ninjaCollider;
+    private Collider2D _fairyCollider;
     private Collider2D _leftBorderCollider;
     private Collider2D _rightBorderCollider;
 
@@ -71,13 +79,13 @@ public class CameraManager : MonoBehaviour
         //Set references
         //Transforms & Camera
         _transform = transform;
-        _player1Transform = _player1.GetComponent<Transform>();
-        _player2Transform = _player2.GetComponent<Transform>();
+        _ninjaTransform = _ninja.GetComponent<Transform>();
+        _fairyTransform = _fairy.GetComponent<Transform>();
         _camera = GetComponentInChildren<Camera>();
         _cameraTransform = _camera.transform;
         //Colliders
-        _player1Collider = _player1.gameObject.GetComponent<Collider2D>();
-        _player2Collider = _player2.gameObject.GetComponent<Collider2D>();
+        _ninjaCollider = _ninja.gameObject.GetComponent<Collider2D>();
+        _fairyCollider = _fairy.gameObject.GetComponent<Collider2D>();
 
         //Set initial CameraManager state
         _transform.position += new Vector3(0, _defaultVerticalOffset, 0);
@@ -139,6 +147,7 @@ public class CameraManager : MonoBehaviour
     private GameObject InstantiateBorder(String name, Vector3 scale)
     {
         GameObject newBorder = new GameObject(name);
+        newBorder.layer = _boundaryLayer;
         newBorder.transform.parent = _camera.transform;
         newBorder.transform.localScale = scale;
         newBorder.AddComponent<BoxCollider2D>();
@@ -149,19 +158,18 @@ public class CameraManager : MonoBehaviour
     //better fixedUpdate?
     void LateUpdate()
     {
-        //The horizontal position of the camera is the average of the two players + offset
-        Vector3 positionPlayer1 = _player1Transform.position;
-        Vector3 positionPlayer2 = _player2Transform.position;
+        Vector3 positionNinja = _ninjaTransform.position;
+        Vector3 positionFairy = _fairyTransform.position;
 
         //Manage zoom
         if (_canIncreaseCameraSize)
         {
-            bool zoomNeeded = NeedToIncreaseCameraSize(positionPlayer1, positionPlayer2);
+            bool zoomNeeded = NeedToIncreaseCameraSize(positionNinja, positionFairy);
             if (zoomNeeded)
             {
                 ChangeCameraSize(_maxCameraSize);
             }
-            else if (CanDecreaseCameraSize(positionPlayer1, positionPlayer2))
+            else if (CanDecreaseCameraSize(positionNinja, positionFairy))
             {
                 ChangeCameraSize(_minCameraSize);
             }
@@ -176,7 +184,24 @@ public class CameraManager : MonoBehaviour
                 _currentHorizontalOffset = _defaultHorizontalOffset*(_currentCameraSize/_minCameraSize);
             }
             float currentXCoordinate = _currentPosition.x;
-            float newXCoordinate = ((positionPlayer1.x + positionPlayer2.x) / 2) + _currentHorizontalOffset;
+            float newXCoordinate;
+
+            switch (_currentTrackingMode)
+            {
+                case TrackingMode.Ninja:
+                    newXCoordinate = positionNinja.x + _currentHorizontalOffset;
+                    break;
+                case TrackingMode.Fairy:
+                    newXCoordinate = positionFairy.x + _currentHorizontalOffset;
+                    break;
+                case TrackingMode.Both:
+                    newXCoordinate = ((positionNinja.x + positionFairy.x) / 2) + _currentHorizontalOffset;
+                    break;
+                default:
+                    newXCoordinate = ((positionNinja.x + positionFairy.x) / 2) + _currentHorizontalOffset;
+                    break;
+            }
+            
             float horizontalDifference = newXCoordinate - currentXCoordinate;
             Vector3 positionDifference = new Vector3(horizontalDifference, 0, 0);
             _transform.position += positionDifference;
@@ -265,8 +290,8 @@ public class CameraManager : MonoBehaviour
         _canMoveCameraRight = true;
         _canMoveCameraLeft = true;
 
-        bool leftColliderIsTouched = _leftBorderCollider.IsTouching(_player1Collider) || _leftBorderCollider.IsTouching(_player2Collider);
-        bool rightColliderIsTouched = _rightBorderCollider.IsTouching(_player1Collider) || _rightBorderCollider.IsTouching(_player2Collider);
+        bool leftColliderIsTouched = _leftBorderCollider.IsTouching(_ninjaCollider) || _leftBorderCollider.IsTouching(_fairyCollider);
+        bool rightColliderIsTouched = _rightBorderCollider.IsTouching(_ninjaCollider) || _rightBorderCollider.IsTouching(_fairyCollider);
         if(leftColliderIsTouched)
             _canMoveCameraRight = false;
         if(rightColliderIsTouched)
