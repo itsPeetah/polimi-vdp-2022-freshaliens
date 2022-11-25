@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerInputHandler))]
+[RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerInputHandler)), RequireComponent(typeof(PlayerFairyDetector))]
 public class PlayerMovementController : MonoBehaviour
 {
     private static PlayerMovementController instance = null;
@@ -17,7 +17,8 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private float walkAcceleration = 1.0f;
 
     [Header("Jumping")]
-    [SerializeField] private float jumpForceGrounded = 10.0f;
+    [SerializeField, Tooltip("Jump force when jumping from the ground")] private float jumpForceGrounded = 10.0f;
+    [SerializeField, Tooltip("Jump force when fairy-jumping")] private float jumpForceAirborne = 10.0f;
     [SerializeField] private int maxAirJumps = 1;
     [SerializeField] private float jumpQueueFrame = 0.15f;
     [SerializeField, Range(0, 80)] private float wallJumpAngle = 45f;
@@ -62,6 +63,7 @@ public class PlayerMovementController : MonoBehaviour
     private PlayerInputHandler input = null;
     private Rigidbody2D rbody = null;
     private Transform ownTransform = null;
+    private PlayerFairyDetector fairyDetector = null;
 
     // Properties
     public Vector3 Position => ownTransform.position;
@@ -76,7 +78,7 @@ public class PlayerMovementController : MonoBehaviour
         input = GetComponent<PlayerInputHandler>();
         rbody = GetComponent<Rigidbody2D>();
         ownTransform = transform;
-
+        fairyDetector = GetComponent<PlayerFairyDetector>();
 
         remainingAirJumps = maxAirJumps;
     }
@@ -137,7 +139,7 @@ public class PlayerMovementController : MonoBehaviour
             } else {
                 // Grounded or airborne jump
                 if (!isGrounded && !isWithinCoyoteTime) remainingAirJumps -= 1;
-                velocity.y = jumpForceGrounded;
+                velocity.y = isGrounded ? jumpForceGrounded : jumpForceAirborne;
             }
         }
         else
@@ -172,9 +174,12 @@ public class PlayerMovementController : MonoBehaviour
         facingWallLeft = Physics2D.OverlapCircle(wallCheckLeft.position, groundCheckRadius, groundLayers) != null;
     }
 
-    private bool CanJump() {
+    private bool CanJump()
+    {
         if (isGrounded) return rbody.velocity.y <= minVerticalVelocityForJump;
-        else return (isClimbing && canWallJump) || isWithinCoyoteTime || remainingAirJumps > 0;
+
+        bool canAirJump = remainingAirJumps > 0 && fairyDetector.CanFairyJump;
+        return (isClimbing && canWallJump) || isWithinCoyoteTime || canAirJump;
     }
 
     //private void OnDrawGizmos()
