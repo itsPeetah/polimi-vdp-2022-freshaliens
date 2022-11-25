@@ -14,9 +14,9 @@ TagManager:
   - Ground
   - Player 1
   - Player 2
-  - 
-  - 
-  - 
+  - Wall
+  - Enemy
+  - Camera Bounds
   - 
   - 
   - 

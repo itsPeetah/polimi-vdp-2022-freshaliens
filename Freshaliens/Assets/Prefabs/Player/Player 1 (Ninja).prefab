@@ -104,8 +104,9 @@ GameObject:
   - component: {fileID: 5444438913041132579}
   - component: {fileID: 5444438913041132580}
   - component: {fileID: 5444438913041132577}
-  - component: {fileID: 5444438913041132578}
   - component: {fileID: 5444438913041132576}
+  - component: {fileID: 8425014593099896585}
+  - component: {fileID: 5444438913041132578}
   m_Layer: 7
   m_Name: Player 1 (Ninja)
   m_TagString: Untagged
@@ -205,44 +206,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5444438913041132578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5444438913041132581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 340bdab859b2c4e3385145493d9648f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  horizontalAxis: P1_Horizontal
-  jumpAxis: P1_Jump
-  movementSpeedStart: 5
-  movementSpeedMax: 6
-  walkAcceleration: 1
-  jumpForceGrounded: 7
-  maxAirJumps: 1
-  jumpQueueFrame: 0.15
-  wallJumpAngle: 45
-  canWallJump: 1
-  wallJumpIgnoreInputFrame: 0.1
-  gravityScaleDefault: 1
-  gravityScaleFalling: 1.8
-  gravityScaleClimbing: 0.2
-  terminalVelocity: 20
-  coyoteTimeFrame: 0.1
-  groundChecks:
-  - {fileID: 5444438912755307847}
-  - {fileID: 5444438912789189727}
-  groundCheckRadius: 0.1
-  groundLayers:
-    serializedVersion: 2
-    m_Bits: 64
-  canClimb: 1
-  wallCheckRight: {fileID: 5444438911184686498}
-  wallCheckLeft: {fileID: 5444438913171076635}
 --- !u!61 &5444438913041132576
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -269,6 +232,56 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8425014593099896585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5444438913041132581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70ba548a92e114ee382a58d83362b171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizontalAxis: P1_Horizontal
+  jumpAxis: P1_Jump
+--- !u!114 &5444438913041132578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5444438913041132581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 340bdab859b2c4e3385145493d9648f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeedStart: 5
+  movementSpeedMax: 6
+  walkAcceleration: 1
+  jumpForceGrounded: 7
+  maxAirJumps: 1
+  jumpQueueFrame: 0.15
+  wallJumpAngle: 45
+  canWallJump: 1
+  wallJumpIgnoreInputFrame: 0.5
+  gravityScaleDefault: 1
+  gravityScaleFalling: 1.8
+  gravityScaleClimbing: 0
+  terminalVelocity: 20
+  coyoteTimeFrame: 0.1
+  groundChecks:
+  - {fileID: 5444438912755307847}
+  - {fileID: 5444438912789189727}
+  groundCheckRadius: 0.1
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  canClimb: 1
+  wallCheckRight: {fileID: 5444438911184686498}
+  wallCheckLeft: {fileID: 5444438913171076635}
 --- !u!1 &5444438913171076636
 GameObject:
   m_ObjectHideFlags: 0
