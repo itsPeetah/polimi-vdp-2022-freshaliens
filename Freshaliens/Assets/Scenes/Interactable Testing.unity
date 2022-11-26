@@ -992,22 +992,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ninja: {fileID: 1213551381}
   _fairy: {fileID: 1931419637}
+  _currentTrackingMode: 0
   _defaultHorizontalOffset: 2
   _defaultVerticalOffset: 2
   _minCameraSize: 5
   _maxCameraSize: 10
-  _collisionDistanceFromBorders: 0.5
   _playerMarginBeforeZoomOut: 1
   _playerMarginBeforeZoomIn: 2.5
   _cameraZoomSpeed: 5
-  _ratioPlayableScreen: 0.5
   _canIncreaseCameraSize: 0
   _canMoveCamera: 0
   _dynamicHorizontalOffset: 0
+  _instantiateBorders: 0
+  _collisionDistanceFromBorders: 0.5
+  _ratioPlayableScreen: 0.5
   _showMessagePlayersTooDistant: 0
   _timerMessagePlayersTooDistant: 5
   _boundaryLayer: 11
-  _currentTrackingMode: 0
 --- !u!4 &1502060865
 Transform:
   m_ObjectHideFlags: 0
