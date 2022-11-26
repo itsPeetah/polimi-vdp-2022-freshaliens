@@ -49,7 +49,10 @@ public class FairyInteractionController : MonoBehaviour
     {
         if (CheckLayer(collision.gameObject.layer) && collision.gameObject.TryGetComponent(out Interactable interactable))
         {
-            storedInteractable = interactable;
+            if (interactable.ShouldBeStored)
+            {
+                storedInteractable = interactable;
+            }
             interactable.OnFairyEnter();
         }
     }
@@ -66,7 +69,10 @@ public class FairyInteractionController : MonoBehaviour
     {
         if (CheckLayer(collision.gameObject.layer) && collision.gameObject.TryGetComponent(out Interactable interactable))
         {
-            storedInteractable = null;
+            if (interactable.ShouldBeStored)
+            {
+                storedInteractable = null;
+            }
             interactable.OnFairyExit();
         }
     }

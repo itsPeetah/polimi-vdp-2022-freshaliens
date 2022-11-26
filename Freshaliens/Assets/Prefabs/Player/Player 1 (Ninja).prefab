@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cf3d835bc7544399b3ab9facdd7bf65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  storable: 0
   maxFairyJumpTimeFrame: 0.5
 --- !u!1 &5444438913171076636
 GameObject:

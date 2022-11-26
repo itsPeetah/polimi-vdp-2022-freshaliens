@@ -11,6 +11,9 @@ public abstract class Interactable : MonoBehaviour
     // {
     //     return layer == FAIRYLAYER;
     // }
+
+    [SerializeField] protected bool storable = true;
+    public bool ShouldBeStored => storable;
     
     public virtual void OnInteract() { }
     
