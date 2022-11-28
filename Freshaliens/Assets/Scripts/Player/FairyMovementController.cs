@@ -89,7 +89,7 @@ namespace Freshaliens.Player.Components
             }
             else if (stunTimer > 0)
             {
-                movementDirection = Vector3.zero;
+                movementDirection = Vector2.zero;
                 isMoving = false;
                 currentMaxSpeed = 0;
                 acceleration = 0;
