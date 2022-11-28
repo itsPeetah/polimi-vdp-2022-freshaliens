@@ -70,11 +70,12 @@ namespace Freshaliens.LevelSelection.Components
 
             levelMapLineContainer = new GameObject("Map Lines").transform;
             levelMapLineContainer.position = Vector3.zero;
-            
+
+            float maxDistance = Vector3.Distance(levels[0].transform.position, levels[levels.Length - 1].transform.position);
 
             for (int i = 1; i < levels.Length; i++) {
                 LevelMapLine lml = Instantiate(levelMapLinePrefab, levelMapLineContainer).GetComponent<LevelMapLine>();
-                lml.SetPoints(levels[i - 1].transform, levels[i].transform);
+                lml.SetPoints(levels[i - 1].transform, levels[i].transform, maxDistance);
             }
         }
     }

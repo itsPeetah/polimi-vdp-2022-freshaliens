@@ -444,6 +444,7 @@ MonoBehaviour:
   - {fileID: 894003041}
   - {fileID: 965588144}
   - {fileID: 728235312}
+  allowLockedSelection: 0
   levelMapLinePrefab: {fileID: 3310422655544389132, guid: f95432b3e5a514fb088d0e437e7870c9, type: 3}
   cursor: {fileID: 415545538}
 --- !u!4 &1743701292
@@ -588,11 +589,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5233294359083805918, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.6
+      value: -7.1
       objectReference: {fileID: 0}
     - target: {fileID: 5233294359083805918, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.65
+      value: -0.42
       objectReference: {fileID: 0}
     - target: {fileID: 5233294359083805918, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: m_LocalPosition.z
