@@ -12,7 +12,7 @@ public class AIPatrol : MonoBehaviour
         Blob, Shooter
     }
    public bool mustPatrol;
-   private bool mustTurn, canShoot;
+   private bool mustTurn, canShoot, stunned;
     
    
     [SerializeField]public float walkSpeed, aggroRange, stopRange;
@@ -35,45 +35,61 @@ public class AIPatrol : MonoBehaviour
         canShoot = true;
     }
 
+    public void setStun(bool stun)
+    {
+        stunned = stun;
+    }
+
     // Update is called once per frame
     void Update()
     {
-       
-        mustPatrol=true;
+
+        if (stunned)
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
+        
+        mustPatrol = true;
         distToPlayer = Vector2.Distance(transform.position, player.position);
 
-       if (distToPlayer < aggroRange) // rincorre il player fin quando è in un certo range, se supera il range ritorna a fare il patrol
+        if (distToPlayer < aggroRange) // rincorre il player fin quando è in un certo range, se supera il range ritorna a fare il patrol
         {
-            ChasePlayer();
-            mustPatrol = false;
+                ChasePlayer();
+                mustPatrol = false;
 
         }
-       if(type == EnemyType.Shooter)
-       PatrolShooter();
+
+        if (type == EnemyType.Shooter)
+                PatrolShooter();
         else if (type == EnemyType.Blob)
         {
-            PatrolFighter();
+                PatrolFighter();
         }
 
+       
 
-       /*if (distToPlayer <= range)
-       {
-           if (player.position.x > transform.position.x && transform.localScale.x < 0 ||
-               player.position.x < transform.position.x && transform.localScale.x > 0)
-           {
-               Flip();
-           }
 
-           mustPatrol = false;
-            
-          if (enemyType == EnemyType.Shooter)
-           {
-               if(canShoot)
-               StartCoroutine(Shoot());
-               
-           }
-       }
-       mustPatrol = true;*/
+
+
+        /*if (distToPlayer <= range)
+        {
+            if (player.position.x > transform.position.x && transform.localScale.x < 0 ||
+                player.position.x < transform.position.x && transform.localScale.x > 0)
+            {
+                Flip();
+            }
+ 
+            mustPatrol = false;
+             
+           if (enemyType == EnemyType.Shooter)
+            {
+                if(canShoot)
+                StartCoroutine(Shoot());
+                
+            }
+        }
+        mustPatrol = true;*/
     }
 
     private void FixedUpdate()

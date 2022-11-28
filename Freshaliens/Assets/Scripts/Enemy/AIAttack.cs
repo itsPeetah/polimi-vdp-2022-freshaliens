@@ -13,7 +13,7 @@ public class AIAttack : MonoBehaviour
     [SerializeField] public Transform _target;
     [SerializeField] private float firePower = 10f;
     private Quaternion _rotation;
-    [SerializeField] public Rigidbody2D _rb;
+    private Rigidbody2D _rb;
     
     [SerializeField, Tooltip("Projectile spawn point")] private Transform weaponMuzzle;
     
@@ -26,7 +26,7 @@ public class AIAttack : MonoBehaviour
 
     private void Start()
     {
-      
+        _rb = GetComponent<Rigidbody2D>();
         projectiles = ProjectilePool.GetByID(projectilePoolId);
     }
 
