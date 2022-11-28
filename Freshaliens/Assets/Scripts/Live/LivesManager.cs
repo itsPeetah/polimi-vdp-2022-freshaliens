@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+using Freshaliens.Player.Components;
+
 public class LivesManager : MonoBehaviour
 {
     [SerializeField] private PlayerMovementController player1;

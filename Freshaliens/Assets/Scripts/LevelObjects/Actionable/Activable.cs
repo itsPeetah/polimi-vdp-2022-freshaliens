@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Activable : MonoBehaviour
+namespace Freshaliens.Interaction
 {
-    public virtual void OnAction() { }
+    public abstract class Activable : MonoBehaviour
+    {
+        public virtual void OnAction() { }
+    }
 }

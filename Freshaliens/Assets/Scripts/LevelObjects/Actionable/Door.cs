@@ -2,55 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : Activable
+namespace Freshaliens.Interaction.Components
 {
-    
-    //State
-    private GameObject _gameObject;
-    private bool _isActive = false;
-    
-    [SerializeField] private DoorMode _currentDoorMode;
-    private enum DoorMode
-    {
-        NormalDoor,
-        TrapDoor
-    }
 
-    void Start()
+    public class Door : Activable
     {
-        _gameObject = gameObject;
-        switch (_currentDoorMode)
+
+        //State
+        private GameObject _gameObject;
+        private bool _isActive = false;
+
+        [SerializeField] private DoorMode _currentDoorMode;
+        private enum DoorMode
         {
-            case DoorMode.NormalDoor:
-                _isActive = true;
-                break;
-            case DoorMode.TrapDoor:
-                _isActive = false;
-                gameObject.SetActive(false);
-                break;
-            default:
-                _isActive = true;
-                break;
+            NormalDoor,
+            TrapDoor
         }
-        
-    }
-    private void ToggleState()
-    {
-        _isActive = !_isActive;
-        gameObject.SetActive(_isActive);
-    }
-    
-    public override void OnAction()
-    {
-        ToggleState();
-        if (_isActive)
+
+        void Start()
         {
-            //animation door closes
+            _gameObject = gameObject;
+            switch (_currentDoorMode)
+            {
+                case DoorMode.NormalDoor:
+                    _isActive = true;
+                    break;
+                case DoorMode.TrapDoor:
+                    _isActive = false;
+                    gameObject.SetActive(false);
+                    break;
+                default:
+                    _isActive = true;
+                    break;
+            }
+
         }
-        else
+        private void ToggleState()
         {
-            //animation door opens
+            _isActive = !_isActive;
+            gameObject.SetActive(_isActive);
         }
-        
+
+        public override void OnAction()
+        {
+            ToggleState();
+            if (_isActive)
+            {
+                //animation door closes
+            }
+            else
+            {
+                //animation door opens
+            }
+
+        }
     }
 }
