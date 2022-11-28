@@ -12,6 +12,7 @@ namespace Freshaliens.LevelSelection.Components
         [SerializeField] private LevelRep[] levels;
         private int lastSelectedLevel = 0;
         private int currentlySelectedLevel = 0;
+        [SerializeField] private bool allowLockedSelection = false;
 
         [Header("Visuals")]
         [SerializeField] private GameObject levelMapLinePrefab = null;
@@ -40,7 +41,12 @@ namespace Freshaliens.LevelSelection.Components
 
         private void SelectLevel(int index)
         {
-            // TODO ADD unlocked check
+            if (index > PlayerData.Instance.LastUnlockedLevel && !allowLockedSelection) {
+                Debug.Log($"Level has not been unlocked yet!");
+                return;
+            }
+
+
             int prevSelectedLevel = currentlySelectedLevel;
             currentlySelectedLevel = Mathf.Abs(index) % levels.Length;
 
