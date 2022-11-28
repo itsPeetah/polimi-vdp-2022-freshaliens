@@ -157,7 +157,7 @@ MonoBehaviour:
   maxSpeed: 6
   movementAcceleration: 5
   movementDeceleration: 20
-  maxDistanceBeforeReturn: 15
+  maxDistanceBeforeReturn: 50
   returnDistance: 10
   returnAcceleration: 40
   maxReturnSpeed: 20
@@ -175,4 +175,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableLayers:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 5248
