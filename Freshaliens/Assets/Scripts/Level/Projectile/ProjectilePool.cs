@@ -31,6 +31,7 @@ public class ProjectilePool : MonoBehaviour
 
     /// <summary>
     /// Returns the projectile pool with corresponding ID or the main pool if no pools match the desired id
+    /// THIS IS NOT OPTIMIZED, PLEASE USE WITH CAUTION.
     /// </summary>
     public static ProjectilePool GetByID(string id) {
         foreach (ProjectilePool pp in FindObjectsOfType<ProjectilePool>()) {
