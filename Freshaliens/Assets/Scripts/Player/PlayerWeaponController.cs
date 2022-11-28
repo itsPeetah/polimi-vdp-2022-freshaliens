@@ -42,7 +42,7 @@ public class PlayerWeaponController : MonoBehaviour
         weaponPivot.localRotation = Quaternion.Euler(0, 0, weaponAngleRadians * Mathf.Rad2Deg);
 
         // Shoot
-        bool wantsToFire = input.GetFireInput();
+        bool wantsToFire = input.GetActionInput();
         bool canFire = fireTimer <= 0;
         fireTimer -= Time.deltaTime;
         if (wantsToFire && canFire) {
