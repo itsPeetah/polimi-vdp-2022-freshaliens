@@ -26,6 +26,13 @@ public class FairyInteractionController : MonoBehaviour
         }
     }
 
+    private bool CheckInteractable(Collider2D collision, out Interactable interactable) {
+        collision.gameObject.TryGetComponent(out interactable);
+        if (CheckLayer(collision.gameObject.layer))
+            return true;
+        return false;
+    }
+
     /**
      * 
      * go.layer = 7 (int)
@@ -47,16 +54,19 @@ public class FairyInteractionController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (CheckLayer(collision.gameObject.layer) && collision.gameObject.TryGetComponent(out Interactable interactable))
+        if (CheckInteractable(collision, out Interactable interactable))
         {
-            storedInteractable = interactable;
+            if (interactable.ShouldBeStored)
+            {
+                storedInteractable = interactable;
+            }
             interactable.OnFairyEnter();
         }
     }
     
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (CheckLayer(collision.gameObject.layer) && collision.gameObject.TryGetComponent(out Interactable interactable))
+        if (CheckInteractable(collision, out Interactable interactable))
         {
             interactable.OnFairyStay();
         }
@@ -64,9 +74,12 @@ public class FairyInteractionController : MonoBehaviour
     
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (CheckLayer(collision.gameObject.layer) && collision.gameObject.TryGetComponent(out Interactable interactable))
+        if (CheckInteractable(collision, out Interactable interactable))
         {
-            storedInteractable = null;
+            if (interactable.ShouldBeStored)
+            {
+                storedInteractable = null;
+            }
             interactable.OnFairyExit();
         }
     }
