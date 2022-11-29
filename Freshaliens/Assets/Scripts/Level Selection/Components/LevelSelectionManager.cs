@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Freshaliens.LevelSelection.Components
 {
@@ -9,22 +10,33 @@ namespace Freshaliens.LevelSelection.Components
         private static LevelSelectionManager instance;
         public static LevelSelectionManager Instance => instance;
 
+        [Header("Level data")]
         [SerializeField] private LevelRep[] levels;
-        private int lastSelectedLevel = 0;
-        private int currentlySelectedLevel = 0;
         [SerializeField] private bool allowLockedSelection = false;
 
         [Header("Visuals")]
         [SerializeField] private GameObject levelMapLinePrefab = null;
+        [SerializeField] private LevelSelectionCursor cursor = null;
+
+        [Header("UI")]
+        [SerializeField] private LevelSelectionUI ui = null;
+
+        // State
+        private LevelInfo currentLevelInfo = null;
+        private int currentlySelectedLevel = 0;
         private Transform levelMapLineContainer;
         private LevelMapLine[] mapLines = null;
-        [Space(10)]
-        [SerializeField] private LevelSelectionCursor cursor;
-        
+
+        // Events
+        public event Action<LevelInfo> onLevelSelected = null;
+
+        // Properties
+        public LevelInfo CurrentLevelInfo => currentLevelInfo;
 
         private void Awake()
         {
             instance = this;
+            currentLevelInfo = levels[0].Info;
         }
 
         private void Start()
@@ -34,7 +46,11 @@ namespace Freshaliens.LevelSelection.Components
             InstantiateMapLines();
             UpdateMapLineState();
 
-            cursor.SetPosition(levels[currentlySelectedLevel].transform.position);
+            // Subscribe events
+            onLevelSelected += ui.UpdateLevelInfoDisplay;
+
+            SelectLevel(currentlySelectedLevel);
+            
         }
 
         private void Update()
@@ -66,9 +82,14 @@ namespace Freshaliens.LevelSelection.Components
             }
 
             currentlySelectedLevel = levelToSelect;
+            currentLevelInfo = levels[currentlySelectedLevel].Info;
 
             int diff = currentlySelectedLevel - prevSelectedLevel;
-            if (diff > 1)
+            if (diff == 0)
+            {
+                cursor.SetPosition(levels[currentlySelectedLevel].transform.position);
+            }
+            else if (diff > 1)
             {
                 for (int i = 1; i < levels.Length; i++)
                     cursor.SetTarget(i, levels[i].transform.position);
@@ -79,6 +100,8 @@ namespace Freshaliens.LevelSelection.Components
             }
             else
                 cursor.SetTarget(currentlySelectedLevel, levels[currentlySelectedLevel].transform.position);
+
+            onLevelSelected?.Invoke(currentLevelInfo);
         }
         private void SelectNextLevel() => SelectLevel(currentlySelectedLevel + 1);
         private void SelectPrevLevel() => SelectLevel(currentlySelectedLevel - 1 + levels.Length);
