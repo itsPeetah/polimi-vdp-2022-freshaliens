@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   levelName: Level 1
+  sceneName: Level0
   levelDescription: This is the first level of the game.

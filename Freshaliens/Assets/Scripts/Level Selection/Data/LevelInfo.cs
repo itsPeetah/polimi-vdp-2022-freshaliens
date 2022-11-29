@@ -8,9 +8,11 @@ namespace Freshaliens.LevelSelection
     public class LevelInfo : ScriptableObject
     {
         [SerializeField] private string levelName;
+        [SerializeField] private string sceneName;
         [SerializeField, TextArea] private string levelDescription;
 
         public string Name => levelName;
+        public string SceneName => sceneName;
         public string Description => levelDescription;
     }
 }

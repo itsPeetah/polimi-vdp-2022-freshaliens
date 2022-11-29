@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 namespace Freshaliens.LevelSelection.Components
 {
@@ -57,6 +58,10 @@ namespace Freshaliens.LevelSelection.Components
         {
             if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) SelectNextLevel();
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) SelectPrevLevel();
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                ui.FadeScreen(0,1, () => SceneManager.LoadSceneAsync(CurrentLevelInfo.SceneName));
+            }
+
 
 #if UNITY_EDITOR
 
