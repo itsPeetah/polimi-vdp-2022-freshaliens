@@ -11,11 +11,14 @@ namespace Freshaliens.LevelSelection.Components
         [Header("Current Level Panel")]
         [SerializeField] private Transform currentLevelPanel = null;
         [SerializeField] private TextMeshProUGUI currentLevelLabel = null;
+        [SerializeField] private TextMeshProUGUI currentLevelDescriptionLabel = null;
         [SerializeField] private float panelScalingDuration = 0.3f;
 
         public void UpdateLevelInfoDisplay(LevelInfo info) {
+            StopCoroutine(nameof(ScaleCurrentLevelPanel_Coroutine);
             StartCoroutine(nameof(ScaleCurrentLevelPanel_Coroutine));
             currentLevelLabel.SetText(info.Name);
+            currentLevelDescriptionLabel.SetText(info.Description);
         }
 
 

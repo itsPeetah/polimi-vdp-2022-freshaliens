@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f113cc322823346d5b6cf3c6029bf83e, type: 3}
   m_Name: Level 2
   m_EditorClassIdentifier: 
-  levelName: 
-  levelDescription: 
+  levelName: Level 2
+  levelDescription: this is the second level of the game
