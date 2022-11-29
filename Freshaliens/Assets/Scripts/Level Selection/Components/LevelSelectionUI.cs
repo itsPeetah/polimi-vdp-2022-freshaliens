@@ -15,7 +15,7 @@ namespace Freshaliens.LevelSelection.Components
         [SerializeField] private float panelScalingDuration = 0.3f;
 
         public void UpdateLevelInfoDisplay(LevelInfo info) {
-            StopCoroutine(nameof(ScaleCurrentLevelPanel_Coroutine);
+            StopCoroutine(nameof(ScaleCurrentLevelPanel_Coroutine));
             StartCoroutine(nameof(ScaleCurrentLevelPanel_Coroutine));
             currentLevelLabel.SetText(info.Name);
             currentLevelDescriptionLabel.SetText(info.Description);
