@@ -30,7 +30,7 @@ public class TiltWithMovement : MonoBehaviour
         float mag = delta.magnitude;
         float target = toTheRight ? maxRotationAngle : minRotationAngle;
 
-        float angle = Mathf.Lerp(0, target, mag / (maxPosDelta* Time.deltaTime));
+        float angle = Mathf.Lerp(0, target, (mag  + 0.0001f) / (maxPosDelta* Time.deltaTime));
         transform.localRotation = Quaternion.Euler(0, 0, angle) ;
 
         previousPosition = pos;
