@@ -60,6 +60,7 @@ namespace Freshaliens.Player.Components
         private float jumpPressedTimestamp = 0f;    // time of last jump press (for buffering)
         private float lastGroundedTimestamp = 0f;   // time player was last grounded (for coyote time)
         private float wallJumpTimestamp = 0f;   // time of last wall jump (to disable airborne control)
+        private float lastFacedDirection = 1f;
         private Vector2 velocity = Vector2.zero;
 
         // Components
@@ -70,6 +71,7 @@ namespace Freshaliens.Player.Components
 
         // Properties
         public Vector3 Position => ownTransform.position;
+        public float LastFacedDirection => lastFacedDirection;
 
         private void Awake()
         {
@@ -91,6 +93,8 @@ namespace Freshaliens.Player.Components
             // Input
 
             float direction = input.GetHorizontal();
+            if (direction != 0) lastFacedDirection = direction;
+
             if (input.GetJumpInput())
             {
                 jumpPressedTimestamp = Time.time;
