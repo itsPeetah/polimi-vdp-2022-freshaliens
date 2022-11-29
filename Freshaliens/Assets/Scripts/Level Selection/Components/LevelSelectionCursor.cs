@@ -22,6 +22,8 @@ namespace Freshaliens.LevelSelection.Components
         private bool isMoving = false;
         private Transform ownTransform;
 
+        public bool IsMoving => isMoving;
+
         private void Start()
         {
             ownTransform = transform;

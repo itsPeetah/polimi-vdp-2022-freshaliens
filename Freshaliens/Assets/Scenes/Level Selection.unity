@@ -373,6 +373,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boundCollider: {fileID: 2053269569}
   target: {fileID: 896728641}
+  offset: {x: 3.5, y: 0}
+  smoothing: 0.02
 --- !u!1001 &1709110488
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -604,6 +606,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 401600438213082546, guid: d0f29b46783a24ea8a76eba994323905, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 401600438213082546, guid: d0f29b46783a24ea8a76eba994323905, type: 3}
       propertyPath: m_Name
       value: Cursor

@@ -61,7 +61,7 @@ namespace Freshaliens.LevelSelection.Components
 
             if (levelToSelect > PlayerData.Instance.LastUnlockedLevel && !allowLockedSelection)
             {
-                Debug.Log($"Level has not been unlocked yet!");
+                //Debug.Log($"Level has not been unlocked yet!");
                 return;
             }
 
