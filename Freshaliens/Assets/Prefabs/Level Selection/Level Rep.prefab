@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82bc4995e4f64c3f850741fc3b1d9c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 0}
+  info: {fileID: 11400000, guid: d5e69969599a04f5e886d16c2a52fe6c, type: 2}
 --- !u!1001 &5053275143373470001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -172,8 +172,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b671bca24d16a4930a0df73d9acd5167, type: 3}
+--- !u!1 &403017997198301783 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4879395399469507430, guid: b671bca24d16a4930a0df73d9acd5167, type: 3}
+  m_PrefabInstance: {fileID: 5053275143373470001}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1809833078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403017997198301783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 178341cfaa1f34c3cb692ce72341ea50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpace: 0
+  rotationAxis: {x: 0, y: 1, z: 0}
+  rotationSpeed: 10
 --- !u!4 &4008839568398774107 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8179263293322843754, guid: b671bca24d16a4930a0df73d9acd5167, type: 3}
   m_PrefabInstance: {fileID: 5053275143373470001}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6627314809497189128 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2150509834642244153, guid: b671bca24d16a4930a0df73d9acd5167, type: 3}
+  m_PrefabInstance: {fileID: 5053275143373470001}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &426715199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6627314809497189128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 178341cfaa1f34c3cb692ce72341ea50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpace: 0
+  rotationAxis: {x: 0, y: 1, z: 0}
+  rotationSpeed: -30
