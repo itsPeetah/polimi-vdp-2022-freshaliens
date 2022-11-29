@@ -29,7 +29,7 @@ namespace Freshaliens.LevelSelection.Components
 
         private void Start()
         {
-            currentlySelectedLevel = 0; // TODO Load latest from saved data;
+            currentlySelectedLevel = PlayerData.Instance.LastUnlockedLevel;
 
             InstantiateMapLines();
             UpdateMapLineState();
