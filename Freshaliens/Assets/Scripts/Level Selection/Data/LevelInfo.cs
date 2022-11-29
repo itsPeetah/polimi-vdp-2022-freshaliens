@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Freshaliens.LevelSelection
 {
+    [CreateAssetMenu(menuName = "Freshaliens/Level Info", fileName = "Level Information")]
     public class LevelInfo : ScriptableObject
     {
         [SerializeField] private string levelName;
