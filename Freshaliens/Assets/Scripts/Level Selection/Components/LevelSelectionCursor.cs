@@ -44,7 +44,7 @@ namespace Freshaliens.LevelSelection.Components
         {
             isMoving = true;
             Vector3 startingPosition, targetPosition, currentPosition;
-            float distance, timeToTravel, timeToTravelScaled, timeElapsed;
+            float distance, timeToTravel, timeElapsed;
             while (queuedMovements.Count > 0)
             {
 
@@ -72,7 +72,7 @@ namespace Freshaliens.LevelSelection.Components
             }
 
             isMoving = false;
-            Debug.Log("stopped");
+            //Debug.Log("stopped");
         }
 
         public void SetPosition(Vector3 position) => ownTransform.position = position;
