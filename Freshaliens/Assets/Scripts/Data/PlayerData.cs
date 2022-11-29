@@ -26,7 +26,11 @@ public class PlayerData
         }
     }
 
+    // Data to be saved
     private int lastUnlockedLevel;
+
+    // Getters
+    public int LastUnlockedLevel { get => lastUnlockedLevel; set => lastUnlockedLevel = value; } 
 
     private static PlayerData Load() {
         PlayerData pd = new();

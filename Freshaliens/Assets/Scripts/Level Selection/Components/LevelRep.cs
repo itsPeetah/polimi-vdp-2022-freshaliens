@@ -7,5 +7,6 @@ namespace Freshaliens.LevelSelection.Components
     public class LevelRep : MonoBehaviour
     {
         [SerializeField] private LevelInfo info;
+        public LevelInfo Info => info;
     }
 }
