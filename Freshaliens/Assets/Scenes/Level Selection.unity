@@ -691,6 +691,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5233294359083805920, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
+      propertyPath: info
+      value: 
+      objectReference: {fileID: 11400000, guid: 033756981d07042ba98d0208c9fb6861, type: 2}
     - target: {fileID: 5233294359083805923, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: m_Name
       value: Level POI (2)
@@ -1124,6 +1128,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5233294359083805920, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
+      propertyPath: info
+      value: 
+      objectReference: {fileID: 11400000, guid: 42c922cb220794a9884e1c6e42076a97, type: 2}
     - target: {fileID: 5233294359083805923, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: m_Name
       value: Level POI (3)
@@ -1292,6 +1300,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5233294359083805920, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
+      propertyPath: info
+      value: 
+      objectReference: {fileID: 11400000, guid: 2b08a16f71cad49e1aba3455b729d027, type: 2}
     - target: {fileID: 5233294359083805923, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: m_Name
       value: Level POI (1)
@@ -1410,6 +1422,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5233294359083805920, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
+      propertyPath: info
+      value: 
+      objectReference: {fileID: 11400000, guid: d5e69969599a04f5e886d16c2a52fe6c, type: 2}
     - target: {fileID: 5233294359083805923, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: m_Name
       value: Level POI
