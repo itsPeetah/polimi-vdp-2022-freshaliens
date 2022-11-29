@@ -14,7 +14,6 @@ namespace Freshaliens.LevelSelection.Components
         [SerializeField] private float materialSegmentLength = 5f;
         [SerializeField] private Color lockedColor = Color.gray, unlockedColor = Color.yellow;
 
-        private Transform start = null, end = null;
         private float distanceRatio = 0;
 
 #if UNITY_EDITOR
@@ -25,8 +24,6 @@ namespace Freshaliens.LevelSelection.Components
 #endif
 
         public void SetPoints(Transform start, Transform end, float maxDistance) {
-            this.start = start;
-            this.end = end;
             line.SetPositions(new Vector3[] {start.position, end.position});
 
             float length = Vector3.Distance(start.position, end.position);
