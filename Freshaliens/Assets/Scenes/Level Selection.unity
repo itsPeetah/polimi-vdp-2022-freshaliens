@@ -1517,10 +1517,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 401600438213082546, guid: d0f29b46783a24ea8a76eba994323905, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
-    - target: {fileID: 401600438213082546, guid: d0f29b46783a24ea8a76eba994323905, type: 3}
       propertyPath: m_Name
       value: Cursor
       objectReference: {fileID: 0}
@@ -1530,11 +1526,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 401600438213082551, guid: d0f29b46783a24ea8a76eba994323905, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.2326355
+      value: -7.13
       objectReference: {fileID: 0}
     - target: {fileID: 401600438213082551, guid: d0f29b46783a24ea8a76eba994323905, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.0439103
+      value: -0.51
       objectReference: {fileID: 0}
     - target: {fileID: 401600438213082551, guid: d0f29b46783a24ea8a76eba994323905, type: 3}
       propertyPath: m_LocalPosition.z
