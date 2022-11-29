@@ -19,13 +19,23 @@ namespace Freshaliens.LevelSelection.Components
             bounds = boundCollider.bounds;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             float halfViewportHeightWS = cam.orthographicSize;
-            float halfViewportWidthWS = cam.orthographicSize * cam.aspect;
+            float halfViewportWidthWS = halfViewportHeightWS * cam.aspect;
 
+            float minX = bounds.min.x + halfViewportWidthWS;
+            float minY = bounds.min.y + halfViewportHeightWS;
+            float maxX = bounds.max.x - halfViewportWidthWS;
+            float maxY = bounds.max.x - halfViewportHeightWS;
 
-            
+            float x = Mathf.Clamp(target.position.x, minX, maxX);
+            float y = Mathf.Clamp(target.position.y, minY, maxY);
+            float z = ownTransform.position.z;
+
+            transform.position = new Vector3(x, y, z);
         }
+
+
     }
 }
