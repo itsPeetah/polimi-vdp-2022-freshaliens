@@ -10,11 +10,19 @@ namespace Freshaliens.LevelSelection.Components
 
         [SerializeField] private LineRenderer line;
 
+        [Header("Visuals")]
         [SerializeField] private float materialSegmentLength = 5f;
-        //[SerializeField] private float 
+        [SerializeField] private Color lockedColor = Color.gray, unlockedColor = Color.yellow;
 
         private Transform start = null, end = null;
         private float distanceRatio = 0;
+
+#if UNITY_EDITOR
+        private void Update()
+        {
+            line.material.SetFloat(MAT_SEGMENTATION, CalculateMaterialSegmentation());
+        }
+#endif
 
         public void SetPoints(Transform start, Transform end, float maxDistance) {
             this.start = start;
@@ -26,12 +34,11 @@ namespace Freshaliens.LevelSelection.Components
             line.material.SetFloat(MAT_SEGMENTATION, CalculateMaterialSegmentation());
         }
 
-#if UNITY_EDITOR
-        private void Update()
-        {
-            line.material.SetFloat(MAT_SEGMENTATION, CalculateMaterialSegmentation());
+        public void SetUnlocked(bool value) {
+            line.startColor = value ? unlockedColor : lockedColor;
+            line.endColor = value ? unlockedColor : lockedColor;
         }
-#endif
+
         private float CalculateMaterialSegmentation() {
 
             float segmentOnFullLengthRatio = distanceRatio * materialSegmentLength;

@@ -146,3 +146,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   line: {fileID: 2757046881648195010}
   materialSegmentLength: 35
+  lockedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  unlockedColor: {r: 1, g: 0.85882354, b: 0.003921569, a: 1}

@@ -30,7 +30,7 @@ public class PlayerData
     private int lastUnlockedLevel;
 
     // Getters
-    public int LastUnlockedLevel => lastUnlockedLevel;
+    public int LastUnlockedLevel { get => lastUnlockedLevel; set => lastUnlockedLevel = value; } 
 
     private static PlayerData Load() {
         PlayerData pd = new();

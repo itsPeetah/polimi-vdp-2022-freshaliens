@@ -17,8 +17,10 @@ namespace Freshaliens.LevelSelection.Components
         [Header("Visuals")]
         [SerializeField] private GameObject levelMapLinePrefab = null;
         private Transform levelMapLineContainer;
+        private LevelMapLine[] mapLines = null;
         [Space(10)]
         [SerializeField] private LevelSelectionCursor cursor;
+        
 
         private void Awake()
         {
@@ -30,25 +32,40 @@ namespace Freshaliens.LevelSelection.Components
             currentlySelectedLevel = 0; // TODO Load latest from saved data;
 
             InstantiateMapLines();
+            UpdateMapLineState();
+
             cursor.SetPosition(levels[currentlySelectedLevel].transform.position);
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow)) SelectNextLevel();
-            if (Input.GetKeyDown(KeyCode.LeftArrow)) SelectPrevLevel();
+            if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) SelectNextLevel();
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) SelectPrevLevel();
+
+#if UNITY_EDITOR
+
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                PlayerData.Instance.LastUnlockedLevel = PlayerData.Instance.LastUnlockedLevel + 1;
+
+                UpdateMapLineState();
+            }
+#endif
         }
 
         private void SelectLevel(int index)
         {
-            if (index > PlayerData.Instance.LastUnlockedLevel && !allowLockedSelection) {
+
+            int prevSelectedLevel = currentlySelectedLevel;
+            int levelToSelect = Mathf.Abs(index) % levels.Length;
+
+            if (levelToSelect > PlayerData.Instance.LastUnlockedLevel && !allowLockedSelection)
+            {
                 Debug.Log($"Level has not been unlocked yet!");
                 return;
             }
 
-
-            int prevSelectedLevel = currentlySelectedLevel;
-            currentlySelectedLevel = Mathf.Abs(index) % levels.Length;
+            currentlySelectedLevel = levelToSelect;
 
             int diff = currentlySelectedLevel - prevSelectedLevel;
             if (diff > 1)
@@ -73,9 +90,17 @@ namespace Freshaliens.LevelSelection.Components
 
             float maxDistance = Vector3.Distance(levels[0].transform.position, levels[levels.Length - 1].transform.position);
 
+            mapLines = new LevelMapLine[levels.Length - 1];
             for (int i = 1; i < levels.Length; i++) {
                 LevelMapLine lml = Instantiate(levelMapLinePrefab, levelMapLineContainer).GetComponent<LevelMapLine>();
                 lml.SetPoints(levels[i - 1].transform, levels[i].transform, maxDistance);
+                mapLines[i - 1] = lml;
+            }
+        }
+
+        private void UpdateMapLineState() {
+            for (int i = 0; i < mapLines.Length; i++) {
+                mapLines[i].SetUnlocked(i+1 <= PlayerData.Instance.LastUnlockedLevel);
             }
         }
     }
