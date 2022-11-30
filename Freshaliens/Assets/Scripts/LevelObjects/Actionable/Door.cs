@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Freshaliens.Interaction.Components
 {
 
-    public class Door : Activable
+    public class Door : Actionable
     {
 
         //State

@@ -9,7 +9,7 @@ namespace Freshaliens.Interaction.Components
     public class Lever : Interactable
     {
         //Parameters
-        [SerializeField] private Activable _linkedObject;
+        [SerializeField] private Actionable _linkedObject;
 
         // //State                                                          ALL 
         // private bool _isActive;                                          THIS 

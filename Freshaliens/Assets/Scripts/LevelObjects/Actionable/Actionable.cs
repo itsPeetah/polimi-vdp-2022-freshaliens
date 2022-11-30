@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Freshaliens.Interaction
 {
-    public abstract class Activable : MonoBehaviour
+    public abstract class Actionable : MonoBehaviour
     {
         public virtual void OnAction() { }
     }
