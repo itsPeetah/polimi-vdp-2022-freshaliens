@@ -19,7 +19,8 @@ namespace Freshaliens
         [SerializeField] private float maxFairyJumpTimeFrame = 0.5f;
 
         public bool Detected => detected;
-        public bool CanFairyJump => detected && stayTimer <= maxFairyJumpTimeFrame;
+        public bool CanFairyJump => detected /* && stayTimer <= maxFairyJumpTimeFrame */;
+        public bool CanFairyJumpWithTimeFrame => detected && stayTimer <= maxFairyJumpTimeFrame;
 
         public override void OnFairyEnter()
         {
