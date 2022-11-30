@@ -49,7 +49,7 @@ namespace MenuManagement
             _screenFader.FadeOff();
             
             // LOAD MAIN MENU LEVEL
-            LevelManager.LoadMainMenuLevel();
+            SceneLoadingManager.LoadMainMenuLevel();
             
             yield return new WaitForSeconds(_screenFader.FadeOnDuration);
 
