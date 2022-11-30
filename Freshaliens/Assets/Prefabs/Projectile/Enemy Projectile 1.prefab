@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3837385224963483075}
   - component: {fileID: 1831304505650351789}
   - component: {fileID: 8755613634670578051}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Enemy Projectile 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,5 +140,5 @@ MonoBehaviour:
   lifeTime: 5
   hitLayers:
     serializedVersion: 2
-    m_Bits: 193
+    m_Bits: 192
   rbody: {fileID: 3837385224963483075}

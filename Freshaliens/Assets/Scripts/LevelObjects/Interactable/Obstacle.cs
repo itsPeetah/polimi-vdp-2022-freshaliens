@@ -15,53 +15,48 @@ namespace Freshaliens.Interaction
         [SerializeField] private int _ninjaLayer = 7;
         [SerializeField] private int _fairyLayer = 8;
         
-        private LivesManager _livesManager;
-        public Target _target = Target.Both;
+        [SerializeField] private Target _target = Target.Both;
 
-        public enum Target
+        private enum Target
         {
             Both,
             Ninja,
             Fairy
         }
+        
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (!collider.CompareTag("Player"))
+        {
+            return;
+        }
 
-    //     private void Start()
-    //     {
-    //         _livesManager = GetComponent<LivesManager>(); 
-    //         
-    //     }
-    //
-    //     private void OnTriggerEnter2D(Collider2D collider)
-    //     {
-    //         if (!collider.CompareTag("Player"))
-    //         {
-    //             return;
-    //         }
-    //         int colliderLayer = collider.gameObject.layer;
-    //         // MovementController player = collider.gameObject.GetComponent<MovementController>();
-    //         
-    //         // switch (_target)
-    //         // {
-    //         //     case Target.Ninja:
-    //         //         if (colliderLayer==_ninjaLayer) 
-    //         //         {
-    //         //             _livesManager.PlayerHit(player);  
-    //         //             Debug.Log("hit ninja");
-    //         //         }
-    //         //         break;
-    //         //     case Target.Fairy:
-    //         //         if (colliderLayer==_fairyLayer)
-    //         //         {
-    //         //             _livesManager.PlayerHit(player);
-    //         //             Debug.Log("hit fairy");
-    //         //         }
-    //         //         break;
-    //         //     case Target.Both:
-    //         //         _livesManager.PlayerHit(player);
-    //         //         Debug.Log("hit whoever");
-    //         //         break;
-    //         // }
-    //     }
+        GameObject playerObject = collider.gameObject;
+        int colliderLayer = playerObject.layer;
+        LivesManager livesManager = playerObject.GetComponent<LivesManager>();
+
+        switch (_target)
+        {
+            case Target.Ninja:
+                if (colliderLayer==_ninjaLayer) 
+                {
+                    livesManager.HitPlayer();  
+                    Debug.Log("hit ninja");
+                }
+                break;
+            case Target.Fairy:
+                if (colliderLayer==_fairyLayer)
+                {
+                    livesManager.HitPlayer();
+                    Debug.Log("hit fairy");
+                }
+                break;
+            case Target.Both:
+                livesManager.HitPlayer();
+                Debug.Log("hit whoever");
+                break;
+        }
+    }
     
     }
 
