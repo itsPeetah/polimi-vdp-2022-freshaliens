@@ -41,4 +41,9 @@ public class PlayerData
     public void Save() {
         PlayerPrefs.SetInt(PP_LEVEL_KEY, lastUnlockedLevel);
     }
+
+    public void UnlockNextLevel(bool save=false) {
+        lastUnlockedLevel += 1;
+        if (save) Save();
+    }
 }
