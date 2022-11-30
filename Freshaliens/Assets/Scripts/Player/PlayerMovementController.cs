@@ -24,8 +24,8 @@ namespace Freshaliens.Player.Components
         [SerializeField, Tooltip("Jump force when fairy-jumping")] private float jumpForceAirborne = 10.0f;
         [SerializeField] private int maxAirJumps = 1;
         [SerializeField] private float jumpQueueFrame = 0.15f;
-        [SerializeField, Range(0, 80)] private float wallJumpAngle = 45f;
-        [SerializeField] private bool canWallJump = true;
+        //[SerializeField, Range(0, 80)] private float wallJumpAngle = 45f;
+        //[SerializeField] private bool canWallJump = true;
         [SerializeField] private float wallJumpIgnoreInputFrame = 0.1f;
 
         [Header("Gravity control")]
@@ -41,19 +41,19 @@ namespace Freshaliens.Player.Components
         [SerializeField] private float groundCheckRadius = 0.1f; // TODO Rename to something like collisionCheckRadius??
         [SerializeField] private LayerMask groundLayers = 0;
 
-        [Header("Wall check")] // Uses groundlayers and groundcheckradius
-        [SerializeField] private bool canClimb = true;
-        [SerializeField] private Transform wallCheckRight = null;
-        [SerializeField] private Transform wallCheckLeft = null;
+        //[Header("Wall check")] // Uses groundlayers and groundcheckradius
+        //[SerializeField] private bool canClimb = true;
+        //[SerializeField] private Transform wallCheckRight = null;
+        //[SerializeField] private Transform wallCheckLeft = null;
 
         // State
         private bool isMoving = false;
         private bool isGrounded = false;
         private bool wasGrounded = false;
         private bool isWithinCoyoteTime = false;
-        private bool isClimbing = false;
-        private bool facingWallRight = false;
-        private bool facingWallLeft = false;
+        //private bool isClimbing = false;
+        //private bool facingWallRight = false;
+        //private bool facingWallLeft = false;
         private bool jumpQueued = false;
         private int remainingAirJumps = 0;
         private float currentSpeed = 0f;
@@ -122,10 +122,10 @@ namespace Freshaliens.Player.Components
                 lastGroundedTimestamp = Time.time;
             }
 
-            // Climbing
-            bool pushingWallRight = facingWallRight && direction > 0;
-            bool pushingWallLeft = facingWallLeft && direction < 0;
-            isClimbing = canClimb && (pushingWallRight || pushingWallLeft);
+            //// Climbing
+            //bool pushingWallRight = facingWallRight && direction > 0;
+            //bool pushingWallLeft = facingWallLeft && direction < 0;
+            //isClimbing = canClimb && (pushingWallRight || pushingWallLeft);
 
 
             // Jumping
@@ -134,20 +134,20 @@ namespace Freshaliens.Player.Components
             {
                 jumpQueued = false;
 
-                if (isClimbing)
-                {
-                    // Wall jump
-                    isClimbing = false;
-                    wallJumpTimestamp = Time.time;
-                    velocity.x = -direction * jumpForceGrounded * Mathf.Cos(wallJumpAngle);
-                    velocity.y = jumpForceGrounded * Mathf.Sin(wallJumpAngle);
-                }
-                else
-                {
+                //if (isClimbing)
+                //{
+                //    // Wall jump
+                //    isClimbing = false;
+                //    wallJumpTimestamp = Time.time;
+                //    velocity.x = -direction * jumpForceGrounded * Mathf.Cos(wallJumpAngle);
+                //    velocity.y = jumpForceGrounded * Mathf.Sin(wallJumpAngle);
+                //}
+                //else
+                //{
                     // Grounded or airborne jump
                     if (!isGrounded && !isWithinCoyoteTime) remainingAirJumps -= 1;
                     velocity.y = isGrounded ? jumpForceGrounded : jumpForceAirborne;
-                }
+                //}
             }
             else
             {
@@ -156,8 +156,8 @@ namespace Freshaliens.Player.Components
             }
 
             // Gravity
-            if (isClimbing && rbody.velocity.y <= minVerticalVelocityForJump) rbody.gravityScale = gravityScaleClimbing;
-            else if (isGrounded || rbody.velocity.y <= minVerticalVelocityForJump) rbody.gravityScale = gravityScaleFalling;
+            /*if (isClimbing && rbody.velocity.y <= minVerticalVelocityForJump) rbody.gravityScale = gravityScaleClimbing;
+            else*/ if (isGrounded || rbody.velocity.y <= minVerticalVelocityForJump) rbody.gravityScale = gravityScaleFalling;
             else rbody.gravityScale = gravityScaleDefault;
 
             // Apply movement
@@ -177,8 +177,8 @@ namespace Freshaliens.Player.Components
                 isGrounded |= Physics2D.OverlapCircle(groundChecks[i].position, groundCheckRadius, groundLayers) != null;
             }
 
-            facingWallRight = Physics2D.OverlapCircle(wallCheckRight.position, groundCheckRadius, groundLayers) != null;
-            facingWallLeft = Physics2D.OverlapCircle(wallCheckLeft.position, groundCheckRadius, groundLayers) != null;
+            //facingWallRight = Physics2D.OverlapCircle(wallCheckRight.position, groundCheckRadius, groundLayers) != null;
+            //facingWallLeft = Physics2D.OverlapCircle(wallCheckLeft.position, groundCheckRadius, groundLayers) != null;
         }
 
         private bool CanJump()
@@ -186,7 +186,7 @@ namespace Freshaliens.Player.Components
             if (isGrounded) return rbody.velocity.y <= minVerticalVelocityForJump;
 
             bool canAirJump = remainingAirJumps > 0 && fairyDetector.CanFairyJump;
-            return (isClimbing && canWallJump) || isWithinCoyoteTime || canAirJump;
+            return /*(isClimbing && canWallJump) ||*/ isWithinCoyoteTime || canAirJump;
         }
 
         //private void OnDrawGizmos()
