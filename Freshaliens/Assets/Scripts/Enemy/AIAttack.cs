@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
-
+using Freshaliens.Player.Components;
 namespace Freshaliens.Enemy.Components
 {
 
@@ -13,8 +13,8 @@ namespace Freshaliens.Enemy.Components
 
         [SerializeField] public float _attackRange;
         [SerializeField] public int _damage;
-        [SerializeField] public Transform _target;
         [SerializeField] private float firePower = 10f;
+        private Transform _target;
         private Quaternion _rotation;
         private Rigidbody2D _rb;
 
@@ -28,7 +28,7 @@ namespace Freshaliens.Enemy.Components
         float fireTimer = 0;
 
         private void Start()
-        {
+        {   _target = PlayerMovementController.Instance.transform;
             _rb = GetComponent<Rigidbody2D>();
             projectiles = ProjectilePool.GetByID(projectilePoolId);
         }
@@ -42,11 +42,12 @@ namespace Freshaliens.Enemy.Components
             weaponAngleRadians = Mathf.Atan2(dy, dx);
             if (distToPlayer < _attackRange)
             {
+                //Debug.Log("in range");
                 bool canFire = fireTimer <= 0;
                 fireTimer -= Time.deltaTime;
                 if (canFire)
                 {
-
+                   // Debug.Log("shoot");
                     fireTimer = fireInterval;
                     Shoot();
                 }

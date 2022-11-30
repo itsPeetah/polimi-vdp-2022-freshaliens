@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 970049360}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4520864182759604407, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680977984, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: _rb
@@ -52,7 +52,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680977984, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: _attackRange
-      value: 10
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680977984, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: weaponMuzzle
@@ -68,11 +68,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680977989, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: stopRange
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680977989, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: aggroRange
-      value: 10
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680977990, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_Color.b
@@ -92,11 +92,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.7
+      value: 87.87
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.26
+      value: 1.26
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -132,11 +132,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978015, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_Name
-      value: Enemy (2)
+      value: Shooter (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978015, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}

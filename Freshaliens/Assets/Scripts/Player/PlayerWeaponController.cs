@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Freshaliens.Player.Components
 {
-    [RequireComponent(typeof(PlayerInputHandler))]
+    
+    [RequireComponent(typeof(PlayerInputHandler)),RequireComponent(typeof(PlayerMovementController))]
     public class PlayerWeaponController : MonoBehaviour
     {
         [Header("Weapon")]
-        [SerializeField] private Transform weaponPivot;
+        
         [SerializeField, Tooltip("Projectile spawn point")] private Transform weaponMuzzle;
-
+        
         [Header("Fire")]
         [SerializeField] private float fireInterval = 0.5f;
         [SerializeField] private string projectilePoolId = "Player";
@@ -20,28 +21,29 @@ namespace Freshaliens.Player.Components
         float weaponAngleRadians = 0;
         float fireTimer = 0;
 
+        private Vector3 muzzleOffset;
         // Components
         private PlayerInputHandler input;
 
         // References
         private ProjectilePool projectiles;
+        private PlayerMovementController playerMovementController;
 
         private void Start()
         {
             input = GetComponent<PlayerInputHandler>();
             projectiles = ProjectilePool.GetByID(projectilePoolId);
+            playerMovementController = GetComponent<PlayerMovementController>();
+            muzzleOffset = weaponMuzzle.position - transform.position;
+
         }
 
         private void Update()
         {
-            // Rotate
-            Vector2 screenPos = Camera.main.WorldToScreenPoint(weaponPivot.position);
-            Vector2 aimPos = input.GetAimPosition();
-            float dx = aimPos.x - screenPos.x;
-            float dy = aimPos.y - screenPos.y;
-            weaponAngleRadians = Mathf.Atan2(dy, dx);
-            weaponPivot.localRotation = Quaternion.Euler(0, 0, weaponAngleRadians * Mathf.Rad2Deg);
 
+            Vector3 actualOffset = new Vector3(muzzleOffset.x * playerMovementController.LastFacedDirection,
+                muzzleOffset.y, muzzleOffset.z);
+            weaponMuzzle.localPosition = actualOffset;
             // Shoot
             bool wantsToFire = input.GetActionInput();
             bool canFire = fireTimer <= 0;
@@ -55,8 +57,11 @@ namespace Freshaliens.Player.Components
 
         private void Shoot()
         {
+            
             Vector3 pos = weaponMuzzle.position;
-            Vector3 vel = new Vector3(Mathf.Cos(weaponAngleRadians), Mathf.Sin(weaponAngleRadians)) * firePower;
+            
+            Vector3 vel = Vector3.right * (playerMovementController.LastFacedDirection * firePower);
+            
             projectiles.Spawn(pos, vel);
         }
     }
