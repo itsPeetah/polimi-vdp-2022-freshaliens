@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Search;
 using UnityEngine;
-
+using Freshaliens.Player.Components;
 namespace Freshaliens.Enemy.Components
 {
 
@@ -20,7 +20,7 @@ namespace Freshaliens.Enemy.Components
 
         [SerializeField] public float walkSpeed, aggroRange, stopRange;
         private float distToPlayer;
-        public Transform player;
+        private Transform player;
 
 
         [SerializeField] public Rigidbody2D rb;
@@ -34,6 +34,7 @@ namespace Freshaliens.Enemy.Components
         void Start()
         {
             rb = GetComponent<Rigidbody2D>();
+            player = PlayerMovementController.Instance.transform;
             mustPatrol = true; //in default è null
             canShoot = true;
         }

@@ -18,8 +18,8 @@ TagManager:
   - Enemy
   - Camera Bounds
   - InvisiblePlatform
-  - 
-  - 
+  - PProjectile
+  - EProjectile
   - 
   - 
   - 

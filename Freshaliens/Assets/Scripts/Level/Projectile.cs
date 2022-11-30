@@ -16,6 +16,8 @@ public class Projectile : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Rigidbody2D rbody = null;
 
+    
+
 
     public void Fire(Vector2 velocity) {
         StopAllCoroutines();
@@ -30,6 +32,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         int layer = collision.gameObject.layer;
         // If object is on a hittable layer
 
@@ -49,8 +52,10 @@ public class Projectile : MonoBehaviour
             Debug.Log($"Hit! {collision.gameObject.name}");
 
             ProjectileTarget target = collision.GetComponent<ProjectileTarget>();
+            
             if (target != null) {
                 target.Hit();
+                
             }
         }
     }
