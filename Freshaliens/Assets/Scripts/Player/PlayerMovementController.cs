@@ -7,7 +7,7 @@ namespace Freshaliens.Player.Components
 {
 
     [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerInputHandler)), RequireComponent(typeof(PlayerFairyDetector))]
-    public class PlayerMovementController : MonoBehaviour
+    public class PlayerMovementController : MovementController
     {
         private static PlayerMovementController instance = null;
         public static PlayerMovementController Instance { get => instance; private set => instance = value; }

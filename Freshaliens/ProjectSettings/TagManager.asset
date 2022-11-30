@@ -17,8 +17,8 @@ TagManager:
   - Wall
   - Enemy
   - Camera Bounds
-  - InvisiblePlatform
-  - 
+  - Interactable
+  - Obstacle
   - 
   - 
   - 
