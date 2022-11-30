@@ -14,7 +14,7 @@ namespace MenuManagement
         public void OnMainMenuPressed()
         {   
             base.OnBackPressed();
-            LevelManager.LoadMainMenuLevel();
+            SceneLoadingManager.LoadMainMenuLevel();
         }
         
         public void OnDisable()

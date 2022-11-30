@@ -32,16 +32,15 @@ namespace MenuManagement
             }
             else
             {
-                LevelManager.LoadNextLevel();
+                SceneLoadingManager.LoadLevelSelection();
                 GameMenu.Open();
             }
         }
 
         private IEnumerator OnPlayPressedRoutine()
         {
-            print("ACTIVATE THE TRANSITION FADER");
             TransitionFader.PlayTransition(transitionFaderPrefab);
-            LevelManager.LoadFirstLevel();
+            SceneLoadingManager.LoadLevelSelection();
             yield return new WaitForSeconds(playDelay);
             GameMenu.Open();
         }
