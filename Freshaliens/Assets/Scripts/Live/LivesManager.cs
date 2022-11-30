@@ -74,6 +74,13 @@ public class LivesManager : MonoBehaviour
             hit = true;
         }
     }
+
+    public void HitPlayer()
+    {
+        //hit 
+    }
+    
+    
     }
         
 
