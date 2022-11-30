@@ -62,7 +62,7 @@ namespace Freshaliens.LevelSelection.Components
             if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) SelectNextLevel();
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) SelectPrevLevel();
             if (Input.GetKeyDown(KeyCode.Space)) {
-                ui.FadeScreen(0,1, () => SceneManager.LoadSceneAsync(CurrentLevelInfo.SceneName));
+                ui.FadeScreen(0,1, () => SceneLoadingManager.LoadScene(CurrentLevelInfo.SceneName));
             }
 
 
