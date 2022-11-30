@@ -6,7 +6,9 @@ using Freshaliens.Interaction;
 
 namespace Freshaliens.Player.Components
 {
-
+    /// <summary>
+    /// Component that handles the interaction between the fairy character and the world.
+    /// </summary>
     [RequireComponent(typeof(PlayerInputHandler))]
     public class FairyInteractionController : MonoBehaviour
     {
@@ -32,6 +34,12 @@ namespace Freshaliens.Player.Components
             }
         }
 
+        /// <summary>
+        /// Check if the collision was with an interactable object
+        /// </summary>
+        /// <param name="collision">Collider detected by the trigger</param>
+        /// <param name="interactable">Interactable component on the colliding object</param>
+        /// <returns>Whether the collision is to be considered by the interaction system</returns>
         private bool CheckInteractable(Collider2D collision, out Interactable interactable)
         {
             collision.gameObject.TryGetComponent(out interactable);
@@ -40,22 +48,26 @@ namespace Freshaliens.Player.Components
             return false;
         }
 
-        /**
-         * 
-         * go.layer = 7 (int)
-         * lm = uint 101011 (bitmask)
-         * 5 -> 000101
-         * 
-         * 000101 (layer = 5)
-         * 100000 (layermask = 5)
-         * 
-         * 1 -> 000001
-         * 1 << layer -> 1 << 5 -> 100000
-         * 
-         */
 
+        /// <summary>
+        /// Check whether the layer is contained within the interactable layers mask.
+        /// </summary>
         private bool CheckLayer(int layer)
         {
+            /**
+             * Flag explanation
+             * 
+             * go.layer = 7 (int)
+             * lm = uint 101011 (bitmask)
+             * 5 -> 000101
+             * 
+             * 000101 (layer = 5)
+             * 100000 (layermask = 5)
+             * 
+             * 1 -> 000001
+             * 1 << layer -> 1 << 5 -> 100000
+             * 
+             */
             return ((1 << layer) & interactableLayers) != 0;
         }
 
@@ -90,12 +102,6 @@ namespace Freshaliens.Player.Components
                 interactable.OnFairyExit();
             }
         }
-
-        // public void SetStoredInteractable(Interactable interactable, bool triggerEvents = false) {
-        //     if (triggerEvents && interactable != storedInteractable && storedInteractable != null) storedInteractable.OnFairyExit();
-        //     storedInteractable = interactable;
-        //     if (triggerEvents && storedInteractable != null) interactable.OnFairyEnter();
-        // }
     }
 
 }

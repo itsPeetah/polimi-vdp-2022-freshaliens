@@ -6,7 +6,10 @@ using Freshaliens.Interaction;
 
 namespace Freshaliens
 {
-
+    /// <summary>
+    /// Interactable component to be put on the player to allow interaction with the fairy.
+    /// Used for fairy jumping
+    /// </summary>
     public class PlayerFairyDetector : Interactable
     {
         private bool detected = false;
