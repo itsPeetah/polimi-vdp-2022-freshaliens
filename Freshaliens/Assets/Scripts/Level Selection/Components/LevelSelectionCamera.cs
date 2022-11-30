@@ -22,20 +22,25 @@ namespace Freshaliens.LevelSelection.Components
             bounds = boundCollider.bounds;
         }
 
+        // Using late update to wait for position updates
         private void LateUpdate()
         {
+            // Camera size in world units
             float halfViewportHeightWS = cam.orthographicSize;
             float halfViewportWidthWS = halfViewportHeightWS * cam.aspect;
 
+            // Calculate world space bounds considering camera size
             float minX = bounds.min.x + halfViewportWidthWS;
             float minY = bounds.min.y + halfViewportHeightWS;
             float maxX = bounds.max.x - halfViewportWidthWS;
             float maxY = bounds.max.x - halfViewportHeightWS;
 
+            // Clamp position within bouns
             float x = Mathf.Clamp(target.position.x + offset.x, minX, maxX);
             float y = Mathf.Clamp(target.position.y + offset.y, minY, maxY);
             float z = ownTransform.position.z;
 
+            // Apply movement
             Vector3 targetPosition = new Vector3(x, y, z);
             float distance = Vector3.Distance(ownTransform.position, targetPosition);
             ownTransform.position = distance < 0.01f ? targetPosition : Vector3.Lerp(ownTransform.position, targetPosition, smoothing);

@@ -22,7 +22,12 @@ namespace Freshaliens.LevelSelection.Components
             line.material.SetFloat(MAT_SEGMENTATION, CalculateMaterialSegmentation());
         }
 #endif
-
+        /// <summary>
+        /// Set the position for the line segment
+        /// </summary>
+        /// <param name="start">Starting position</param>
+        /// <param name="end">Ending position</param>
+        /// <param name="maxDistance">Max distance out of all level reps in the scene (used for normalization)</param>
         public void SetPoints(Transform start, Transform end, float maxDistance) {
             line.SetPositions(new Vector3[] {start.position, end.position});
 
