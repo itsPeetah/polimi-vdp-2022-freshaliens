@@ -5,10 +5,13 @@ using UnityEngine;
 
 namespace Freshaliens.Player.Components
 {
-
+    /// <summary>
+    /// Movment controller component for the fairy character
+    /// </summary>
     [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerInputHandler))]
     public class FairyMovementController : MovementController
     {
+        // Singleton instance
         private static FairyMovementController instance = null;
         public static FairyMovementController Instance { get => instance; private set => instance = value; }
 
@@ -80,6 +83,7 @@ namespace Freshaliens.Player.Components
                 lockOnTargetAssigned = false;
             }
 
+            // "Free movement" exceptions
             if (isReturningToPlayer || isLockingOnTarget)
             {
                 movementDirection = isLockingOnTarget ? (lockOnTarget.position - ownTransform.position) : (PlayerMovementController.Instance.Position - ownTransform.position);
@@ -104,18 +108,18 @@ namespace Freshaliens.Player.Components
             rbody.velocity = currentVelocity + dampen * deltaVelocity;
         }
 
-        private void PerformMovement(Vector2 direction, float acceleration, float maxSpeed) {
-            currentVelocity = rbody.velocity;
-            Vector2 targetVelocity = movementDirection.normalized * maxSpeed;
-            Vector2 deltaVelocity = targetVelocity - currentVelocity;
-            float dampen = Mathf.Clamp01(acceleration * Time.deltaTime / maxSpeed);
-            rbody.velocity = currentVelocity + dampen * deltaVelocity;
-        }
-
+        /// <summary>
+        /// Stun the fairy, preventing it from moving
+        /// </summary>
+        /// <param name="extraTime">Extra time to be added on top of the default stun time</param>
         public void Stun(float extraTime = 0) {
+            // TODO Move the fairy away to avoid stun locking?
             stunTimer = stunDuration + extraTime;
         }
 
+        /// <summary>
+        /// Lock the fairy onto a target
+        /// </summary>
         public void SetLockOnTarget(Transform target) {
             lockOnTarget = target;
             lockOnTargetAssigned = true;

@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 namespace Freshaliens.LevelSelection.Components
 {
+    /// <summary>
+    /// Scene manager for level selection
+    /// </summary>
     public class LevelSelectionManager : MonoBehaviour
     {
         private static LevelSelectionManager instance;
@@ -89,6 +92,7 @@ namespace Freshaliens.LevelSelection.Components
             currentlySelectedLevel = levelToSelect;
             currentLevelInfo = levels[currentlySelectedLevel].Info;
 
+            // Do entire path when looping from first to last or vice-versa
             int diff = currentlySelectedLevel - prevSelectedLevel;
             if (diff == 0)
             {
@@ -104,13 +108,23 @@ namespace Freshaliens.LevelSelection.Components
                     cursor.SetTarget(i, levels[i].transform.position);
             }
             else
+                // Don't go through the trouble of travelling when re-selecting the same level
                 cursor.SetTarget(currentlySelectedLevel, levels[currentlySelectedLevel].transform.position);
 
             onLevelSelected?.Invoke(currentLevelInfo);
         }
+        /// <summary>
+        /// Advance selection by one
+        /// </summary>
         private void SelectNextLevel() => SelectLevel(currentlySelectedLevel + 1);
+        /// <summary>
+        /// Reverse selection by one
+        /// </summary>
         private void SelectPrevLevel() => SelectLevel(currentlySelectedLevel - 1 + levels.Length);
 
+        /// <summary>
+        /// Setup map lines between level reps
+        /// </summary>
         private void InstantiateMapLines() {
 
             levelMapLineContainer = new GameObject("Map Lines").transform;
@@ -126,6 +140,9 @@ namespace Freshaliens.LevelSelection.Components
             }
         }
 
+        /// <summary>
+        /// Update line color when new levels become available
+        /// </summary>
         private void UpdateMapLineState() {
             for (int i = 0; i < mapLines.Length; i++) {
                 mapLines[i].SetUnlocked(i+1 <= PlayerData.Instance.LastUnlockedLevel);

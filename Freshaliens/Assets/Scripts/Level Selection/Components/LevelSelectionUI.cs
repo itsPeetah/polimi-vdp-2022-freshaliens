@@ -7,6 +7,9 @@ using System;
 
 namespace Freshaliens.LevelSelection.Components
 {
+    /// <summary>
+    /// UI Manager for the level selection scene
+    /// </summary>
     public class LevelSelectionUI : MonoBehaviour
     {
         [Header("Current Level Panel")]
@@ -24,13 +27,15 @@ namespace Freshaliens.LevelSelection.Components
             FadeScreen(1, 0);
         }
 
+        /// <summary>
+        /// Update the information displayed for the currently selected level
+        /// </summary>
         public void UpdateLevelInfoDisplay(LevelInfo info) {
             StopCoroutine(nameof(ScaleCurrentLevelPanel_Coroutine));
             StartCoroutine(nameof(ScaleCurrentLevelPanel_Coroutine));
             currentLevelLabel.SetText(info.Name);
             currentLevelDescriptionLabel.SetText(info.Description);
         }
-
 
         private IEnumerator ScaleCurrentLevelPanel_Coroutine() {
 
@@ -50,6 +55,12 @@ namespace Freshaliens.LevelSelection.Components
             screenFader.color = c;
         }
 
+        /// <summary>
+        /// Fade the screen
+        /// </summary>
+        /// <param name="from">Alpha value to start fading from</param>
+        /// <param name="to">alpha value to fade to</param>
+        /// <param name="onFinished">Callback to invoke when finished fading</param>
         public void FadeScreen(float from = 0, float to=1, Action onFinished=null) {
             StopAllCoroutines();
             StartCoroutine(FadeScreen_Coroutine( from, to, onFinished));

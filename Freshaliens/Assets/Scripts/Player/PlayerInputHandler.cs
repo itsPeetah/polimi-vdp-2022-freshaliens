@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Freshaliens.Player.Components
 {
+    /// <summary>
+    /// Centralized input handler for a gameobject
+    /// </summary>
     public class PlayerInputHandler : MonoBehaviour
     {
         [SerializeField] private string horizontalAxis = "Horizontal";
@@ -26,6 +29,7 @@ namespace Freshaliens.Player.Components
             return Input.GetAxisRaw(verticalAxis);
         }
 
+        // TODO Remove this
         public Vector2 GetAimPosition()
         {
             return Input.mousePosition;
