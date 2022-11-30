@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   levelName: Level 2
+  sceneName: Movement Testing
   levelDescription: this is the second level of the game

@@ -5,7 +5,9 @@ using System;
 
 namespace Freshaliens.Player.Components
 {
-
+    /// <summary>
+    /// Component that handles player movement 
+    /// </summary>
     [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerInputHandler)), RequireComponent(typeof(PlayerFairyDetector))]
     public class PlayerMovementController : MovementController
     {
@@ -49,7 +51,6 @@ namespace Freshaliens.Player.Components
         private float currentSpeed = 0f;
         private float jumpPressedTimestamp = 0f;    // time of last jump press (for buffering)
         private float lastGroundedTimestamp = 0f;   // time player was last grounded (for coyote time)
-        private float wallJumpTimestamp = 0f;   // time of last wall jump (to disable airborne control)
         private float lastFacedDirection = 1f;
         private Vector2 velocity = Vector2.zero;
 
@@ -107,8 +108,7 @@ namespace Freshaliens.Player.Components
             }
 
             // Ignore input direction if walljumping, apply it if not within the ignore input time frame
-            if (Time.time - wallJumpTimestamp > wallJumpIgnoreInputFrame)
-                velocity.x = direction * currentSpeed;
+            velocity.x = direction * currentSpeed;
 
             if (isGrounded) remainingAirJumps = maxAirJumps;
             else if (wasGrounded)
@@ -122,10 +122,10 @@ namespace Freshaliens.Player.Components
             {
                 jumpQueued = false;
 
-                    // Grounded or airborne jump
-                    if (!isGrounded && !isWithinCoyoteTime) remainingAirJumps -= 1;
-                    velocity.y = isGrounded ? jumpForceGrounded : jumpForceAirborne;
-                
+                // Grounded or airborne jump
+                if (!isGrounded && !isWithinCoyoteTime) remainingAirJumps -= 1;
+                velocity.y = isGrounded ? jumpForceGrounded : jumpForceAirborne;
+
             }
             else
             {

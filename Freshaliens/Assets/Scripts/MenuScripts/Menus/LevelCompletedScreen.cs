@@ -18,19 +18,19 @@ namespace MenuManagement
         {
             // delete the current screen
             base.OnBackPressed();
-            LevelManager.ReloadLevel();
+            SceneLoadingManager.ReloadLevel();
         }
 
         public void OnNextLevelPressed()
         {
             base.OnBackPressed();
-            LevelManager.LoadNextLevel();
+            SceneLoadingManager.LoadLevelSelection();
         }
 
         public void OnMainMenuPressed()
         {   
             base.OnBackPressed();
-            LevelManager.LoadMainMenuLevel();
+            SceneLoadingManager.LoadMainMenuLevel();
         }
         
         public void OnDisable()
