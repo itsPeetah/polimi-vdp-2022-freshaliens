@@ -19,8 +19,8 @@ TagManager:
   - Camera Bounds
   - Interactable
   - Obstacle
-  - 
-  - 
+  - PProjectile
+  - EProjectile
   - 
   - 
   - 

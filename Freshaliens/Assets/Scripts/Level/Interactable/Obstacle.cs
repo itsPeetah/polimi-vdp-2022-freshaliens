@@ -30,11 +30,12 @@ namespace Freshaliens.Interaction
         {
             return;
         }
+        
 
         GameObject playerObject = collider.gameObject;
         int colliderLayer = playerObject.layer;
         LivesManager livesManager = playerObject.GetComponent<LivesManager>();
-
+        
         switch (_target)
         {
             case Target.Ninja:
