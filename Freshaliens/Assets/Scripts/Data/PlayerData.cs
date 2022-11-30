@@ -62,6 +62,11 @@ public class PlayerData
         PlayerPrefs.SetFloat(PP_MUSIC_VOLUME_KEY, musicVolume);
     }
 
+    public static void ForceSaveToDisk() {
+        Instance.Save();
+        PlayerPrefs.Save();
+    }
+
     public void UnlockNextLevel(bool save=false) {
         lastUnlockedLevel += 1;
         if (save) Save();

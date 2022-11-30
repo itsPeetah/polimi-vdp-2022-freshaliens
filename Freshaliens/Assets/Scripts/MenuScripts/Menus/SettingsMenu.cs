@@ -66,7 +66,8 @@ namespace MenuManagement
 
             // saves the values to disk
 
-            PlayerData.Instance.Save();
+            //PlayerData.Instance.Save();
+            PlayerData.ForceSaveToDisk();
         }
 
         public void UpdateAudioManager()
