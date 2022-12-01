@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Freshaliens.Player.Components;
 using UnityEngine;
 
 namespace Freshaliens.Interaction.Components
@@ -44,6 +45,7 @@ namespace Freshaliens.Interaction.Components
 
         public override void OnInteract()
         {
+            FairyMovementController.Instance.SetLockOnTarget(transform);
             _linkedObject.OnAction();
         }
     }
