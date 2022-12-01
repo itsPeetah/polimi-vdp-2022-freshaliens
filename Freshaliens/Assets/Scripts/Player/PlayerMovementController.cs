@@ -15,7 +15,7 @@ namespace Freshaliens.Player.Components
         public static PlayerMovementController Instance { get => instance; private set => instance = value; }
 
         private const float minVerticalVelocityForJump = 0.001f;
-
+        [SerializeField] private Animator _animator;
         [Header("Walking")]
         [SerializeField] private float movementSpeedStart = 5.0f;
         [SerializeField] private float movementSpeedMax = 6.0f;
@@ -95,7 +95,9 @@ namespace Freshaliens.Player.Components
 
             float direction = input.GetHorizontal();
             if (direction != 0) lastFacedDirection = direction;
-
+            //animation update
+            _animator.SetFloat("DirectionR",lastFacedDirection);
+            
             if (input.GetJumpInput())
             {
                 jumpPressedTimestamp = Time.time;
@@ -107,6 +109,8 @@ namespace Freshaliens.Player.Components
 
             // Walking
             isMoving = Mathf.Abs(direction) > 0f;
+            //changing animation state
+            _animator.SetBool("IsMoving",isMoving);
             if (isMoving)
             {
                 // Accelerate until max speed
@@ -152,7 +156,7 @@ namespace Freshaliens.Player.Components
                 // Clamp terminal velocity
                 velocity.y = Mathf.Clamp(rbody.velocity.y, -terminalVelocity, terminalVelocity);
             }
-
+    
             // Gravity
             if (isGrounded || rbody.velocity.y <= minVerticalVelocityForJump) rbody.gravityScale = gravityScaleFalling;
             else rbody.gravityScale = gravityScaleDefault;
@@ -165,6 +169,9 @@ namespace Freshaliens.Player.Components
 
             // Persist state
             wasGrounded = isGrounded;
+            
+            //animation update
+            _animator.SetBool("IsJumping",!isGrounded);
         }
 
         private void FixedUpdate()
@@ -180,6 +187,9 @@ namespace Freshaliens.Player.Components
             // Store ground transform
             if(rightFoot) groundTransform = rightCollider.transform;
             else if(leftFoot && lastFacedDirection < 0) groundTransform = leftCollider.transform;
+            
+            // animation update -> moved to update
+            //_animator.SetBool("IsJumping",!isGrounded);
         }
 
         private bool CanJump()

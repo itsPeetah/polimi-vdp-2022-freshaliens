@@ -99,7 +99,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAngle: 30
-  angleMultiplier: 5.94
   maxPosDelta: 10
 --- !u!1 &1709745866
 GameObject:
