@@ -42,19 +42,16 @@ namespace Freshaliens.Interaction
                 if (colliderLayer==_ninjaLayer) 
                 {
                     livesManager.HitPlayer();  
-                    Debug.Log("hit ninja");
                 }
                 break;
             case Target.Fairy:
                 if (colliderLayer==_fairyLayer)
                 {
                     livesManager.HitPlayer();
-                    Debug.Log("hit fairy");
                 }
                 break;
             case Target.Both:
                 livesManager.HitPlayer();
-                Debug.Log("hit whoever");
                 break;
         }
     }

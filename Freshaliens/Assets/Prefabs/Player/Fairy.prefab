@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4393433180720674308}
   - component: {fileID: 4393433180720674331}
   - component: {fileID: -1565459617342072838}
+  - component: {fileID: 4877819949109033570}
   m_Layer: 8
   m_Name: Fairy
   m_TagString: Untagged
@@ -161,6 +162,7 @@ MonoBehaviour:
   returnDistance: 10
   returnAcceleration: 40
   maxReturnSpeed: 20
+  stunDuration: 3
 --- !u!114 &-1565459617342072838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,3 +178,21 @@ MonoBehaviour:
   interactableLayers:
     serializedVersion: 2
     m_Bits: 5248
+--- !u!114 &4877819949109033570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4393433180720674334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4255132e5ec14a7cb90d3ed82e44c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPosition: {fileID: 0}
+  player1: {fileID: 0}
+  initialNumberOfLives: 3
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 0
