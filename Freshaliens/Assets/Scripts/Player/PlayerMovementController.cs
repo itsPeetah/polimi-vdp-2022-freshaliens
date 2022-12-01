@@ -55,6 +55,8 @@ namespace Freshaliens.Player.Components
         private float lastGroundedTimestamp = 0f;   // time player was last grounded (for coyote time)
         private float lastFacedDirection = 1f;
         private Vector2 velocity = Vector2.zero;
+        private Vector3 previousGroundPosition = Vector3.zero;
+        private Transform groundTransform = null;
 
         // Components
         private PlayerInputHandler input = null;
@@ -82,7 +84,9 @@ namespace Freshaliens.Player.Components
 
             if (!leftGroundCheck) leftGroundCheck = transform.Find("Ground Check Left");
             if (!rightGroundCheck) rightGroundCheck = transform.Find("Ground Check Right");
+#if UNITY_EDITOR
             if (!leftGroundCheck || !rightGroundCheck) Debug.LogWarning("Missing ground checks in player prefab!");
+#endif
         }
 
         private void Update()
@@ -116,9 +120,19 @@ namespace Freshaliens.Player.Components
             // Ignore input direction if walljumping, apply it if not within the ignore input time frame
             velocity.x = direction * currentSpeed;
 
-            if (isGrounded) remainingAirJumps = maxAirJumps;
-            else if (wasGrounded)
+            Vector2 groundVelocity = Vector2.zero;
+            if (isGrounded)
             {
+                // Reset air jumps
+                remainingAirJumps = maxAirJumps;
+
+                // Add ground movement
+                if (wasGrounded)
+                {
+                    groundVelocity = groundTransform.position - previousGroundPosition;
+                }
+
+                previousGroundPosition = groundTransform.position;
                 lastGroundedTimestamp = Time.time;
             }
 
@@ -143,7 +157,10 @@ namespace Freshaliens.Player.Components
             if (isGrounded || rbody.velocity.y <= minVerticalVelocityForJump) rbody.gravityScale = gravityScaleFalling;
             else rbody.gravityScale = gravityScaleDefault;
 
+
+
             // Apply movement
+            rbody.position = rbody.position + groundVelocity;
             rbody.velocity = velocity;
 
             // Persist state
@@ -154,13 +171,15 @@ namespace Freshaliens.Player.Components
         {
             int l = groundChecks.Length;
             isGrounded = false;
-            // TODO FIX THIS SHIT LMAO (atleast the loop is now unrolled)
             Collider2D leftCollider = Physics2D.OverlapCircle(leftGroundCheck.position, groundCheckRadius, groundLayers);
             Collider2D rightCollider = Physics2D.OverlapCircle(rightGroundCheck.position, groundCheckRadius, groundLayers);
             bool rightFoot = rightCollider != null;
             bool leftFoot = leftCollider != null;
-
             isGrounded = (leftFoot || rightFoot);
+
+            // Store ground transform
+            if(rightFoot) groundTransform = rightCollider.transform;
+            else if(leftFoot && lastFacedDirection < 0) groundTransform = leftCollider.transform;
         }
 
         private bool CanJump()
