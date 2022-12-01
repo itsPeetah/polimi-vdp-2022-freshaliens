@@ -22,8 +22,12 @@ namespace MenuManagement
         {
             print("CREDITS");
             CreditsScreen.Open();
+        } 
+        public void OnFeedbackPressed()
+        {
+            print("FEEDBACK");
+            FeedBackScreen.Open();  
         }
-        
         public void OnPlayPressed()
         {
             if (fadeToPlay)

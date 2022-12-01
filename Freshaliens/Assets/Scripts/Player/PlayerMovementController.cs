@@ -148,11 +148,9 @@ namespace Freshaliens.Player.Components
         {
             int l = groundChecks.Length;
             isGrounded = false;
-            // TODO Change to two separate objects and unroll loop
-            for (int i = 0; i < l; i++)
-            {
-                isGrounded |= Physics2D.OverlapCircle(groundChecks[i].position, groundCheckRadius, groundLayers) != null;
-            }
+            // TODO FIX THIS SHIT LMAO (atleast the loop is now unrolled)
+            isGrounded |= Physics2D.OverlapCircle(groundChecks[0].position, groundCheckRadius, groundLayers) != null;
+            isGrounded |= Physics2D.OverlapCircle(groundChecks[1].position, groundCheckRadius, groundLayers) != null;
         }
 
         private bool CanJump()
