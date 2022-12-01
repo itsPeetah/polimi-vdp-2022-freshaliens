@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 9184006670474624104}
   - component: {fileID: 4283341770580795691}
   - component: {fileID: -7660034942734665019}
+  - component: {fileID: 2565040353893425838}
   m_Layer: 7
   m_Name: Ninja 2.0
   m_TagString: Player
@@ -231,6 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 340bdab859b2c4e3385145493d9648f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
   movementSpeedStart: 5
   movementSpeedMax: 6
   walkAcceleration: 1
@@ -285,6 +287,26 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 32768
+--- !u!95 &2565040353893425838
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9184006670474624111}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0f0e9bdfb498a36448302398fba8f2cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &9184006670757152002
 GameObject:
   m_ObjectHideFlags: 0

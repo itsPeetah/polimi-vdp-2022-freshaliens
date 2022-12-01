@@ -108,10 +108,10 @@ GameObject:
   - component: {fileID: 8425014593099896585}
   - component: {fileID: 5444438913041132578}
   - component: {fileID: 1120219372130660705}
-  - component: {fileID: 1348594929}
   - component: {fileID: 1348594927}
+  - component: {fileID: 1348594929}
   m_Layer: 7
-  m_Name: Player 1 (Ninja)
+  m_Name: DEPRECATED Player 1 (Ninja)
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -300,6 +300,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storable: 0
   maxFairyJumpTimeFrame: 0.5
+--- !u!114 &1348594927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5444438913041132581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4255132e5ec14a7cb90d3ed82e44c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPosition: {fileID: 0}
+  player1: {fileID: 0}
+  initialNumberOfLives: 3
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 32768
 --- !u!95 &1348594929
 Animator:
   serializedVersion: 4
@@ -320,24 +338,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1348594927
-:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsMonoBehaviourset: {fileID: 0}
-  m_GameObject: {fileID: 5444438913041132581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4255132e5ec14a7cb90d3ed82e44c01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPosition: {fileID: 0}
-  player1: {fileID: 0}
-  initialNumberOfLives: 3
-  hitLayers:
-    serializedVersion: 2
-    m_Bits: 32768
 --- !u!1 &5444438913171076636
 GameObject:
   m_ObjectHideFlags: 0
