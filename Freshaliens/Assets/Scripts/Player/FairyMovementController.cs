@@ -77,16 +77,24 @@ namespace Freshaliens.Player.Components
             isReturningToPlayer = distanceFromPlayer >= maxDistanceBeforeReturn || (isReturningToPlayer && distanceFromPlayer > returnDistance);
 
             // Is the fairy locking onto a target?
+            bool wasLockingOnTarget = isLockingOnTarget;
             isLockingOnTarget = lockOnTargetAssigned && Vector2.Distance(ownTransform.position, lockOnTarget.position) > 0.01f;
             if (!isLockingOnTarget) {
                 lockOnTarget = null;
                 lockOnTargetAssigned = false;
+
+                if (wasLockingOnTarget) {
+                    rbody.position = lockOnTarget.position;
+                }
             }
 
             // "Free movement" exceptions
-            if (isReturningToPlayer || isLockingOnTarget)
+            if (isLockingOnTarget) {
+                movementDirection = (lockOnTarget.position - ownTransform.position);
+            }
+            else if (isReturningToPlayer || isLockingOnTarget)
             {
-                movementDirection = isLockingOnTarget ? (lockOnTarget.position - ownTransform.position) : (PlayerMovementController.Instance.Position - ownTransform.position);
+                movementDirection = PlayerMovementController.Instance.Position - ownTransform.position;
                 isMoving = true;
                 currentMaxSpeed = maxReturnSpeed;
                 acceleration = returnAcceleration;
