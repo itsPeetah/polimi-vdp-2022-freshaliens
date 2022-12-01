@@ -46,7 +46,6 @@ public class LivesManager : MonoBehaviour
         int layer = collision.gameObject.layer;
 
         if (( (1 << layer) & hitLayers) != 0) {
-            Debug.Log("colpito");
             PlayerHit(player1);
         }
     }
@@ -56,8 +55,7 @@ public class LivesManager : MonoBehaviour
         PlayerHit(player1);
     }
     
-    
-    }
+}
         
 
     

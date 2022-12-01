@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 4616478869546321731}
   - component: {fileID: 9184006670474624104}
   - component: {fileID: 4283341770580795691}
+  - component: {fileID: -7660034942734665019}
   m_Layer: 7
   m_Name: Ninja 2.0
   m_TagString: Player
@@ -266,6 +267,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storable: 0
   maxFairyJumpTimeFrame: 0.5
+--- !u!114 &-7660034942734665019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9184006670474624111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4255132e5ec14a7cb90d3ed82e44c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPosition: {fileID: 0}
+  player1: {fileID: 0}
+  initialNumberOfLives: 3
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 32768
 --- !u!1 &9184006670757152002
 GameObject:
   m_ObjectHideFlags: 0
