@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 5456964226942435584}
   - component: {fileID: 6490938381027166729}
   m_Layer: 8
-  m_Name: Player 2 (Soldier)
+  m_Name: DEPRECATED Player 2 (Soldier)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
