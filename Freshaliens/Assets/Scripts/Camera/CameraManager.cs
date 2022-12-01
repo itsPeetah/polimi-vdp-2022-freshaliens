@@ -22,8 +22,8 @@ public class CameraManager : MonoBehaviour
 
     [Header("Camera Parameters")]
     [SerializeField] private TrackingMode _currentTrackingMode;
-    [SerializeField] private float _defaultHorizontalOffset = 2f;
-    [SerializeField] private float _defaultVerticalOffset = 2f;
+    [SerializeField] private float _horizontalOffset = 2f;
+    [SerializeField] private float _verticalOffset = 2f;
     [SerializeField] private float _minCameraSize = 5f;
     [SerializeField] private float _maxCameraSize = 10f;
     [SerializeField] private float _playerMarginBeforeZoomOut = 1f;
@@ -31,7 +31,6 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float _cameraZoomSpeed = 5f;
     [SerializeField] private bool _canIncreaseCameraSize;
     [SerializeField] private bool _canMoveCamera;
-    [SerializeField] private bool _dynamicHorizontalOffset;
     // //Sensitivity is only for manual zoom
     // [SerializeField] private float sensitivity = 1f;
 
@@ -59,8 +58,6 @@ public class CameraManager : MonoBehaviour
 
     //CameraManager State
     private Vector3 _currentPosition;
-    private float _currentHorizontalOffset;
-    private float _currentVerticalOffset;
 
     //Camera State
     private Vector3 _initialCameraPosition;
@@ -73,6 +70,7 @@ public class CameraManager : MonoBehaviour
     private bool _canMoveCameraLeft;
     private bool _mustShowMessageTooDistant;
     private float _top;
+    private float _bottom;
     private float _left;
     private float _right;
     private float _rightCollision;
@@ -92,11 +90,8 @@ public class CameraManager : MonoBehaviour
         _fairyCollider = _fairy.gameObject.GetComponent<Collider2D>();
 
         //Set initial CameraManager state
-        _transform.position += new Vector3(0, _defaultVerticalOffset, 0);
+        _transform.position += new Vector3(0, _verticalOffset, 0);
         _currentPosition = _transform.position;
-        
-        _currentHorizontalOffset = _defaultHorizontalOffset;
-        _currentVerticalOffset = _defaultVerticalOffset;
 
         //Set initial camera state
         _canIncreaseCameraSize = true;
@@ -115,6 +110,7 @@ public class CameraManager : MonoBehaviour
         _mustShowMessageTooDistant = true;
         _lastDistantMessageTime = -1f;
         _top = _currentCameraPosition.y + _currentScreenHeight;
+        _bottom = _currentCameraPosition.y - _currentScreenHeight;
         _left = _currentCameraPosition.x - _currentScreenWidth;
         _right = _currentCameraPosition.x + _currentScreenWidth;
         _rightCollision = _currentCameraPosition.x + _currentScreenWidth*_ratioPlayableScreen;
@@ -186,31 +182,32 @@ public class CameraManager : MonoBehaviour
         if (_canMoveCamera)
         {
             //Manage CameraManager position 
-            if (_dynamicHorizontalOffset)
-            {
-                _currentHorizontalOffset = _defaultHorizontalOffset*(_currentCameraSize/_minCameraSize);
-            }
             float currentXCoordinate = _currentPosition.x;
+            float currentYCoordinate = _currentPosition.y;
             float newXCoordinate;
+            float newYCoordinate = currentYCoordinate;
 
             switch (_currentTrackingMode)
             {
                 case TrackingMode.Ninja:
-                    newXCoordinate = positionNinja.x + _currentHorizontalOffset;
+                    newXCoordinate = positionNinja.x + _horizontalOffset;
+                    newYCoordinate = positionNinja.y + _verticalOffset;
                     break;
                 case TrackingMode.Fairy:
-                    newXCoordinate = positionFairy.x + _currentHorizontalOffset;
+                    newXCoordinate = positionFairy.x + _horizontalOffset;
                     break;
                 case TrackingMode.Both:
-                    newXCoordinate = ((positionNinja.x + positionFairy.x) / 2) + _currentHorizontalOffset;
+                    newXCoordinate = ((positionNinja.x + positionFairy.x) / 2) + _horizontalOffset;
                     break;
                 default:
-                    newXCoordinate = ((positionNinja.x + positionFairy.x) / 2) + _currentHorizontalOffset;
+                    newXCoordinate = positionNinja.x + _horizontalOffset;
+                    newYCoordinate = positionNinja.y + _verticalOffset;
                     break;
             }
             
             float horizontalDifference = newXCoordinate - currentXCoordinate;
-            Vector3 positionDifference = new Vector3(horizontalDifference, 0, 0);
+            float verticalDifference = newYCoordinate - currentYCoordinate;
+            Vector3 positionDifference = new Vector3(horizontalDifference, verticalDifference, 0);
             _transform.position += positionDifference;
             _currentPosition += positionDifference;
 
@@ -228,6 +225,7 @@ public class CameraManager : MonoBehaviour
             }
             _currentCameraPosition = _cameraTransform.position;
             _top = _currentCameraPosition.y + _currentScreenHeight;
+            _bottom = _currentCameraPosition.y - _currentScreenHeight;
             _left = _currentCameraPosition.x - _currentScreenWidth;
             _right = _currentCameraPosition.x + _currentScreenWidth;
             _rightCollision = _currentCameraPosition.x + _currentScreenWidth*_ratioPlayableScreen;
@@ -241,6 +239,10 @@ public class CameraManager : MonoBehaviour
         float highestPlayerHeight = Mathf.Max(positionPlayer1.y, positionPlayer2.y);
         float distanceFromTopBorder = _top - highestPlayerHeight;
         bool tooHigh = distanceFromTopBorder < _playerMarginBeforeZoomOut;
+        
+        float lowestPlayerHeight = Mathf.Min(positionPlayer1.y, positionPlayer2.y);
+        float distanceFromBottomBorder = lowestPlayerHeight - _bottom;
+        bool tooLow = distanceFromBottomBorder < _playerMarginBeforeZoomOut;
 
         float mostLeftPlayerPosition = Mathf.Min(positionPlayer1.x, positionPlayer2.x);
         float distanceFromLeftBorder = mostLeftPlayerPosition - _left;
@@ -250,7 +252,7 @@ public class CameraManager : MonoBehaviour
         float distanceFromRightBorder = _rightCollision - mostRightPlayerPosition;
         bool tooRight = distanceFromRightBorder < _playerMarginBeforeZoomOut;
 
-        needToIncreaseCameraSize = (tooHigh || tooLeft || tooRight);
+        needToIncreaseCameraSize = (tooHigh || tooLow || tooLeft || tooRight);
         return needToIncreaseCameraSize;
     }
     
@@ -261,6 +263,10 @@ public class CameraManager : MonoBehaviour
         float highestPlayerHeight = Mathf.Max(positionPlayer1.y, positionPlayer2.y);
         float distanceFromTopBorder = _top - highestPlayerHeight;
         bool notTooHigh = distanceFromTopBorder > _playerMarginBeforeZoomIn;
+        
+        float lowestPlayerHeight = Mathf.Min(positionPlayer1.y, positionPlayer2.y);
+        float distanceFromBottomBorder = lowestPlayerHeight - _bottom;
+        bool notTooLow = distanceFromBottomBorder > _playerMarginBeforeZoomIn;
 
         float mostLeftPlayerPosition = Mathf.Min(positionPlayer1.x, positionPlayer2.x);
         float distanceFromLeftBorder = mostLeftPlayerPosition - _left;
@@ -270,7 +276,7 @@ public class CameraManager : MonoBehaviour
         float distanceFromRightBorder = _rightCollision - mostRightPlayerPosition;
         bool notTooRight = distanceFromRightBorder > _playerMarginBeforeZoomIn;
 
-        canDecreaseCameraSize = (notTooHigh && notTooLeft && notTooRight);
+        canDecreaseCameraSize = (notTooHigh && notTooLow && notTooLeft && notTooRight);
         return canDecreaseCameraSize;
     }
 
@@ -281,12 +287,11 @@ public class CameraManager : MonoBehaviour
         _currentCameraSize = newCameraSize;
         _currentScreenHeight = newCameraSize;
         _currentScreenWidth = newCameraSize * 16 / 9;
-
-        _currentVerticalOffset = _defaultVerticalOffset + (newCameraSize - _minCameraSize);
-        _currentCameraPosition = new Vector3(_currentCameraPosition.x, _currentVerticalOffset, _currentCameraPosition.z);
+        
         _cameraTransform.position = _currentCameraPosition;
         
         _top = _currentCameraPosition.y + _currentScreenHeight;
+        _bottom = _currentCameraPosition.y - _currentScreenHeight;
         _left = _currentCameraPosition.x - _currentScreenWidth;
         _right = _currentCameraPosition.x + _currentScreenWidth;
         _rightCollision = _currentCameraPosition.x + _currentScreenWidth*_ratioPlayableScreen;
@@ -322,7 +327,9 @@ public class CameraManager : MonoBehaviour
                     {
                         _mustShowMessageTooDistant = false;
                         //Show Message Players Too Distant
-                        Debug.Log("PLAYERS TOO DISTANT!");
+                        //
+                        //
+                        //
                     }
                 }
                 _lastDistantMessageTime = currentTime;

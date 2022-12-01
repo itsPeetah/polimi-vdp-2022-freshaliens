@@ -77,16 +77,29 @@ namespace Freshaliens.Player.Components
             isReturningToPlayer = distanceFromPlayer >= maxDistanceBeforeReturn || (isReturningToPlayer && distanceFromPlayer > returnDistance);
 
             // Is the fairy locking onto a target?
+            bool wasLockingOnTarget = isLockingOnTarget;
             isLockingOnTarget = lockOnTargetAssigned && Vector2.Distance(ownTransform.position, lockOnTarget.position) > 0.01f;
-            if (!isLockingOnTarget) {
+            if (!isLockingOnTarget && wasLockingOnTarget)
+            {
+                //TODO : RMOVE CHECK NULL 
+                if (lockOnTarget != null)
+                {
+                    rbody.position = lockOnTarget.position;
+                    rbody.velocity = Vector2.zero;
+                }
+                
                 lockOnTarget = null;
                 lockOnTargetAssigned = false;
             }
 
             // "Free movement" exceptions
-            if (isReturningToPlayer || isLockingOnTarget)
+            if (isLockingOnTarget)
             {
-                movementDirection = isLockingOnTarget ? (lockOnTarget.position - ownTransform.position) : (PlayerMovementController.Instance.Position - ownTransform.position);
+                movementDirection = (lockOnTarget.position - ownTransform.position);
+            }
+            else if (isReturningToPlayer || isLockingOnTarget)
+            {
+                movementDirection = PlayerMovementController.Instance.Position - ownTransform.position;
                 isMoving = true;
                 currentMaxSpeed = maxReturnSpeed;
                 acceleration = returnAcceleration;
@@ -112,7 +125,8 @@ namespace Freshaliens.Player.Components
         /// Stun the fairy, preventing it from moving
         /// </summary>
         /// <param name="extraTime">Extra time to be added on top of the default stun time</param>
-        public void Stun(float extraTime = 0) {
+        public void Stun(float extraTime = 0)
+        {
             // TODO Move the fairy away to avoid stun locking?
             stunTimer = stunDuration + extraTime;
         }
@@ -120,7 +134,8 @@ namespace Freshaliens.Player.Components
         /// <summary>
         /// Lock the fairy onto a target
         /// </summary>
-        public void SetLockOnTarget(Transform target) {
+        public void SetLockOnTarget(Transform target)
+        {
             lockOnTarget = target;
             lockOnTargetAssigned = true;
         }

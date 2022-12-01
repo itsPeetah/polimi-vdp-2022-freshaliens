@@ -1525,11 +1525,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4393433180720674330, guid: d88f0604045074877aca605cc23b67e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 107.59
+      value: -2.42
       objectReference: {fileID: 0}
     - target: {fileID: 4393433180720674330, guid: d88f0604045074877aca605cc23b67e3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.4
+      value: -1.22
       objectReference: {fileID: 0}
     - target: {fileID: 4393433180720674330, guid: d88f0604045074877aca605cc23b67e3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -21853,16 +21853,15 @@ MonoBehaviour:
   _ninja: {fileID: 1743628710}
   _fairy: {fileID: 112151179}
   _currentTrackingMode: 0
-  _defaultHorizontalOffset: 2
-  _defaultVerticalOffset: 0
+  _horizontalOffset: 2
+  _verticalOffset: 2
   _minCameraSize: 6
-  _maxCameraSize: 10
+  _maxCameraSize: 12
   _playerMarginBeforeZoomOut: 1
   _playerMarginBeforeZoomIn: 2.5
-  _cameraZoomSpeed: 5
+  _cameraZoomSpeed: 2
   _canIncreaseCameraSize: 0
   _canMoveCamera: 0
-  _dynamicHorizontalOffset: 0
   _instantiateBorders: 0
   _collisionDistanceFromBorders: 0.5
   _ratioPlayableScreen: 0.5
@@ -22480,11 +22479,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5444438913041132579, guid: add405116417a4533932708b9d6a2545, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 105.65678
+      value: -4.3532205
       objectReference: {fileID: 0}
     - target: {fileID: 5444438913041132579, guid: add405116417a4533932708b9d6a2545, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.183899
+      value: -2.003899
       objectReference: {fileID: 0}
     - target: {fileID: 5444438913041132579, guid: add405116417a4533932708b9d6a2545, type: 3}
       propertyPath: m_LocalPosition.z

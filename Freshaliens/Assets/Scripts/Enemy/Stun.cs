@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Freshaliens.Interaction;
+using Freshaliens.Player.Components;
 
 namespace Freshaliens.Enemy.Components
 {
@@ -21,13 +22,14 @@ namespace Freshaliens.Enemy.Components
 
         public override void OnInteract()
         {
+            FairyMovementController.Instance.SetLockOnTarget(transform);
 
             //StopCoroutine(InteractCoroutine());
             //StartCoroutine(InteractCoroutine());
             if (remainingTime > 0)
             {
                 remainingTime = stunTime;
-                Debug.Log("remainig");
+                Debug.Log("remaining");
             }
             if (remainingTime <= 0)
             {
@@ -37,15 +39,9 @@ namespace Freshaliens.Enemy.Components
             }
         }
 
-        public override void OnFairyExit()
-        {
-            enemyInt.setStun(false);
-        }
-
         IEnumerator InteractCoroutine()
         {
             enemyInt.setStun(true);
-
             while (remainingTime > 0)
             {
                 remainingTime -= Time.deltaTime;
@@ -53,7 +49,12 @@ namespace Freshaliens.Enemy.Components
             }
             // yield return new WaitForSeconds(stunTime);
             enemyInt.setStun(false);
-
+            yield return null;
+        }
+        
+        public override void OnFairyExit()
+        {
+            enemyInt.setStun(false);
         }
     }
 }
