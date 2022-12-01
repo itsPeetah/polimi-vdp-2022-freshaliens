@@ -38,6 +38,8 @@ namespace Freshaliens.Player.Components
 
         [Header("Ground check")]
         [SerializeField] private Transform[] groundChecks = new Transform[0];
+        [SerializeField] private Transform leftGroundCheck = null;
+        [SerializeField] private Transform rightGroundCheck = null;
         [SerializeField] private float groundCheckRadius = 0.1f;
         [SerializeField] private LayerMask groundLayers = 0;
 
@@ -77,6 +79,10 @@ namespace Freshaliens.Player.Components
             fairyDetector = GetComponent<PlayerFairyDetector>();
 
             remainingAirJumps = maxAirJumps;
+
+            if (!leftGroundCheck) leftGroundCheck = transform.Find("Ground Check Left");
+            if (!rightGroundCheck) rightGroundCheck = transform.Find("Ground Check Right");
+            if (!leftGroundCheck || !rightGroundCheck) Debug.LogWarning("Missing ground checks in player prefab!");
         }
 
         private void Update()
@@ -149,8 +155,12 @@ namespace Freshaliens.Player.Components
             int l = groundChecks.Length;
             isGrounded = false;
             // TODO FIX THIS SHIT LMAO (atleast the loop is now unrolled)
-            isGrounded |= Physics2D.OverlapCircle(groundChecks[0].position, groundCheckRadius, groundLayers) != null;
-            isGrounded |= Physics2D.OverlapCircle(groundChecks[1].position, groundCheckRadius, groundLayers) != null;
+            Collider2D leftCollider = Physics2D.OverlapCircle(leftGroundCheck.position, groundCheckRadius, groundLayers);
+            Collider2D rightCollider = Physics2D.OverlapCircle(rightGroundCheck.position, groundCheckRadius, groundLayers);
+            bool rightFoot = rightCollider != null;
+            bool leftFoot = leftCollider != null;
+
+            isGrounded = (leftFoot || rightFoot);
         }
 
         private bool CanJump()

@@ -268,8 +268,6 @@ MonoBehaviour:
   jumpForceAirborne: 10
   maxAirJumps: 1
   jumpQueueFrame: 0.15
-  wallJumpAngle: 45
-  canWallJump: 1
   wallJumpIgnoreInputFrame: 0.5
   gravityScaleDefault: 1
   gravityScaleFalling: 1.8
@@ -279,13 +277,12 @@ MonoBehaviour:
   groundChecks:
   - {fileID: 5444438912755307847}
   - {fileID: 5444438912789189727}
+  leftGroundCheck: {fileID: 5444438912755307847}
+  rightGroundCheck: {fileID: 5444438912789189727}
   groundCheckRadius: 0.1
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
-  canClimb: 1
-  wallCheckRight: {fileID: 5444438911184686498}
-  wallCheckLeft: {fileID: 5444438913171076635}
 --- !u!114 &1120219372130660705
 MonoBehaviour:
   m_ObjectHideFlags: 0

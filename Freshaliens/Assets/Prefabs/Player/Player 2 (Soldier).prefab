@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 3614564998452016546}
   - component: {fileID: 4154248916612903217}
   - component: {fileID: 5456964226942435584}
+  - component: {fileID: 6490938381027166729}
   m_Layer: 8
   m_Name: Player 2 (Soldier)
   m_TagString: Untagged
@@ -270,8 +271,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalAxis: P2_Horizontal
+  verticalAxis: Vertical
   jumpAxis: P2_Jump
-  fireAxis: Fire
+  actionAxis: Fire
 --- !u!114 &4154248916612903217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,10 +290,9 @@ MonoBehaviour:
   movementSpeedMax: 6
   walkAcceleration: 1
   jumpForceGrounded: 6
+  jumpForceAirborne: 10
   maxAirJumps: 0
   jumpQueueFrame: 0.15
-  wallJumpAngle: 45
-  canWallJump: 0
   wallJumpIgnoreInputFrame: 0.1
   gravityScaleDefault: 1
   gravityScaleFalling: 1.8
@@ -301,13 +302,12 @@ MonoBehaviour:
   groundChecks:
   - {fileID: 4154248918050117143}
   - {fileID: 4154248917078373609}
+  leftGroundCheck: {fileID: 4154248918050117143}
+  rightGroundCheck: {fileID: 4154248917078373609}
   groundCheckRadius: 0.1
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
-  canClimb: 0
-  wallCheckRight: {fileID: 4154248917056579215}
-  wallCheckLeft: {fileID: 4154248917157684888}
 --- !u!114 &5456964226942435584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,11 +320,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79a092f3c098448f9a66c2a869d0db4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponPivot: {fileID: 3154237794194125531}
   weaponMuzzle: {fileID: 3811661110616525023}
   fireInterval: 0.5
   projectilePoolId: Player
   firePower: 10
+--- !u!114 &6490938381027166729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4154248916612903219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cf3d835bc7544399b3ab9facdd7bf65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storable: 1
+  maxFairyJumpTimeFrame: 0.5
 --- !u!1 &4154248917056579208
 GameObject:
   m_ObjectHideFlags: 0
