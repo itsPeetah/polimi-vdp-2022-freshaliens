@@ -24,11 +24,11 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private TrackingMode _currentTrackingMode;
     [SerializeField] private float _horizontalOffset = 2f;
     [SerializeField] private float _verticalOffset = 2f;
-    [SerializeField] private float _minCameraSize = 5f;
-    [SerializeField] private float _maxCameraSize = 10f;
-    [SerializeField] private float _playerMarginBeforeZoomOut = 1f;
-    [SerializeField] private float _playerMarginBeforeZoomIn = 2.5f;
-    [SerializeField] private float _cameraZoomSpeed = 5f;
+    [SerializeField] private float _minCameraSize = 6f;
+    [SerializeField] private float _maxCameraSize = 12f;
+    [SerializeField] private float _playerMarginBeforeZoomOut = 2f;
+    [SerializeField] private float _playerMarginBeforeZoomIn = 3.5f;
+    [SerializeField] private float _cameraZoomSpeed = 4f;
     [SerializeField] private bool _canIncreaseCameraSize;
     [SerializeField] private bool _canMoveCamera;
     // //Sensitivity is only for manual zoom
@@ -38,7 +38,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private bool _instantiateBorders = false;
     [SerializeField] private float _collisionDistanceFromBorders = 0.5f;
     [Range(0f, 1f)]
-    [SerializeField] private float _ratioPlayableScreen = 0.5f;
+    [SerializeField] private float _ratioPlayableScreen = 0.75f;
     [SerializeField] private bool _showMessagePlayersTooDistant;
     [SerializeField] private float _timerMessagePlayersTooDistant = 5f;
     [SerializeField] private int _boundaryLayer = 11;
