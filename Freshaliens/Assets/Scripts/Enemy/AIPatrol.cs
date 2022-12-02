@@ -23,7 +23,7 @@ namespace Freshaliens.Enemy.Components
         [SerializeField] public Rigidbody2D rb;
         [SerializeField] public Transform groundCheckPos;
         [SerializeField] public LayerMask groundLayer;
-        [FormerlySerializedAs("collider")] [SerializeField] public Collider2D ownCollider;
+        [FormerlySerializedAs("collider")] public Collider2D ownCollider;
         [SerializeField] public EnemyType type;
        
 

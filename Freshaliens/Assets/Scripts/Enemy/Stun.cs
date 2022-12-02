@@ -12,12 +12,18 @@ namespace Freshaliens.Enemy.Components
     public class Stun : Interactable
     {
         [SerializeField] private float stunTime = 1;
+        [SerializeField] private bool isShoot= false;
+        private AIAttack attacker;
         private AIPatrol enemyInt;
         private float remainingTime;
 
         private void Start()
         {
             enemyInt = GetComponent<AIPatrol>();
+            if (isShoot)
+            {
+                attacker = GetComponent<AIAttack>();
+            }
         }
 
         public override void OnInteract()
@@ -41,7 +47,12 @@ namespace Freshaliens.Enemy.Components
 
         IEnumerator InteractCoroutine()
         {
+            
             enemyInt.setStun(true);
+            if (isShoot)
+            {
+                attacker.setStun(true);
+            }
             while (remainingTime > 0)
             {
                 remainingTime -= Time.deltaTime;
@@ -49,6 +60,10 @@ namespace Freshaliens.Enemy.Components
             }
             // yield return new WaitForSeconds(stunTime);
             enemyInt.setStun(false);
+            if (isShoot)
+            {
+                attacker.setStun(false);
+            }
             yield return null;
         }
         

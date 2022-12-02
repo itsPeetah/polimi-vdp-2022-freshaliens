@@ -92,11 +92,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.615753
+      value: 30.42
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.63634014
+      value: 5.92
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -130,6 +130,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4520864183680978010, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4520864183680978011, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978015, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_Name
       value: Shooter
@@ -159,6 +167,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storable: 1
   stunTime: 1
+--- !u!114 &1607122581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6514968656819370475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b34ec4832c908e4e85af1b4e6615493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storable: 0
+  _ninjaLayer: 7
+  _fairyLayer: 8
+  _target: 0
+  _isEnemy: 1
+--- !u!114 &7861150131997055747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6514968656819370475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd5b0e8cf1f00a74db869a8365e72eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 16384
+  enemy: {fileID: 6514968656819370475}
+  numberOfLives: 1
 --- !u!4 &6514968656819370476 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}

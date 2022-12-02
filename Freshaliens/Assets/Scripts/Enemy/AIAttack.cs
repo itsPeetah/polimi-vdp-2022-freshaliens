@@ -14,16 +14,17 @@ namespace Freshaliens.Enemy.Components
         [SerializeField] public float _attackRange;
         [SerializeField] public int _damage;
         [SerializeField] private float firePower = 10f;
-        [SerializeField] public Transform _target;
+        private bool stunned = false;
         private Quaternion _rotation;
         private Rigidbody2D _rb;
 
         [SerializeField, Tooltip("Projectile spawn point")] private Transform weaponMuzzle;
 
         private ProjectilePool projectiles;
+        private AIPatrol enemyInt;
         [SerializeField] private string projectilePoolId;
         [SerializeField] private float fireInterval;
-
+        
         float weaponAngleRadians = 0;
         float fireTimer = 0;
 
@@ -31,21 +32,23 @@ namespace Freshaliens.Enemy.Components
         {   //_target = PlayerMovementController.Instance.transform;
             _rb = GetComponent<Rigidbody2D>();
             projectiles = ProjectilePool.GetByID(projectilePoolId);
+            
         }
 
         // Update is called once per frame
         void Update()
         {
-            float distToPlayer = Vector3.Distance(transform.position, _target.position);
-            float dx = transform.position.x - _target.position.x;
-            float dy = transform.position.y - _target.position.y;
+            Vector3 target = PlayerMovementController.Instance.EnemyProjectileTarget;
+            float distToPlayer = Vector3.Distance(transform.position, target);
+            float dx = transform.position.x - target.x;
+            float dy = transform.position.y - target.y;
             weaponAngleRadians = Mathf.Atan2(dy, dx);
             if (distToPlayer < _attackRange)
             {
                 //Debug.Log("in range");
                 bool canFire = fireTimer <= 0;
                 fireTimer -= Time.deltaTime;
-                if (canFire)
+                if (canFire && !stunned )
                 {
                    // Debug.Log("shoot");
                     fireTimer = fireInterval;
@@ -65,6 +68,11 @@ namespace Freshaliens.Enemy.Components
             Vector3 vel = new Vector3(-Mathf.Cos(weaponAngleRadians), -Mathf.Sin(weaponAngleRadians)) * firePower;
             projectiles.Spawn(pos, _rotation, vel);
 
+        }
+        
+        public void setStun(bool stun)
+        {
+            stunned = stun;
         }
 
     }
