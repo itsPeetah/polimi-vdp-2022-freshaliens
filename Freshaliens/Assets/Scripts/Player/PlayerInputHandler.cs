@@ -29,12 +29,6 @@ namespace Freshaliens.Player.Components
             return Input.GetAxisRaw(verticalAxis);
         }
 
-        // TODO Remove this
-        public Vector2 GetAimPosition()
-        {
-            return Input.mousePosition;
-        }
-
         public bool GetActionInput()
         {
             return Input.GetButtonDown(actionAxis);
