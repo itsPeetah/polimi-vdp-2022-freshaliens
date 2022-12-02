@@ -44,6 +44,7 @@ public class LivesManager : MonoBehaviour
 
     private void PlayerDeath(PlayerMovementController hitPlayer)
     {
+        Debug.Log("MORTOOOO");
         hitPlayer.transform.position = Checkpoint.LastActiveCheckpoint.RespawnPosition;
         numberOfLives = initialNumberOfLives;
     }
@@ -54,11 +55,6 @@ public class LivesManager : MonoBehaviour
 
         if (( (1 << layer) & hitLayers) != 0) {
             PlayerHit(player1);
-        }
-        
-        if (( (1 << layer) & deathLayer) != 0) {
-            PlayerDeath(player1);
-            Debug.Log("dovrebbe morire");
         }
         
     }
