@@ -40,18 +40,26 @@ public class PlayerData
     private float sfxVolume;
     private float musicVolume;
 
+    // Session data (no need to save this)
+    private int lastLevelChosen;
+
     // Getters
     public int LastUnlockedLevel { get => lastUnlockedLevel; set => lastUnlockedLevel = value; }
     public float MasterVolume { get => masterVolume; set => masterVolume = value; }
     public float SFXVolume { get => sfxVolume; set => sfxVolume = value; }
     public float MusicVolume { get => musicVolume; set => musicVolume = value; }
 
+    public int LastLevelSelected { get => lastLevelChosen; set => lastLevelChosen = value; }
+
     private static PlayerData Load() {
         PlayerData pd = new();
+        // Save data
         pd.lastUnlockedLevel = PlayerPrefs.GetInt(PP_LEVEL_KEY, PP_LEVEL_DEFAULT);
         pd.masterVolume = PlayerPrefs.GetFloat(PP_MASTER_VOLUME_KEY, PP_MASTER_VOLUME_DEFAULT);
         pd.sfxVolume = PlayerPrefs.GetFloat(PP_SFX_VOLUME_KEY, PP_SFX_DEFAULT);
         pd.musicVolume = PlayerPrefs.GetFloat(PP_MUSIC_VOLUME_KEY, PP_MUSIC_DEFAULT);
+        // Session data
+        pd.lastLevelChosen = pd.lastUnlockedLevel;
         return pd;
     }
 
@@ -68,7 +76,7 @@ public class PlayerData
     }
 
     public void UnlockNextLevel(bool save=false) {
-        lastUnlockedLevel += 1;
+        lastUnlockedLevel = lastLevelChosen + 1;
         if (save) Save();
     }
 }

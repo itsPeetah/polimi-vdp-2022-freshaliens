@@ -46,6 +46,7 @@ namespace Freshaliens.Level.Components
                 }
 
             }
+            
         }
 
         private void Reset()
@@ -73,7 +74,7 @@ namespace Freshaliens.Level.Components
             }
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             if (hasBeenActivated && !allowMultipleActivations) return;
             // HACK For now I'll just make a new layer that only collides with player 1

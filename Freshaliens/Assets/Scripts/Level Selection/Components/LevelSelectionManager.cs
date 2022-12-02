@@ -26,8 +26,9 @@ namespace Freshaliens.LevelSelection.Components
         [SerializeField] private LevelSelectionUI ui = null;
 
         // State
-        private LevelInfo currentLevelInfo = null;
+        private bool gameIsStarting = false;
         private int currentlySelectedLevel = 0;
+        private LevelInfo currentLevelInfo = null;
         private Transform levelMapLineContainer;
         private LevelMapLine[] mapLines = null;
 
@@ -59,9 +60,13 @@ namespace Freshaliens.LevelSelection.Components
 
         private void Update()
         {
+            if (gameIsStarting) return;
+
             if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) SelectNextLevel();
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) SelectPrevLevel();
             if (Input.GetKeyDown(KeyCode.Space)) {
+                gameIsStarting = true;
+                PlayerData.Instance.LastLevelSelected = currentlySelectedLevel;
                 ui.FadeScreen(0,1, () => SceneLoadingManager.LoadScene(CurrentLevelInfo.SceneName));
             }
 
