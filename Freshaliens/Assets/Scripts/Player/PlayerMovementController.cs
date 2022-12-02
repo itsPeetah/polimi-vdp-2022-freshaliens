@@ -43,6 +43,9 @@ namespace Freshaliens.Player.Components
         [SerializeField] private float groundCheckRadius = 0.1f;
         [SerializeField] private LayerMask groundLayers = 0;
 
+        [Header("Misc")]
+        [SerializeField] private Transform enemyProjectileTarget = null;
+
         // State
         private bool isMoving = false;
         private bool isGrounded = false;
