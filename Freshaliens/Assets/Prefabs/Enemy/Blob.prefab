@@ -116,11 +116,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 93.13
+      value: 87.96
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.21
+      value: 21.18
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -207,6 +207,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4520864183680978015, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
   m_PrefabInstance: {fileID: 3268683614544534257}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &36141399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432677292379100846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b34ec4832c908e4e85af1b4e6615493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storable: 1
+  _ninjaLayer: 7
+  _fairyLayer: 8
+  _target: 0
+  _isEnemy: 1
 --- !u!114 &1076682062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,21 +254,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16384
   enemy: {fileID: 1432677292379100846}
-  numberOfLives: 3
---- !u!114 &36141399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1432677292379100846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b34ec4832c908e4e85af1b4e6615493, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  storable: 1
-  _ninjaLayer: 7
-  _fairyLayer: 8
-  _target: 0
-  _isEnemy: 1
+  numberOfLives: 1
