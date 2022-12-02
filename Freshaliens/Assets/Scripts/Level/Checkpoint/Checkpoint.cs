@@ -24,7 +24,7 @@ namespace Freshaliens.Level.Components
 
         private bool hasBeenActivated = false;
 
-        private void Start()
+        private void Awake()
         {
             Setup();
             if (isStartingCheckpoint) {
