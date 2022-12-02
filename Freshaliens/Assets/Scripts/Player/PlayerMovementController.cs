@@ -53,10 +53,7 @@ namespace Freshaliens.Player.Components
         private bool hasChangedGroundTransform = true;
         private int remainingAirJumps = 0;
         //to look into reaminingAirJumps
-        public int RemainingAirJupms
-        {
-            get { return remainingAirJumps; }
-        }
+
         private float currentSpeed = 0f;
         private float jumpPressedTimestamp = 0f;    // time of last jump press (for buffering)
         private float lastGroundedTimestamp = 0f;   // time player was last grounded (for coyote time)
@@ -209,7 +206,10 @@ namespace Freshaliens.Player.Components
             bool canAirJump = remainingAirJumps > 0 && fairyDetector.CanFairyJump;
             return isWithinCoyoteTime || canAirJump;
         }
-
+        public int RemainingAirJupms
+        {
+            get { return remainingAirJumps; }
+        }
         //private void OnDrawGizmos()
         //{
         //    int l = groundChecks.Length;
