@@ -90,10 +90,8 @@ public class SendToGoogle : MonoBehaviour {
         UnityWebRequest www = UnityWebRequest.Post(URL, form);
 
         yield return www.SendWebRequest();
-
-        print(www.error);
         
-        if (www.isNetworkError)
+        if (www.result == UnityWebRequest.Result.ConnectionError) // 'UnityWebRequest.isNetworkError' is obsolete: 'UnityWebRequest.isNetworkError is deprecated. Use (UnityWebRequest.result == UnityWebRequest.Result.ConnectionError) instead.'
         {
             Debug.Log(www.error);
         }
