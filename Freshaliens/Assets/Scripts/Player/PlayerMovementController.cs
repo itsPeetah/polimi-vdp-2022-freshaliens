@@ -136,19 +136,18 @@ namespace Freshaliens.Player.Components
                 {
                     groundVelocity = groundTransform.position - previousGroundPosition;
                 }
-                else {
-                    hasJumpedSinceGrounded = false;
-                }
 
                 previousGroundPosition = groundTransform.position;
                 lastGroundedTimestamp = Time.time;
             }
+            else if (rbody.velocity.y < minVerticalVelocityForJump) hasJumpedSinceGrounded = false; // Not sure if this is the best fix for the double jump bug but here it is
 
             // Jumping
-            isWithinCoyoteTime = Time.time - lastGroundedTimestamp <= coyoteTimeFrame;
+            isWithinCoyoteTime = Time.time - lastGroundedTimestamp <= coyoteTimeFrame && !hasJumpedSinceGrounded; // Remove AND to re-introduce jump bug
             if (jumpQueued && CanJump())
             {
                 jumpQueued = false;
+
                 hasJumpedSinceGrounded = true;
 
                 // Grounded or airborne jump
@@ -192,8 +191,8 @@ namespace Freshaliens.Player.Components
             isGrounded = (leftFoot || rightFoot);
 
             // Store ground transform
-            if(rightFoot) groundTransform = rightCollider.transform;
-            else if(leftFoot && lastFacedDirection < 0) groundTransform = leftCollider.transform;
+            if (rightFoot) groundTransform = rightCollider.transform;
+            else if (leftFoot && lastFacedDirection < 0) groundTransform = leftCollider.transform;
         }
 
         private bool CanJump()
@@ -201,7 +200,7 @@ namespace Freshaliens.Player.Components
             if (isGrounded) return (rbody.velocity.y <= minVerticalVelocityForJump);
 
             bool canAirJump = remainingAirJumps > 0 && fairyDetector.CanFairyJump;
-            return (isWithinCoyoteTime && !hasJumpedSinceGrounded) || canAirJump;
+            return isWithinCoyoteTime || canAirJump;
         }
 
         //private void OnDrawGizmos()
