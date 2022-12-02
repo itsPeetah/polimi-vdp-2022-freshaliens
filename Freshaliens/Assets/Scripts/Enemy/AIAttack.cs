@@ -29,7 +29,7 @@ namespace Freshaliens.Enemy.Components
         float fireTimer = 0;
 
         private void Start()
-        {   //_target = PlayerMovementController.Instance.transform;
+        {   
             _rb = GetComponent<Rigidbody2D>();
             projectiles = ProjectilePool.GetByID(projectilePoolId);
             
