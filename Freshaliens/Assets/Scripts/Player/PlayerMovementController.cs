@@ -71,6 +71,10 @@ namespace Freshaliens.Player.Components
         // Properties
         public Vector3 Position => ownTransform.position;
         public float LastFacedDirection => lastFacedDirection;
+        public int RemainingAirJupms
+        {
+            get { return remainingAirJumps; }
+        }
 
         private void Awake()
         {
@@ -206,10 +210,7 @@ namespace Freshaliens.Player.Components
             bool canAirJump = remainingAirJumps > 0 && fairyDetector.CanFairyJump;
             return isWithinCoyoteTime || canAirJump;
         }
-        public int RemainingAirJupms
-        {
-            get { return remainingAirJumps; }
-        }
+        
         //private void OnDrawGizmos()
         //{
         //    int l = groundChecks.Length;
