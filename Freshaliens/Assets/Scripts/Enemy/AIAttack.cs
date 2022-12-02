@@ -14,7 +14,7 @@ namespace Freshaliens.Enemy.Components
         [SerializeField] public float _attackRange;
         [SerializeField] public int _damage;
         [SerializeField] private float firePower = 10f;
-        [SerializeField] public Transform _target;
+        
         private Quaternion _rotation;
         private Rigidbody2D _rb;
 
@@ -31,14 +31,16 @@ namespace Freshaliens.Enemy.Components
         {   //_target = PlayerMovementController.Instance.transform;
             _rb = GetComponent<Rigidbody2D>();
             projectiles = ProjectilePool.GetByID(projectilePoolId);
+            
         }
 
         // Update is called once per frame
         void Update()
         {
-            float distToPlayer = Vector3.Distance(transform.position, _target.position);
-            float dx = transform.position.x - _target.position.x;
-            float dy = transform.position.y - _target.position.y;
+            Vector3 target = PlayerMovementController.Instance.EnemyProjectileTarget;
+            float distToPlayer = Vector3.Distance(transform.position, target);
+            float dx = transform.position.x - target.x;
+            float dy = transform.position.y - target.y;
             weaponAngleRadians = Mathf.Atan2(dy, dx);
             if (distToPlayer < _attackRange)
             {

@@ -72,6 +72,7 @@ namespace Freshaliens.Player.Components
         // Properties
         public Vector3 Position => ownTransform.position;
         public float LastFacedDirection => lastFacedDirection;
+        public Vector3 EnemyProjectileTarget => enemyProjectileTarget.position;
 
         private void Awake()
         {
