@@ -15,7 +15,8 @@ namespace Freshaliens.Player.Components
         [Header("Settings")]
         [SerializeField] private LayerMask interactableLayers = -1;
         //Sprite for the shining
-        private SpriteRenderer shining;
+        private SpriteRenderer shiningGreen;
+        private SpriteRenderer shiningRed;
         // State
         private Interactable storedInteractable = null;
 
@@ -25,8 +26,11 @@ namespace Freshaliens.Player.Components
         private void Start()
         {
             input = GetComponent<PlayerInputHandler>();
-            shining = this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
-            shining.enabled = false;
+            shiningGreen = this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
+            
+            shiningRed = this.gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>();
+            shiningRed.enabled = false;
+            shiningGreen.enabled = false;
 
         }
 
@@ -81,9 +85,9 @@ namespace Freshaliens.Player.Components
             {
    
                 //visual effect
-                shining.enabled = true;
+                shiningGreen.enabled = true;
                 if (interactable.ShouldBeStored)
-                {
+                {   
                     storedInteractable = interactable;
                  
                 }
@@ -105,8 +109,8 @@ namespace Freshaliens.Player.Components
             if (CheckInteractable(collision, out Interactable interactable))
             {
                 //visual effect
-                shining.enabled = false;
-                Debug.Log("lascio fatina");
+                shiningGreen.enabled = false;
+                
                 if (interactable.ShouldBeStored)
                 {
                     storedInteractable = null;
