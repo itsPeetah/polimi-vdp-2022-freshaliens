@@ -14,9 +14,8 @@ namespace Freshaliens.Player.Components
     {
         [Header("Settings")]
         [SerializeField] private LayerMask interactableLayers = -1;
-        //Sprite for the shining
-        private SpriteRenderer shiningGreen;
-        private SpriteRenderer shiningRed;
+        //animation for the shining
+        private Animator _animator;
         // State
         private Interactable storedInteractable = null;
 
@@ -26,12 +25,7 @@ namespace Freshaliens.Player.Components
         private void Start()
         {
             input = GetComponent<PlayerInputHandler>();
-            shiningGreen = this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
-            
-            shiningRed = this.gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>();
-            shiningRed.enabled = false;
-            shiningGreen.enabled = false;
-
+            _animator = GetComponent<Animator>();
         }
 
         private void Update()
@@ -83,13 +77,25 @@ namespace Freshaliens.Player.Components
         {
             if (CheckInteractable(collision, out Interactable interactable))
             {
+
    
-                //visual effect
-                shiningGreen.enabled = true;
+           
+                
                 if (interactable.ShouldBeStored)
                 {   
                     storedInteractable = interactable;
                  
+                }
+                //check if can change animation
+                if (!collision.CompareTag( "Player" ) ||
+                    collision.gameObject.GetComponent<PlayerMovementController>().RemainingAirJupms >0 )
+                {
+                    Debug.Log(" compare tag is "+ collision.CompareTag( "Player" ) );
+                    Debug.Log("check if is different from "+ LayerMask.NameToLayer( "Player" ));
+                    Debug.Log("remainingjumps = " +
+                              collision.gameObject.GetComponent<PlayerMovementController>().RemainingAirJupms);
+                      _animator.SetBool("canLight", true);
+                  
                 }
                 interactable.OnFairyEnter();
             }
@@ -106,11 +112,12 @@ namespace Freshaliens.Player.Components
 
         private void OnTriggerExit2D(Collider2D collision)
         {
+
             if (CheckInteractable(collision, out Interactable interactable))
             {
-                //visual effect
-                shiningGreen.enabled = false;
-                
+         
+                //end light animation
+                _animator.SetBool("canLight",false);
                 if (interactable.ShouldBeStored)
                 {
                     storedInteractable = null;

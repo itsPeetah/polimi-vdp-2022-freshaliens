@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8000906858969957282}
   - component: {fileID: 6721754982895470976}
   - component: {fileID: 1036374326065040264}
-  - component: {fileID: -5016492286846923762}
+  - component: {fileID: 1345389156351810894}
   m_Layer: 8
   m_Name: Fairy 2.0
   m_TagString: Player
@@ -197,7 +197,7 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 0
---- !u!95 &-5016492286846923762
+--- !u!95 &1345389156351810894
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -207,7 +207,7 @@ Animator:
   m_GameObject: {fileID: 235241754501636704}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8899c67d1242e034cb6c5a8168b18617, type: 2}
+  m_Controller: {fileID: 9100000, guid: b527b203409d0cc46afd405a24bfebbf, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
