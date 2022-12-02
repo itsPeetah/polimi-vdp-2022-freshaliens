@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using Freshaliens.Level.Components;
 
 using Freshaliens.Player.Components;
 
 
 public class LivesManager : MonoBehaviour
 {
-    [SerializeField] private Transform spawnPosition;
     [SerializeField] private PlayerMovementController player1;
     //[SerializeField] private SpriteRenderer[] _spriteRenderers;
     [SerializeField] private int initialNumberOfLives = 3;
@@ -33,8 +32,8 @@ public class LivesManager : MonoBehaviour
         if (numberOfLives == 0)
         {
             Debug.Log("GAME OVER");
-            
-            hitPlayer.transform.position = spawnPosition.position;
+
+            hitPlayer.transform.position = Checkpoint.LastActiveCheckpoint.transform.position;
             numberOfLives = initialNumberOfLives;
 
         }

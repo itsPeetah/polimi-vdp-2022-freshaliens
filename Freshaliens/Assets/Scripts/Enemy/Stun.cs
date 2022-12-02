@@ -29,13 +29,13 @@ namespace Freshaliens.Enemy.Components
             if (remainingTime > 0)
             {
                 remainingTime = stunTime;
-                Debug.Log("remaining");
+               
             }
             if (remainingTime <= 0)
             {
                 remainingTime = stunTime;
                 StartCoroutine(InteractCoroutine());
-                Debug.Log("coroutine");
+                
             }
         }
 
@@ -54,7 +54,7 @@ namespace Freshaliens.Enemy.Components
         
         public override void OnFairyExit()
         {
-            enemyInt.setStun(false);
+            remainingTime = 0;
         }
     }
 }

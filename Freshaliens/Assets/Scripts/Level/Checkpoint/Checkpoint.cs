@@ -19,25 +19,32 @@ namespace Freshaliens.Level.Components
         private BoxCollider2D boxCollider = null;
 
         [Header("Interaction")]
-        [SerializeField] private bool isStartingCheckpoint = false;
         [SerializeField] private bool isFinalCheckpoint = false;
-        [SerializeField,Tooltip("Should the checkpoint be activated every time the player triggers it?")] private bool allowMultipleActivations = false;
+        [SerializeField] private bool isStartingCheckpoint = false;
+        [SerializeField, Tooltip("Should the checkpoint be activated every time the player triggers it?")] private bool allowMultipleActivations = false;
 
         private bool hasBeenActivated = false;
 
-        private void Start()
+        public Vector3 RespawnPosition => respawnPoint.position;
+
+        private void Awake()
         {
             Setup();
             if (isStartingCheckpoint)
             {
-                lastActiveCheckpoint = this;
+                if (isStartingCheckpoint)
+                {
+                    lastActiveCheckpoint = this;
 #if UNITY_EDITOR
-                if (isFinalCheckpoint) Debug.LogWarning("The starting checkpoint is also the final checkpoint...WTF?");
+                    if (isFinalCheckpoint) Debug.LogWarning("The starting checkpoint is also the final checkpoint...WTF?");
 #endif
-            }
+                }
 
-            if (isFinalCheckpoint) {
-                allowMultipleActivations = false;
+                if (isFinalCheckpoint)
+                {
+                    allowMultipleActivations = false;
+                }
+
             }
             
         }
@@ -52,7 +59,8 @@ namespace Freshaliens.Level.Components
             Setup();
         }
 
-        private void Setup() {
+        private void Setup()
+        {
             // Collider setup
             if (!boxCollider) boxCollider = GetComponent<BoxCollider2D>();
             boxCollider.isTrigger = true;
@@ -70,11 +78,11 @@ namespace Freshaliens.Level.Components
         {
             if (hasBeenActivated && !allowMultipleActivations) return;
             // HACK For now I'll just make a new layer that only collides with player 1
-
-            if (isFinalCheckpoint && !hasBeenActivated) {
+            if (isFinalCheckpoint && !hasBeenActivated)
+            {
                 hasBeenActivated = true;
-          
-                LevelCompletedScreen.Open(); 
+                PlayerData.Instance.UnlockNextLevel();
+                LevelCompletedScreen.Open();
                 return;
             }
 
