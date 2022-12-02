@@ -66,6 +66,7 @@ namespace Freshaliens.Level.Components
             boxCollider.isTrigger = true;
 
             // Spawn point setup
+            respawnPoint = transform.Find("Respawn Point").transform;
             if (!respawnPoint)
             {
                 respawnPoint = new GameObject("Respawn Point").transform;
