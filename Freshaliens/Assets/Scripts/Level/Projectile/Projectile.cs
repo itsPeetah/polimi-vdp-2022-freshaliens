@@ -9,7 +9,6 @@ public class Projectile : MonoBehaviour
     public ProjectilePool OwnerPool { set => ownerPool = value; }
 
     [Header("Projectile Stats")]
-    [SerializeField] private int damage = 1;
     [SerializeField] private float lifeTime = 5f;
     [SerializeField] private LayerMask hitLayers = -1;
 
