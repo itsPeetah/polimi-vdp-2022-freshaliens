@@ -227,8 +227,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuPrefab: {fileID: 4117612776588931256, guid: f061d538b38f94f1288610b833db7c55, type: 3}
   settingsMenuPrefab: {fileID: 9210265720668316468, guid: 76e90790d538a4d93a2948133bb8aab3, type: 3}
-  creditsScreenPrefab: {fileID: -1844502070244579913, guid: a0ab841d742e742b5aadfa19be79a96c, type: 3}
-  feedBackScreenPrefab: {fileID: 2260628694643696387, guid: 22b00b92c0795be49bb6a4143edda6d7, type: 3}
+  creditsScreenPrefab: {fileID: -1844502070244579913, guid: 2b624db0eeb654f92a6876e7f3fd0d25, type: 3}
+  feedBackScreenPrefab: {fileID: 2260628694643696387, guid: fd9a9f46c23444b20a874dd26fdebab2, type: 3}
   gameMenuPrefab: {fileID: 8734874678188907455, guid: 18397236276b74dee9fa500847abbb8d, type: 3}
   pauseMenuPrefab: {fileID: 5550379600548515726, guid: 282f6b3ab5d9841dbba0a97cc3723eba, type: 3}
   levelCompletedScreen: {fileID: 3082905185865487062, guid: 2196ba396933c4bc499b61697f98653a, type: 3}
