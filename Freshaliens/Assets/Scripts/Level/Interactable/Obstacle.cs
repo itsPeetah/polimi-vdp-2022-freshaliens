@@ -1,9 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Freshaliens.Interaction;
-using Freshaliens.Player.Components;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 

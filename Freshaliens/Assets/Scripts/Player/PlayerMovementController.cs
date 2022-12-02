@@ -50,6 +50,7 @@ namespace Freshaliens.Player.Components
         private bool isWithinCoyoteTime = false;
         private bool jumpQueued = false;
         private bool hasJumpedSinceGrounded = false;    // this might use a better name
+        private bool hasChangedGroundTransform = true;
         private int remainingAirJumps = 0;
         private float currentSpeed = 0f;
         private float jumpPressedTimestamp = 0f;    // time of last jump press (for buffering)
@@ -132,7 +133,7 @@ namespace Freshaliens.Player.Components
                 remainingAirJumps = maxAirJumps;
 
                 // Add ground movement
-                if (wasGrounded)
+                if (wasGrounded && !hasChangedGroundTransform /*Not the best fix for the trapdoor glitch but OK for now*/)
                 {
                     groundVelocity = groundTransform.position - previousGroundPosition;
                 }
@@ -189,10 +190,11 @@ namespace Freshaliens.Player.Components
             bool rightFoot = rightCollider != null;
             bool leftFoot = leftCollider != null;
             isGrounded = (leftFoot || rightFoot);
-
+            Transform oldGT = groundTransform;
             // Store ground transform
-            if (rightFoot) groundTransform = rightCollider.transform;
+            if (rightFoot) groundTransform = rightCollider.transform;   
             else if (leftFoot && lastFacedDirection < 0) groundTransform = leftCollider.transform;
+            hasChangedGroundTransform = oldGT != groundTransform;
         }
 
         private bool CanJump()
