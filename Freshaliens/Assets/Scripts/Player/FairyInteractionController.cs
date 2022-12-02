@@ -14,7 +14,8 @@ namespace Freshaliens.Player.Components
     {
         [Header("Settings")]
         [SerializeField] private LayerMask interactableLayers = -1;
-
+        //animation for the shining
+        private Animator _animator;
         // State
         private Interactable storedInteractable = null;
 
@@ -24,6 +25,7 @@ namespace Freshaliens.Player.Components
         private void Start()
         {
             input = GetComponent<PlayerInputHandler>();
+            _animator = GetComponent<Animator>();
         }
 
         private void Update()
@@ -75,9 +77,25 @@ namespace Freshaliens.Player.Components
         {
             if (CheckInteractable(collision, out Interactable interactable))
             {
+
+   
+           
+                
                 if (interactable.ShouldBeStored)
-                {
+                {   
                     storedInteractable = interactable;
+                 
+                }
+                //check if can change animation
+                if (!collision.CompareTag( "Player" ) ||
+                    collision.gameObject.GetComponent<PlayerMovementController>().RemainingAirJupms >0 )
+                {
+                    Debug.Log(" compare tag is "+ collision.CompareTag( "Player" ) );
+                    Debug.Log("check if is different from "+ LayerMask.NameToLayer( "Player" ));
+                    Debug.Log("remainingjumps = " +
+                              collision.gameObject.GetComponent<PlayerMovementController>().RemainingAirJupms);
+                      _animator.SetBool("canLight", true);
+                  
                 }
                 interactable.OnFairyEnter();
             }
@@ -85,6 +103,7 @@ namespace Freshaliens.Player.Components
 
         private void OnTriggerStay2D(Collider2D collision)
         {
+            
             if (CheckInteractable(collision, out Interactable interactable))
             {
                 interactable.OnFairyStay();
@@ -93,11 +112,16 @@ namespace Freshaliens.Player.Components
 
         private void OnTriggerExit2D(Collider2D collision)
         {
+
             if (CheckInteractable(collision, out Interactable interactable))
             {
+         
+                //end light animation
+                _animator.SetBool("canLight",false);
                 if (interactable.ShouldBeStored)
                 {
                     storedInteractable = null;
+                    
                 }
                 interactable.OnFairyExit();
             }

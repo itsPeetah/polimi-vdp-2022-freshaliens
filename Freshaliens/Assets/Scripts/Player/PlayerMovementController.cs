@@ -55,6 +55,8 @@ namespace Freshaliens.Player.Components
         private bool hasJumpedSinceGrounded = false;    // this might use a better name
         private bool hasChangedGroundTransform = true;
         private int remainingAirJumps = 0;
+        //to look into reaminingAirJumps
+
         private float currentSpeed = 0f;
         private float jumpPressedTimestamp = 0f;    // time of last jump press (for buffering)
         private float lastGroundedTimestamp = 0f;   // time player was last grounded (for coyote time)
@@ -72,6 +74,7 @@ namespace Freshaliens.Player.Components
         // Properties
         public Vector3 Position => ownTransform.position;
         public float LastFacedDirection => lastFacedDirection;
+        public int RemainingAirJupms => remainingAirJumps;
         public Vector3 EnemyProjectileTarget => enemyProjectileTarget.position;
 
         private void Awake()
@@ -208,7 +211,7 @@ namespace Freshaliens.Player.Components
             bool canAirJump = remainingAirJumps > 0 && fairyDetector.CanFairyJump;
             return isWithinCoyoteTime || canAirJump;
         }
-
+        
         //private void OnDrawGizmos()
         //{
         //    int l = groundChecks.Length;
