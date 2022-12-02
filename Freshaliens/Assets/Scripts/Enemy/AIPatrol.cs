@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Search;
 using UnityEngine;
 using Freshaliens.Player.Components;
+using UnityEngine.Serialization;
+
 namespace Freshaliens.Enemy.Components
 {
 
@@ -15,7 +12,7 @@ namespace Freshaliens.Enemy.Components
             Blob, Shooter
         }
         public bool mustPatrol;
-        private bool mustTurn, canShoot, stunned;
+        private bool mustTurn, stunned;
 
 
         [SerializeField] public float walkSpeed, aggroRange, stopRange;
@@ -26,17 +23,16 @@ namespace Freshaliens.Enemy.Components
         [SerializeField] public Rigidbody2D rb;
         [SerializeField] public Transform groundCheckPos;
         [SerializeField] public LayerMask groundLayer;
-        [SerializeField] public Collider2D collider;
+        [FormerlySerializedAs("collider")] public Collider2D ownCollider;
         [SerializeField] public EnemyType type;
-        float weaponAngleRadians = 0;
-        float fireTimer = 0;
+       
 
         void Start()
         {
             rb = GetComponent<Rigidbody2D>();
             player = PlayerMovementController.Instance.transform;
             mustPatrol = true; //in default è null
-            canShoot = true;
+            
         }
 
         public void setStun(bool stun)
@@ -71,29 +67,6 @@ namespace Freshaliens.Enemy.Components
                 PatrolFighter();
             }
 
-
-
-
-
-
-            /*if (distToPlayer <= range)
-            {
-                if (player.position.x > transform.position.x && transform.localScale.x < 0 ||
-                    player.position.x < transform.position.x && transform.localScale.x > 0)
-                {
-                    Flip();
-                }
-
-                mustPatrol = false;
-
-               if (enemyType == EnemyType.Shooter)
-                {
-                    if(canShoot)
-                    StartCoroutine(Shoot());
-
-                }
-            }
-            mustPatrol = true;*/
         }
 
         private void FixedUpdate()
@@ -110,13 +83,9 @@ namespace Freshaliens.Enemy.Components
             {
                 rb.velocity = new Vector2(walkSpeed, rb.velocity.y);
             }
-            else
-            {
-                rb.velocity = Vector2.zero;
-            }
 
 
-            if (mustTurn == true || collider.IsTouchingLayers(groundLayer))
+            if (mustTurn == true || ownCollider.IsTouchingLayers(groundLayer))
             {
                 Flip();
             }
@@ -128,7 +97,7 @@ namespace Freshaliens.Enemy.Components
         {
             rb.velocity = new Vector2(walkSpeed, rb.velocity.y);
 
-            if (mustTurn == true || collider.IsTouchingLayers(groundLayer))
+            if (mustTurn == true || ownCollider.IsTouchingLayers(groundLayer))
             {
                 Flip();
             }

@@ -1,9 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Freshaliens.Interaction;
-using Freshaliens.Player.Components;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
@@ -16,6 +10,7 @@ namespace Freshaliens.Interaction
         [SerializeField] private int _fairyLayer = 8;
         
         [SerializeField] private Target _target = Target.Both;
+        [SerializeField] private bool _isEnemy = false;
 
         private enum Target
         {
@@ -41,17 +36,17 @@ namespace Freshaliens.Interaction
             case Target.Ninja:
                 if (colliderLayer==_ninjaLayer) 
                 {
-                    livesManager.HitPlayer();  
+                    livesManager.HitPlayer(_isEnemy);  
                 }
                 break;
             case Target.Fairy:
                 if (colliderLayer==_fairyLayer)
                 {
-                    livesManager.HitPlayer();
+                    livesManager.HitPlayer(_isEnemy);
                 }
                 break;
             case Target.Both:
-                livesManager.HitPlayer();
+                livesManager.HitPlayer(_isEnemy);
                 break;
         }
     }

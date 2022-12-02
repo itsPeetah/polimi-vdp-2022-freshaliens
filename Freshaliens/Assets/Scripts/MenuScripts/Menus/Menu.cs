@@ -45,20 +45,20 @@ namespace MenuManagement
         
         public static void Open()
         {
-            if (MenuManager.Instance==null)
-                print("Menu Manager Instance e' null");
+            if (MenuManager.Instance == null) { }
+                //print("Menu Manager Instance e' null");
             if (MenuManager.Instance != null && Instance != null)
             {
-                Debug.Log("Menumanager.Instance è " + MenuManager.Instance);
+                //Debug.Log("Menumanager.Instance è " + MenuManager.Instance);
                 MenuManager.Instance.OpenMenu(Instance);
             }
         }
 
         public static void Close()
         {
-            if (MenuManager.Instance==null)
-                print("Menu Manager Instance e' null");
-            Debug.Log("Menumanager.Instance è " + MenuManager.Instance);
+            if (MenuManager.Instance == null) { }
+                //print("Menu Manager Instance e' null");
+            //Debug.Log("Menumanager.Instance è " + MenuManager.Instance);
             MenuManager.Instance.CloseMenu();
         }
     }
