@@ -73,7 +73,8 @@ namespace Freshaliens.Level.Components
 
             if (isFinalCheckpoint && !hasBeenActivated) {
                 hasBeenActivated = true;
-                //MenuManager.Instance.levelCompletedScreen.Open(); // TODO Move this to game manager script // TODO FIX MENU MANAGER OPEN
+          
+                LevelCompletedScreen.Open(); 
                 return;
             }
 
