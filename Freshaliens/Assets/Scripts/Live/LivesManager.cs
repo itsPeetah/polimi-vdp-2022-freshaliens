@@ -20,6 +20,8 @@ public class LivesManager : MonoBehaviour
     private bool hit = false;
     private int numberOfLives;
 
+    private bool _alreadyHit = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,8 +61,27 @@ public class LivesManager : MonoBehaviour
         
     }
 
-    public void HitPlayer()
+    public void HitPlayer(bool enemy)
     {
+        if (enemy)
+        {
+            HitByEnemy();
+        }
+        else
+        {
+            PlayerHit(player1);
+        }
+    }
+
+    private void HitByEnemy()
+    {
+        if (_alreadyHit)
+        {
+            _alreadyHit = false;
+            return;
+        }
+
+        _alreadyHit = true;
         PlayerHit(player1);
     }
 

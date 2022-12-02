@@ -38,6 +38,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4520864182759604400, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 4520864183680977984, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: _rb
       value: 
@@ -112,11 +116,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.32
+      value: 93.13
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.7485
+      value: 6.21
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -159,6 +163,10 @@ PrefabInstance:
       value: -0.20922188
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978010, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4520864183680978010, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 0.56
       objectReference: {fileID: 0}
@@ -173,6 +181,10 @@ PrefabInstance:
     - target: {fileID: 4520864183680978011, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_Offset.y
       value: 0.11408084
+      objectReference: {fileID: 0}
+    - target: {fileID: 4520864183680978011, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978011, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
@@ -226,3 +238,20 @@ MonoBehaviour:
     m_Bits: 16384
   enemy: {fileID: 1432677292379100846}
   numberOfLives: 3
+--- !u!114 &36141399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432677292379100846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b34ec4832c908e4e85af1b4e6615493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storable: 1
+  _ninjaLayer: 7
+  _fairyLayer: 8
+  _target: 0
+  _isEnemy: 1
