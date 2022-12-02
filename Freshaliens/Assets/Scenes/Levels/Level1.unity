@@ -23470,6 +23470,7 @@ MonoBehaviour:
   _currentTrackingMode: 0
   _horizontalOffset: 2
   _verticalOffset: 2
+  _initialHorizontalOffset: 5
   _minCameraSize: 6
   _maxCameraSize: 10
   _playerMarginBeforeZoomOut: 1
