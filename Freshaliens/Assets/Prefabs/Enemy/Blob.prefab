@@ -68,7 +68,7 @@ PrefabInstance:
       objectReference: {fileID: 5444438913041132579, guid: add405116417a4533932708b9d6a2545, type: 3}
     - target: {fileID: 4520864183680977989, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: stopRange
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680977989, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: walkSpeed
@@ -77,6 +77,10 @@ PrefabInstance:
     - target: {fileID: 4520864183680977989, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: aggroRange
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4520864183680977990, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
+      propertyPath: m_FlipX
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680977990, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_Sprite
@@ -99,12 +103,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5249987
+      objectReference: {fileID: 0}
+    - target: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.4690151
+      objectReference: {fileID: 0}
+    - target: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 96.24
+      value: 18.32
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.29
+      value: -0.7485
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -139,8 +151,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978010, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
+      propertyPath: m_Size.y
+      value: 0.13772312
+      objectReference: {fileID: 0}
+    - target: {fileID: 4520864183680978010, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.20922188
+      objectReference: {fileID: 0}
+    - target: {fileID: 4520864183680978010, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 0.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 4520864183680978011, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5104337
+      objectReference: {fileID: 0}
+    - target: {fileID: 4520864183680978011, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.21769893
+      objectReference: {fileID: 0}
+    - target: {fileID: 4520864183680978011, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.11408084
       objectReference: {fileID: 0}
     - target: {fileID: 4520864183680978011, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
@@ -177,7 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storable: 1
   stunTime: 5
---- !u!114 &1047153932
+--- !u!114 &7728538621272377173
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,11 +218,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1432677292379100846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edf4fc58194e74a49b533431f04a3e20, type: 3}
+  m_Script: {fileID: 11500000, guid: cd5b0e8cf1f00a74db869a8365e72eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hitLayers:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 16384
   enemy: {fileID: 1432677292379100846}
   numberOfLives: 3
