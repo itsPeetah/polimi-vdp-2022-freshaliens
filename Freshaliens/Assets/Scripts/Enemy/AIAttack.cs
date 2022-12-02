@@ -14,7 +14,7 @@ namespace Freshaliens.Enemy.Components
         [SerializeField] public float _attackRange;
         [SerializeField] public int _damage;
         [SerializeField] private float firePower = 10f;
-        private Transform _target;
+        [SerializeField] public Transform _target;
         private Quaternion _rotation;
         private Rigidbody2D _rb;
 
@@ -28,7 +28,7 @@ namespace Freshaliens.Enemy.Components
         float fireTimer = 0;
 
         private void Start()
-        {   _target = PlayerMovementController.Instance.transform;
+        {   //_target = PlayerMovementController.Instance.transform;
             _rb = GetComponent<Rigidbody2D>();
             projectiles = ProjectilePool.GetByID(projectilePoolId);
         }

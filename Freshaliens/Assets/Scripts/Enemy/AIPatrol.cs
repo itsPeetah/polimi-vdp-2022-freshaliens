@@ -67,7 +67,7 @@ namespace Freshaliens.Enemy.Components
             }
 
 
-
+        
 
 
 
@@ -104,10 +104,6 @@ namespace Freshaliens.Enemy.Components
             if (mustPatrol)
             {
                 rb.velocity = new Vector2(walkSpeed, rb.velocity.y);
-            }
-            else
-            {
-                rb.velocity = Vector2.zero;
             }
 
 
