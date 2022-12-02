@@ -31,7 +31,6 @@ namespace Freshaliens.Enemy.Components
         private void Start()
         {   //_target = PlayerMovementController.Instance.transform;
             _rb = GetComponent<Rigidbody2D>();
-            enemyInt = GetComponent<AIPatrol>();
             projectiles = ProjectilePool.GetByID(projectilePoolId);
             
         }

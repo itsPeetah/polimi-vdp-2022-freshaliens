@@ -12,8 +12,7 @@ namespace Freshaliens.Enemy.Components
             Blob, Shooter
         }
         public bool mustPatrol;
-        private bool mustTurn;
-        public bool stunned;
+        private bool mustTurn, stunned;
 
 
         [SerializeField] public float walkSpeed, aggroRange, stopRange;
