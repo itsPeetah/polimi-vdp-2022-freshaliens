@@ -33,7 +33,7 @@ public class LivesManager : MonoBehaviour
         {
             Debug.Log("GAME OVER");
 
-            hitPlayer.transform.position = Checkpoint.LastActiveCheckpoint.transform.position;
+            hitPlayer.transform.position = Checkpoint.LastActiveCheckpoint.RespawnPosition;
             numberOfLives = initialNumberOfLives;
 
         }
