@@ -62,7 +62,7 @@ namespace MenuManagement
         {
             if (menuInstance == null)
             {
-                Debug.LogWarning("MENU MANAGER: opening invalid menu");
+                //Debug.LogWarning("MENU MANAGER: opening invalid menu");
                 return;
             }
 
@@ -73,18 +73,18 @@ namespace MenuManagement
                     menu.gameObject.SetActive(false);
                 }
             }
- Debug.Log("menuIstance is "+ menuInstance);
+ //Debug.Log("menuIstance is "+ menuInstance);
             menuInstance.gameObject.SetActive(true);
             _menuStack.Push(menuInstance);
             
-            print("STACK CONTAINS "+_menuStack.Count);
+            //print("STACK CONTAINS "+_menuStack.Count);
         }
 
         public void CloseMenu()
         {
             if (_menuStack.Count == 0)
             {
-                Debug.LogWarning("MENU MANAGER: no menu to close");
+                //Debug.LogWarning("MENU MANAGER: no menu to close");
                 return;
             }
 
@@ -104,7 +104,7 @@ namespace MenuManagement
             
             if (_menuParent == null)
             {
-                print("CREA MENUS GAME OBJECT");
+                //print("CREA MENUS GAME OBJECT");
                
                 GameObject menuParentObject = new GameObject("Menus");
                 menuParentObject.transform.position = Vector3.zero;
