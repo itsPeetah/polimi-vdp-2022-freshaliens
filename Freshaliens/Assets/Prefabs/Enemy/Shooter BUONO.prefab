@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &970049359
+--- !u!1 &412935839
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,7 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 970049360}
+  - component: {fileID: 412935808}
   m_Layer: 10
   m_Name: Muzzle
   m_TagString: Untagged
@@ -16,22 +16,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &970049360
+--- !u!4 &412935808
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 970049359}
+  m_GameObject: {fileID: 412935839}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.26, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6514968656819370476}
+  m_Father: {fileID: 4099154919400950136}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &7265581065544332724
+--- !u!1001 &458885213245080864
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -57,7 +57,7 @@ PrefabInstance:
     - target: {fileID: 4520864183680977984, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: weaponMuzzle
       value: 
-      objectReference: {fileID: 970049360}
+      objectReference: {fileID: 412935808}
     - target: {fileID: 4520864183680977989, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
       propertyPath: type
       value: 1
@@ -148,18 +148,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
---- !u!1 &6514968656819370475 stripped
+--- !u!4 &4099154919400950136 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
+  m_PrefabInstance: {fileID: 458885213245080864}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4099154919400950143 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4520864183680978015, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
-  m_PrefabInstance: {fileID: 7265581065544332724}
+  m_PrefabInstance: {fileID: 458885213245080864}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1336739555
+--- !u!114 &1860183859
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6514968656819370475}
+  m_GameObject: {fileID: 4099154919400950143}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63b1ad78d8b412f44845cc94340eb680, type: 3}
@@ -167,13 +172,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storable: 1
   stunTime: 1
---- !u!114 &1607122581
+  isShoot: 0
+--- !u!114 &2122817349
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6514968656819370475}
+  m_GameObject: {fileID: 4099154919400950143}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b34ec4832c908e4e85af1b4e6615493, type: 3}
@@ -184,13 +190,13 @@ MonoBehaviour:
   _fairyLayer: 8
   _target: 0
   _isEnemy: 1
---- !u!114 &7861150131997055747
+--- !u!114 &7861150132522072787
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6514968656819370475}
+  m_GameObject: {fileID: 4099154919400950143}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd5b0e8cf1f00a74db869a8365e72eff, type: 3}
@@ -199,10 +205,5 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 16384
-  enemy: {fileID: 6514968656819370475}
+  enemy: {fileID: 4099154919400950143}
   numberOfLives: 1
---- !u!4 &6514968656819370476 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4520864183680978008, guid: 2b7b30ffb715db14ba946e474ff487cd, type: 3}
-  m_PrefabInstance: {fileID: 7265581065544332724}
-  m_PrefabAsset: {fileID: 0}
