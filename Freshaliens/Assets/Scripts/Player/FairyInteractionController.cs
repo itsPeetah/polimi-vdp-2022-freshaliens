@@ -14,7 +14,8 @@ namespace Freshaliens.Player.Components
     {
         [Header("Settings")]
         [SerializeField] private LayerMask interactableLayers = -1;
-
+        //Sprite for the shining
+        private SpriteRenderer shining;
         // State
         private Interactable storedInteractable = null;
 
@@ -24,6 +25,9 @@ namespace Freshaliens.Player.Components
         private void Start()
         {
             input = GetComponent<PlayerInputHandler>();
+            shining = this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
+            shining.enabled = false;
+
         }
 
         private void Update()
@@ -75,9 +79,13 @@ namespace Freshaliens.Player.Components
         {
             if (CheckInteractable(collision, out Interactable interactable))
             {
+   
+                //visual effect
+                shining.enabled = true;
                 if (interactable.ShouldBeStored)
                 {
                     storedInteractable = interactable;
+                 
                 }
                 interactable.OnFairyEnter();
             }
@@ -85,6 +93,7 @@ namespace Freshaliens.Player.Components
 
         private void OnTriggerStay2D(Collider2D collision)
         {
+            
             if (CheckInteractable(collision, out Interactable interactable))
             {
                 interactable.OnFairyStay();
@@ -95,9 +104,13 @@ namespace Freshaliens.Player.Components
         {
             if (CheckInteractable(collision, out Interactable interactable))
             {
+                //visual effect
+                shining.enabled = false;
+                Debug.Log("lascio fatina");
                 if (interactable.ShouldBeStored)
                 {
                     storedInteractable = null;
+                    
                 }
                 interactable.OnFairyExit();
             }
