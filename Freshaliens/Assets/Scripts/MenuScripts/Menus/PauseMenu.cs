@@ -41,7 +41,7 @@ namespace MenuManagement
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Debug.Log("premuto ESC, _gameIsPaused è "+ _gameIsPaused);
+                //Debug.Log("premuto ESC, _gameIsPaused è "+ _gameIsPaused);
                 if (_gameIsPaused)
                 {
                    
