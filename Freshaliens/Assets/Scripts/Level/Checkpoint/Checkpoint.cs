@@ -71,8 +71,9 @@ namespace Freshaliens.Level.Components
             if (hasBeenActivated && !allowMultipleActivations) return;
             // HACK For now I'll just make a new layer that only collides with player 1
 
-            if (isFinalCheckpoint) {
-                MenuManager.Instance.OpenMenu(MenuManager.Instance.levelCompletedScreen); // TODO Move this to game manager script
+            if (isFinalCheckpoint && !hasBeenActivated) {
+                hasBeenActivated = true;
+                //MenuManager.Instance.levelCompletedScreen.Open(); // TODO Move this to game manager script // TODO FIX MENU MANAGER OPEN
                 return;
             }
 
