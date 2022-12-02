@@ -24,6 +24,8 @@ namespace Freshaliens.Level.Components
 
         private bool hasBeenActivated = false;
 
+        public Vector3 RespawnPosition => respawnPoint.position;
+
         private void Awake()
         {
             Setup();
@@ -60,6 +62,14 @@ namespace Freshaliens.Level.Components
         {
             if (hasBeenActivated && !allowMultipleActivations) return;
             // HACK For now I'll just make a new layer that only collides with player 1
+            if (isFinalCheckpoint && !hasBeenActivated) {
+                hasBeenActivated = true;
+                PlayerData.Instance.UnlockNextLevel();
+                LevelCompletedScreen.Open(); 
+                return;
+            }
+
+            // Not final checkpoint -> update last available checkpoint
             lastActiveCheckpoint = this;
             hasBeenActivated = true;
         }
