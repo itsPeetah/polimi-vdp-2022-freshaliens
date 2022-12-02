@@ -46,7 +46,7 @@ namespace Freshaliens.LevelSelection.Components
 
         private void Start()
         {
-            currentlySelectedLevel = PlayerData.Instance.LastUnlockedLevel;
+            currentlySelectedLevel = PlayerData.Instance.LastLevelSelected;
 
             InstantiateMapLines();
             UpdateMapLineState();
