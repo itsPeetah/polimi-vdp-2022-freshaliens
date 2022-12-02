@@ -226,13 +226,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuPrefab: {fileID: 4117612776588931256, guid: f061d538b38f94f1288610b833db7c55, type: 3}
-  settingsMenuPrefab: {fileID: 9210265720668316468, guid: 76e90790d538a4d93a2948133bb8aab3, type: 3}
+  settingsMenuPrefab: {fileID: 9210265720668316468, guid: 7944dad84068247138ef6017d9117234, type: 3}
   creditsScreenPrefab: {fileID: -1844502070244579913, guid: 2b624db0eeb654f92a6876e7f3fd0d25, type: 3}
   feedBackScreenPrefab: {fileID: 2260628694643696387, guid: fd9a9f46c23444b20a874dd26fdebab2, type: 3}
-  gameMenuPrefab: {fileID: 8734874678188907455, guid: 18397236276b74dee9fa500847abbb8d, type: 3}
-  pauseMenuPrefab: {fileID: 5550379600548515726, guid: 282f6b3ab5d9841dbba0a97cc3723eba, type: 3}
-  levelCompletedScreen: {fileID: 3082905185865487062, guid: 2196ba396933c4bc499b61697f98653a, type: 3}
-  gameCompletedScreen: {fileID: 3028185848691264622, guid: 63232de5c1ca041b68f2220d45ff1ea5, type: 3}
+  gameMenuPrefab: {fileID: 8734874678188907455, guid: 1b9c8017f82814f7a8eaf17e4c88ab5b, type: 3}
+  pauseMenuPrefab: {fileID: 5550379600548515726, guid: 1a97130ff0b684265bad93d4937b1585, type: 3}
+  levelCompletedScreen: {fileID: 3082905185865487062, guid: 369cfed1b955e40b68515760f4de764a, type: 3}
+  gameCompletedScreen: {fileID: 3028185848691264622, guid: b6109b3d49f8b4d379750a357488a69b, type: 3}
   _menuParent: {fileID: 0}
 --- !u!1 &2134331928
 GameObject:
