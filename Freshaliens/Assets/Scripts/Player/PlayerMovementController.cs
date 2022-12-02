@@ -49,6 +49,7 @@ namespace Freshaliens.Player.Components
         private bool wasGrounded = false;
         private bool isWithinCoyoteTime = false;
         private bool jumpQueued = false;
+        private bool hasJumpedSinceGrounded = false;    // this might use a better name
         private int remainingAirJumps = 0;
         private float currentSpeed = 0f;
         private float jumpPressedTimestamp = 0f;    // time of last jump press (for buffering)
@@ -135,6 +136,9 @@ namespace Freshaliens.Player.Components
                 {
                     groundVelocity = groundTransform.position - previousGroundPosition;
                 }
+                else {
+                    hasJumpedSinceGrounded = false;
+                }
 
                 previousGroundPosition = groundTransform.position;
                 lastGroundedTimestamp = Time.time;
@@ -145,6 +149,7 @@ namespace Freshaliens.Player.Components
             if (jumpQueued && CanJump())
             {
                 jumpQueued = false;
+                hasJumpedSinceGrounded = true;
 
                 // Grounded or airborne jump
                 if (!isGrounded && !isWithinCoyoteTime) remainingAirJumps -= 1;
@@ -156,15 +161,16 @@ namespace Freshaliens.Player.Components
                 // Clamp terminal velocity
                 velocity.y = Mathf.Clamp(rbody.velocity.y, -terminalVelocity, terminalVelocity);
             }
-    
+
             // Gravity
-            if (isGrounded || rbody.velocity.y <= minVerticalVelocityForJump) rbody.gravityScale = gravityScaleFalling;
+            if (isGrounded || rbody.velocity.y <= minVerticalVelocityForJump)
+            {
+                rbody.gravityScale = gravityScaleFalling;
+            }
             else rbody.gravityScale = gravityScaleDefault;
 
-
-
             // Apply movement
-            rbody.position = rbody.position + groundVelocity;
+            rbody.position += groundVelocity;
             rbody.velocity = velocity;
 
             // Persist state
@@ -172,6 +178,7 @@ namespace Freshaliens.Player.Components
             
             //animation update
             _animator.SetBool("IsJumping",!isGrounded);
+
         }
 
         private void FixedUpdate()
@@ -187,17 +194,14 @@ namespace Freshaliens.Player.Components
             // Store ground transform
             if(rightFoot) groundTransform = rightCollider.transform;
             else if(leftFoot && lastFacedDirection < 0) groundTransform = leftCollider.transform;
-            
-            // animation update -> moved to update
-            //_animator.SetBool("IsJumping",!isGrounded);
         }
 
         private bool CanJump()
         {
-            if (isGrounded) return rbody.velocity.y <= minVerticalVelocityForJump;
+            if (isGrounded) return (rbody.velocity.y <= minVerticalVelocityForJump);
 
             bool canAirJump = remainingAirJumps > 0 && fairyDetector.CanFairyJump;
-            return isWithinCoyoteTime || canAirJump;
+            return (isWithinCoyoteTime && !hasJumpedSinceGrounded) || canAirJump;
         }
 
         //private void OnDrawGizmos()
