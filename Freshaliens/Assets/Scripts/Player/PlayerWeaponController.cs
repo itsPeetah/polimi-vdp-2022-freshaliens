@@ -8,7 +8,6 @@ namespace Freshaliens.Player.Components
     public class PlayerWeaponController : MonoBehaviour
     {
         [Header("Weapon")]
-        
         [SerializeField, Tooltip("Projectile spawn point")] private Transform weaponMuzzle;
         
         [Header("Fire")]
@@ -16,9 +15,7 @@ namespace Freshaliens.Player.Components
         [SerializeField] private string projectilePoolId = "Player";
         [SerializeField] private float firePower = 10f;
 
-
         // State
-        float weaponAngleRadians = 0;
         float fireTimer = 0;
 
         private Vector3 muzzleOffset;
