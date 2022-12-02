@@ -27,13 +27,13 @@ namespace Freshaliens.Level.Components
         public Vector3 StartPosition
         {
             get => transform.TransformPoint(startPositionOS);
-            set => startPositionOS = transform.InverseTransformPoint(value);
+            set { startPositionOS = transform.InverseTransformPoint(value); startPositionWS = value;}
         }
 
         public Vector3 EndPosition
         {
             get => transform.TransformPoint(endPositionOS);
-            set => endPositionOS = transform.InverseTransformPoint(value);
+            set { endPositionOS = transform.InverseTransformPoint(value); startPositionWS = value; }
         }
 
         private void Start()

@@ -15,7 +15,7 @@ namespace Freshaliens.Player.Components
         public static PlayerMovementController Instance { get => instance; private set => instance = value; }
 
         private const float minVerticalVelocityForJump = 0.001f;
-
+        [SerializeField] private Animator _animator;
         [Header("Walking")]
         [SerializeField] private float movementSpeedStart = 5.0f;
         [SerializeField] private float movementSpeedMax = 6.0f;
@@ -38,6 +38,8 @@ namespace Freshaliens.Player.Components
 
         [Header("Ground check")]
         [SerializeField] private Transform[] groundChecks = new Transform[0];
+        [SerializeField] private Transform leftGroundCheck = null;
+        [SerializeField] private Transform rightGroundCheck = null;
         [SerializeField] private float groundCheckRadius = 0.1f;
         [SerializeField] private LayerMask groundLayers = 0;
 
@@ -53,6 +55,8 @@ namespace Freshaliens.Player.Components
         private float lastGroundedTimestamp = 0f;   // time player was last grounded (for coyote time)
         private float lastFacedDirection = 1f;
         private Vector2 velocity = Vector2.zero;
+        private Vector3 previousGroundPosition = Vector3.zero;
+        private Transform groundTransform = null;
 
         // Components
         private PlayerInputHandler input = null;
@@ -77,6 +81,12 @@ namespace Freshaliens.Player.Components
             fairyDetector = GetComponent<PlayerFairyDetector>();
 
             remainingAirJumps = maxAirJumps;
+
+            if (!leftGroundCheck) leftGroundCheck = transform.Find("Ground Check Left");
+            if (!rightGroundCheck) rightGroundCheck = transform.Find("Ground Check Right");
+#if UNITY_EDITOR
+            if (!leftGroundCheck || !rightGroundCheck) Debug.LogWarning("Missing ground checks in player prefab!");
+#endif
         }
 
         private void Update()
@@ -85,7 +95,9 @@ namespace Freshaliens.Player.Components
 
             float direction = input.GetHorizontal();
             if (direction != 0) lastFacedDirection = direction;
-
+            //animation update
+            _animator.SetFloat("DirectionR",lastFacedDirection);
+            
             if (input.GetJumpInput())
             {
                 jumpPressedTimestamp = Time.time;
@@ -97,6 +109,8 @@ namespace Freshaliens.Player.Components
 
             // Walking
             isMoving = Mathf.Abs(direction) > 0f;
+            //changing animation state
+            _animator.SetBool("IsMoving",isMoving);
             if (isMoving)
             {
                 // Accelerate until max speed
@@ -110,9 +124,19 @@ namespace Freshaliens.Player.Components
             // Ignore input direction if walljumping, apply it if not within the ignore input time frame
             velocity.x = direction * currentSpeed;
 
-            if (isGrounded) remainingAirJumps = maxAirJumps;
-            else if (wasGrounded)
+            Vector2 groundVelocity = Vector2.zero;
+            if (isGrounded)
             {
+                // Reset air jumps
+                remainingAirJumps = maxAirJumps;
+
+                // Add ground movement
+                if (wasGrounded)
+                {
+                    groundVelocity = groundTransform.position - previousGroundPosition;
+                }
+
+                previousGroundPosition = groundTransform.position;
                 lastGroundedTimestamp = Time.time;
             }
 
@@ -132,25 +156,40 @@ namespace Freshaliens.Player.Components
                 // Clamp terminal velocity
                 velocity.y = Mathf.Clamp(rbody.velocity.y, -terminalVelocity, terminalVelocity);
             }
-
+    
             // Gravity
             if (isGrounded || rbody.velocity.y <= minVerticalVelocityForJump) rbody.gravityScale = gravityScaleFalling;
             else rbody.gravityScale = gravityScaleDefault;
 
+
+
             // Apply movement
+            rbody.position = rbody.position + groundVelocity;
             rbody.velocity = velocity;
 
             // Persist state
             wasGrounded = isGrounded;
+            
+            //animation update
+            _animator.SetBool("IsJumping",!isGrounded);
         }
 
         private void FixedUpdate()
         {
             int l = groundChecks.Length;
             isGrounded = false;
-            // TODO FIX THIS SHIT LMAO (atleast the loop is now unrolled)
-            isGrounded |= Physics2D.OverlapCircle(groundChecks[0].position, groundCheckRadius, groundLayers) != null;
-            isGrounded |= Physics2D.OverlapCircle(groundChecks[1].position, groundCheckRadius, groundLayers) != null;
+            Collider2D leftCollider = Physics2D.OverlapCircle(leftGroundCheck.position, groundCheckRadius, groundLayers);
+            Collider2D rightCollider = Physics2D.OverlapCircle(rightGroundCheck.position, groundCheckRadius, groundLayers);
+            bool rightFoot = rightCollider != null;
+            bool leftFoot = leftCollider != null;
+            isGrounded = (leftFoot || rightFoot);
+
+            // Store ground transform
+            if(rightFoot) groundTransform = rightCollider.transform;
+            else if(leftFoot && lastFacedDirection < 0) groundTransform = leftCollider.transform;
+            
+            // animation update -> moved to update
+            //_animator.SetBool("IsJumping",!isGrounded);
         }
 
         private bool CanJump()
