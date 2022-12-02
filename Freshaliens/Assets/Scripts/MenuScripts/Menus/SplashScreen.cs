@@ -35,7 +35,7 @@ namespace MenuManagement
 
         public void FadeAndLoad()
         {
-            Debug.Log("FADE AND LOAD STARTED");
+            //Debug.Log("FADE AND LOAD STARTED");
             StartCoroutine(FadeAndLoadRoutine());
         }
 
@@ -64,7 +64,7 @@ namespace MenuManagement
                 }
                 else
                 {
-                    Debug.Log("Splash Screen Button Enabled");
+                    //Debug.Log("Splash Screen Button Enabled");
                     _startButton.enabled = true;
                 }
             }

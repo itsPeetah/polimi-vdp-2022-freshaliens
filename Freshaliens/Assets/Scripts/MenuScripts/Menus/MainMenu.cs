@@ -14,18 +14,18 @@ namespace MenuManagement
         
         public void OnSettingsPressed()
         {
-            print("SETTINGS");
+            //print("SETTINGS");
             SettingsMenu.Open();
         }
 
         public void OnCreditPressed()
         {
-            print("CREDITS");
+            //print("CREDITS");
             CreditsScreen.Open();
         } 
         public void OnFeedbackPressed()
         {
-            print("FEEDBACK");
+            //print("FEEDBACK");
             FeedBackScreen.Open();  
         }
         public void OnPlayPressed()

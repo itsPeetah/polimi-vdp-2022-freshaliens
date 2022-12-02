@@ -43,6 +43,9 @@ namespace Freshaliens.Player.Components
         [SerializeField] private float groundCheckRadius = 0.1f;
         [SerializeField] private LayerMask groundLayers = 0;
 
+        [Header("Misc")]
+        [SerializeField] private Transform enemyProjectileTarget = null;
+
         // State
         private bool isMoving = false;
         private bool isGrounded = false;
@@ -71,10 +74,8 @@ namespace Freshaliens.Player.Components
         // Properties
         public Vector3 Position => ownTransform.position;
         public float LastFacedDirection => lastFacedDirection;
-        public int RemainingAirJupms
-        {
-            get { return remainingAirJumps; }
-        }
+        public int RemainingAirJupms => remainingAirJumps;
+        public Vector3 EnemyProjectileTarget => enemyProjectileTarget.position;
 
         private void Awake()
         {
