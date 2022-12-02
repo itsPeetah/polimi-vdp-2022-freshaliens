@@ -24,6 +24,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private TrackingMode _currentTrackingMode;
     [SerializeField] private float _horizontalOffset = 2f;
     [SerializeField] private float _verticalOffset = 2f;
+    [SerializeField] private float _initialHorizontalOffset = 5f;
     [SerializeField] private float _minCameraSize = 6f;
     [SerializeField] private float _maxCameraSize = 12f;
     [SerializeField] private float _playerMarginBeforeZoomOut = 2f;
@@ -61,7 +62,6 @@ public class CameraManager : MonoBehaviour
 
     //Camera State
     private Vector3 _initialCameraPosition;
-    private float _initialCameraPositionXCoordinate;
     private Vector3 _currentCameraPosition;
     private float _currentCameraSize;
     private float _currentScreenWidth;
@@ -90,17 +90,18 @@ public class CameraManager : MonoBehaviour
         _fairyCollider = _fairy.gameObject.GetComponent<Collider2D>();
 
         //Set initial CameraManager state
-        _transform.position += new Vector3(0, _verticalOffset, 0);
+        Debug.Log(_ninjaTransform.position);
+        _transform.position = _ninjaTransform.position + new Vector3(_initialHorizontalOffset, _verticalOffset, _transform.position.z);
+        Debug.Log(_transform.position);
         _currentPosition = _transform.position;
 
         //Set initial camera state
         _canIncreaseCameraSize = true;
         _canMoveCamera = true;
         _showMessagePlayersTooDistant = true;
-        _cameraTransform.position = _currentPosition;
-        _currentCameraPosition = _currentPosition;
-        // _initialCameraPosition = _currentPosition;
-        // _initialCameraPositionXCoordinate = _currentPosition.x;
+        _initialCameraPosition = _currentPosition;
+        _currentCameraPosition = _initialCameraPosition;
+        _cameraTransform.position = _currentCameraPosition;
         _currentCameraSize = _minCameraSize;
         _camera.orthographicSize = _currentCameraSize;
         _currentScreenHeight = _currentCameraSize;
@@ -204,6 +205,8 @@ public class CameraManager : MonoBehaviour
                     newYCoordinate = positionNinja.y + _verticalOffset;
                     break;
             }
+
+            newXCoordinate = Mathf.Max(newXCoordinate, _initialCameraPosition.x);
             
             float horizontalDifference = newXCoordinate - currentXCoordinate;
             float verticalDifference = newYCoordinate - currentYCoordinate;
