@@ -154,7 +154,7 @@ namespace Freshaliens.Player.Components
         public void RespawnWithNinja(Vector3 ninjaPosition)
         {
             Vector3 newFairyPosition = RespawnPosition(ninjaPosition);
-            ownTransform.position = newFairyPosition;
+            rbody.position = newFairyPosition;
         }
 
         private Vector3 RespawnPosition(Vector3 ninjaPosition)

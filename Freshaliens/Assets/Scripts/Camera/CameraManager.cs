@@ -352,22 +352,5 @@ public class CameraManager : MonoBehaviour
             }
         }
     }
-    
-    //This method can be used to set zoom with mouse
-    // public void OrthographicZoom()
-    // {
-    //     float _targetCameraSize = _currentCameraSize;
-    //     _targetCameraSize -= Input.mouseScrollDelta.y * sensitivity;
-    //     _targetCameraSize = Mathf.Clamp(_targetCameraSize, _minCameraSize, _maxCameraSize);
-    //     float newCameraSize = Mathf.MoveTowards(_currentCameraSize, _targetCameraSize, _cameraZoomSpeed * Time.deltaTime);
-    //     _camera.orthographicSize = newCameraSize;
-    //     _currentCameraSize = newCameraSize;
-    //     _currentScreenHeight = newCameraSize;
-    //     _currentScreenWidth = newCameraSize * 16 / 9;
-    //     _top = _currentCameraPosition.y + _currentScreenHeight;
-    //     _left = _currentCameraPosition.x - _currentScreenWidth;
-    //     _right = _currentCameraPosition.x + _currentScreenWidth;
-    //     _rightCollision = _currentCameraPosition.x + _currentScreenWidth*_ratioPlayableScreen;
-    // }
-    
+
 }

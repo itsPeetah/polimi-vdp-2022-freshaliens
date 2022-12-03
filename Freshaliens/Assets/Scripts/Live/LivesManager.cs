@@ -10,26 +10,24 @@ using Newtonsoft.Json.Bson;
 
 public class LivesManager : MonoBehaviour
 {
-    [SerializeField] private PlayerMovementController player1;
-    //[SerializeField] private SpriteRenderer[] _spriteRenderers;
+    private PlayerMovementController ninja;
+    
     [SerializeField] private int initialNumberOfLives = 3;
     [SerializeField] private LayerMask hitLayers = -1;
     [SerializeField] private int deathLayer = 16;
-    //Saving starting position for future respawns
-    private Vector3 player1StartingPosition;
+    
+    // STATE
     private bool hit = false;
     private int numberOfLives;
-
     private bool _alreadyHit = false;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
+        ninja = PlayerMovementController.Instance;
         numberOfLives = initialNumberOfLives;
         
     }
-
-    // ReSharper disable Unity.PerformanceAnalysis
+    
     private void PlayerHit(PlayerMovementController hitPlayer)
     {
         Debug.Log("Hit");
@@ -43,8 +41,6 @@ public class LivesManager : MonoBehaviour
 
     private void PlayerDeath(PlayerMovementController hitPlayer)
     {
-        Debug.Log("MORTOOOO");
-        
         Vector3 newNinjaPosition = Checkpoint.LastActiveCheckpoint.RespawnPosition;
         hitPlayer.transform.position = newNinjaPosition;
         FairyMovementController.Instance.RespawnWithNinja(newNinjaPosition);
@@ -56,7 +52,7 @@ public class LivesManager : MonoBehaviour
         int layer = collision.gameObject.layer;
 
         if (( (1 << layer) & hitLayers) != 0) {
-            PlayerHit(player1);
+            PlayerHit(ninja);
         }
         
     }
@@ -69,7 +65,7 @@ public class LivesManager : MonoBehaviour
         }
         else
         {
-            PlayerHit(player1);
+            PlayerHit(ninja);
         }
     }
 
@@ -82,12 +78,12 @@ public class LivesManager : MonoBehaviour
         }
 
         _alreadyHit = true;
-        PlayerHit(player1);
+        PlayerHit(ninja);
     }
 
     public void DeathPLayer()
     {
-        PlayerDeath(player1);
+        PlayerDeath(ninja);
     }
     
 }
