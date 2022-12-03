@@ -322,8 +322,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   enemyProjectileTarget: {fileID: 3332434578813053516}
+  movementAudioSource: {fileID: 4386012166611936910}
   stepAudioClip: {fileID: 8300000, guid: 67fe9fe2605c24f7cad5044684b35983, type: 3}
-  stepAudioSource: {fileID: 4386012166611936910}
+  jumpAudioClip: {fileID: 8300000, guid: 6b4037d8ae3fe40aa9b4825839a44022, type: 3}
 --- !u!114 &7654560649549969166
 MonoBehaviour:
   m_ObjectHideFlags: 0

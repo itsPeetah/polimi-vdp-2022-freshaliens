@@ -46,8 +46,9 @@ namespace Freshaliens.Player.Components
         [Header("Misc")]
         [SerializeField] private Transform enemyProjectileTarget = null;
         [Space(5)]
+        [SerializeField] private AudioSource movementAudioSource = null;
         [SerializeField] private AudioClip stepAudioClip = null;
-        [SerializeField] private AudioSource stepAudioSource = null;
+        [SerializeField] private AudioClip jumpAudioClip = null;
 
         // State
         private bool isMoving = false;
@@ -164,6 +165,7 @@ namespace Freshaliens.Player.Components
                 if (!isGrounded && !isWithinCoyoteTime) remainingAirJumps -= 1;
                 velocity.y = isGrounded ? jumpForceGrounded : jumpForceAirborne;
 
+                PlayJumpSound();
             }
             else
             {
@@ -225,8 +227,13 @@ namespace Freshaliens.Player.Components
         //}
 
         public void PlayStepSound() {
-            stepAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
-            stepAudioSource.PlayOneShot(stepAudioClip);
+            movementAudioSource.pitch = UnityEngine.Random.Range(0.85f, 1.15f);
+            movementAudioSource.PlayOneShot(stepAudioClip);
+        }
+
+        public void PlayJumpSound() {
+            movementAudioSource.pitch = 1;
+            movementAudioSource.PlayOneShot(jumpAudioClip);
         }
     }
 }
