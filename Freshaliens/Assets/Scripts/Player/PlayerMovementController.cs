@@ -45,6 +45,9 @@ namespace Freshaliens.Player.Components
 
         [Header("Misc")]
         [SerializeField] private Transform enemyProjectileTarget = null;
+        [Space(5)]
+        [SerializeField] private AudioClip stepAudioClip = null;
+        [SerializeField] private AudioSource stepAudioSource = null;
 
         // State
         private bool isMoving = false;
@@ -56,7 +59,6 @@ namespace Freshaliens.Player.Components
         private bool hasChangedGroundTransform = true;
         private int remainingAirJumps = 0;
         //to look into reaminingAirJumps
-
         private float currentSpeed = 0f;
         private float jumpPressedTimestamp = 0f;    // time of last jump press (for buffering)
         private float lastGroundedTimestamp = 0f;   // time player was last grounded (for coyote time)
@@ -211,7 +213,7 @@ namespace Freshaliens.Player.Components
             bool canAirJump = remainingAirJumps > 0 && fairyDetector.CanFairyJump;
             return isWithinCoyoteTime || canAirJump;
         }
-        
+
         //private void OnDrawGizmos()
         //{
         //    int l = groundChecks.Length;
@@ -221,5 +223,10 @@ namespace Freshaliens.Player.Components
         //        Gizmos.DrawWireSphere(groundChecks[i].position, groundCheckRadius);
         //    }
         //}
+
+        public void PlayStepSound() {
+            stepAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+            stepAudioSource.PlayOneShot(stepAudioClip);
+        }
     }
 }
