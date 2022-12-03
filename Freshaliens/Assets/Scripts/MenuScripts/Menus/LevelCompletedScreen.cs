@@ -25,12 +25,14 @@ namespace MenuManagement
         {
             base.OnBackPressed();
             SceneLoadingManager.LoadLevelSelection();
+            PlayerData.Instance.Save();
         }
 
         public void OnMainMenuPressed()
         {   
             base.OnBackPressed();
             SceneLoadingManager.LoadMainMenuLevel();
+            PlayerData.Instance.Save();
         }
         
         public void OnDisable()
