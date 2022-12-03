@@ -24,8 +24,8 @@ public class CameraManager : MonoBehaviour
 
     [Header("Camera Parameters")]
     [SerializeField] private TrackingMode _currentTrackingMode;
-    [SerializeField] private float _horizontalOffset = 2f;
-    [SerializeField] private float _verticalOffset = 2f;
+    public float _horizontalOffset = 2f;
+    public float _verticalOffset = 2f;
     [SerializeField] private float _initialHorizontalOffset = 5f;
     public float _minCameraSize = 6f;
     public float _maxCameraSize = 12f;
