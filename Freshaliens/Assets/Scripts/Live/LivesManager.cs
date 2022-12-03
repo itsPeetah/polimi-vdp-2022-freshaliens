@@ -17,8 +17,8 @@ public class LivesManager : MonoBehaviour
     [SerializeField] private int deathLayer = 16;
     
     // STATE
+    public static int numberOfLives = 3; // UGLY, I wanted a Singleton but it's not possible...
     private bool hit = false;
-    private int numberOfLives;
     private bool _alreadyHit = false;
     
     void Start()
