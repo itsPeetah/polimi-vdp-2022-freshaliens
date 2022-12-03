@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,7 +55,6 @@ public class LivesManager : MonoBehaviour
         if (( (1 << layer) & hitLayers) != 0) {
             PlayerHit(ninja);
         }
-        
     }
 
     public void HitPlayer(bool enemy)
@@ -79,6 +79,14 @@ public class LivesManager : MonoBehaviour
 
         _alreadyHit = true;
         PlayerHit(ninja);
+        StartCoroutine(ResetAlreadyHit());
+    }
+
+    IEnumerator ResetAlreadyHit()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _alreadyHit = false;
+        yield return null;
     }
 
     public void DeathPLayer()
