@@ -25,6 +25,8 @@ namespace Freshaliens.Player.Components
         [SerializeField] private float returnDistance = 15f;
         [SerializeField] private float returnAcceleration = 40f;
         [SerializeField] private float maxReturnSpeed = 10f;
+        [SerializeField] private float verticalDistanceAtRespawn = 3f;
+        [SerializeField] private float horizontalDistanceAtRespawn = 8f;
 
         [Header("World Interaction")]
         [SerializeField] private float stunDuration = 3f;
@@ -43,6 +45,10 @@ namespace Freshaliens.Player.Components
         private PlayerInputHandler input = null;
         private Rigidbody2D rbody = null;
         private Transform ownTransform = null;
+        
+        // Respawn utility
+        private CameraManager _camInstance;
+        private Vector3 _fairyRespawnOffset;
 
         // Properties
         public bool IsMoving => isMoving;
@@ -60,6 +66,12 @@ namespace Freshaliens.Player.Components
             input = GetComponent<PlayerInputHandler>();
             rbody = GetComponent<Rigidbody2D>();
             ownTransform = transform;
+            
+            _camInstance = CameraManager.Instance;
+            float respawnHorizontalOffset = _camInstance._maxCameraSize*16/9 + horizontalDistanceAtRespawn;
+            float respawnVerticalOffset = _camInstance._maxCameraSize + verticalDistanceAtRespawn;
+            _fairyRespawnOffset = new Vector3(respawnHorizontalOffset, respawnVerticalOffset, 0);
+            
         }
 
         private void Update()
@@ -137,6 +149,57 @@ namespace Freshaliens.Player.Components
         {
             lockOnTarget = target;
             lockOnTargetAssigned = true;
+        }
+
+        public void RespawnWithNinja(Vector3 ninjaPosition)
+        {
+            Vector3 newFairyPosition = RespawnPosition(ninjaPosition);
+            rbody.position = newFairyPosition;
+        }
+
+        private Vector3 RespawnPosition(Vector3 ninjaPosition)
+        {
+            Vector3 currentFairyPosition = ownTransform.position;
+
+            float xNinja = ninjaPosition.x;
+            float yNinja = ninjaPosition.y;
+            float xFairy = currentFairyPosition.x;
+            float yFairy = currentFairyPosition.y;
+            float newXfairy, newYfairy;
+
+            // If the fairy is too right or too left reset horizontal position, else leave it in the same position 
+            if ((xFairy - xNinja) > _fairyRespawnOffset.x)          
+            {
+                // The fairy is too right
+                newXfairy = xNinja + _fairyRespawnOffset.x + _camInstance._horizontalOffset;
+            }
+            else if ((xNinja - xFairy) > _fairyRespawnOffset.x)     
+            {
+                // The fairy is too left
+                newXfairy = xNinja - _fairyRespawnOffset.x;
+            }
+            else
+            {
+                newXfairy = currentFairyPosition.x;
+            }
+
+            // If the fairy is too high or too low reset vertical position, else leave it in the same position 
+            if ((yFairy - yNinja) > _fairyRespawnOffset.y)          
+            {
+                // The fairy is too high
+                newYfairy = yNinja + _fairyRespawnOffset.y + _camInstance._verticalOffset;
+            }
+            else if ((yNinja - yFairy) > _fairyRespawnOffset.y)      
+            {
+                // The fairy is too low
+                newYfairy = yNinja - _fairyRespawnOffset.y;
+            }
+            else
+            {
+                newYfairy = currentFairyPosition.y;
+            }
+
+            return new Vector3(newXfairy, newYfairy, currentFairyPosition.z);
         }
     }
 }
