@@ -36,10 +36,7 @@ public class LivesManager : MonoBehaviour
         numberOfLives--;
         if (numberOfLives == 0)
         {
-            
-            hitPlayer.transform.position = Checkpoint.LastActiveCheckpoint.RespawnPosition;
-            numberOfLives = initialNumberOfLives;
-
+            PlayerDeath(hitPlayer);
         }
         
     }
@@ -47,7 +44,10 @@ public class LivesManager : MonoBehaviour
     private void PlayerDeath(PlayerMovementController hitPlayer)
     {
         Debug.Log("MORTOOOO");
-        hitPlayer.transform.position = Checkpoint.LastActiveCheckpoint.RespawnPosition;
+        
+        Vector3 newNinjaPosition = Checkpoint.LastActiveCheckpoint.RespawnPosition;
+        hitPlayer.transform.position = newNinjaPosition;
+        FairyMovementController.Instance.RespawnWithNinja(newNinjaPosition);
         numberOfLives = initialNumberOfLives;
     }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Freshaliens.Player.Components;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,9 +10,10 @@ using UnityEngine.Serialization;
 
 public class CameraManager : MonoBehaviour
 {
-    [Header("Players")]
-    [SerializeField] private GameObject _ninja;
-    [SerializeField] private GameObject _fairy;
+    
+    // Singleton instance
+    private static CameraManager instance = null;
+    public static CameraManager Instance { get => instance; private set => instance = value; }
     
     private enum TrackingMode
     {
@@ -25,8 +27,8 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float _horizontalOffset = 2f;
     [SerializeField] private float _verticalOffset = 2f;
     [SerializeField] private float _initialHorizontalOffset = 5f;
-    [SerializeField] private float _minCameraSize = 6f;
-    [SerializeField] private float _maxCameraSize = 12f;
+    public float _minCameraSize = 6f;
+    public float _maxCameraSize = 12f;
     [SerializeField] private float _playerMarginBeforeZoomOut = 2f;
     [SerializeField] private float _playerMarginBeforeZoomIn = 3.5f;
     [SerializeField] private float _cameraZoomSpeed = 4f;
@@ -46,6 +48,8 @@ public class CameraManager : MonoBehaviour
     
     //References
     //Transforms & Camera
+    private GameObject _ninja;
+    private GameObject _fairy;
     private Transform _transform;
     private Transform _ninjaTransform;
     private Transform _fairyTransform;
@@ -76,10 +80,17 @@ public class CameraManager : MonoBehaviour
     private float _rightCollision;
     private float _lastDistantMessageTime;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
         //Set references
         //Transforms & Camera
+        _ninja = PlayerMovementController.Instance.gameObject;
+        _fairy = FairyMovementController.Instance.gameObject;
         _transform = transform;
         _ninjaTransform = _ninja.GetComponent<Transform>();
         _fairyTransform = _fairy.GetComponent<Transform>();

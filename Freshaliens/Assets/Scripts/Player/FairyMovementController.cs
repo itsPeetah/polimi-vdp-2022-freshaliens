@@ -25,6 +25,7 @@ namespace Freshaliens.Player.Components
         [SerializeField] private float returnDistance = 15f;
         [SerializeField] private float returnAcceleration = 40f;
         [SerializeField] private float maxReturnSpeed = 10f;
+        [SerializeField] private float offscreenDistanceAtRespawn = 3f;
 
         [Header("World Interaction")]
         [SerializeField] private float stunDuration = 3f;
@@ -137,6 +138,14 @@ namespace Freshaliens.Player.Components
         {
             lockOnTarget = target;
             lockOnTargetAssigned = true;
+        }
+
+        public void RespawnWithNinja(Vector3 ninjaPosition)
+        {
+            float respawnHorizontalOffset = CameraManager.Instance._maxCameraSize*16/9 + offscreenDistanceAtRespawn;
+            Vector3 fairyOffset = new Vector3(respawnHorizontalOffset, 0, 0);
+            Vector3 newFairyPosition = ninjaPosition + fairyOffset;
+            ownTransform.position = newFairyPosition;
         }
     }
 }
