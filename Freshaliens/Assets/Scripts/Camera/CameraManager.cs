@@ -101,9 +101,7 @@ public class CameraManager : MonoBehaviour
         _fairyCollider = _fairy.gameObject.GetComponent<Collider2D>();
 
         //Set initial CameraManager state
-        Debug.Log(_ninjaTransform.position);
         _transform.position = _ninjaTransform.position + new Vector3(_initialHorizontalOffset, _verticalOffset, _transform.position.z);
-        Debug.Log(_transform.position);
         _currentPosition = _transform.position;
 
         //Set initial camera state

@@ -25,7 +25,8 @@ namespace Freshaliens.Player.Components
         [SerializeField] private float returnDistance = 15f;
         [SerializeField] private float returnAcceleration = 40f;
         [SerializeField] private float maxReturnSpeed = 10f;
-        [SerializeField] private float offscreenDistanceAtRespawn = 3f;
+        [SerializeField] private float verticalDistanceAtRespawn = 3f;
+        [SerializeField] private float horizontalDistanceAtRespawn = 8f;
 
         [Header("World Interaction")]
         [SerializeField] private float stunDuration = 3f;
@@ -142,10 +143,20 @@ namespace Freshaliens.Player.Components
 
         public void RespawnWithNinja(Vector3 ninjaPosition)
         {
-            float respawnHorizontalOffset = CameraManager.Instance._maxCameraSize*16/9 + offscreenDistanceAtRespawn;
-            Vector3 fairyOffset = new Vector3(respawnHorizontalOffset, 0, 0);
+            if (!resetRespawnPosition(ninjaPosition))
+            {
+                return;
+            }
+            float respawnHorizontalOffset = CameraManager.Instance._maxCameraSize*16/9 + horizontalDistanceAtRespawn;
+            Vector3 fairyOffset = new Vector3(respawnHorizontalOffset, verticalDistanceAtRespawn, 0);
             Vector3 newFairyPosition = ninjaPosition + fairyOffset;
             ownTransform.position = newFairyPosition;
+        }
+
+        private bool resetRespawnPosition(Vector3 ninjaPosition)
+        {
+            //TODO : implement checking if fairy is already inside the camera
+            return true;
         }
     }
 }
