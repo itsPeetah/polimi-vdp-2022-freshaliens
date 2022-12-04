@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3637740608284479707}
   - component: {fileID: 3637740608284479705}
   - component: {fileID: 3637740608284479706}
+  - component: {fileID: 2828177088617477634}
   m_Layer: 13
   m_Name: Laser
   m_TagString: Untagged
@@ -128,3 +129,24 @@ MonoBehaviour:
   _ninjaLayer: 7
   _fairyLayer: 8
   _target: 2
+  _isEnemy: 0
+--- !u!95 &2828177088617477634
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3637740608284479701}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 30734f4b549148748bffd2f2a2782b4c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
