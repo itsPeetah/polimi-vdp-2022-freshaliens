@@ -519,17 +519,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 683220299}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &728235312 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5233294359083805920, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
-  m_PrefabInstance: {fileID: 1709110488}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b82bc4995e4f64c3f850741fc3b1d9c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &728235314 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5233294359083805918, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
@@ -1550,11 +1539,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5233294359083805918, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.66
+      value: -12.67
       objectReference: {fileID: 0}
     - target: {fileID: 5233294359083805918, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.33
       objectReference: {fileID: 0}
     - target: {fileID: 5233294359083805918, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1596,6 +1585,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level POI (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5233294359083805923, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
 --- !u!1 &1743701290
@@ -1633,7 +1626,6 @@ MonoBehaviour:
   - {fileID: 183822366}
   - {fileID: 894003041}
   - {fileID: 965588144}
-  - {fileID: 728235312}
   - {fileID: 679751862}
   allowLockedSelection: 0
   levelMapLinePrefab: {fileID: 3310422655544389132, guid: f95432b3e5a514fb088d0e437e7870c9, type: 3}
