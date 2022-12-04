@@ -31,6 +31,7 @@ namespace Freshaliens.Interaction.Components
                 case DoorMode.TrapDoor:
                     _isActive = false;
                     gameObject.SetActive(false);
+                    _animator.SetBool("isDoorOpen",false);
                     break;
                 default:
                     _isActive = true;
