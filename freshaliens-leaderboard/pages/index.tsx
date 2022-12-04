@@ -28,7 +28,9 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/leaderboard").then((res) => {
+    fetch(
+      "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard"
+    ).then((res) => {
       res.json().then((data) => setLeaderboardData(data));
     });
   }, []);
