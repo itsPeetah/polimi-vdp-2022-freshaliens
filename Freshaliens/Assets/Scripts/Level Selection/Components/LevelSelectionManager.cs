@@ -15,6 +15,7 @@ namespace Freshaliens.LevelSelection.Components
         public static LevelSelectionManager Instance => instance;
 
         [Header("Level data")]
+        [SerializeField] private int progressOffset = 0;
         [SerializeField] private LevelRep[] levels;
         [SerializeField] private bool allowLockedSelection = false;
 
