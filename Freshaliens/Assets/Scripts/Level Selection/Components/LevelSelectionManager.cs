@@ -85,7 +85,7 @@ namespace Freshaliens.LevelSelection.Components
 
         private void SelectLevel(int index)
         {
-
+            Time.timeScale = 1;
             int prevSelectedLevel = currentlySelectedLevel;
             int levelToSelect = Mathf.Abs(index) % levels.Length;
 

@@ -87,8 +87,6 @@ namespace Freshaliens.Player.Components
 
         private void Start()
         {
-            Time.timeScale = 1;
-
             input = GetComponent<PlayerInputHandler>();
             rbody = GetComponent<Rigidbody2D>();
             ownTransform = transform;
