@@ -1,141 +1,83 @@
-import getConfig from 'next/config';
+import getConfig from "next/config";
 
-import Layout from '@/components/Layout';
+import Layout from "@/components/Layout";
+import { useEffect, useState } from "react";
+import { LeaderboardEntry, Score } from "src/types";
 
 const { publicRuntimeConfig } = getConfig();
 const { name } = publicRuntimeConfig.site;
 
 const Home = () => {
+  const [level, setLevel] = useState(0);
+  const [leaderboardData, setLeaderboardData] = useState({});
+
+  const buildLeaderboard = (level: number) => {
+    const children = [];
+    for (const [key, value] of Object.entries(leaderboardData)) {
+      const entry = value as Score;
+      if (entry.level === level) {
+        children.push(
+          <div className="flex flex-row justify-between border-b-2 border-gray-200">
+            <span>{key}</span>
+            <span>{entry.time}</span>
+          </div>
+        );
+      }
+    }
+    return children;
+  };
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/leaderboard").then((res) => {
+      res.json().then((data) => setLeaderboardData(data));
+    });
+  }, []);
+
   return (
     <Layout>
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="prose prose-blue mx-auto">
-            <h1>{name}</h1>
-            <p>Welcome to my Next.js + Tailwind CSS starter template.</p>
-
-            <h2>Features:</h2>
-            <ul>
-              <li>
-                Pre-configured <code>postcss.config.js</code> and{' '}
-                <code>tailwind.config.js</code>.
-              </li>
-              <li>
-                Markdown and CMS Content friendly with{' '}
-                <code>@tailwindcss/typography</code>.
-              </li>
-              <li>
-                Form styles with <code>@tailwindcss/forms</code>.
-              </li>
-              <li>
-                <code>global.css</code> that contains Tailwind CSS directives.
-              </li>
-              <li>
-                <code>{'<Layout />'}</code> component.
-              </li>
-            </ul>
-
-            <h2>Guides</h2>
-            <ul>
-              <li>
-                <a
-                  href="https://nextjs.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Next.js
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://tailwindcss.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Tailwind CSS
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/tailwindlabs/tailwindcss-typography"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  @tailwindcss/typography
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/tailwindlabs/tailwindcss-forms"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  @tailwindcss/forms
-                </a>
-              </li>
-            </ul>
-
-            <h2>Form control examples</h2>
-            <form action="" className="mb-0 space-y-6">
-              <div>
-                <label
-                  htmlFor="sample-email"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  Sample email input
-                </label>
-                <input
-                  type="email"
-                  name="sample-email"
-                  id="sample-email"
-                  placeholder="Enter your email address"
-                />
-              </div>
-              <div className="flex items-center">
-                <label htmlFor="sample-checkbox">
-                  <input
-                    type="checkbox"
-                    name="sample-checkbox"
-                    id="sample-checkbox"
-                  />
-                  <span className="ml-2">A sample checkbox</span>
-                </label>
-              </div>
-              <div className="flex items-center space-x-4">
-                <label htmlFor="sample-radio-1">
-                  <input type="radio" name="sample-radio" id="sample-radio-1" />
-                  <span className="ml-2">A sample radio number one</span>
-                </label>
-                <label htmlFor="sample-radio-2">
-                  <input type="radio" name="sample-radio" id="sample-radio-2" />
-                  <span className="ml-2">A sample radio number two</span>
-                </label>
-              </div>
-            </form>
-
-            <h2>Maintainer</h2>
-            <p>
-              This project template is maintained by{' '}
-              <a
-                href="https://earvinpiamonte.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                @earvinpiamonte
-              </a>{' '}
-              and publicly available on{' '}
-              <a
-                href="https://github.com/earvinpiamonte/nextjs-tailwindcss-template"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub
-              </a>
-              .
-            </p>
-          </div>
+      <div className="w-full h-screen | flex flex-col items-center | p-2 | bg-slate-900 text-white">
+        <h1 className="text-6xl my-10">Freshaliens Leaderboard</h1>
+        <div className="flex flex-row">
+          <button
+            className={
+              "p-2 text-yellow-400 border-2 border-current rounded-md" +
+              (level === 0 ? " text-black bg-yellow-400" : "")
+            }
+            type="button"
+            onClick={() => setLevel(0)}
+          >
+            Level 1
+          </button>
+          <button
+            className={
+              "p-2 text-yellow-400 border-2 border-current rounded-md" +
+              (level === 1 ? " text-black bg-yellow-400" : "")
+            }
+            type="button"
+            onClick={() => setLevel(1)}
+          >
+            Level 2
+          </button>
+          <button
+            className={
+              "p-2 text-yellow-400 border-2 border-current rounded-md" +
+              (level === 2 ? " text-black bg-yellow-400" : "")
+            }
+            type="button"
+            onClick={() => setLevel(2)}
+          >
+            Level 3
+          </button>
         </div>
-      </section>
+        <div className="w-[50%] mt-5 border-2 p-10">
+          <div className="flex flex-row justify-between text-yellow-400 mb-2">
+            <span>Name</span>
+            <span>Time</span>
+          </div>
+
+          {buildLeaderboard(level + 1)}
+        </div>
+      </div>
     </Layout>
   );
 };
