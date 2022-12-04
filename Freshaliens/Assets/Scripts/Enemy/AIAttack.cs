@@ -38,6 +38,10 @@ namespace Freshaliens.Enemy.Components
         // Update is called once per frame
         void Update()
         {
+            if (stunned)
+            {
+                return;
+            }
             Vector3 target = PlayerMovementController.Instance.EnemyProjectileTarget;
             float distToPlayer = Vector3.Distance(transform.position, target);
             float dx = transform.position.x - target.x;
@@ -48,7 +52,7 @@ namespace Freshaliens.Enemy.Components
                 //Debug.Log("in range");
                 bool canFire = fireTimer <= 0;
                 fireTimer -= Time.deltaTime;
-                if (canFire && !stunned )
+                if (canFire)
                 {
                    // Debug.Log("shoot");
                     fireTimer = fireInterval;
