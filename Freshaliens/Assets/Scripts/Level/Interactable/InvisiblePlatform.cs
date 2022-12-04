@@ -19,6 +19,8 @@ namespace Freshaliens.Interaction.Components
         private GameObject _thisGameObject;
         private GameObject _childGameObject;
         private SpriteRenderer _spriteRenderer;
+        private Coroutine _deactivationCoroutine = null;
+        private bool _deactivationCoroutineStarted = false;
 
 
         void Start()
@@ -38,22 +40,22 @@ namespace Freshaliens.Interaction.Components
             _spriteRenderer.color = currentColor;
         }
 
-        protected void ChangeLayer(string newLayerName)
-        {
-            int newLayer = LayerMask.NameToLayer(newLayerName);
-            _thisGameObject.layer = newLayer;
-        }
-
-
         public override void OnFairyEnter()
         {
             ChangeAlpha(_maxAlpha);
             _childGameObject.SetActive(true);
+            if (_deactivationCoroutineStarted)
+            {
+                StopCoroutine(_deactivationCoroutine);
+                _deactivationCoroutine = null;
+                _deactivationCoroutineStarted = false;
+            }
         }
 
         public override void OnFairyExit()
         {
-            StartCoroutine(DeactivateAfterTimer());
+            _deactivationCoroutineStarted = true;
+            _deactivationCoroutine = StartCoroutine(DeactivateAfterTimer());
         }
 
         IEnumerator DeactivateAfterTimer()
@@ -61,6 +63,7 @@ namespace Freshaliens.Interaction.Components
             yield return new WaitForSeconds(_activeTimeAfterFairyExit);
             ChangeAlpha(_minAlpha);
             _childGameObject.SetActive(false);
+            _deactivationCoroutineStarted = false;
             yield return null;
         }
 
