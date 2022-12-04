@@ -53,11 +53,10 @@ namespace Freshaliens.Enemy.Components
             mustPatrol = true;
             distToPlayer = Vector2.Distance(transform.position, player.position);
 
-            if (distToPlayer < aggroRange) // rincorre il player fin quando è in un certo range, se supera il range ritorna a fare il patrol
+            if ((distToPlayer < aggroRange) && !mustTurn) // rincorre il player fin quando è in un certo range, se supera il range ritorna a fare il patrol
             {
                 ChasePlayer();
                 mustPatrol = false;
-
             }
 
             if (type == EnemyType.Shooter)

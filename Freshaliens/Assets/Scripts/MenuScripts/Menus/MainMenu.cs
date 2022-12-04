@@ -36,7 +36,7 @@ namespace MenuManagement
             }
             else
             {
-                SceneLoadingManager.LoadLevelSelection();
+                SceneLoadingManager.LoadFirstScene();
                 GameMenu.Open();
             }
         }
@@ -44,7 +44,7 @@ namespace MenuManagement
         private IEnumerator OnPlayPressedRoutine()
         {
             TransitionFader.PlayTransition(transitionFaderPrefab);
-            SceneLoadingManager.LoadLevelSelection();
+            SceneLoadingManager.LoadFirstScene();
             yield return new WaitForSeconds(playDelay);
             GameMenu.Open();
         }

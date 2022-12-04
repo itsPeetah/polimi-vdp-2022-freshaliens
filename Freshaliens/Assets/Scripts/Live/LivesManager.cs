@@ -29,46 +29,42 @@ public class LivesManager : MonoBehaviour
         
     }
     
-    private void PlayerHit(PlayerMovementController hitPlayer)
-    {
-        Debug.Log("Hit");
-        numberOfLives--;
-        if (numberOfLives == 0)
-        {
-            PlayerDeath(hitPlayer);
-        }
-        
-    }
-
-    private void PlayerDeath(PlayerMovementController hitPlayer)
-    {
-        Vector3 newNinjaPosition = Checkpoint.LastActiveCheckpoint.RespawnPosition;
-        hitPlayer.transform.position = newNinjaPosition;
-        FairyMovementController.Instance.RespawnWithNinja(newNinjaPosition);
-        numberOfLives = initialNumberOfLives;
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         int layer = collision.gameObject.layer;
 
         if (( (1 << layer) & hitLayers) != 0) {
-            PlayerHit(ninja);
+            PlayerHit(false);
         }
     }
-
-    public void HitPlayer(bool enemy)
+    
+    private void PlayerHit(bool mustRespawn)
     {
-        if (enemy)
+        numberOfLives--;
+        if (numberOfLives == 0)
         {
-            HitByEnemy();
+            PlayerDeath();
+            return;
         }
-        else
+
+        if (mustRespawn)
         {
-            PlayerHit(ninja);
+            Respawn(Checkpoint.LastActiveCheckpoint.RespawnPosition);
         }
     }
-
+    
+    private void PlayerDeath()
+    {
+        Respawn(Checkpoint.StartingCheckpoint.RespawnPosition);
+        numberOfLives = initialNumberOfLives;
+    }
+    
+    private void Respawn(Vector3 position)
+    {
+        ninja.transform.position = position;
+        FairyMovementController.Instance.RespawnWithNinja(position);
+    }
+    
     private void HitByEnemy()
     {
         if (_alreadyHit)
@@ -78,10 +74,10 @@ public class LivesManager : MonoBehaviour
         }
 
         _alreadyHit = true;
-        PlayerHit(ninja);
+        PlayerHit(false);
         StartCoroutine(ResetAlreadyHit());
     }
-
+    
     IEnumerator ResetAlreadyHit()
     {
         yield return new WaitForSeconds(0.5f);
@@ -89,10 +85,29 @@ public class LivesManager : MonoBehaviour
         yield return null;
     }
 
+    // For external usage
+    public void HitPlayer(bool isEnemy)
+    {
+        if (isEnemy)
+        {
+            HitByEnemy();
+        }
+        else
+        {
+            PlayerHit(false);
+        }
+    }
+    
+    public void HitAndRespawn()
+    {
+        PlayerHit(true);
+    }
+    
     public void DeathPLayer()
     {
-        PlayerDeath(ninja);
+        PlayerDeath();
     }
+
     
 }
         

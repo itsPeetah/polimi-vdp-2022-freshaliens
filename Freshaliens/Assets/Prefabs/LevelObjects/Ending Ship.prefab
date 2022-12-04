@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1478067966427549465}
   - component: {fileID: 1478067966427549464}
-  - component: {fileID: 1478067966427549470}
+  - component: {fileID: 3910400118079056822}
   m_Layer: 6
   m_Name: Ending Ship
   m_TagString: Untagged
@@ -171,8 +171,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!68 &1478067966427549470
-EdgeCollider2D:
+--- !u!61 &3910400118079056822
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -184,42 +184,19 @@ EdgeCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.79, y: 1.8874083}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.24, y: 0.62}
+    newSize: {x: 1.24, y: 0.62}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.055865765, y: 12.647392}
   m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.6149809, y: -0.32264975}
-  - {x: -0.19218226, y: -0.32344222}
-  - {x: 0.62082726, y: -0.32370865}
-  - {x: 0.5812986, y: 3.8135355}
-  - {x: 0.6013045, y: 0.17873837}
-  - {x: 0.57647216, y: 0.20673588}
-  - {x: 0.5432556, y: 0.21320166}
-  - {x: 0.5035957, y: 0.20992254}
-  - {x: 0.47350445, y: 0.18484212}
-  - {x: 0.35878265, y: 0.2522791}
-  - {x: 0.359025, y: 0.51636314}
-  - {x: 0.31148767, y: 0.6239851}
-  - {x: 0.2444952, y: 0.6944714}
-  - {x: 0.12312895, y: 0.746499}
-  - {x: 0.004607469, y: 0.76599324}
-  - {x: -0.1116917, y: 0.7543949}
-  - {x: -0.22752866, y: 0.7026578}
-  - {x: -0.31381077, y: 0.6223732}
-  - {x: -0.35095033, y: 0.5121324}
-  - {x: -0.34898365, y: 0.23168546}
-  - {x: -0.48203754, y: 0.18545626}
-  - {x: -0.49980274, y: 0.21154399}
-  - {x: -0.56350154, y: 0.21248356}
-  - {x: -0.5950814, y: 0.19590633}
-  - {x: -0.61544377, y: 0.15896557}
-  - {x: -0.6147447, y: 0.124733835}
-  - {x: -0.59498346, y: 0.07396197}
-  - {x: -0.6188026, y: 0.03225676}
-  - {x: -0.6170421, y: -0.31315023}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!1001 &4922644643162329119
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -293,7 +270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9142609577270910579, guid: 359f2a1fed5aa4a08a81820aa28a6c93, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9142609577270910579, guid: 359f2a1fed5aa4a08a81820aa28a6c93, type: 3}
       propertyPath: m_Offset.x

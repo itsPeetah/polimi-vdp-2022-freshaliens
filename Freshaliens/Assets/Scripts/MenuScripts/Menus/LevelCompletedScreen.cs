@@ -24,7 +24,7 @@ namespace MenuManagement
         public void OnNextLevelPressed()
         {
             base.OnBackPressed();
-            SceneLoadingManager.LoadLevelSelection();
+            SceneLoadingManager.LoadFirstScene();
             PlayerData.Instance.Save();
         }
 

@@ -64,6 +64,7 @@ namespace Freshaliens.Enemy.Components
             {
                 attacker.setStun(false);
             }
+            
             yield return null;
         }
         

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Level 4
   m_EditorClassIdentifier: 
   levelName: Level 4
-  levelDescription: this is the fourth level of the game
+  sceneName: Level4
+  levelDescription: This is the fourth level of the game
