@@ -65,7 +65,7 @@ namespace Freshaliens.LevelSelection.Components
 
             if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) SelectNextLevel();
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) SelectPrevLevel();
-            if (Input.GetKeyDown(KeyCode.Space)) {
+            if (Input.GetKeyDown(KeyCode.Space) && levels[currentlySelectedLevel].AllowLoading) {
                 gameIsStarting = true;
                 PlayerData.Instance.LastLevelSelected = currentlySelectedLevel;
                 ui.FadeScreen(0,1, () => SceneLoadingManager.LoadScene(CurrentLevelInfo.SceneName));
@@ -89,7 +89,7 @@ namespace Freshaliens.LevelSelection.Components
             int prevSelectedLevel = currentlySelectedLevel;
             int levelToSelect = Mathf.Abs(index) % levels.Length;
 
-            if (levelToSelect > PlayerData.Instance.LastUnlockedLevel && !allowLockedSelection)
+            if ((levelToSelect > PlayerData.Instance.LastUnlockedLevel && !allowLockedSelection) && !levels[levelToSelect].AlwaysUnlocked)
             {
                 //Debug.Log($"Level has not been unlocked yet!");
                 return;
@@ -151,7 +151,7 @@ namespace Freshaliens.LevelSelection.Components
         /// </summary>
         private void UpdateMapLineState() {
             for (int i = 0; i < mapLines.Length; i++) {
-                mapLines[i].SetUnlocked(i+1 <= PlayerData.Instance.LastUnlockedLevel);
+                mapLines[i].SetUnlocked(i+1 <= PlayerData.Instance.LastUnlockedLevel || levels[i+1].AlwaysUnlocked);
             }
         }
     }

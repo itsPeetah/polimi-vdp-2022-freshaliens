@@ -11,5 +11,10 @@ namespace Freshaliens.LevelSelection.Components
     {
         [SerializeField] private LevelInfo info;
         public LevelInfo Info => info;
+        [SerializeField] private bool allowLoading = true;
+        [SerializeField] private bool alwaysUnlocked = false;
+
+        public bool AllowLoading => allowLoading;
+        public bool AlwaysUnlocked => alwaysUnlocked;
     }
 }
