@@ -11,5 +11,6 @@ public class DialoguePromptTrigger : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         DialoguePromptDisplayer.Instance.DisplayDialoguePrompt(dialoguePrompt, overwriteExistingDialogue);
+        gameObject.SetActive(false);
     }
 }
