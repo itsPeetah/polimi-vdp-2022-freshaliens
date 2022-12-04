@@ -5283,7 +5283,7 @@ MonoBehaviour:
   _verticalOffset: 2
   _initialHorizontalOffset: 5
   _minCameraSize: 6
-  _maxCameraSize: 12
+  _maxCameraSize: 10
   _playerMarginBeforeZoomOut: 1
   _playerMarginBeforeZoomIn: 2.5
   _cameraZoomSpeed: 5
