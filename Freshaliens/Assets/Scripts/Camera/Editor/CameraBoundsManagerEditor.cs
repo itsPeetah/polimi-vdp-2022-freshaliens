@@ -37,7 +37,7 @@ public class CameraBoundsManagerEditor : Editor
         EditorGUI.BeginChangeCheck();
         Vector3 leftBound = Handles.PositionHandle(cbm.LeftBound, Quaternion.identity);
         Handles.color = Color.blue;
-        Handles.DrawLine(leftBound + Vector3.down * 20, leftBound + Vector3.up * 20, 3f);
+        Handles.DrawLine(leftBound + Vector3.down * 80, leftBound + Vector3.up * 80, 3f);
         Handles.color = Color.white;
         Handles.Label(leftBound, "CAMERA LEFT BOUND", EditorStyles.boldLabel);
         if (EditorGUI.EndChangeCheck())
@@ -50,7 +50,7 @@ public class CameraBoundsManagerEditor : Editor
         EditorGUI.BeginChangeCheck();
         Vector3 rightBound = Handles.PositionHandle(cbm.RightBound, Quaternion.identity);
         Handles.color = Color.blue;
-        Handles.DrawLine(rightBound + Vector3.down * 20, rightBound + Vector3.up * 20, 3f);
+        Handles.DrawLine(rightBound + Vector3.down * 80, rightBound + Vector3.up * 80, 3f);
         Handles.color = Color.white;
         Handles.Label(rightBound, "CAMERA RIGHT BOUND",EditorStyles.boldLabel);
         if (EditorGUI.EndChangeCheck())
