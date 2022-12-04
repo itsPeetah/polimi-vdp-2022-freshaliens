@@ -6,7 +6,8 @@ import { LeaderboardEntry, Score } from "src/types";
 
 const { publicRuntimeConfig } = getConfig();
 const { name } = publicRuntimeConfig.site;
-
+const apiURL =
+  "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard";
 const Home = () => {
   const [level, setLevel] = useState(0);
   const [leaderboardData, setLeaderboardData] = useState({});
@@ -28,9 +29,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetch(
-      "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard"
-    ).then((res) => {
+    fetch(apiURL).then((res) => {
       res.json().then((data) => setLeaderboardData(data));
     });
   }, []);
