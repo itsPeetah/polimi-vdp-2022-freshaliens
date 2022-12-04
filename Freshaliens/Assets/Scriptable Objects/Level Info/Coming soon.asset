@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73ee1016a3f56480dad9b732911f5c3e, type: 3}
-  m_Name: Slide 1
+  m_Script: {fileID: 11500000, guid: f113cc322823346d5b6cf3c6029bf83e, type: 3}
+  m_Name: Coming soon
   m_EditorClassIdentifier: 
-  text: this is the first slide
-  sprite: {fileID: 21300000, guid: 51473cb7dfd5e4d8685cbb2f511260b5, type: 3}
+  levelName: More Levels???
+  sceneName: Level4
+  levelDescription: COMING SOON!!!
