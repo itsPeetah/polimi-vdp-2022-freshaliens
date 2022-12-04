@@ -11,6 +11,7 @@ namespace Freshaliens.Interaction.Components
         //State
         private GameObject _gameObject;
         private bool _isActive = false;
+        [SerializeField] private Animator _animator;
 
         [SerializeField] private DoorMode _currentDoorMode;
         private enum DoorMode
@@ -40,21 +41,27 @@ namespace Freshaliens.Interaction.Components
         private void ToggleState()
         {
             _isActive = !_isActive;
-            gameObject.SetActive(_isActive);
+            //gameObject.SetActive(_isActive);
         }
 
         public override void OnAction()
         {
-            ToggleState();
-            if (_isActive)
+           
+            if (!_isActive)
             {
                 //animation door closes
+                Debug.Log("apro porta");
+                _animator.SetBool("isDoorOpen",false);
             }
             else
             {
+                Debug.Log("chiud porta");
                 //animation door opens
+                _animator.SetBool("isDoorOpen", true);
+               // StartCoroutine(DelayAction(1));
             }
-
+            ToggleState();
         }
+
     }
 }
