@@ -77,25 +77,15 @@ namespace Freshaliens.Player.Components
         {
             if (CheckInteractable(collision, out Interactable interactable))
             {
-
-   
-           
-                
                 if (interactable.ShouldBeStored)
                 {   
                     storedInteractable = interactable;
                  
                 }
                 //check if can change animation
-                if (!collision.CompareTag( "Player" ) ||
-                    collision.gameObject.GetComponent<PlayerMovementController>().RemainingAirJupms >0 )
+                if (!collision.CompareTag( "Player" ) || (collision.CompareTag( "Player" ) && collision.gameObject.GetComponent<PlayerMovementController>().RemainingAirJupms > 0))
                 {
-                    Debug.Log(" compare tag is "+ collision.CompareTag( "Player" ) );
-                    Debug.Log("check if is different from "+ LayerMask.NameToLayer( "Player" ));
-                    Debug.Log("remainingjumps = " +
-                              collision.gameObject.GetComponent<PlayerMovementController>().RemainingAirJupms);
-                      _animator.SetBool("canLight", true);
-                  
+                    _animator.SetBool("canLight", true);
                 }
                 interactable.OnFairyEnter();
             }

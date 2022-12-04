@@ -22,7 +22,7 @@ namespace Freshaliens.Interaction
             
             if (colliderLayer==_ninjaLayer) 
             {
-                livesManager.DeathPLayer();  
+                livesManager.HitAndRespawn();  
             }
                 
         }

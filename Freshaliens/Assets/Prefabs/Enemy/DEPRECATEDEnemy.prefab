@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 4520864183680978010}
   - component: {fileID: 4520864183680977984}
   m_Layer: 10
-  m_Name: Enemy
+  m_Name: DEPRECATEDEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

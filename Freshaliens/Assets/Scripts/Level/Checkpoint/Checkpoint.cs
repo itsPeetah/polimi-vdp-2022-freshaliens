@@ -14,6 +14,9 @@ namespace Freshaliens.Level.Components
         // Singleton-like reference
         private static Checkpoint lastActiveCheckpoint = null;
         public static Checkpoint LastActiveCheckpoint => lastActiveCheckpoint;
+        
+        private static Checkpoint startingCheckpoint = null;
+        public static Checkpoint StartingCheckpoint => startingCheckpoint;
 
         private Transform respawnPoint = null;
         private BoxCollider2D boxCollider = null;
@@ -30,22 +33,22 @@ namespace Freshaliens.Level.Components
         private void Awake()
         {
             Setup();
+            
             if (isStartingCheckpoint)
             {
-                if (isStartingCheckpoint)
-                {
-                    lastActiveCheckpoint = this;
+                startingCheckpoint = this;
+                lastActiveCheckpoint = this;
 #if UNITY_EDITOR
-                    if (isFinalCheckpoint) Debug.LogWarning("The starting checkpoint is also the final checkpoint...WTF?");
+                if (isFinalCheckpoint) Debug.LogWarning("The starting checkpoint is also the final checkpoint...WTF?");
 #endif
-                }
-
-                if (isFinalCheckpoint)
-                {
-                    allowMultipleActivations = false;
-                }
-
             }
+
+            if (isFinalCheckpoint)
+            {
+                allowMultipleActivations = false;
+            }
+
+            
             
         }
 
