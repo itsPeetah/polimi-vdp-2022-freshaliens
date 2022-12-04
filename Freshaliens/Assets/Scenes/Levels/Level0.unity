@@ -40264,7 +40264,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &736191803
 PrefabInstance:
@@ -40279,7 +40279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7489521148672944911, guid: ef2021f77316743a8b09d1868323b5c5, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7489521148672944911, guid: ef2021f77316743a8b09d1868323b5c5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -40356,9 +40356,9 @@ MonoBehaviour:
   _currentTrackingMode: 0
   _horizontalOffset: 0
   _verticalOffset: 2
-  _initialHorizontalOffset: 5
-  _minCameraSize: 5
-  _maxCameraSize: 10
+  _initialHorizontalOffset: 0
+  _minCameraSize: 6
+  _maxCameraSize: 12
   _playerMarginBeforeZoomOut: 1
   _playerMarginBeforeZoomIn: 2.5
   _cameraZoomSpeed: 5
@@ -40447,7 +40447,7 @@ Transform:
   - {fileID: 446686099}
   - {fileID: 1771859912}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1563662880
 PrefabInstance:
@@ -40458,7 +40458,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2107253596732774827, guid: d9da8296e4c53420b97e2e70db24a3b7, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2107253596732774827, guid: d9da8296e4c53420b97e2e70db24a3b7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -40692,7 +40692,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1887241995
 PrefabInstance:
@@ -40703,11 +40703,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3332434578813053514, guid: f917196442af148afbf04ec9619d8e8d, type: 3}
       propertyPath: m_Name
-      value: Player OK With Audio
+      value: Ninja
       objectReference: {fileID: 0}
     - target: {fileID: 3332434578813053516, guid: f917196442af148afbf04ec9619d8e8d, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3332434578813053516, guid: f917196442af148afbf04ec9619d8e8d, type: 3}
       propertyPath: m_LocalPosition.x

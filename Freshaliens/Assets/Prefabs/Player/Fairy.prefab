@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 6097506175891918345}
   - component: {fileID: 5211941532851755215}
   m_Layer: 8
-  m_Name: Fairy (animated)
+  m_Name: Fairy
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -208,6 +208,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheckpointSpaceship
       objectReference: {fileID: 0}
+    - target: {fileID: 9142609577270910576, guid: 359f2a1fed5aa4a08a81820aa28a6c93, type: 3}
+      propertyPath: isFinalCheckpoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9142609577270910577, guid: 359f2a1fed5aa4a08a81820aa28a6c93, type: 3}
       propertyPath: m_RootOrder
       value: 1
