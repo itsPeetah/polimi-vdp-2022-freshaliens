@@ -56,6 +56,7 @@ public class LivesManager : MonoBehaviour
     private void PlayerDeath()
     {
         Respawn(Checkpoint.StartingCheckpoint.RespawnPosition);
+        Checkpoint.ResetStartingCheckpoint();
         numberOfLives = initialNumberOfLives;
     }
     

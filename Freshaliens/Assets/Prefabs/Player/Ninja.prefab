@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 3332434577073933169}
   - component: {fileID: 4386012166611936910}
   m_Layer: 7
-  m_Name: Player OK With Audio
+  m_Name: Ninja
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

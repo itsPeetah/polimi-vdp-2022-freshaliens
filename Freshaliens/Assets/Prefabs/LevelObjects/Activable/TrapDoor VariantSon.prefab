@@ -65,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5431924630183303749, guid: 36a418fdac6f2864dab66aef3c30afee, type: 3}
       propertyPath: m_Name
-      value: TrapDoor Variant
+      value: TrapDoor VariantSon
       objectReference: {fileID: 0}
     - target: {fileID: 5431924630183303749, guid: 36a418fdac6f2864dab66aef3c30afee, type: 3}
       propertyPath: m_Layer
@@ -74,28 +74,3 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4244466937345295937, guid: 36a418fdac6f2864dab66aef3c30afee, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 36a418fdac6f2864dab66aef3c30afee, type: 3}
---- !u!1 &9067299792637167188 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5431924630183303749, guid: 36a418fdac6f2864dab66aef3c30afee, type: 3}
-  m_PrefabInstance: {fileID: 3942786802445310993}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &3431920932576980275
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9067299792637167188}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 42bd2fd7fe34f9643b920af9fa0ac18e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0

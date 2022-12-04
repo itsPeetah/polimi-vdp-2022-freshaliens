@@ -13,6 +13,9 @@ namespace Freshaliens.Enemy.Components
         }
         public bool mustPatrol;
         private bool mustTurn, stunned;
+        
+        private static RaycastHit2D groundRayright;
+        private static RaycastHit2D groundRayleft;
 
 
         [SerializeField] public float walkSpeed, aggroRange, stopRange;
@@ -52,8 +55,11 @@ namespace Freshaliens.Enemy.Components
 
             mustPatrol = true;
             distToPlayer = Vector2.Distance(transform.position, player.position);
+            
+            groundRayright = Physics2D.Raycast(rb.position, Vector2.right, 2, groundLayer);
+            groundRayleft = Physics2D.Raycast(rb.position, Vector2.left, 2, groundLayer);
 
-            if ((distToPlayer < aggroRange) && !mustTurn) // rincorre il player fin quando è in un certo range, se supera il range ritorna a fare il patrol
+            if (distToPlayer < aggroRange && !mustTurn  && !groundRayright.collider && !groundRayleft.collider)
             {
                 ChasePlayer();
                 mustPatrol = false;
