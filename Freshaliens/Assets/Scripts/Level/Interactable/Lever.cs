@@ -10,8 +10,10 @@ namespace Freshaliens.Interaction.Components
     public class Lever : Interactable
     {
         //Parameters
+        [SerializeField] private bool isOn = false;
         [SerializeField] private Actionable _linkedObject;
-
+        [SerializeField] private Animator _animator;
+        
         // //State                                                          ALL 
         // private bool _isActive;                                          THIS 
         //                                                                  STUFF 
@@ -47,6 +49,9 @@ namespace Freshaliens.Interaction.Components
         {
             FairyMovementController.Instance.SetLockOnTarget(transform);
             _linkedObject.OnAction();
+            // animation
+            isOn = !isOn;
+            _animator.SetBool("IsLeverOn",isOn);
         }
     }
 }
