@@ -50,7 +50,7 @@ namespace Freshaliens.Interaction.Components
             if (!_isActive)
             {
                 //animation door closes
-                Debug.Log("apro porta");
+                Debug.Log("apro portone");
                 _animator.SetBool("isDoorOpen",false);
             }
             else
