@@ -31,4 +31,8 @@ public class SceneLoadingManager
         string firstSceneToLoad = PlayerData.Instance.HasPlayedBefore ? LEVEL_SELECTION_SCENE : INTRO_CUTSCENE_SCENE;
         LoadScene(firstSceneToLoad);
     }
+
+    public static void LoadLevelSelection() {
+        LoadScene(LEVEL_SELECTION_SCENE);
+    }
 }

@@ -62,10 +62,22 @@ public class DialoguePromptDisplayer : MonoBehaviour
                 textLineSoFar += line[j];
                 dialogueText.SetText(textLineSoFar);
 
+                if (Input.GetKeyDown(KeyCode.S)) break;
+
                 yield return new WaitForSeconds(characterTypeTime);
             }
+            dialogueText.SetText(line);
 
-            yield return new WaitForSeconds(lineDelayTime);
+            float t = 0;
+            while (t <= lineDelayTime) {
+                t += Time.deltaTime;
+
+                if (Input.GetKeyDown(KeyCode.S)) break;
+
+                yield return null;
+            }
+
+            
             dialogueText.SetText("");
         }
 
