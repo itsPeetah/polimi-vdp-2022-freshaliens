@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class SceneLoadingManager
 {
     public const string LEVEL_SELECTION_SCENE = "Level Selection";
+    public const string INTRO_CUTSCENE_SCENE = "IntroCutScene";
 
     public static void ReloadLevel()
     {
@@ -26,7 +27,8 @@ public class SceneLoadingManager
         SceneManager.LoadSceneAsync(sceneName);
     }
 
-    public static void LoadLevelSelection() {
-        LoadScene(LEVEL_SELECTION_SCENE);
+    public static void LoadFirstScene() {
+        string firstSceneToLoad = PlayerData.Instance.HasPlayedBefore ? LEVEL_SELECTION_SCENE : INTRO_CUTSCENE_SCENE;
+        LoadScene(firstSceneToLoad);
     }
 }
