@@ -19,16 +19,18 @@ namespace Freshaliens.Level.Components
         private BoxCollider2D boxCollider = null;
 
         [Header("Interaction")]
-        [SerializeField] private bool isFinalCheckpoint = false;
+        [SerializeField] private bool isFinalCheckpoint;
         [SerializeField] private bool isStartingCheckpoint = false;
         [SerializeField, Tooltip("Should the checkpoint be activated every time the player triggers it?")] private bool allowMultipleActivations = false;
-
+        [Header("Animation")]
+        [SerializeField] private Animator animator;
         private bool hasBeenActivated = false;
 
         public Vector3 RespawnPosition => respawnPoint.position;
 
         private void Awake()
         {
+            animator.SetBool("hasBeenTouched",isStartingCheckpoint);
             Setup();
             if (isStartingCheckpoint)
             {
@@ -43,9 +45,14 @@ namespace Freshaliens.Level.Components
                 if (isFinalCheckpoint)
                 {
                     allowMultipleActivations = false;
+
                 }
 
             }
+            //for animation (make the flag red)
+            Debug.Log("c'è un checkpint finale");
+            animator.SetBool("isLastCheckpoint",isFinalCheckpoint);
+            Debug.Log("è finale is " +isFinalCheckpoint);
             
         }
 
@@ -77,6 +84,7 @@ namespace Freshaliens.Level.Components
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+        
             if (hasBeenActivated && !allowMultipleActivations) return;
             // HACK For now I'll just make a new layer that only collides with player 1
             if (isFinalCheckpoint && !hasBeenActivated)
@@ -84,12 +92,19 @@ namespace Freshaliens.Level.Components
                 hasBeenActivated = true;
                 PlayerData.Instance.UnlockNextLevel();
                 LevelCompletedScreen.Open();
-                return;
+                
             }
+            else if (!hasBeenActivated)
+            {
+                // Not final checkpoint -> update last available checkpoint
+                lastActiveCheckpoint = this;
+                hasBeenActivated = true;
+            }
+            
 
-            // Not final checkpoint -> update last available checkpoint
-            lastActiveCheckpoint = this;
-            hasBeenActivated = true;
+            //animation 
+            Debug.Log("hasbeenActivated = "+ hasBeenActivated);
+            animator.SetBool("hasBeenTouched",hasBeenActivated);    
         }
     }
 }
