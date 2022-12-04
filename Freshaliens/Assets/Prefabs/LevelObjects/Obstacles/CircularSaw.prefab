@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 9017674873418222312}
   - component: {fileID: 9017674873418222314}
   - component: {fileID: 704205366520801706}
-  - component: {fileID: 202485108830222157}
   m_Layer: 13
   m_Name: CircularSaw
   m_TagString: Untagged
@@ -103,7 +102,6 @@ MonoBehaviour:
   _ninjaLayer: 7
   _fairyLayer: 8
   _target: 0
-  _isEnemy: 0
 --- !u!58 &704205366520801706
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -120,23 +118,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.45
---- !u!95 &202485108830222157
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9017674873418222317}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2e90199fac5aeb844970242a1d3d3f31, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
