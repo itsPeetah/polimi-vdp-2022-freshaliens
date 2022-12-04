@@ -50,6 +50,7 @@ public class PlayerData
     public float MusicVolume { get => musicVolume; set => musicVolume = value; }
 
     public int LastLevelSelected { get => lastLevelChosen; set => lastLevelChosen = value; }
+    public bool HasPlayedBefore => lastUnlockedLevel > PP_LEVEL_DEFAULT;
 
     private static PlayerData Load() {
         PlayerData pd = new();

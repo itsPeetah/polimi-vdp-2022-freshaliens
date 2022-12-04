@@ -192,8 +192,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e4e0726310294ec686d052657505a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterTypeTime: 0.05
-  lineDelayTime: 1
+  characterTypeTime: 0.08
+  lineDelayTime: 3
   root: {fileID: 1269182260116928397}
   dialogueText: {fileID: 1269182261277602547}
   faceImage: {fileID: 1269182261552621797}
