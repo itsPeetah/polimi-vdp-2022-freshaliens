@@ -5,7 +5,7 @@ using System.Linq;
 
 public class CameraBoundsManager : MonoBehaviour
 {
-    [SerializeField] private Vector3[] samplePoints = new Vector3[] { };
+    [SerializeField] private Vector3[] samplePoints = new Vector3[] {new Vector3(-10, 0), new Vector3(10, 0)};
     private float minXCoord = 0;
     private float maxXCoord = 0;
 
