@@ -16,11 +16,12 @@ export default async function handler(
     const data = (await (await get(lbref)).val()) as Leaderboard;
     res.status(200).json(data);
   } else if (req.method === "POST") {
-    // curl -d "name=value1&time=value2" -X POST http://localhost:3000/api/leaderboard
+    // curl -d "name=value1&time=value2&level=0" -X POST http://localhost:3000/api/leaderboard
     const name = req.body.name ?? "Anonymous";
     const time = req.body.time ?? "99:99.999";
+    const level = req.body.level ?? -1;
     const lberef = ref(getDatabase(app), `${dbroot}/${name}`);
-    set(lberef, time);
+    set(lberef, { time, level });
     res.status(200).json("OK");
   }
 }
