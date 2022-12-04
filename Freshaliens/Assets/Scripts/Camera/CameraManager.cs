@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+[RequireComponent(typeof(CameraBoundsManager))]
 public class CameraManager : MonoBehaviour
 {
     
@@ -55,6 +56,7 @@ public class CameraManager : MonoBehaviour
     private Transform _fairyTransform;
     private Camera _camera;
     private Transform _cameraTransform;
+    private CameraBoundsManager _boundsManager;
     //Colliders
     private Collider2D _ninjaCollider;
     private Collider2D _fairyCollider;
@@ -96,6 +98,7 @@ public class CameraManager : MonoBehaviour
         _fairyTransform = _fairy.GetComponent<Transform>();
         _camera = GetComponentInChildren<Camera>();
         _cameraTransform = _camera.transform;
+        _boundsManager = GetComponent<CameraBoundsManager>();
         //Colliders
         _ninjaCollider = _ninja.gameObject.GetComponent<Collider2D>();
         _fairyCollider = _fairy.gameObject.GetComponent<Collider2D>();
@@ -215,7 +218,9 @@ public class CameraManager : MonoBehaviour
                     break;
             }
 
-            newXCoordinate = Mathf.Max(newXCoordinate, _initialCameraPosition.x);
+            //newXCoordinate = Mathf.Max(newXCoordinate, _initialCameraPosition.x);
+            //newYCoordinate = Mathf.Max(newYCoordinate, _boundsManager.GetLowerBoundAtXCoord(newXCoordinate).y + _currentCameraSize);
+            _boundsManager.ClampOrthographicCamera(ref newXCoordinate, ref newYCoordinate, _currentCameraSize, _camera.aspect);
             
             float horizontalDifference = newXCoordinate - currentXCoordinate;
             float verticalDifference = newYCoordinate - currentYCoordinate;
@@ -242,6 +247,8 @@ public class CameraManager : MonoBehaviour
             _right = _currentCameraPosition.x + _currentScreenWidth;
             _rightCollision = _currentCameraPosition.x + _currentScreenWidth*_ratioPlayableScreen;
         }
+
+        Debug.DrawLine(_cameraTransform.position, _boundsManager.GetLowerBoundAtXCoord(_cameraTransform.position.x));
     }
 
     private bool NeedToIncreaseCameraSize(Vector3 positionPlayer1, Vector3 positionPlayer2)
