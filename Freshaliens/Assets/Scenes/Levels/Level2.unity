@@ -12374,6 +12374,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1910953233}
   - component: {fileID: 1910953232}
+  - component: {fileID: 1910953234}
   m_Layer: 0
   m_Name: Camera manager
   m_TagString: Untagged
@@ -12426,6 +12427,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1910953234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910953231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b86fa71dbd6d45649bf50929ffff646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  samplePoints:
+  - {x: -65.764626, y: -3, z: 0}
+  - {x: 12, y: -3, z: 0}
+  - {x: 32, y: -2, z: 0}
+  - {x: 169.09506, y: -2, z: 0}
+  - {x: 181.22464, y: -7, z: 0}
+  - {x: 221.8258, y: -7, z: 0}
+  leftBound: {x: -63.210205, y: 1.6461034, z: 0}
+  rightBound: {x: 213.00558, y: -0.82305145, z: 0}
 --- !u!1001 &1921651709
 PrefabInstance:
   m_ObjectHideFlags: 0
