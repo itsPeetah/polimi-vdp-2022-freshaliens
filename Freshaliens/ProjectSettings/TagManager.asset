@@ -21,7 +21,7 @@ TagManager:
   - Obstacle
   - PProjectile
   - EProjectile
-  - 
+  - Player1Only
   - 
   - 
   - 
@@ -40,6 +40,9 @@ TagManager:
   m_SortingLayers:
   - name: Background
     uniqueID: 439606739
+    locked: 0
+  - name: Decorations
+    uniqueID: 2123409047
     locked: 0
   - name: Default
     uniqueID: 0

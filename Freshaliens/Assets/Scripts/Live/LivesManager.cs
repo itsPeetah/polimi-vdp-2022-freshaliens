@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,44 +11,40 @@ using Newtonsoft.Json.Bson;
 
 public class LivesManager : MonoBehaviour
 {
-    [SerializeField] private PlayerMovementController player1;
-    //[SerializeField] private SpriteRenderer[] _spriteRenderers;
+    private PlayerMovementController ninja;
+    
     [SerializeField] private int initialNumberOfLives = 3;
     [SerializeField] private LayerMask hitLayers = -1;
     [SerializeField] private int deathLayer = 16;
-    //Saving starting position for future respawns
-    private Vector3 player1StartingPosition;
+    
+    // STATE
+    public static int numberOfLives = 3; // UGLY, I wanted a Singleton but it's not possible...
     private bool hit = false;
-    private int numberOfLives;
-
     private bool _alreadyHit = false;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
+        ninja = PlayerMovementController.Instance;
         numberOfLives = initialNumberOfLives;
         
     }
-
-    // ReSharper disable Unity.PerformanceAnalysis
+    
     private void PlayerHit(PlayerMovementController hitPlayer)
     {
         Debug.Log("Hit");
         numberOfLives--;
         if (numberOfLives == 0)
         {
-            
-            hitPlayer.transform.position = Checkpoint.LastActiveCheckpoint.RespawnPosition;
-            numberOfLives = initialNumberOfLives;
-
+            PlayerDeath(hitPlayer);
         }
         
     }
 
     private void PlayerDeath(PlayerMovementController hitPlayer)
     {
-        Debug.Log("MORTOOOO");
-        hitPlayer.transform.position = Checkpoint.LastActiveCheckpoint.RespawnPosition;
+        Vector3 newNinjaPosition = Checkpoint.LastActiveCheckpoint.RespawnPosition;
+        hitPlayer.transform.position = newNinjaPosition;
+        FairyMovementController.Instance.RespawnWithNinja(newNinjaPosition);
         numberOfLives = initialNumberOfLives;
     }
 
@@ -56,9 +53,8 @@ public class LivesManager : MonoBehaviour
         int layer = collision.gameObject.layer;
 
         if (( (1 << layer) & hitLayers) != 0) {
-            PlayerHit(player1);
+            PlayerHit(ninja);
         }
-        
     }
 
     public void HitPlayer(bool enemy)
@@ -69,7 +65,7 @@ public class LivesManager : MonoBehaviour
         }
         else
         {
-            PlayerHit(player1);
+            PlayerHit(ninja);
         }
     }
 
@@ -82,12 +78,20 @@ public class LivesManager : MonoBehaviour
         }
 
         _alreadyHit = true;
-        PlayerHit(player1);
+        PlayerHit(ninja);
+        StartCoroutine(ResetAlreadyHit());
+    }
+
+    IEnumerator ResetAlreadyHit()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _alreadyHit = false;
+        yield return null;
     }
 
     public void DeathPLayer()
     {
-        PlayerDeath(player1);
+        PlayerDeath(ninja);
     }
     
 }
