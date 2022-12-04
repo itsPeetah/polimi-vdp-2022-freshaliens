@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 /// <summary>
 /// Class that handles persistent save data.
 /// Uses PlayerPrefs for scope reasons.
@@ -9,7 +13,7 @@ using UnityEngine;
 public class PlayerData
 {
     private const string PP_LEVEL_KEY = "LAST_LEVEL";
-    private const int PP_LEVEL_DEFAULT = 0;
+    private const int PP_LEVEL_DEFAULT = 1;
 
     private const string PP_MASTER_VOLUME_KEY = "SETTINGS:VOLUME";
     private const float PP_MASTER_VOLUME_DEFAULT = 1f;
@@ -26,8 +30,10 @@ public class PlayerData
     /// </summary>
     public static PlayerData Instance
     {
-        get {
-            if (instance == null) {
+        get
+        {
+            if (instance == null)
+            {
                 instance = Load();
             }
             return instance;
@@ -52,7 +58,8 @@ public class PlayerData
     public int LastLevelSelected { get => lastLevelChosen; set => lastLevelChosen = value; }
     public bool HasPlayedBefore => lastUnlockedLevel > PP_LEVEL_DEFAULT;
 
-    private static PlayerData Load() {
+    private static PlayerData Load()
+    {
         PlayerData pd = new();
         // Save data
         pd.lastUnlockedLevel = PlayerPrefs.GetInt(PP_LEVEL_KEY, PP_LEVEL_DEFAULT);
@@ -64,20 +71,32 @@ public class PlayerData
         return pd;
     }
 
-    public void Save() {
+    public void Save()
+    {
         PlayerPrefs.SetInt(PP_LEVEL_KEY, lastUnlockedLevel);
         PlayerPrefs.SetFloat(PP_MASTER_VOLUME_KEY, masterVolume);
         PlayerPrefs.SetFloat(PP_SFX_VOLUME_KEY, sfxVolume);
         PlayerPrefs.SetFloat(PP_MUSIC_VOLUME_KEY, musicVolume);
     }
 
-    public static void ForceSaveToDisk() {
+    public static void ForceSaveToDisk()
+    {
         Instance.Save();
         PlayerPrefs.Save();
     }
 
-    public void UnlockNextLevel(bool save=false) {
+    public void UnlockNextLevel(bool save = false)
+    {
         lastUnlockedLevel = lastLevelChosen + 1;
         if (save) Save();
     }
+
+#if UNITY_EDITOR
+    [MenuItem("Freshaliens/Data/Erase Player Prefs")]
+    public static void ErasePlayerPrefs()
+    {
+
+        PlayerPrefs.DeleteAll();
+    }
+#endif
 }

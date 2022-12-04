@@ -94,5 +94,10 @@ namespace Freshaliens.Level.Components
             lastActiveCheckpoint = this;
             hasBeenActivated = true;
         }
+
+        public static void ResetStartingCheckpoint() {
+
+            lastActiveCheckpoint = startingCheckpoint;
+        }
     }
 }
