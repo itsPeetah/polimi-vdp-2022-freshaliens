@@ -211,7 +211,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 2b1a9db78723349a0a493ac40ace6e30, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -321,7 +321,7 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
-  enemyProjectileTarget: {fileID: 3332434578813053516}
+  enemyProjectileTarget: {fileID: 3332434578745868563}
   movementAudioSource: {fileID: 4386012166611936910}
   stepAudioClip: {fileID: 8300000, guid: 67fe9fe2605c24f7cad5044684b35983, type: 3}
   jumpAudioClip: {fileID: 8300000, guid: 6b4037d8ae3fe40aa9b4825839a44022, type: 3}
@@ -351,7 +351,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4255132e5ec14a7cb90d3ed82e44c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 3332434578813053517}
   initialNumberOfLives: 3
   hitLayers:
     serializedVersion: 2

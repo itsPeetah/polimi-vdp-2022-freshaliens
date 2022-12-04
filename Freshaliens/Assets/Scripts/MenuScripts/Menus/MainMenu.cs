@@ -11,15 +11,7 @@ namespace MenuManagement
         public bool fadeToPlay = true;                          // should it use the fading transition?
         [SerializeField] private float playDelay = 0.5f;        // # seconds before loading the gameplay screen
         [SerializeField] private TransitionFader transitionFaderPrefab;
-
-        private void OnEnable()
-        {
-            Canvas c = GetComponent<Canvas>();
-            c.worldCamera = Camera.main;
-            c.planeDistance = 6f;
-
-        }
-
+        
         public void OnSettingsPressed()
         {
             //print("SETTINGS");

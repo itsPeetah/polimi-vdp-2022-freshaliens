@@ -203,8 +203,9 @@ namespace Freshaliens.Player.Components
             isGrounded = (leftFoot || rightFoot);
             Transform oldGT = groundTransform;
             // Store ground transform
-            if (rightFoot) groundTransform = rightCollider.transform;   
-            else if (leftFoot && lastFacedDirection < 0) groundTransform = leftCollider.transform;
+            if (!isGrounded) groundTransform = null;
+            else if (rightFoot) groundTransform = rightCollider.transform;   
+            else if (leftFoot) groundTransform = leftCollider.transform;
             hasChangedGroundTransform = oldGT != groundTransform;
         }
 

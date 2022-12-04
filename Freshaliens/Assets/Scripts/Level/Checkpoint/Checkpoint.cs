@@ -14,45 +14,41 @@ namespace Freshaliens.Level.Components
         // Singleton-like reference
         private static Checkpoint lastActiveCheckpoint = null;
         public static Checkpoint LastActiveCheckpoint => lastActiveCheckpoint;
+        
+        private static Checkpoint startingCheckpoint = null;
+        public static Checkpoint StartingCheckpoint => startingCheckpoint;
 
         private Transform respawnPoint = null;
         private BoxCollider2D boxCollider = null;
 
         [Header("Interaction")]
-        [SerializeField] private bool isFinalCheckpoint;
+        [SerializeField] private bool isFinalCheckpoint = false;
         [SerializeField] private bool isStartingCheckpoint = false;
         [SerializeField, Tooltip("Should the checkpoint be activated every time the player triggers it?")] private bool allowMultipleActivations = false;
-        [Header("Animation")]
-        [SerializeField] private Animator animator;
+
         private bool hasBeenActivated = false;
 
         public Vector3 RespawnPosition => respawnPoint.position;
 
         private void Awake()
         {
-            animator.SetBool("hasBeenTouched",isStartingCheckpoint);
             Setup();
+            
             if (isStartingCheckpoint)
             {
-                if (isStartingCheckpoint)
-                {
-                    lastActiveCheckpoint = this;
+                startingCheckpoint = this;
+                lastActiveCheckpoint = this;
 #if UNITY_EDITOR
-                    if (isFinalCheckpoint) Debug.LogWarning("The starting checkpoint is also the final checkpoint...WTF?");
+                if (isFinalCheckpoint) Debug.LogWarning("The starting checkpoint is also the final checkpoint...WTF?");
 #endif
-                }
-
-                if (isFinalCheckpoint)
-                {
-                    allowMultipleActivations = false;
-
-                }
-
             }
-            //for animation (make the flag red)
-            Debug.Log("c'è un checkpint finale");
-            animator.SetBool("isLastCheckpoint",isFinalCheckpoint);
-            Debug.Log("è finale is " +isFinalCheckpoint);
+
+            if (isFinalCheckpoint)
+            {
+                allowMultipleActivations = false;
+            }
+
+            
             
         }
 
@@ -84,7 +80,6 @@ namespace Freshaliens.Level.Components
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-        
             if (hasBeenActivated && !allowMultipleActivations) return;
             // HACK For now I'll just make a new layer that only collides with player 1
             if (isFinalCheckpoint && !hasBeenActivated)
@@ -92,19 +87,12 @@ namespace Freshaliens.Level.Components
                 hasBeenActivated = true;
                 PlayerData.Instance.UnlockNextLevel();
                 LevelCompletedScreen.Open();
-                
+                return;
             }
-            else if (!hasBeenActivated)
-            {
-                // Not final checkpoint -> update last available checkpoint
-                lastActiveCheckpoint = this;
-                hasBeenActivated = true;
-            }
-            
 
-            //animation 
-            Debug.Log("hasbeenActivated = "+ hasBeenActivated);
-            animator.SetBool("hasBeenTouched",hasBeenActivated);    
+            // Not final checkpoint -> update last available checkpoint
+            lastActiveCheckpoint = this;
+            hasBeenActivated = true;
         }
     }
 }
