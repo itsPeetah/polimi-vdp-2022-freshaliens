@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
-
+using MenuManagement;
 namespace Freshaliens.LevelSelection.Components
 {
     /// <summary>
@@ -48,7 +48,7 @@ namespace Freshaliens.LevelSelection.Components
         private void Start()
         {
             currentlySelectedLevel = PlayerData.Instance.LastLevelSelected;
-
+            PauseMenu.GameIsPaused = false;
             InstantiateMapLines();
             UpdateMapLineState();
 
@@ -85,7 +85,8 @@ namespace Freshaliens.LevelSelection.Components
 
         private void SelectLevel(int index)
         {
-
+            Time.timeScale = 1;
+            
             int prevSelectedLevel = currentlySelectedLevel;
             int levelToSelect = Mathf.Abs(index) % levels.Length;
 

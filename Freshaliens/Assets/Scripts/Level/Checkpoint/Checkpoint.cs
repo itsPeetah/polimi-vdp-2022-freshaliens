@@ -80,7 +80,7 @@ namespace Freshaliens.Level.Components
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (hasBeenActivated && !allowMultipleActivations) return;
+            // if (hasBeenActivated && !allowMultipleActivations) return;
             // HACK For now I'll just make a new layer that only collides with player 1
             if (isFinalCheckpoint && !hasBeenActivated)
             {

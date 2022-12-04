@@ -41,7 +41,7 @@ namespace Freshaliens.Interaction.Components
         private void ToggleState()
         {
             _isActive = !_isActive;
-            //gameObject.SetActive(_isActive);
+            gameObject.SetActive(_isActive);
         }
 
         public override void OnAction()
@@ -50,14 +50,14 @@ namespace Freshaliens.Interaction.Components
             if (!_isActive)
             {
                 //animation door closes
-                Debug.Log("apro portone");
-                _animator.SetBool("isDoorOpen",false);
+              //  Debug.Log("apro portone");
+               // _animator.SetBool("isDoorOpen",false);
             }
             else
             {
-                Debug.Log("chiud porta");
+               // Debug.Log("chiud porta");
                 //animation door opens
-                _animator.SetBool("isDoorOpen", true);
+             //   _animator.SetBool("isDoorOpen", true);
                // StartCoroutine(DelayAction(1));
             }
             ToggleState();

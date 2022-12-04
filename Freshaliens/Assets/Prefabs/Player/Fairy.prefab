@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 6097506175891918345}
   - component: {fileID: 5211941532851755215}
   m_Layer: 8
-  m_Name: Fairy (animated)
+  m_Name: Fairy
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,13 +156,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 701c1d76b7fe041d380b102d2712fe9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 6
+  maxSpeed: 7
   movementAcceleration: 15
   movementDeceleration: 20
-  maxDistanceBeforeReturn: 15
-  returnDistance: 10
+  maxDistanceBeforeReturn: 18
+  returnDistance: 15
   returnAcceleration: 40
   maxReturnSpeed: 20
+  verticalDistanceAtRespawn: 3
+  horizontalDistanceAtRespawn: 8
   stunDuration: 3
 --- !u!114 &555976789945125889
 MonoBehaviour:
@@ -191,7 +193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4255132e5ec14a7cb90d3ed82e44c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 0}
   initialNumberOfLives: 3
   hitLayers:
     serializedVersion: 2

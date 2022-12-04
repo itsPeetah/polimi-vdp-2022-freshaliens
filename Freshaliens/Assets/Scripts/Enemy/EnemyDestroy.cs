@@ -36,7 +36,6 @@ public class EnemyDestroy : MonoBehaviour
         int layer = collision.gameObject.layer;
 
         if (( (1 << layer) & hitLayers) != 0) {
-            Debug.Log("colpito nemico");
             hit = true;
         }
     }
