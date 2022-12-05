@@ -10,11 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bd02b8fc2a42424084590b1d0cf33f1, type: 3}
-  m_Name: Dialogue Level 3.0
+  m_Name: Dialogue Level 0.1
   m_EditorClassIdentifier: 
   faceSprite: {fileID: 21300000, guid: 89e2b4f83b3204d6fa30694acff4ea96, type: 3}
   dialogueText:
-  - Wow, already level 3! Fortunately it's just an alpha. It would be too short of
-    a game!!
-  - On this planet you will find levers to activate stuff and obstacles...
-  - Lasers kill me. Saws kill both. Easy.
+  - In case you're wondering, yes! You can definitely reach that platform up there!

@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faceSprite: {fileID: 21300000, guid: 89e2b4f83b3204d6fa30694acff4ea96, type: 3}
   dialogueText:
-  - Welcome to Freshaliens!
-  - Jump on me and I will throw you!
+  - Welcome to Freshaliens! I'm George!
+  - On this planet you just need to jump. If you press the jump button while on me
+    I will throw you further, but just for once!
