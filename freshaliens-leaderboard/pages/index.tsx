@@ -3,20 +3,30 @@ import getConfig from "next/config";
 import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
 import { LeaderboardEntry, Score } from "src/types";
+import { get, getDatabase, ref } from "firebase/database";
+import { initializeApp } from "firebase/app";
+import { dbroot } from "src/realtimeDatabase";
+import { firebaseConfig } from "src/firebaseConfig";
 
 const { publicRuntimeConfig } = getConfig();
 const { name } = publicRuntimeConfig.site;
 const apiURL =
   "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard";
-const Home = () => {
-  const [level, setLevel] = useState(0);
-  const [leaderboardData, setLeaderboardData] = useState({});
 
-  const buildLeaderboard = (level: number) => {
-    const children = [];
+const app = initializeApp(firebaseConfig);
+const db = getDatabase();
+
+const Home = () => {
+  const [level, setLevel] = useState(1);
+  const [leaderboardData, setLeaderboardData] = useState({});
+  const [child, setChild] = useState<JSX.Element[]>([]);
+
+  const buildLeaderboard = (level: number): JSX.Element[] => {
+    const children: JSX.Element[] = [];
     for (const [key, value] of Object.entries(leaderboardData)) {
       const entry = value as Score;
-      if (entry.level === level) {
+      if (entry.level === level.toString()) {
+        console.log(entry);
         children.push(
           <div className="flex flex-row justify-between border-b-2 border-gray-200">
             <span>{key}</span>
@@ -29,10 +39,15 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetch(apiURL).then((res) => {
-      res.json().then((data) => setLeaderboardData(data));
+    get(ref(db, dbroot)).then((snap) => {
+      setLeaderboardData(snap.val());
     });
-  }, []);
+  }, [level]);
+
+  useEffect(() => {
+    const c = buildLeaderboard(level);
+    setChild(c);
+  }, [leaderboardData]);
 
   return (
     <Layout>
@@ -42,22 +57,12 @@ const Home = () => {
           <button
             className={
               "p-2 text-yellow-400 border-2 border-current rounded-md" +
-              (level === 0 ? " text-black bg-yellow-400" : "")
-            }
-            type="button"
-            onClick={() => setLevel(0)}
-          >
-            Level 1
-          </button>
-          <button
-            className={
-              "p-2 text-yellow-400 border-2 border-current rounded-md" +
               (level === 1 ? " text-black bg-yellow-400" : "")
             }
             type="button"
             onClick={() => setLevel(1)}
           >
-            Level 2
+            Level 1
           </button>
           <button
             className={
@@ -67,6 +72,16 @@ const Home = () => {
             type="button"
             onClick={() => setLevel(2)}
           >
+            Level 2
+          </button>
+          <button
+            className={
+              "p-2 text-yellow-400 border-2 border-current rounded-md" +
+              (level === 3 ? " text-black bg-yellow-400" : "")
+            }
+            type="button"
+            onClick={() => setLevel(3)}
+          >
             Level 3
           </button>
         </div>
@@ -75,8 +90,7 @@ const Home = () => {
             <span>Name</span>
             <span>Time</span>
           </div>
-
-          {buildLeaderboard(level + 1)}
+          {child}
         </div>
       </div>
     </Layout>

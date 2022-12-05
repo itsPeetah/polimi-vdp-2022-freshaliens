@@ -1,7 +1,7 @@
 import internal from "stream";
 
 export type Score = {
-  level: number;
+  level: string;
   time: string;
 };
 
