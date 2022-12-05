@@ -31,6 +31,7 @@ public class CameraBoundsManagerEditor : Editor
         if (EditorGUI.EndChangeCheck())
         {
             Undo.RecordObject(cbm, "Changed min-y bound in camera manager");
+            EditorUtility.SetDirty(cbm);
             cbm.SamplePoints = positions;
         }
 
@@ -43,6 +44,7 @@ public class CameraBoundsManagerEditor : Editor
         if (EditorGUI.EndChangeCheck())
         {
             Undo.RecordObject(cbm, "Changed camera left bound");
+            EditorUtility.SetDirty(cbm);
             cbm.LeftBound= leftBound;
         }
         
@@ -56,8 +58,11 @@ public class CameraBoundsManagerEditor : Editor
         if (EditorGUI.EndChangeCheck())
         {
             Undo.RecordObject(cbm, "Changed camera left bound");
+            EditorUtility.SetDirty(cbm);
             cbm.RightBound = rightBound;
         }
+
+        
 
     }
 }
