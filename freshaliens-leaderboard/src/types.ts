@@ -1,15 +1,2 @@
-import internal from "stream";
-
-export type Score = {
-  level: string;
-  time: string;
-};
-
-export type LeaderboardEntry = {
-  name: string;
-  times: string[];
-};
-
-export type Leaderboard = {
-  entries: LeaderboardEntry[];
-};
+export type LeaderboardEntry = Map<string, string>;
+export type Leaderboard = Map<string, LeaderboardEntry>;
