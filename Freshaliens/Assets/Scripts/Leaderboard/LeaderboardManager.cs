@@ -7,8 +7,8 @@ using UnityEngine.Networking;
 namespace Freshaliens.Social {
     public class LeaderboardManager : MonoBehaviour
     {
-        //private const string API_URL = "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard";
-        private const string API_URL = "http://localhost:3000/api/leaderboard";
+        private const string API_URL = "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard";
+        //private const string API_URL = "http://localhost:3000/api/leaderboard";
 
         private static LeaderboardManager instance = null;
         public static LeaderboardManager Instance => instance;
@@ -43,10 +43,28 @@ namespace Freshaliens.Social {
         }
 
         public void PostTime(string name) {
+            Debug.Log("Posting time as " + name);
+            string fields = $"name={name}&level={Instance.currentLevel}&time={Instance.TimeAsString}";
+            WWWForm form = new WWWForm();
+            form.AddField("name", name);
+            form.AddField("time", TimeAsString);
+            form.AddField("level", currentLevel);
+            StartCoroutine(SendPost(form));
+        }
 
-            using UnityWebRequest www = UnityWebRequest.Post(API_URL, ""/*, $"name={name}&time={TimeToString(Instance.time)}&level={Instance.currentLevel.ToString()}"*/);
+        private IEnumerator SendPost(/*string payload*/WWWForm form) {
+
             
-            www.SendWebRequest().completed += (r) => Debug.Log(r.ToString());
+
+            UnityWebRequest www = UnityWebRequest.Post(API_URL, /*payload*/ form);
+            
+
+            yield return www.SendWebRequest();
+            Debug.Log(www.result);
+            
+            Debug.Log("Posted: " + form);
+            www.Dispose();
+            Debug.Log("Disposed of www");
         }
 
         public static string TimeToString(float timeInSeconds) {

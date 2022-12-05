@@ -55,7 +55,9 @@ namespace MenuManagement
             string name = nameField.text;
             if (name.Length < 1) name = "Anonymous";
             if (LeaderboardManager.Instance != null) {
+                Debug.Log("Pressed POST and Instance != null");
                 LeaderboardManager.Instance.PostTime(name);
+                Debug.Log("Returned from Post");
             }
         }
     }
