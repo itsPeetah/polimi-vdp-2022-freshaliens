@@ -60,10 +60,10 @@ namespace Freshaliens.Social {
 
         public static string TimeToString(float timeInSeconds) {
             int minutes = (int)(timeInSeconds / 60);
-            int seconds = (int)(timeInSeconds) - minutes;
+            int seconds = (int)(timeInSeconds) - (minutes * 60);
             int milliseconds = (int)((timeInSeconds - (int)timeInSeconds) * 1000);
 
-            return $"{minutes}:{seconds}:{milliseconds}";
+            return $"{minutes}:{seconds}.{milliseconds}";
         }
 
         public static void Stop() {

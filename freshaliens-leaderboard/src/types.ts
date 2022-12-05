@@ -7,7 +7,7 @@ export type Score = {
 
 export type LeaderboardEntry = {
   name: string;
-  score: Score;
+  times: string[];
 };
 
 export type Leaderboard = {

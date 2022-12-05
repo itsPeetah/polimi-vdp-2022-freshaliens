@@ -19,9 +19,9 @@ export default async function handler(
     // curl -d "name=value1&time=value2&level=0" -X POST http://localhost:3000/api/leaderboard
     const name = req.body.name ?? "Anonymous";
     const time = req.body.time ?? "99:99.999";
-    const level = req.body.level ?? -1;
-    const lberef = ref(getDatabase(app), `${dbroot}/${name}`);
-    set(lberef, { time, level });
+    const level = req.body.level ?? 0;
+    const lberef = ref(getDatabase(app), `${dbroot}/${name}/${level}`);
+    set(lberef, time);
     res.status(200).json("OK");
   }
 }

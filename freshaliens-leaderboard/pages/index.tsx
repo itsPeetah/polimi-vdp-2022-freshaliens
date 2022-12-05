@@ -24,15 +24,16 @@ const Home = () => {
   const buildLeaderboard = (level: number): JSX.Element[] => {
     const children: JSX.Element[] = [];
     for (const [key, value] of Object.entries(leaderboardData)) {
-      const entry = value as Score;
-      if (entry.level === level.toString()) {
-        console.log(entry);
-        children.push(
-          <div className="flex flex-row justify-between border-b-2 border-gray-200">
-            <span>{key}</span>
-            <span>{entry.time}</span>
-          </div>
-        );
+      const entry = value as LeaderboardEntry;
+      for (let s in entry.times) {
+        if (s === level.toString()) {
+          children.push(
+            <div className="flex flex-row justify-between border-b-2 border-gray-200">
+              <span>{key}</span>
+              <span>{entry.times[s]}</span>
+            </div>
+          );
+        }
       }
     }
     return children;
