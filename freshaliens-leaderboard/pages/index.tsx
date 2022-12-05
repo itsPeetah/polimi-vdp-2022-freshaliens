@@ -24,7 +24,7 @@ const db = getDatabase(app);
 
 const Home = () => {
   const [selectedLevel, setLevel] = useState("1");
-  const [leaderboardData, setLeaderboardData] = useState<Leaderboard>([]);
+  const [leaderboardData, setLeaderboardData] = useState({});
   const [scoreboardEntries, setScoreboardEntries] = useState<JSX.Element[]>([]);
 
   const buildLeaderboard = (data: Leaderboard) => {
@@ -53,7 +53,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    buildLeaderboard(leaderboardData);
+    buildLeaderboard(leaderboardData as any);
   }, [selectedLevel]);
 
   return (
