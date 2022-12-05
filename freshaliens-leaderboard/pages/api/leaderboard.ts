@@ -21,7 +21,7 @@ export default async function handler(
     const time = req.body.time ?? "99:99.999";
     const level = req.body.level ?? 0;
     const lberef = ref(getDatabase(app), `${dbroot}/${name}/${level}`);
-    set(lberef, time);
+    await set(lberef, time);
     res.status(200).json("OK");
   }
 }

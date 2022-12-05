@@ -7,7 +7,8 @@ using UnityEngine.Networking;
 namespace Freshaliens.Social {
     public class LeaderboardManager : MonoBehaviour
     {
-        private const string API_URL = "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard";
+        //private const string API_URL = "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard";
+        private const string API_URL = "http://localhost:3000/api/leaderboard";
 
         private static LeaderboardManager instance = null;
         public static LeaderboardManager Instance => instance;
@@ -42,20 +43,10 @@ namespace Freshaliens.Social {
         }
 
         public void PostTime(string name) {
-            WWWForm form = new WWWForm();
-            form.AddField("name", name);
-            form.AddField("level", Instance.currentLevel);
-            form.AddField("time", TimeToString(Instance.time));
 
-            StartCoroutine(PostTimeCoroutine(form));
-        }
-
-        private static IEnumerator PostTimeCoroutine(WWWForm form) {
-            Debug.Log("Posting time");
-            using (UnityWebRequest www = UnityWebRequest.Post(API_URL, form)) {
-                yield return www.SendWebRequest();
-            }
-            Debug.Log("Time posted");
+            using UnityWebRequest www = UnityWebRequest.Post(API_URL, ""/*, $"name={name}&time={TimeToString(Instance.time)}&level={Instance.currentLevel.ToString()}"*/);
+            
+            www.SendWebRequest().completed += (r) => Debug.Log(r.ToString());
         }
 
         public static string TimeToString(float timeInSeconds) {
