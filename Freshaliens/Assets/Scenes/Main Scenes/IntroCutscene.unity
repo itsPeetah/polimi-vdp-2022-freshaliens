@@ -815,6 +815,7 @@ MonoBehaviour:
   slides:
   - {fileID: 11400000, guid: 482dd320117324bda95f7159c06db3b2, type: 2}
   - {fileID: 11400000, guid: a12b3256519684934a5de9c19b26ee8f, type: 2}
+  - {fileID: 11400000, guid: 51dbf6209744340daaba99918065589d, type: 2}
   text: {fileID: 1198053436}
   image: {fileID: 1984836446}
 --- !u!33 &1915452891725384788

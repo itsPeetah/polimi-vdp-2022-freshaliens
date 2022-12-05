@@ -10,8 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73ee1016a3f56480dad9b732911f5c3e, type: 3}
-  m_Name: Slide 1
+  m_Name: Slide 3
   m_EditorClassIdentifier: 
-  text: In a remote galaxy of the universe there is an alien race of conquerors which
-    use to conquer as many planets as they can.
+  text: Will be our two little aliens able to conquest all their assigned planets.
   sprite: {fileID: 21300000, guid: 51473cb7dfd5e4d8685cbb2f511260b5, type: 3}

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ee1016a3f56480dad9b732911f5c3e, type: 3}
   m_Name: Slide 2
   m_EditorClassIdentifier: 
-  text: this is the second slide
+  text: When children turn 10 they are sent in couple to conquer their first planets.
   sprite: {fileID: 21300000, guid: 51473cb7dfd5e4d8685cbb2f511260b5, type: 3}
