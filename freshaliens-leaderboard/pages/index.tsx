@@ -22,25 +22,43 @@ const Home = () => {
   );
 
   const buildLeaderboard = (data: Leaderboard) => {
+    const levels: { name: string; time: string; level: string }[] = [];
     const children: JSX.Element[] = [];
     for (let name in data) {
       for (let lvl in (data as any)[name]) {
-        children.push(
-          <ScoreboardEntry
-            key={`Leaderboard_${name}_${lvl}`}
-            name={name}
-            time={(data as any)[name][lvl]}
-            show={lvl.toString() === selectedLevel.toString()}
-          />
-        );
+        if (!!(data as any)[name][lvl] && !!name && lvl !== "0")
+          // This is dirty as fuck LMAO
+          levels.push({ name, time: (data as any)[name][lvl], level: lvl });
       }
     }
+
+    const sorted = levels.sort((a, b) => {
+      if (!!a.time && !!b.time && !!a.time.split && !!b.time.split) {
+        const splitA = a.time.split(":");
+        const tA = parseFloat(splitA[0]) * 60 + parseFloat(splitA[1]);
+        const splitB = b.time.split(":");
+        const tB = parseFloat(splitB[0]) * 60 + parseFloat(splitB[1]);
+        console.log(tA, tB);
+        return tA - tB;
+      } else return -1;
+    });
+    console.log(sorted);
+    sorted.forEach((entry) => {
+      children.push(
+        <ScoreboardEntry
+          key={`Leaderboard_${entry.name}_${entry.level}`}
+          name={entry.name}
+          time={entry.time}
+          show={entry.level.toString() === selectedLevel.toString()}
+        />
+      );
+    });
 
     setScoreboardEntries(<div>{children}</div>);
   };
 
   useEffect(() => {
-    fetch(/*"http://localhost:3000/api/leaderboard"*/ apiURL).then((res) =>
+    fetch(apiURL).then((res) =>
       res.json().then((value) => {
         console.log(value);
         setLeaderboardData(value as Leaderboard);
@@ -74,7 +92,7 @@ const Home = () => {
             onClick={() => setLevel("3")}
           />
         </div>
-        <div className="w-[50%] mt-5 border-2 p-10">
+        <div className="w-full lg:w-[50%] mt-5 lg:border-2 p-10">
           <div className="flex flex-row justify-between text-yellow-400 mb-2">
             <span>Name</span>
             <span>Time</span>
