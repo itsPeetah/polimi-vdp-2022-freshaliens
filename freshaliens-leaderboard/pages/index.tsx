@@ -72,7 +72,11 @@ const Home = () => {
 
   return (
     <Layout>
-      <div className="w-full h-screen | flex flex-col items-center | p-2 | bg-slate-900 text-white | overflow-scroll">
+      <div
+        className={`w-full h-screen | flex flex-col items-center | p-2 | ${
+          !router.query["embed"] ? "bg-slate-900" : "bg-transparent"
+        } | text-white | overflow-scroll`}
+      >
         {!router.query["embed"] && (
           <h1 className="text-6xl my-10">Freshaliens Leaderboard</h1>
         )}
