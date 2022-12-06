@@ -8,12 +8,12 @@ import { dbroot } from "src/realtimeDatabase";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Leaderboard | string>
+  res: NextApiResponse
 ) {
   const app = initializeApp(firebaseConfig);
   if (req.method === "GET") {
     const lbref = ref(getDatabase(app), dbroot);
-    const data = (await (await get(lbref)).val()) as Leaderboard;
+    const data = (await (await get(lbref)).val()) as any;
     res.status(200).json(data);
   } else if (req.method === "POST") {
     // curl -d "name=value1&time=value2&level=0" -X POST http://localhost:3000/api/leaderboard
