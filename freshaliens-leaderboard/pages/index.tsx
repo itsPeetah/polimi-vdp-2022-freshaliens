@@ -20,8 +20,8 @@ const { name } = publicRuntimeConfig.site;
 const Home = () => {
   const apiURL =
     "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard";
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
+  // const app = initializeApp(firebaseConfig);
+  // const db = getDatabase(app);
   const [selectedLevel, setLevel] = useState("1");
   const [leaderboardData, setLeaderboardData] = useState({});
   const [scoreboardEntries, setScoreboardEntries] = useState<JSX.Element>(
@@ -47,11 +47,11 @@ const Home = () => {
   };
 
   useEffect(() => {
-    onValue(ref(db, `${dbroot}`), async (snapshot: DataSnapshot) => {
-      const data = await snapshot.val();
-      setLeaderboardData(data as Leaderboard);
-      buildLeaderboard(data as Leaderboard);
-    });
+    // onValue(ref(db, `${dbroot}`), async (snapshot: DataSnapshot) => {
+    //   const data = await snapshot.val();
+    //   setLeaderboardData(data as Leaderboard);
+    //   buildLeaderboard(data as Leaderboard);
+    // });
   }, []);
 
   useEffect(() => {
