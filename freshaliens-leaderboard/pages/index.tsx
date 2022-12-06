@@ -47,9 +47,10 @@ const Home = () => {
   };
 
   useEffect(() => {
-    onValue(ref(db, `${dbroot}`), (snapshot: DataSnapshot) => {
-      setLeaderboardData(snapshot.val() as Leaderboard);
-      buildLeaderboard(snapshot.val() as Leaderboard);
+    onValue(ref(db, `${dbroot}`), async (snapshot: DataSnapshot) => {
+      const data = await snapshot.val();
+      setLeaderboardData(data as Leaderboard);
+      buildLeaderboard(data as Leaderboard);
     });
   }, []);
 
