@@ -40,7 +40,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetch(/*"http://localhost:3000/api/leaderboard"*/ apiURL).then((res) =>
+    fetch(apiURL).then((res) =>
       res.json().then((value) => {
         console.log(value);
         setLeaderboardData(value as Leaderboard);
@@ -74,7 +74,7 @@ const Home = () => {
             onClick={() => setLevel("3")}
           />
         </div>
-        <div className="w-[50%] mt-5 border-2 p-10">
+        <div className="w-full lg:w-[50%] mt-5 lg:border-2 p-10">
           <div className="flex flex-row justify-between text-yellow-400 mb-2">
             <span>Name</span>
             <span>Time</span>
