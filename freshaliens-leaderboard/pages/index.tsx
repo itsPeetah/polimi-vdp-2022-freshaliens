@@ -72,7 +72,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <div className="w-full h-screen | flex flex-col items-center | p-2 | bg-slate-900 text-white">
+      <div className="w-full h-screen | flex flex-col items-center | p-2 | bg-slate-900 text-white | overflow-scroll">
         {!router.query["embed"] && (
           <h1 className="text-6xl my-10">Freshaliens Leaderboard</h1>
         )}
@@ -93,7 +93,7 @@ const Home = () => {
             onClick={() => setLevel("3")}
           />
         </div>
-        <div className="w-full lg:w-[50%] mt-5 lg:border-2 p-10">
+        <div className="w-full lg:w-[50%] mt-2 lg:border-2 p-10">
           <div className="flex flex-row justify-between text-yellow-400 mb-2">
             <span>Name</span>
             <span>Time</span>
