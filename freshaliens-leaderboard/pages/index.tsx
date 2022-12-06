@@ -36,17 +36,17 @@ const Home = () => {
       }
     }
 
-    setScoreboardEntries(<div>children</div>);
+    setScoreboardEntries(<div>{children}</div>);
   };
 
   useEffect(() => {
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    onValue(ref(db, `${dbroot}`), async (snapshot: DataSnapshot) => {
-      const data = await snapshot.val();
-      setLeaderboardData(data as Leaderboard);
-      buildLeaderboard(data as Leaderboard);
-    });
+    fetch(/*"http://localhost:3000/api/leaderboard"*/ apiURL).then((res) =>
+      res.json().then((value) => {
+        console.log(value);
+        setLeaderboardData(value as Leaderboard);
+        buildLeaderboard(value as Leaderboard);
+      })
+    );
   }, []);
 
   useEffect(() => {
