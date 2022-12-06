@@ -3,15 +3,14 @@ import getConfig from "next/config";
 import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
 import { Leaderboard } from "src/types";
-import { DataSnapshot, getDatabase, onValue, ref } from "firebase/database";
-import { initializeApp } from "firebase/app";
-import { dbroot } from "src/realtimeDatabase";
-import { firebaseConfig } from "src/firebaseConfig";
+import { useRouter } from "next/router";
 
 const { publicRuntimeConfig } = getConfig();
 const { name } = publicRuntimeConfig.site;
 
 const Home = () => {
+  const router = useRouter();
+
   const apiURL =
     "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard";
 
@@ -74,7 +73,9 @@ const Home = () => {
   return (
     <Layout>
       <div className="w-full h-screen | flex flex-col items-center | p-2 | bg-slate-900 text-white">
-        <h1 className="text-6xl my-10">Freshaliens Leaderboard</h1>
+        {!router.query["embed"] && (
+          <h1 className="text-6xl my-10">Freshaliens Leaderboard</h1>
+        )}
         <div className="flex flex-row">
           <LevelButton
             level="1"
