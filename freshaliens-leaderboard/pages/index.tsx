@@ -2,30 +2,24 @@ import getConfig from "next/config";
 
 import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
-import { Leaderboard, LeaderboardEntry } from "src/types";
-import {
-  DataSnapshot,
-  get,
-  getDatabase,
-  onValue,
-  ref,
-} from "firebase/database";
+import { Leaderboard } from "src/types";
+import { DataSnapshot, getDatabase, onValue, ref } from "firebase/database";
 import { initializeApp } from "firebase/app";
 import { dbroot } from "src/realtimeDatabase";
 import { firebaseConfig } from "src/firebaseConfig";
 
 const { publicRuntimeConfig } = getConfig();
 const { name } = publicRuntimeConfig.site;
-const apiURL =
-  "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard";
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
 
 const Home = () => {
+  const apiURL =
+    "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard";
+
   const [selectedLevel, setLevel] = useState("1");
   const [leaderboardData, setLeaderboardData] = useState({});
-  const [scoreboardEntries, setScoreboardEntries] = useState<JSX.Element[]>([]);
+  const [scoreboardEntries, setScoreboardEntries] = useState<JSX.Element>(
+    <div>[]</div>
+  );
 
   const buildLeaderboard = (data: Leaderboard) => {
     const children: JSX.Element[] = [];
@@ -42,14 +36,17 @@ const Home = () => {
       }
     }
 
-    setScoreboardEntries(children);
+    setScoreboardEntries(<div>{children}</div>);
   };
 
   useEffect(() => {
-    onValue(ref(db, `${dbroot}`), (snapshot: DataSnapshot) => {
-      setLeaderboardData(snapshot.val() as Leaderboard);
-      buildLeaderboard(snapshot.val() as Leaderboard);
-    });
+    fetch(/*"http://localhost:3000/api/leaderboard"*/ apiURL).then((res) =>
+      res.json().then((value) => {
+        console.log(value);
+        setLeaderboardData(value as Leaderboard);
+        buildLeaderboard(value as Leaderboard);
+      })
+    );
   }, []);
 
   useEffect(() => {

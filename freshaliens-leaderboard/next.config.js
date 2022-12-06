@@ -6,8 +6,8 @@ module.exports = {
         process.env.NODE_ENV === "development"
           ? "http://localhost:3000"
           : "https://vdp22-freshaliens-leaderboard.vercel.app",
-      title: "Next.js + Tailwind CSS template",
-      description: "Next.js + Tailwind CSS template",
+      title: "Freshaliens Leaderboard - VDP '22",
+      description: "Freshaliens Leaderboard - VDP '22",
       socialPreview: "/images/preview.png",
     },
   },
