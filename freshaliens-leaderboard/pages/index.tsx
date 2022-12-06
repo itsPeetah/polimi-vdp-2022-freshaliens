@@ -74,7 +74,7 @@ const Home = () => {
     <Layout>
       <div
         className={`w-full h-screen | flex flex-col items-center | p-2 | ${
-          !router.query["embed"] ? "bg-slate-900" : "bg-transparent"
+          !router.query["embed"] ? "bg-slate-900" : "bg-transparent border-2"
         } | text-white | overflow-scroll`}
       >
         {!router.query["embed"] && (
