@@ -12,7 +12,7 @@ const Home = () => {
   const router = useRouter();
 
   const apiURL =
-    "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard";
+    "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboards/classic";
 
   const [selectedLevel, setLevel] = useState("1");
   const [leaderboardData, setLeaderboardData] = useState({});
