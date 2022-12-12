@@ -80,7 +80,8 @@ const Home = () => {
         {!router.query["embed"] && (
           <h1 className="text-6xl my-10">Freshaliens Leaderboard</h1>
         )}
-        <div className="flex flex-row">
+        <div className="flex flex-row | border-2 p-2 items-center">
+          <h1 className="mr-2">Classic: </h1>
           <LevelButton
             level="1"
             currentLevel={selectedLevel}
