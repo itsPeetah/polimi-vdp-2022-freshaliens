@@ -16,6 +16,9 @@ namespace Freshaliens.Enemy.Components
         private AIAttack attacker;
         private AIPatrol enemyInt;
         private float remainingTime;
+        private bool isStunned;
+
+        public bool IsStunned => isStunned;
 
         private void Start()
         {
@@ -35,20 +38,18 @@ namespace Freshaliens.Enemy.Components
             if (remainingTime > 0)
             {
                 remainingTime = stunTime;
-               
             }
             if (remainingTime <= 0)
             {
                 remainingTime = stunTime;
                 StartCoroutine(InteractCoroutine());
-                
             }
         }
 
         IEnumerator InteractCoroutine()
         {
-            
-            enemyInt.setStun(true);
+            // enemyInt.setStun(true);
+            isStunned = true;
             if (isShoot)
             {
                 attacker.setStun(true);
@@ -59,7 +60,8 @@ namespace Freshaliens.Enemy.Components
                 yield return null;
             }
             // yield return new WaitForSeconds(stunTime);
-            enemyInt.setStun(false);
+            // enemyInt.setStun(false);
+            isStunned = false;
             if (isShoot)
             {
                 attacker.setStun(false);
