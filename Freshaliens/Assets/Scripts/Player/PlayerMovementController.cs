@@ -1,7 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 namespace Freshaliens.Player.Components
 {
@@ -71,16 +71,16 @@ namespace Freshaliens.Player.Components
         private Transform ownTransform = null;
         private PlayerFairyDetector fairyDetector = null;
 
+        // Events
+        public event Action onJumpWhileGrounded;
+        public event Action onJumpWhileAirborne;
+        public event Action onLand;
+
         // Properties
         public Vector3 Position => ownTransform.position;
         public float LastFacedDirection => lastFacedDirection;
         public int RemainingAirJupms => remainingAirJumps;
         public Vector3 EnemyProjectileTarget => enemyProjectileTarget.position;
-
-        //private void Awake()
-        //{
-        //    Instance = this;
-        //}
 
         private void Start()
         {
@@ -140,9 +140,13 @@ namespace Freshaliens.Player.Components
                 remainingAirJumps = maxAirJumps;
 
                 // Add ground movement
-                if (wasGrounded && !hasChangedGroundTransform /*Not the best fix for the trapdoor glitch but OK for now*/)
+                if (wasGrounded)
                 {
-                    groundVelocity = groundTransform.position - previousGroundPosition;
+                    if (!hasChangedGroundTransform) // Not the best fix for the trapdoor glitch but OK for now
+                        groundVelocity = groundTransform.position - previousGroundPosition;
+                }
+                else {
+                    onLand?.Invoke();
                 }
 
                 previousGroundPosition = groundTransform.position;
@@ -159,7 +163,12 @@ namespace Freshaliens.Player.Components
                 hasJumpedSinceGrounded = true;
 
                 // Grounded or airborne jump
-                if (!isGrounded && !isWithinCoyoteTime) remainingAirJumps -= 1;
+                if (!isGrounded && !isWithinCoyoteTime)
+                {
+                    remainingAirJumps -= 1;
+                    onJumpWhileAirborne?.Invoke();
+                }
+                else onJumpWhileGrounded?.Invoke();
                 velocity.y = isGrounded ? jumpForceGrounded : jumpForceAirborne;
 
                 PlayJumpSound();

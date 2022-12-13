@@ -11,21 +11,23 @@ namespace Freshaliens
         {
 
             [System.Serializable]
-            public struct LevelUIScreen {
+            public struct HUD {
                 public LevelManager.LevelPhase displayWhen;
-                public GameObject root;
+                public LevelUIScreen screenObject;
 
                 public void Toggle(LevelManager.LevelPhase currentPhase) {
-                    root.SetActive((currentPhase | displayWhen) != 0);
+                    if(screenObject!=null) screenObject.SetActive((currentPhase & displayWhen) != 0);
                 }
             }
 
             [Header("UI Screens")]
-            public LevelUIScreen[] screens = new LevelUIScreen[] { };
+            public HUD[] screens = new HUD[] { };
             
             private void Start()
             {
                 LevelManager.Instance.onLevelPhaseChange += ToggleScreens;
+
+                ToggleScreens(LevelManager.Instance.CurrentPhase);
             }
 
             private void ToggleScreens(LevelManager.LevelPhase currentLevelPhase) {

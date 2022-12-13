@@ -60,11 +60,16 @@ namespace Freshaliens
                 }
             }
             public bool IsPlayingDialogue => currentPhase == LevelPhase.Dialogue;
-            public int CurrentHP { get => currentPlayerHP; private set { currentPlayerHP = Mathf.Clamp(value, 0, maxPlayerHP); } }
+            public int MaxPlayerHP => maxPlayerHP;
+            public int CurrentPlayerHP {
+                get => currentPlayerHP;
+                private set => currentPlayerHP = Mathf.Clamp(value, 0, maxPlayerHP);
+            }
             public float CurrentLevelTimer => currentLevelTimer;
 
             public event Action<LevelPhase> onLevelPhaseChange;
             public event Action<bool> onPauseToggle;
+            public event Action onPlayerHPChange;
             public event Action onPlayerDamageTaken;
             public event Action onGameWon;
             public event Action onGameLost;
@@ -74,10 +79,16 @@ namespace Freshaliens
                 currentPhase = startingPhase;
                 currentPlayerHP = startingPlayerHP;
                 currentLevelTimer = 0;
+                onPlayerDamageTaken += () => onPlayerHPChange?.Invoke();
+                onPauseToggle += (_) => onLevelPhaseChange?.Invoke(CurrentPhase);
             }
 
             private void Update()
             {
+                if (Input.GetKeyDown(KeyCode.Escape)) {
+                    TogglePause();
+                }
+
                 if (!IsPaused)
                 {
                     currentLevelTimer += Time.deltaTime;
@@ -87,12 +98,13 @@ namespace Freshaliens
             public void TogglePause()
             {
                 IsPaused = !IsPaused;
+                Time.timeScale = IsPaused ? 0 : 1;
                 onPauseToggle?.Invoke(IsPaused);
             }
 
             public void DamagePlayer(int damageAmount = 1)
             {
-                CurrentHP -= damageAmount;
+                CurrentPlayerHP -= damageAmount;
                 onPlayerDamageTaken?.Invoke();
             }
 
