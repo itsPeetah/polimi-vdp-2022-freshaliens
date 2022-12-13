@@ -66,6 +66,16 @@ namespace Freshaliens
                 private set => currentPlayerHP = Mathf.Clamp(value, 0, maxPlayerHP);
             }
             public float CurrentLevelTimer => currentLevelTimer;
+            public string CurrentLevelTimerAsString { get {
+                    int secondsAsInt = (int)currentLevelTimer;
+                    int minutes = secondsAsInt / 60;
+                    int remainingSeconds = secondsAsInt % 60;
+                    int centiseconds = (int)((currentLevelTimer - secondsAsInt) * 100);
+                    string secondsAsString = (remainingSeconds < 10 ? "0" : "") + remainingSeconds.ToString();
+                    string centisecondsAsString = (centiseconds < 10 ? "0" : "") + centiseconds.ToString();
+                    return $"{minutes}:{secondsAsString}.{centisecondsAsString}";
+                }
+            }
 
             public event Action<LevelPhase> onLevelPhaseChange;
             public event Action<bool> onPauseToggle;
