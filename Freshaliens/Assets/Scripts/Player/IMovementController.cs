@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Freshaliens.Player.Components
 {
-    public abstract class MovementController : MonoBehaviour
+    public interface IMovementController
     {
         
     }

@@ -5,8 +5,6 @@ using UnityEngine;
 namespace Freshaliens
 {
     using Management;
-    using Utility;
-
     namespace UI
     {
         public class LevelUIManager : SingletonMonobehaviour<LevelUIManager>

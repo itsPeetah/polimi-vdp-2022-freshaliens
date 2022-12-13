@@ -9,12 +9,8 @@ namespace Freshaliens.Player.Components
     /// Movment controller component for the fairy character
     /// </summary>
     [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerInputHandler))]
-    public class FairyMovementController : MovementController
+    public class FairyMovementController : SingletonMonobehaviour<FairyMovementController>, IMovementController
     {
-        // Singleton instance
-        private static FairyMovementController instance = null;
-        public static FairyMovementController Instance { get => instance; private set => instance = value; }
-
         [Header("Player Controlled Movement")]
         [SerializeField] private float maxSpeed = 6f;
         [SerializeField] private float movementAcceleration = 5f;
@@ -45,7 +41,7 @@ namespace Freshaliens.Player.Components
         private PlayerInputHandler input = null;
         private Rigidbody2D rbody = null;
         private Transform ownTransform = null;
-        
+
         // Respawn utility
         private CameraManager _camInstance;
         private Vector3 _fairyRespawnOffset;
@@ -56,22 +52,22 @@ namespace Freshaliens.Player.Components
         public bool IsStunned => stunTimer > 0;
         public bool IsLockingOnTarget => isLockingOnTarget;
 
-        private void Awake()
-        {
-            Instance = this;
-        }
+        //private void Awake()
+        //{
+        //    Instance = this;
+        //}
 
         private void Start()
         {
             input = GetComponent<PlayerInputHandler>();
             rbody = GetComponent<Rigidbody2D>();
             ownTransform = transform;
-            
+
             _camInstance = CameraManager.Instance;
-            float respawnHorizontalOffset = _camInstance._maxCameraSize*16/9 + horizontalDistanceAtRespawn;
+            float respawnHorizontalOffset = _camInstance._maxCameraSize * 16 / 9 + horizontalDistanceAtRespawn;
             float respawnVerticalOffset = _camInstance._maxCameraSize + verticalDistanceAtRespawn;
             _fairyRespawnOffset = new Vector3(respawnHorizontalOffset, respawnVerticalOffset, 0);
-            
+
         }
 
         private void Update()
@@ -168,12 +164,12 @@ namespace Freshaliens.Player.Components
             float newXfairy, newYfairy;
 
             // If the fairy is too right or too left reset horizontal position, else leave it in the same position 
-            if ((xFairy - xNinja) > _fairyRespawnOffset.x)          
+            if ((xFairy - xNinja) > _fairyRespawnOffset.x)
             {
                 // The fairy is too right
                 newXfairy = xNinja + _fairyRespawnOffset.x + _camInstance._horizontalOffset;
             }
-            else if ((xNinja - xFairy) > _fairyRespawnOffset.x)     
+            else if ((xNinja - xFairy) > _fairyRespawnOffset.x)
             {
                 // The fairy is too left
                 newXfairy = xNinja - _fairyRespawnOffset.x;
@@ -184,12 +180,12 @@ namespace Freshaliens.Player.Components
             }
 
             // If the fairy is too high or too low reset vertical position, else leave it in the same position 
-            if ((yFairy - yNinja) > _fairyRespawnOffset.y)          
+            if ((yFairy - yNinja) > _fairyRespawnOffset.y)
             {
                 // The fairy is too high
                 newYfairy = yNinja + _fairyRespawnOffset.y + _camInstance._verticalOffset;
             }
-            else if ((yNinja - yFairy) > _fairyRespawnOffset.y)      
+            else if ((yNinja - yFairy) > _fairyRespawnOffset.y)
             {
                 // The fairy is too low
                 newYfairy = yNinja - _fairyRespawnOffset.y;

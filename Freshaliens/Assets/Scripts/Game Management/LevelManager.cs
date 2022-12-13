@@ -7,13 +7,11 @@ using UnityEngine;
 
 namespace Freshaliens
 {
-    using Utility;
-
-    namespace Management
+        namespace Management
     {
         public class LevelManager : SingletonMonobehaviour<LevelManager>
         {
-            [System.Flags]
+            [Flags]
             public enum LevelPhase
             {
                 Playing = 1,

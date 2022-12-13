@@ -9,11 +9,8 @@ namespace Freshaliens.Player.Components
     /// Component that handles player movement 
     /// </summary>
     [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerInputHandler)), RequireComponent(typeof(PlayerFairyDetector))]
-    public class PlayerMovementController : MovementController
+    public class PlayerMovementController : SingletonMonobehaviour<PlayerMovementController>, IMovementController
     {
-        private static PlayerMovementController instance = null;
-        public static PlayerMovementController Instance { get => instance; private set => instance = value; }
-
         private const float minVerticalVelocityForJump = 0.001f;
         [SerializeField] private Animator _animator;
         [Header("Walking")]
@@ -80,10 +77,10 @@ namespace Freshaliens.Player.Components
         public int RemainingAirJupms => remainingAirJumps;
         public Vector3 EnemyProjectileTarget => enemyProjectileTarget.position;
 
-        private void Awake()
-        {
-            Instance = this;
-        }
+        //private void Awake()
+        //{
+        //    Instance = this;
+        //}
 
         private void Start()
         {
@@ -108,8 +105,8 @@ namespace Freshaliens.Player.Components
             float direction = input.GetHorizontal();
             if (direction != 0) lastFacedDirection = direction;
             //animation update
-            _animator.SetFloat("DirectionR",lastFacedDirection);
-            
+            _animator.SetFloat("DirectionR", lastFacedDirection);
+
             if (input.GetJumpInput())
             {
                 jumpPressedTimestamp = Time.time;
@@ -122,7 +119,7 @@ namespace Freshaliens.Player.Components
             // Walking
             isMoving = Mathf.Abs(direction) > 0f;
             //changing animation state
-            _animator.SetBool("IsMoving",isMoving);
+            _animator.SetBool("IsMoving", isMoving);
             if (isMoving)
             {
                 // Accelerate until max speed
@@ -186,9 +183,9 @@ namespace Freshaliens.Player.Components
 
             // Persist state
             wasGrounded = isGrounded;
-            
+
             //animation update
-            _animator.SetBool("IsJumping",!isGrounded);
+            _animator.SetBool("IsJumping", !isGrounded);
 
         }
 
@@ -204,7 +201,7 @@ namespace Freshaliens.Player.Components
             Transform oldGT = groundTransform;
             // Store ground transform
             if (!isGrounded) groundTransform = null;
-            else if (rightFoot) groundTransform = rightCollider.transform;   
+            else if (rightFoot) groundTransform = rightCollider.transform;
             else if (leftFoot) groundTransform = leftCollider.transform;
             hasChangedGroundTransform = oldGT != groundTransform;
         }
@@ -227,12 +224,14 @@ namespace Freshaliens.Player.Components
         //    }
         //}
 
-        public void PlayStepSound() {
+        public void PlayStepSound()
+        {
             movementAudioSource.pitch = UnityEngine.Random.Range(0.85f, 1.15f);
             movementAudioSource.PlayOneShot(stepAudioClip);
         }
 
-        public void PlayJumpSound() {
+        public void PlayJumpSound()
+        {
             movementAudioSource.pitch = 1;
             movementAudioSource.PlayOneShot(jumpAudioClip);
         }
