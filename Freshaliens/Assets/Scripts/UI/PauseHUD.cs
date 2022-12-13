@@ -32,5 +32,21 @@ namespace Freshaliens.UI
             defaultPausedScreen.SetActive(currentPauseState == PauseState.Pause);
             settingsScreen.SetActive(currentPauseState == PauseState.Settings);
         }
+
+        public void OnResumePressed() {
+            LevelManager.Instance.TogglePause();
+        }
+
+        public void OnRestartPressed() {
+            LevelManager.Instance.ReloadLevel();
+        }
+
+        public void OnSettingsPressed() {
+            Debug.Log("Pressed settings button!");
+        }
+
+        public void OnBackPressed() {
+            LevelManager.Instance.QuitLevel();
+        }
     }
 }

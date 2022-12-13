@@ -256,7 +256,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3523606752441736140}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1208819233308690900}
+        m_TargetAssemblyTypeName: Freshaliens.UI.PauseHUD, Assembly-CSharp
+        m_MethodName: OnSettingsPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2864496273736662437
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,7 +448,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1127671358699291766}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1208819233308690900}
+        m_TargetAssemblyTypeName: Freshaliens.UI.PauseHUD, Assembly-CSharp
+        m_MethodName: OnBackPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4391139459043042659
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,7 +640,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3758195429561851716}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1208819233308690900}
+        m_TargetAssemblyTypeName: Freshaliens.UI.PauseHUD, Assembly-CSharp
+        m_MethodName: OnRestartPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5307668662178477848
 GameObject:
   m_ObjectHideFlags: 0
@@ -1090,7 +1126,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7847606933030944030}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1208819233308690900}
+        m_TargetAssemblyTypeName: Freshaliens.UI.PauseHUD, Assembly-CSharp
+        m_MethodName: OnResumePressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8803939892308717594
 GameObject:
   m_ObjectHideFlags: 0

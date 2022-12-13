@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Freshaliens.Management;
 namespace Freshaliens.Player.Components
 {
     /// <summary>
@@ -100,6 +101,13 @@ namespace Freshaliens.Player.Components
 
         private void Update()
         {
+            // TODO Ugly, fix state
+            if (!LevelManager.Instance.IsPlaying)
+            {
+                rbody.velocity = Vector2.zero;
+                return;
+            }
+
             // Input
 
             float direction = input.GetHorizontal();

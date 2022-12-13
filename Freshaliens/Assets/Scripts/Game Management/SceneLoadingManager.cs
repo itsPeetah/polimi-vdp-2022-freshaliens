@@ -1,5 +1,5 @@
-    using System;
-    using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MenuManagement;
@@ -12,7 +12,7 @@ public class SceneLoadingManager
 
     public static void ReloadLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public static void LoadMainMenuLevel()
@@ -24,7 +24,9 @@ public class SceneLoadingManager
     }
 
     public static void LoadScene(string sceneName) {
-        SceneManager.LoadSceneAsync(sceneName);
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+        asyncOperation.completed += (_) => { Time.timeScale = 1; };
+
     }
 
     public static void LoadFirstScene() {

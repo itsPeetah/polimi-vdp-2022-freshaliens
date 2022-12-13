@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Freshaliens.Management;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class DialoguePromptTrigger : MonoBehaviour
@@ -10,7 +11,7 @@ public class DialoguePromptTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        DialoguePromptDisplayer.Instance.DisplayDialoguePrompt(dialoguePrompt, overwriteExistingDialogue);
+        LevelManager.Instance.StartDialogue(dialoguePrompt);
         gameObject.SetActive(false);
     }
 }

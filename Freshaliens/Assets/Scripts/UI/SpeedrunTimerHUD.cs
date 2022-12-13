@@ -21,12 +21,17 @@ namespace Freshaliens.UI
         {
             base.Start();
             level = LevelManager.Instance;
+
+            levelTime.gameObject.SetActive(false); // TODO Remove when implemented session time
         }
 
         private void Update()
         {
-            fullSessionTime.SetText("not implemented yet");
-            levelTime.SetText(level.CurrentLevelTimerAsString);
+            // TODO Use this when implemented session time
+            //fullSessionTime.SetText("not implemented yet");
+            //levelTime.SetText(level.CurrentLevelTimerAsString);
+
+            fullSessionTime.SetText(level.CurrentLevelTimerAsString);
         }
     }
 }

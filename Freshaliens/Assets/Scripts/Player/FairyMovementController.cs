@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Freshaliens.Management;
 
 namespace Freshaliens.Player.Components
 {
@@ -72,6 +72,13 @@ namespace Freshaliens.Player.Components
 
         private void Update()
         {
+            // TODO Ugly, fix later
+            if (!LevelManager.Instance.IsPlaying)
+            {
+                rbody.velocity = Vector2.zero;
+                return;
+            }
+
             // Input
             movementDirection = new Vector2(input.GetHorizontal(), input.GetVertical());
             isMoving = movementDirection != Vector2.zero;
