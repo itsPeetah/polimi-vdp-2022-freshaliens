@@ -703,8 +703,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 490b7d8192c684ed79fa68824b01a1a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 0}
-  defaultPausedScreen: {fileID: 0}
+  root: {fileID: 267268943079350119}
+  defaultPausedScreen: {fileID: 7307313416467637755}
   settingsScreen: {fileID: 0}
 --- !u!1 &6392722007960900681
 GameObject:
