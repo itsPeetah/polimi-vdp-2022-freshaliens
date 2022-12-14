@@ -11,9 +11,8 @@ namespace Freshaliens.Enemy.Components
     {
         private enum State
         {
-            AtStartPosition,
-            AtEndPosition,
-            Moving,
+            MovingTowardsStartPosition,
+            MovingTowardsEndPosition,
             Chasing,
         }
 
@@ -23,21 +22,22 @@ namespace Freshaliens.Enemy.Components
 
         [Header("Path")] 
         [SerializeField] private Vector3 startPositionOS = Vector3.left, endPositionOS = Vector3.right;
-        private Vector3 startPositionWS, endPositionWS;
         [SerializeField] private bool allowFloating = false;
-        
+        private Vector3 startPositionWS, endPositionWS;
+        private Vector3 midPointInPath = Vector3.zero;
+        private float pathChaseRadius = -1f;
+
         [Header("Movement")] 
         [SerializeField] private float movementSpeed = 3f;
-        [SerializeField] private AnimationCurve movementCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
-        private State currentState = State.AtStartPosition;
+        private State currentState = State.MovingTowardsEndPosition;
         
         [Header("Behaviors")]
         [SerializeField] private bool canChasePlayer = false;
-        [SerializeField] private bool canBeStunned = false;
+        private bool canBeStunned = false;
         private Stun stunComponent = null;
         
         private Vector3 currentTargetPosition = Vector3.zero;
-        
+
         public Vector3 StartPosition
         {
             get => transform.TransformPoint(startPositionOS);
@@ -72,112 +72,80 @@ namespace Freshaliens.Enemy.Components
             stunComponent = GetComponent<Stun>();
             canBeStunned = stunComponent != null;
 
-            currentState = State.AtStartPosition;
+            currentState = State.MovingTowardsEndPosition;
+
             startPositionWS = transform.TransformPoint(startPositionOS);
             endPositionWS = transform.TransformPoint(endPositionOS);
+            midPointInPath = (startPositionWS + endPositionWS) * 0.5f;
+            pathChaseRadius = Vector3.Distance(startPositionWS, endPositionWS) * 0.5f;
+
+            currentTargetPosition = endPositionWS;
             SetPosition(startPositionWS);
         }
 
         private void Update()
         {
-            // if (currentState != State.Moving) StartCoroutine(nameof(Move));
+            // Prevent movement when stunned
             if (canBeStunned && stunComponent.IsStunned)
             {
                 rbody.velocity = Vector3.zero;
                 return;
             }
-            
+
+            // Movement assessment
             Vector3 position = rbody.position;
-            if (canChasePlayer && PlayerIsNear(position))
+            Vector3 directionFromMidPoint = (movementSpeed * Time.deltaTime) * (midPointInPath - position).normalized;
+            float distanceFromMidPoint = Vector3.Distance(position - directionFromMidPoint, midPointInPath);
+            bool playerInChaseRange = PlayerInChaseRange();
+
+
+            if (canChasePlayer && playerInChaseRange)
             {
                 currentState = State.Chasing;
             }
-            
-            // Se mi sto muovendo...
-            // se stavo andando verso fine e sono abbastanza vicino (~0.01f) metti che sto andando a inzio
-            // se stavo andando verso inizio e sono abbastanza vicino metti verso fine
-            if (currentState == State.Moving)
+
+            // Calculate movement
+            if (currentState == State.MovingTowardsStartPosition && distanceFromMidPoint >= pathChaseRadius)
             {
-                if (Vector3.Distance(StartPosition, position) < 0.01f)
-                {
-                    currentState = State.AtStartPosition;
-                }
-                else if (Vector3.Distance(EndPosition, position) < 0.01f)
-                {
-                    currentState = State.AtEndPosition;
-                }
+                currentTargetPosition = endPositionWS;
+                currentState = State.MovingTowardsEndPosition;
+
             }
-            else if (currentState == State.AtStartPosition) {
-                currentTargetPosition = EndPosition;
-                currentState = State.Moving;
-                // towardsEndPosition = true
-            }
-            else if (currentState == State.AtEndPosition) { 
-                currentTargetPosition = StartPosition;
-                currentState = State.Moving;
-                // towardsEndPosition = false
-            }
-            else if (currentState == State.Chasing)
+            else if (currentState == State.MovingTowardsEndPosition && distanceFromMidPoint >= pathChaseRadius)
             {
-                currentTargetPosition = playerMovementController.Position;
-                currentState = State.Chasing;
+                currentTargetPosition = startPositionWS;
+                currentState = State.MovingTowardsStartPosition;
             }
-            
-            float xDirection = currentTargetPosition.x - position.x; 
-            float yDirection = currentTargetPosition.y - position.y;
-            
-            // if (PlayerIsNear(position))
-            // {
-            //     currentState = State.Chasing;
-            // }
-            // else
-            // {
-            //     currentState = State.Moving;
-            // }
-            
-            if (!allowFloating) yDirection = 0;
-            
-            Vector2 velocity = new Vector2(xDirection, yDirection).normalized * movementSpeed;
+            if (currentState == State.Chasing)
+            {
+                Vector3 closest = playerMovementController.Position;
+
+                // Should the enemy stop chasing?
+                if (!playerInChaseRange)
+                {
+                    State newState = State.MovingTowardsStartPosition;
+                    closest = startPositionWS;
+                    if (Vector3.Distance(position, endPositionWS) <= pathChaseRadius)
+                    {
+                        closest = endPositionWS;
+                        newState = State.MovingTowardsEndPosition;
+                    }
+                    currentState = newState;
+                }
+
+                currentTargetPosition = closest;
+            }
+
+            Vector2 direction = currentTargetPosition - position;
+
+            Debug.DrawLine(position, currentTargetPosition);
+
+            if (!allowFloating) direction.y = 0;
+
+            Debug.DrawLine(position, position + new Vector3(direction.x, direction.y, 0));
+
+            Vector2 velocity = direction.normalized * movementSpeed;
             rbody.velocity = velocity;
-        }
-        
-        
-        
-        
-        
-        private IEnumerator Move()
-        {
-            State startingState = currentState;
-            currentState = State.Moving;
-            float distanceBetweenPoints = Vector3.Distance(StartPosition, EndPosition);
-            float timeToTravel = distanceBetweenPoints / movementSpeed;
-            float t = 0;
-            float progress;
-            SetPosition(GetPositionInPath(startingState == State.AtStartPosition ? 0 : 1));
-            while (t <= timeToTravel)
-            {
-                if (canBeStunned && stunComponent.IsStunned)
-                {
-                    yield return null;
-                    continue;
-                }
-                progress = startingState == State.AtStartPosition ? t / timeToTravel : 1 - t / timeToTravel;
-                progress = movementCurve.Evaluate(progress);
-                SetPosition(GetPositionInPath(progress));
-                t += Time.deltaTime;
-                yield return null;
-            }
-
-            SetPosition(GetPositionInPath(startingState == State.AtStartPosition ? 1 : 0));
-            currentState = startingState == State.AtStartPosition ? State.AtEndPosition : State.AtStartPosition;
-        }
-
-        private Vector3 GetPositionInPath(float t)
-        {
-            if (t <= 0) return startPositionWS;
-            if (t >= 1) return endPositionWS;
-
-            return Vector3.Lerp(startPositionWS, endPositionWS, t);
         }
 
         private void SetPosition(Vector3 position)
@@ -190,23 +158,9 @@ namespace Freshaliens.Enemy.Components
             StopAllCoroutines();
         }
 
-        private bool PlayerIsNear(Vector2 position)
+        private bool PlayerInChaseRange()
         {
-            Vector3 leftmost = StartPosition, rightmost = EndPosition;
-            if (startPositionWS.x > endPositionWS.x)
-            {
-                (leftmost, rightmost) = (rightmost, leftmost);
-            }
-
-            if (!allowFloating)
-            {
-                return playerMovementController.Position.x > rightmost.x &&
-                       playerMovementController.Position.x < leftmost.x;
-            }
-
-            Vector3 middlePoint = (startPositionWS + endPositionWS) * 0.5f;
-
-           return Vector3.Distance(playerMovementController.Position, middlePoint) < (rightmost - leftmost).magnitude;
+            return Vector3.Distance(playerMovementController.Position, midPointInPath) <= pathChaseRadius;
         }
     }
 }
