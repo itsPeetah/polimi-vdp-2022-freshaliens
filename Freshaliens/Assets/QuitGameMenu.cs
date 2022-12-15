@@ -10,5 +10,9 @@ namespace Freshaliens.UI
         {
             TitleScreenManager.Instance.ResetMenuView();
         }
+
+        public void OnQuitPressed() {
+            Application.Quit();
+        }
     }
 }
