@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public static class FloatTimeToString
 {
     public static string Convert(float time)

@@ -1,12 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using Freshaliens.Player.Components;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CameraBoundsManager))]
 public class CameraManager : MonoBehaviour

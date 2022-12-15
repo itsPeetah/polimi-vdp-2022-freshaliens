@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using MenuManagement;
 using Freshaliens.Management;
 namespace Freshaliens.Level.Components
 {
