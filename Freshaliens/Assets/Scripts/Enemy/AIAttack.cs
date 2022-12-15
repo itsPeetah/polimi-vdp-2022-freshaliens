@@ -69,7 +69,7 @@ namespace Freshaliens.Enemy.Components
 
         }
         
-        public void setStun(bool stun)
+        public void SetStunned(bool stun)
         {
             stunned = stun;
         }
