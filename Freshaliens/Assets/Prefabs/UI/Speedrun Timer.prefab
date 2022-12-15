@@ -89,7 +89,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 350.7835, y: 70.5614}
+  m_SizeDelta: {x: 350.7835, y: 48.3918}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4794855092642363273
 CanvasRenderer:
@@ -121,8 +121,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ab:cd.xy
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e07607da6a0b44d6b899eebc40caaab9, type: 2}
-  m_sharedMaterial: {fileID: -5437850260833041012, guid: e07607da6a0b44d6b899eebc40caaab9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ea988b17942f2437898b3141e643ed69, type: 2}
+  m_sharedMaterial: {fileID: -3996216830229484969, guid: ea988b17942f2437898b3141e643ed69, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -146,8 +146,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
-  m_fontSizeBase: 48
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -224,7 +224,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 350.7835, y: 70.5614}
+  m_SizeDelta: {x: 350.7835, y: 41.391}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8165873290115883269
 CanvasRenderer:
@@ -256,8 +256,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ab:cd.xy
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e07607da6a0b44d6b899eebc40caaab9, type: 2}
-  m_sharedMaterial: {fileID: -5437850260833041012, guid: e07607da6a0b44d6b899eebc40caaab9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ea988b17942f2437898b3141e643ed69, type: 2}
+  m_sharedMaterial: {fileID: -3996216830229484969, guid: ea988b17942f2437898b3141e643ed69, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -281,8 +281,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -359,7 +359,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &7819070311805969930
