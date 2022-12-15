@@ -144,14 +144,19 @@ namespace Freshaliens.Management
 
         public void TriggerGameOver(bool hasWon)
         {
-            if (hasWon) {
+            if (hasWon)
+            {
                 PlayerData.Instance.SaveLevelTime(PlayerData.Instance.LastLevelSelected, currentLevelTimer);
                 PlayerData.Instance.UnlockNextLevel(true);
+                CurrentPhase = LevelPhase.GameWon;
+                onGameWon?.Invoke();
+            }
+            else
+            {
+                CurrentPhase = LevelPhase.GameLost;
+                onGameLost?.Invoke();
             }
 
-            LevelPhase outcome = hasWon ? LevelPhase.GameWon : LevelPhase.GameLost;
-            (hasWon ? onGameWon : onGameLost)?.Invoke();
-            CurrentPhase = outcome;
             onLevelPhaseChange?.Invoke(CurrentPhase);
         }
 
