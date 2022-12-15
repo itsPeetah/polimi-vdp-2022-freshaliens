@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -60,7 +61,7 @@ public class PlayerData
     public float MasterVolume { get => masterVolume; set => masterVolume = value; }
     public float SFXVolume { get => sfxVolume; set => sfxVolume = value; }
     public float MusicVolume { get => musicVolume; set => musicVolume = value; }
-    public string LeaderboardName => leaderboardName;
+    public string LeaderboardName { get => leaderboardName; private set => leaderboardName = value; }
 
     public int LastLevelSelected { get => lastLevelChosen; set => lastLevelChosen = value; }
     public bool HasPlayedBefore => lastUnlockedLevel > PP_LEVEL_DEFAULT;
@@ -109,6 +110,14 @@ public class PlayerData
     public void SaveLevelTime(int level, float time) {
         string k = PP_LEVEL_TIME_BASE_KEY + level.ToString();
         PlayerPrefs.SetFloat(k, time);
+    }
+
+    public void GenerateName(string name)
+    {
+        int random = UnityEngine.Random.Range(1000, 10000);
+        name = $"{name}#{random}";
+        LeaderboardName = name;
+        Save();
     }
 
 #if UNITY_EDITOR

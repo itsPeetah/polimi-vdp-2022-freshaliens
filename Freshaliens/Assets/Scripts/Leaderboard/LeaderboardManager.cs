@@ -32,8 +32,10 @@ namespace Freshaliens.Social {
                         rowKey = value as string;
                         break;
                     case JsonToken.StartArray:
-                        row = new LBRow();
-                        row.Add(null); // Still using the "null" value for level 0
+                        row = new LBRow
+                        {
+                            null // Still using the "null" value for level 0
+                        };
                         break;
                     case JsonToken.String:
                         row?.Add(value as string);
