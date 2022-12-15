@@ -42,6 +42,7 @@ namespace Freshaliens.Management
             }
         }
         public bool IsPlaying => currentPhase == LevelPhase.Playing;
+        public bool GameOver => currentPhase == LevelPhase.GameWon || currentPhase == LevelPhase.GameLost;
         public bool IsPaused
         {
             get => currentPhase == LevelPhase.Paused;
@@ -103,10 +104,12 @@ namespace Freshaliens.Management
                 TogglePause();
             }
 
-            if (!IsPaused)
+            if (!IsPaused && !GameOver)
             {
                 currentLevelTimer += Time.deltaTime;
             }
+
+            if (Input.GetKeyDown(KeyCode.Alpha0)) TriggerGameOver(false);
         }
 
         public void TogglePause()
@@ -134,9 +137,9 @@ namespace Freshaliens.Management
         public void TriggerGameOver(bool hasWon)
         {
             LevelPhase outcome = hasWon ? LevelPhase.GameWon : LevelPhase.GameLost;
+            (hasWon ? onGameWon : onGameLost)?.Invoke();
             CurrentPhase = outcome;
             onLevelPhaseChange?.Invoke(CurrentPhase);
-            (hasWon ? onGameWon : onGameLost)?.Invoke();
         }
 
         public void StartDialogue(DialoguePromptData prompt) {

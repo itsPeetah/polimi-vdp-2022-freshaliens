@@ -37,9 +37,9 @@ namespace Freshaliens.Social {
 
             //Debug.Log(TimeToString(time));
 
-            if (Input.GetKeyDown(KeyCode.Alpha0)) {
-                PostTime("Debug");
-            }
+            //if (Input.GetKeyDown(KeyCode.Alpha0)) {
+            //    PostTime("Debug");
+            //}
         }
 
         public void PostTime(string name) {
