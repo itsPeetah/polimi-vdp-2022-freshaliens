@@ -11,7 +11,7 @@ namespace Freshaliens.Enemy.Components
     {
         [SerializeField] private float stunTime = 1;
         [SerializeField] private bool isShoot = false;
-        private AIAttack attacker;
+        private EnemyPatrol enemyPatrol;
         private float remainingTime;
         private bool isStunned;
 
@@ -21,7 +21,7 @@ namespace Freshaliens.Enemy.Components
         {
             if (isShoot)
             {
-                attacker = GetComponent<AIAttack>();
+                enemyPatrol = GetComponent<EnemyPatrol>();
             }
         }
 
@@ -43,20 +43,14 @@ namespace Freshaliens.Enemy.Components
         IEnumerator InteractCoroutine()
         {
             isStunned = true;
-            if (isShoot)
-            {
-                attacker.SetStunned(true);
-            }
+            enemyPatrol.SetStunned(true);
             while (remainingTime > 0)
             {
                 remainingTime -= Time.deltaTime;
                 yield return null;
             }
             isStunned = false;
-            if (isShoot)
-            {
-                attacker.SetStunned(false);
-            }
+            enemyPatrol.SetStunned(false);
 
             yield return null;
         }

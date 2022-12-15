@@ -33,9 +33,10 @@ namespace Freshaliens.Enemy.Components
         
         [Header("Behaviors")]
         [SerializeField] private bool canChasePlayer = false;
-        private bool canBeStunned = false;
+
+        private bool isStunned = false;
         private EnemyStun stunComponent = null;
-        
+
         private Vector3 currentTargetPosition = Vector3.zero;
 
         public Vector3 StartPosition
@@ -68,9 +69,6 @@ namespace Freshaliens.Enemy.Components
         {
             playerMovementController = PlayerMovementController.Instance;
             rbody = GetComponent<Rigidbody2D>();
-            
-            stunComponent = GetComponent<EnemyStun>();
-            canBeStunned = stunComponent != null;
 
             currentState = State.MovingTowardsEndPosition;
 
@@ -86,13 +84,9 @@ namespace Freshaliens.Enemy.Components
         private void Update()
         {
             // Prevent movement when stunned
-            if (canBeStunned && stunComponent.IsStunned)
-            {
-                rbody.velocity = Vector3.zero;
-                return;
-            }
+            if (isStunned) return;
 
-            // Movement assessment
+                // Movement assessment
             Vector3 position = rbody.position;
             Vector3 directionFromMidPoint = (movementSpeed * Time.deltaTime) * (midPointInPath - position).normalized;
             float distanceFromMidPoint = Vector3.Distance(position - directionFromMidPoint, midPointInPath);
@@ -161,6 +155,16 @@ namespace Freshaliens.Enemy.Components
         private bool PlayerInChaseRange()
         {
             return Vector3.Distance(playerMovementController.Position, midPointInPath) <= pathChaseRadius;
+        }
+        
+        public void SetStunned(bool stun)
+        {
+            isStunned = stun;
+        }
+        
+        public bool GetStunned()
+        {
+            return isStunned;
         }
     }
 }

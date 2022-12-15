@@ -2050,6 +2050,8 @@ GameObject:
   - component: {fileID: 656891525}
   - component: {fileID: 656891524}
   - component: {fileID: 656891526}
+  - component: {fileID: 656891527}
+  - component: {fileID: 656891528}
   m_Layer: 10
   m_Name: Patrol
   m_TagString: Untagged
@@ -2142,7 +2144,41 @@ MonoBehaviour:
   _ninjaLayer: 7
   _fairyLayer: 8
   _target: 1
-  triggerRespawnOnHit: 0
+  triggerRespawnWhenHittingPlayer: 0
+--- !u!114 &656891527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656891518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd5b0e8cf1f00a74db869a8365e72eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  numberOfLives: 3
+--- !u!114 &656891528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656891518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e86467caf9a64352a3ec4c66b5415bb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackRange: 10
+  _damage: 1
+  firePower: 10
+  weaponMuzzle: {fileID: 2059704099}
+  projectilePoolId: 
+  fireInterval: 1
 --- !u!1 &695484479
 GameObject:
   m_ObjectHideFlags: 0
@@ -3377,11 +3413,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3332434578813053516, guid: f917196442af148afbf04ec9619d8e8d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.6
+      value: -55.5
       objectReference: {fileID: 0}
     - target: {fileID: 3332434578813053516, guid: f917196442af148afbf04ec9619d8e8d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.1
+      value: 1.01
       objectReference: {fileID: 0}
     - target: {fileID: 3332434578813053516, guid: f917196442af148afbf04ec9619d8e8d, type: 3}
       propertyPath: m_LocalPosition.z

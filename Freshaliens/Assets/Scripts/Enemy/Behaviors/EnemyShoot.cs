@@ -1,22 +1,24 @@
+using System.Collections;
 using UnityEngine;
+
+using Freshaliens.Interaction;
 using Freshaliens.Player.Components;
+
 namespace Freshaliens.Enemy.Components
 {
-
-    public class AIAttack : MonoBehaviour
+    public class EnemyShoot : MonoBehaviour
     {
-
+        private EnemyPatrol enemyPatrol = null;
         [SerializeField] public float _attackRange;
         [SerializeField] public int _damage;
         [SerializeField] private float firePower = 10f;
-        private bool stunned = false;
         private Quaternion _rotation;
         private Rigidbody2D _rb;
 
         [SerializeField, Tooltip("Projectile spawn point")] private Transform weaponMuzzle;
 
         private ProjectilePool projectiles;
-        private AIPatrol enemyInt;
+        //private AIPatrol enemyInt;
         [SerializeField] private string projectilePoolId;
         [SerializeField] private float fireInterval;
         
@@ -27,16 +29,13 @@ namespace Freshaliens.Enemy.Components
         {   
             _rb = GetComponent<Rigidbody2D>();
             projectiles = ProjectilePool.GetByID(projectilePoolId);
-            
+            enemyPatrol = GetComponent<EnemyPatrol>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (stunned)
-            {
-                return;
-            }
+            if (enemyPatrol.GetStunned()) return;
             Vector3 target = PlayerMovementController.Instance.EnemyProjectileTarget;
             float distToPlayer = Vector3.Distance(transform.position, target);
             float dx = transform.position.x - target.x;
@@ -53,9 +52,7 @@ namespace Freshaliens.Enemy.Components
                     fireTimer = fireInterval;
                     Shoot();
                 }
-
             }
-
         }
 
         private void Shoot()
@@ -67,11 +64,6 @@ namespace Freshaliens.Enemy.Components
             Vector3 vel = new Vector3(-Mathf.Cos(weaponAngleRadians), -Mathf.Sin(weaponAngleRadians)) * firePower;
             projectiles.Spawn(pos, _rotation, vel);
 
-        }
-        
-        public void SetStunned(bool stun)
-        {
-            stunned = stun;
         }
     }
 }
