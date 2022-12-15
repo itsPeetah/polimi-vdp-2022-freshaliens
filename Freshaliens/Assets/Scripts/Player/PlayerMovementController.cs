@@ -1,19 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using UnityEngine;
 
+using Freshaliens.Management;
 namespace Freshaliens.Player.Components
 {
     /// <summary>
     /// Component that handles player movement 
     /// </summary>
     [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerInputHandler)), RequireComponent(typeof(PlayerFairyDetector))]
-    public class PlayerMovementController : MovementController
+    public class PlayerMovementController : SingletonMonobehaviour<PlayerMovementController>, IMovementController
     {
-        private static PlayerMovementController instance = null;
-        public static PlayerMovementController Instance { get => instance; private set => instance = value; }
-
         private const float minVerticalVelocityForJump = 0.001f;
         [SerializeField] private Animator _animator;
         [Header("Walking")]
@@ -74,16 +70,16 @@ namespace Freshaliens.Player.Components
         private Transform ownTransform = null;
         private PlayerFairyDetector fairyDetector = null;
 
+        // Events
+        public event Action onJumpWhileGrounded;
+        public event Action onJumpWhileAirborne;
+        public event Action onLand;
+
         // Properties
         public Vector3 Position => ownTransform.position;
         public float LastFacedDirection => lastFacedDirection;
         public int RemainingAirJupms => remainingAirJumps;
         public Vector3 EnemyProjectileTarget => enemyProjectileTarget.position;
-
-        private void Awake()
-        {
-            Instance = this;
-        }
 
         private void Start()
         {
@@ -103,13 +99,20 @@ namespace Freshaliens.Player.Components
 
         private void Update()
         {
+            // TODO Ugly, fix state
+            if (!LevelManager.Instance.IsPlaying)
+            {
+                rbody.velocity = Vector2.zero;
+                return;
+            }
+
             // Input
 
             float direction = input.GetHorizontal();
             if (direction != 0) lastFacedDirection = direction;
             //animation update
-            _animator.SetFloat("DirectionR",lastFacedDirection);
-            
+            _animator.SetFloat("DirectionR", lastFacedDirection);
+
             if (input.GetJumpInput())
             {
                 jumpPressedTimestamp = Time.time;
@@ -122,7 +125,7 @@ namespace Freshaliens.Player.Components
             // Walking
             isMoving = Mathf.Abs(direction) > 0f;
             //changing animation state
-            _animator.SetBool("IsMoving",isMoving);
+            _animator.SetBool("IsMoving", isMoving);
             if (isMoving)
             {
                 // Accelerate until max speed
@@ -143,9 +146,13 @@ namespace Freshaliens.Player.Components
                 remainingAirJumps = maxAirJumps;
 
                 // Add ground movement
-                if (wasGrounded && !hasChangedGroundTransform /*Not the best fix for the trapdoor glitch but OK for now*/)
+                if (wasGrounded)
                 {
-                    groundVelocity = groundTransform.position - previousGroundPosition;
+                    if (!hasChangedGroundTransform) // Not the best fix for the trapdoor glitch but OK for now
+                        groundVelocity = groundTransform.position - previousGroundPosition;
+                }
+                else {
+                    onLand?.Invoke();
                 }
 
                 previousGroundPosition = groundTransform.position;
@@ -162,7 +169,12 @@ namespace Freshaliens.Player.Components
                 hasJumpedSinceGrounded = true;
 
                 // Grounded or airborne jump
-                if (!isGrounded && !isWithinCoyoteTime) remainingAirJumps -= 1;
+                if (!isGrounded && !isWithinCoyoteTime)
+                {
+                    remainingAirJumps -= 1;
+                    onJumpWhileAirborne?.Invoke();
+                }
+                else onJumpWhileGrounded?.Invoke();
                 velocity.y = isGrounded ? jumpForceGrounded : jumpForceAirborne;
 
                 PlayJumpSound();
@@ -186,9 +198,9 @@ namespace Freshaliens.Player.Components
 
             // Persist state
             wasGrounded = isGrounded;
-            
+
             //animation update
-            _animator.SetBool("IsJumping",!isGrounded);
+            _animator.SetBool("IsJumping", !isGrounded);
 
         }
 
@@ -204,7 +216,7 @@ namespace Freshaliens.Player.Components
             Transform oldGT = groundTransform;
             // Store ground transform
             if (!isGrounded) groundTransform = null;
-            else if (rightFoot) groundTransform = rightCollider.transform;   
+            else if (rightFoot) groundTransform = rightCollider.transform;
             else if (leftFoot) groundTransform = leftCollider.transform;
             hasChangedGroundTransform = oldGT != groundTransform;
         }
@@ -227,12 +239,14 @@ namespace Freshaliens.Player.Components
         //    }
         //}
 
-        public void PlayStepSound() {
+        public void PlayStepSound()
+        {
             movementAudioSource.pitch = UnityEngine.Random.Range(0.85f, 1.15f);
             movementAudioSource.PlayOneShot(stepAudioClip);
         }
 
-        public void PlayJumpSound() {
+        public void PlayJumpSound()
+        {
             movementAudioSource.pitch = 1;
             movementAudioSource.PlayOneShot(jumpAudioClip);
         }

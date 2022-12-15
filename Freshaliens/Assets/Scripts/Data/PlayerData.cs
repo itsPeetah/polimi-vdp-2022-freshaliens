@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -23,6 +21,10 @@ public class PlayerData
 
     private const string PP_MUSIC_VOLUME_KEY = "SETTINGS:MUSIC";
     private const float PP_MUSIC_DEFAULT = 1.0f;
+
+    private const string PP_LEVEL_TIME_BASE_KEY = "TIME:LEVEL_";
+    private const float PP_LEVEL_TIME_DEFAULT = -1.0f;
+
 
     private static PlayerData instance;
     /// <summary>
@@ -89,6 +91,16 @@ public class PlayerData
     {
         lastUnlockedLevel = lastLevelChosen + 1;
         if (save) Save();
+    }
+
+    public void GetLevelTime(int level) {
+        string k = PP_LEVEL_TIME_BASE_KEY + level.ToString();
+        PlayerPrefs.GetFloat(k, PP_LEVEL_TIME_DEFAULT);
+    }
+
+    public void SaveLevelTime(int level, float time) {
+        string k = PP_LEVEL_TIME_BASE_KEY + level.ToString();
+        PlayerPrefs.SetFloat(k, time);
     }
 
 #if UNITY_EDITOR

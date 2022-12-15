@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Freshaliens.Player.Components;
 using UnityEngine;
 

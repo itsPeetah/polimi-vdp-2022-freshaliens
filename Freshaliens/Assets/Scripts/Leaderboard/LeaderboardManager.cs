@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using MenuManagement;
 using UnityEngine.Networking;
@@ -37,9 +36,9 @@ namespace Freshaliens.Social {
 
             //Debug.Log(TimeToString(time));
 
-            if (Input.GetKeyDown(KeyCode.Alpha0)) {
-                PostTime("Debug");
-            }
+            //if (Input.GetKeyDown(KeyCode.Alpha0)) {
+            //    PostTime("Debug");
+            //}
         }
 
         public void PostTime(string name) {
