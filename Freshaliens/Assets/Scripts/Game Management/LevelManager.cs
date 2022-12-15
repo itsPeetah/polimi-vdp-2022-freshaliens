@@ -1,9 +1,12 @@
 #pragma warning disable IDE1006
 
 using System;
+using System.Collections;
 using UnityEngine;
 using Freshaliens.UI;
 using Freshaliens.Level.Components;
+using Freshaliens.Player.Components;
+
 namespace Freshaliens.Management
 {
     public class LevelManager : SingletonMonobehaviour<LevelManager>
@@ -21,6 +24,7 @@ namespace Freshaliens.Management
         [Header("Player Settings")]
         [SerializeField] private int maxPlayerHP = 3;
         [SerializeField] private int startingPlayerHP = 3;
+        [SerializeField] private float invulnerabiltyDuration = 1.0f;
 
         [Header("Level Settings")]
         [SerializeField] private Checkpoint startingCheckpoint = null;
@@ -28,12 +32,13 @@ namespace Freshaliens.Management
 
 
         // Level state
+        private Checkpoint latestCheckpoint = null;
         private readonly LevelPhase startingPhase = LevelPhase.Playing;
         private LevelPhase currentPhase = LevelPhase.Playing;
         private LevelPhase storedPhase = LevelPhase.Playing;
+        private bool playerIsInvulnerable = false;
         private int currentPlayerHP = -1;
         private float currentLevelTimer = -1;
-        private Checkpoint latestCheckpoint = null;
 
         // Properties
         public LevelPhase CurrentPhase
@@ -103,7 +108,9 @@ namespace Freshaliens.Management
 
             if (!IsPaused && !GameOver)
             {
-                currentLevelTimer += Time.deltaTime;
+                float dt = Time.deltaTime;
+
+                currentLevelTimer += dt;
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha0)) TriggerGameOver(false);
@@ -129,15 +136,31 @@ namespace Freshaliens.Management
             latestCheckpoint = checkpoint;
         }
 
-        public void DamagePlayer(int damageAmount = 1)
+        public void DamagePlayer(int damageAmount = 1, bool skipInvulnerableCheck = false)
         {
+            if (playerIsInvulnerable && !skipInvulnerableCheck) return;
+
             CurrentPlayerHP -= damageAmount;
+            StopCoroutine(nameof(DoInvulnerabilityCoundown));
+            StartCoroutine(nameof(DoInvulnerabilityCoundown));
             onPlayerDamageTaken?.Invoke();
+
+            if (CurrentPlayerHP < 1) {
+                TriggerGameOver(false);
+            }
         }
 
         public void RespawnPlayer()
         {
+            PlayerMovementController.Instance.transform.position = PlayerRespawnPosition;
+            FairyMovementController.Instance.RespawnWithNinja(PlayerRespawnPosition);
 
+        }
+
+        private IEnumerator DoInvulnerabilityCoundown() {
+            playerIsInvulnerable = true;
+            yield return new WaitForSeconds(invulnerabiltyDuration);
+            playerIsInvulnerable = false;
         }
 
         public void TriggerGameOver(bool hasWon)

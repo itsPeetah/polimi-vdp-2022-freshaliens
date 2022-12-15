@@ -6,23 +6,17 @@ namespace Freshaliens.Interaction
     public class DeathWall : Interactable
     {
         [Header("Layers Settings")]
-        [SerializeField] private int _ninjaLayer = 7;
+        [SerializeField] private LayerMask playerLayer = 2 << 7;
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (!collider.CompareTag("Player"))
-            {
-                return;
-            }
+            if (!collider.CompareTag("Player")) return;
 
             GameObject playerObject = collider.gameObject;
-            int colliderLayer = playerObject.layer;
             LivesManager livesManager = playerObject.GetComponent<LivesManager>();
-            
-            
-            if (colliderLayer==_ninjaLayer) 
+            if (livesManager != null && ((1 << playerObject.layer) & playerLayer) != 0)
             {
-                livesManager.HitAndRespawn();  
+                livesManager.HitPlayer(true);
             }
                 
         }
