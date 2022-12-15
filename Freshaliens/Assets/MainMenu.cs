@@ -23,7 +23,7 @@ namespace Freshaliens.UI
         }
 
         public void OnLeaderboardPressed() {
-            TitleScreenManager.Instance.SwitchView(TitleScreenManager.MenuView.Settings);
+            TitleScreenManager.Instance.SwitchView(TitleScreenManager.MenuView.Leaderboard);
         }
 
         public void OnQuitPressed() {
