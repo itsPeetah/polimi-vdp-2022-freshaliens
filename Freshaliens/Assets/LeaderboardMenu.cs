@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using Freshaliens.Social;
@@ -24,8 +25,16 @@ namespace Freshaliens.UI
         [SerializeField] private TMP_InputField nameChangeInputField = null;
         [SerializeField] private Button nameChangeButton = null;
         [SerializeField] private TextMeshProUGUI nameLabel = null;
+        [SerializeField] private Transform entryNameColumn = null;
+        [SerializeField] private Transform entryTimeColumn = null;
+        [Header("Pooling")]
+        [SerializeField] private int entryPoolSize = 50;
+        [SerializeField] private GameObject entryNamePrefab = null;
+        [SerializeField] private GameObject entryTimePrefab = null;
 
         private int currentlySelectedLevel = 1;
+        private TextMeshProUGUI[] entryNameLabels = null;
+        private TextMeshProUGUI[] entryTimeLabels = null;
 
         private event System.Action<string> onNameChanged;
         private event System.Action<int> onDisplayedLevelChanged;
@@ -46,9 +55,10 @@ namespace Freshaliens.UI
             };
             onDisplayedLevelChanged += (l) =>
             {
-                ReloadDisplayedScores();
+                ReloadLeaderboardEntries();
             };
-            
+
+            InitializeEntryPool();
         }
 
         private void Update()
@@ -108,13 +118,14 @@ namespace Freshaliens.UI
             UnityWebRequest www = UnityWebRequest.Get(Leaderboard.API_URL);
             isDownloading = true;
             yield return www.SendWebRequest();
-            isDownloading = false;
             if (www.responseCode == 200)
             {
                 string jsonText = www.downloadHandler.text;
                 SaveData(jsonText);
             }
             www.Dispose();
+            isDownloading = false;
+            onDataAvailable?.Invoke();
         }
 
         private void SaveData(string jsonText) {
@@ -124,13 +135,48 @@ namespace Freshaliens.UI
             dataAlreadyDownloaded = true;
         }
 
-        private void SelectLevelToDisplay(int level) {
+        public void SelectLevelToDisplay(int level) {
             currentlySelectedLevel = level;
             onDisplayedLevelChanged?.Invoke(level);
         }
 
-        private void ReloadDisplayedScores() {
+        private void InitializeEntryPool() {
 
+            entryNameLabels = new TextMeshProUGUI[entryPoolSize];
+            entryTimeLabels = new TextMeshProUGUI[entryPoolSize];
+
+            for (int i = 0; i < entryPoolSize; i++) {
+                entryNameLabels[i] = Instantiate(entryNamePrefab, entryNameColumn).GetComponentInChildren<TextMeshProUGUI>();
+                entryTimeLabels[i] = Instantiate(entryTimePrefab, entryTimeColumn).GetComponentInChildren<TextMeshProUGUI>();
+
+                // This code sucks and is repeated a lot, but again I am too tired for this shit that is already overscoped enough
+                // I can't even blame it on anyone, really, it's my idea...
+                entryNameLabels[i].transform.parent.gameObject.SetActive(false);
+                entryTimeLabels[i].transform.parent.gameObject.SetActive(false);
+            }
+        }
+
+        private void ReloadLeaderboardEntries() {
+
+            if (!dataAlreadyDownloaded) return;
+
+            List<(string, string)> levelTimes = leaderboardData.GetTimes(currentlySelectedLevel);
+            int maxEntriesDisplayed = Mathf.Min(entryPoolSize, levelTimes.Count);
+
+            for (int i = 0; i < entryPoolSize; i++) {
+                // Hide all entries that do not have data associated with them
+                if (i >= maxEntriesDisplayed) {
+                    entryNameLabels[i].transform.parent.gameObject.SetActive(false);
+                    entryTimeLabels[i].transform.parent.gameObject.SetActive(false);
+                    continue;
+                }
+                (string pName, string lTime) = levelTimes[i];
+                entryNameLabels[i].SetText(pName);
+                entryTimeLabels[i].SetText(lTime);
+
+                entryNameLabels[i].transform.parent.gameObject.SetActive(true);
+                entryTimeLabels[i].transform.parent.gameObject.SetActive(true);
+            }
         }
     }
 }
