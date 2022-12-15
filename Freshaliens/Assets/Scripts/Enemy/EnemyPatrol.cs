@@ -69,7 +69,7 @@ namespace Freshaliens.Enemy.Components
             playerMovementController = PlayerMovementController.Instance;
             rbody = GetComponent<Rigidbody2D>();
             
-            stunComponent = GetComponent<Stun>();
+            stunComponent = GetComponent<EnemyStun>();
             canBeStunned = stunComponent != null;
 
             currentState = State.MovingTowardsEndPosition;
