@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using MenuManagement;
 using UnityEngine.Networking;
 
 namespace Freshaliens.Social {
@@ -30,9 +29,9 @@ namespace Freshaliens.Social {
 
         private void Update()
         {
-            if (!PauseMenu.GameIsPaused && !stop) {
-                time += Time.deltaTime;
-            }
+            //if (!PauseMenu.GameIsPaused && !stop) {
+            //    time += Time.deltaTime;
+            //}
 
             //Debug.Log(TimeToString(time));
 

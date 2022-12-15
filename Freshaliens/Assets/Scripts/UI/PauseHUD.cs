@@ -3,7 +3,7 @@ using Freshaliens.Management;
 
 namespace Freshaliens.UI
 {
-    public class PauseHUD : LevelUIScreen
+    public class PauseHUD : UIScreen
     {
         private enum PauseState {
             Pause,

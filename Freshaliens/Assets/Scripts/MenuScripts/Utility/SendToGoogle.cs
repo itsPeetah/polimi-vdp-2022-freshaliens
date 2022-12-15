@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using MenuManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
@@ -102,6 +101,5 @@ public class SendToGoogle : MonoBehaviour {
         
         // at the end go back to the main menu
         //MenuManager.Instance.OpenMenu(MainMenu);
-        MainMenu.Open();
     }
 }

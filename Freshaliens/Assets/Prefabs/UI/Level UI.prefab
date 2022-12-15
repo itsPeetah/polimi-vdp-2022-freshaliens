@@ -293,9 +293,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3376325303982634720, guid: d945c2a9c387e4535ba8e642c6edb1ff, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3376325303982634720, guid: d945c2a9c387e4535ba8e642c6edb1ff, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3376325303982634720, guid: d945c2a9c387e4535ba8e642c6edb1ff, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3376325303982634720, guid: d945c2a9c387e4535ba8e642c6edb1ff, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3654097851798057799, guid: d945c2a9c387e4535ba8e642c6edb1ff, type: 3}
       propertyPath: m_Name
       value: Speedrun Timer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8657548375339910935, guid: d945c2a9c387e4535ba8e642c6edb1ff, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8657548375339910935, guid: d945c2a9c387e4535ba8e642c6edb1ff, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8657548375339910935, guid: d945c2a9c387e4535ba8e642c6edb1ff, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8657548375339910935, guid: d945c2a9c387e4535ba8e642c6edb1ff, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d945c2a9c387e4535ba8e642c6edb1ff, type: 3}

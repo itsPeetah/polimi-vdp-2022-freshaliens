@@ -5,7 +5,7 @@ using Freshaliens.Management;
 
 namespace Freshaliens.UI
 {
-    public class SpeedrunTimerHUD : LevelUIScreen
+    public class SpeedrunTimerHUD : UIScreen
     {
         [Header("Text Elements")]
         [SerializeField] private TextMeshProUGUI fullSessionTime = null;

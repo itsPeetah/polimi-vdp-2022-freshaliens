@@ -4,7 +4,7 @@ using Freshaliens.Management;
 
 namespace Freshaliens.UI
 {
-    public class LevelCompleteHUD : LevelUIScreen
+    public class LevelCompleteHUD : UIScreen
     {
         [Header("Elements")]
         [SerializeField] private TextMeshProUGUI timeLabel = null;
