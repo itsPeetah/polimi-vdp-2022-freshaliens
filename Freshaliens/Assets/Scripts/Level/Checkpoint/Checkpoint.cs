@@ -22,9 +22,8 @@ namespace Freshaliens.Level.Components
         private BoxCollider2D boxCollider = null;
 
         [Header("Interaction")]
-        [SerializeField] private bool isFinalCheckpoint = false;
-        [SerializeField] private bool isStartingCheckpoint = false;
         [SerializeField, Tooltip("Should the checkpoint be activated every time the player triggers it?")] private bool allowMultipleActivations = false;
+        private bool isFinalCheckpoint = false;
 
         private bool hasBeenActivated = false;
 
@@ -68,7 +67,8 @@ namespace Freshaliens.Level.Components
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            // if (hasBeenActivated && !allowMultipleActivations) return;
+            if (hasBeenActivated && !allowMultipleActivations) return;
+
             // HACK For now I'll just make a new layer that only collides with player 1
             if (isFinalCheckpoint && !hasBeenActivated)
             {
@@ -86,10 +86,9 @@ namespace Freshaliens.Level.Components
             lastActiveCheckpoint = startingCheckpoint;
         }
 
-        public void SetFlags(bool isStarting, bool isFinal) {
-            isStartingCheckpoint = isStarting;
-            isFinalCheckpoint = isFinal;
-            if (isFinal) allowMultipleActivations = false;
+        public void MarkAsFinal() {
+            isFinalCheckpoint = true;
+            allowMultipleActivations = false;
         }
     }
 }

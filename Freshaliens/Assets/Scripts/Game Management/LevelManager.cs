@@ -101,8 +101,7 @@ namespace Freshaliens.Management
             currentPlayerHP = startingPlayerHP;
             currentLevelTimer = 0;
 
-            if (startingCheckpoint) startingCheckpoint.SetFlags(true, false);
-            if (finalCheckpoint) finalCheckpoint.SetFlags(false, true);
+            if (finalCheckpoint) finalCheckpoint.MarkAsFinal();
             latestCheckpoint = startingCheckpoint;
 
             onPlayerDamageTaken += () => onPlayerHPChange?.Invoke();
