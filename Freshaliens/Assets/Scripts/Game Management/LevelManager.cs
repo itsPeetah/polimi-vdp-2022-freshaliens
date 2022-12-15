@@ -4,8 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using Freshaliens.UI;
+using Freshaliens.Level.Components;
 namespace Freshaliens.Management
 {
     public class LevelManager : SingletonMonobehaviour<LevelManager>
@@ -24,12 +24,18 @@ namespace Freshaliens.Management
         [SerializeField] private int maxPlayerHP = 3;
         [SerializeField] private int startingPlayerHP = 3;
 
+        [Header("Level Settings")]
+        [SerializeField] private Checkpoint startingCheckpoint = null;
+        [SerializeField] private Checkpoint finalCheckpoint = null;
+
+
         // Level state
         private readonly LevelPhase startingPhase = LevelPhase.Playing;
         private LevelPhase currentPhase = LevelPhase.Playing;
         private LevelPhase storedPhase = LevelPhase.Playing;
         private int currentPlayerHP = -1;
         private float currentLevelTimer = -1;
+        private Checkpoint latestCheckpoint = null;
 
         // Properties
         public LevelPhase CurrentPhase
@@ -80,6 +86,7 @@ namespace Freshaliens.Management
                 return $"{minutes}:{secondsAsString}.{centisecondsAsString}";
             }
         }
+        public Vector3 PlayerRespawnPosition => latestCheckpoint.RespawnPosition;
 
         public event Action<LevelPhase> onLevelPhaseChange;
         public event Action<bool> onPauseToggle;
@@ -93,6 +100,11 @@ namespace Freshaliens.Management
             currentPhase = startingPhase;
             currentPlayerHP = startingPlayerHP;
             currentLevelTimer = 0;
+
+            if (startingCheckpoint) startingCheckpoint.SetFlags(true, false);
+            if (finalCheckpoint) finalCheckpoint.SetFlags(false, true);
+            latestCheckpoint = startingCheckpoint;
+
             onPlayerDamageTaken += () => onPlayerHPChange?.Invoke();
             onPauseToggle += (_) => onLevelPhaseChange?.Invoke(CurrentPhase);
         }
@@ -128,14 +140,28 @@ namespace Freshaliens.Management
             SceneLoadingManager.LoadLevelSelection();
         }
 
+        public void UnlockCheckpoint(Checkpoint checkpoint) {
+            latestCheckpoint = checkpoint;
+        }
+
         public void DamagePlayer(int damageAmount = 1)
         {
             CurrentPlayerHP -= damageAmount;
             onPlayerDamageTaken?.Invoke();
         }
 
+        public void RespawnPlayer()
+        {
+
+        }
+
         public void TriggerGameOver(bool hasWon)
         {
+            if (hasWon) {
+                PlayerData.Instance.SaveLevelTime(PlayerData.Instance.LastLevelSelected, currentLevelTimer);
+                PlayerData.Instance.UnlockNextLevel(true);
+            }
+
             LevelPhase outcome = hasWon ? LevelPhase.GameWon : LevelPhase.GameLost;
             (hasWon ? onGameWon : onGameLost)?.Invoke();
             CurrentPhase = outcome;
@@ -150,5 +176,7 @@ namespace Freshaliens.Management
         public void EndDialogue() {
             CurrentPhase = LevelPhase.Playing;
         }
+
+        
     }
 }

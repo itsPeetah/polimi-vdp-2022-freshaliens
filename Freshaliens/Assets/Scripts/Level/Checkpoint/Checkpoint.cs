@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MenuManagement;
-
+using Freshaliens.Management;
 namespace Freshaliens.Level.Components
 {
     /// <summary>
@@ -33,23 +33,11 @@ namespace Freshaliens.Level.Components
         private void Awake()
         {
             Setup();
-            
-            if (isStartingCheckpoint)
-            {
-                startingCheckpoint = this;
-                lastActiveCheckpoint = this;
-#if UNITY_EDITOR
-                if (isFinalCheckpoint) Debug.LogWarning("The starting checkpoint is also the final checkpoint...WTF?");
-#endif
-            }
 
             if (isFinalCheckpoint)
             {
                 allowMultipleActivations = false;
             }
-
-            
-            
         }
 
         private void Reset()
@@ -85,19 +73,23 @@ namespace Freshaliens.Level.Components
             if (isFinalCheckpoint && !hasBeenActivated)
             {
                 hasBeenActivated = true;
-                PlayerData.Instance.UnlockNextLevel();
-                LevelCompletedScreen.Open();
-                return;
+                LevelManager.Instance.TriggerGameOver(true);
             }
 
             // Not final checkpoint -> update last available checkpoint
-            lastActiveCheckpoint = this;
+            LevelManager.Instance.UnlockCheckpoint(this);
             hasBeenActivated = true;
         }
 
         public static void ResetStartingCheckpoint() {
 
             lastActiveCheckpoint = startingCheckpoint;
+        }
+
+        public void SetFlags(bool isStarting, bool isFinal) {
+            isStartingCheckpoint = isStarting;
+            isFinalCheckpoint = isFinal;
+            if (isFinal) allowMultipleActivations = false;
         }
     }
 }
