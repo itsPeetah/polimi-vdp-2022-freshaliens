@@ -6,7 +6,7 @@ using Freshaliens.Player.Components;
 
 namespace Freshaliens.UI
 {
-    public class GameplayHUD : LevelUIScreen
+    public class GameplayHUD : UIScreen
     {
         private LevelManager level = null;
 

@@ -1,7 +1,7 @@
 using Freshaliens.Management;
 namespace Freshaliens.UI
 {
-    public class LevelFailedHUD : LevelUIScreen
+    public class LevelFailedHUD : UIScreen
     {
         public void OnGoBakcPressed()
         {

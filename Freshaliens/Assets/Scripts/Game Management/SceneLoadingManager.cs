@@ -1,5 +1,4 @@
 using UnityEngine;
-using MenuManagement;
 using UnityEngine.SceneManagement;
 
 public class SceneLoadingManager
@@ -17,13 +16,11 @@ public class SceneLoadingManager
         Debug.Log("Loading MainMenu Scene");
         new WaitForSeconds(1);
         SceneManager.LoadScene("MainMenu");
-        MainMenu.Open();
     }
 
     public static void LoadScene(string sceneName) {
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
         asyncOperation.completed += (_) => { Time.timeScale = 1; };
-
     }
 
     public static void LoadFirstScene() {

@@ -1,6 +1,5 @@
 using UnityEngine;
-using MenuManagement;
-
+using Freshaliens.Management;
 namespace Freshaliens.Player.Components
 {
     /// <summary>
@@ -13,7 +12,7 @@ namespace Freshaliens.Player.Components
         [SerializeField] private string jumpAxis = "Jump";
         [SerializeField] private string actionAxis = "Fire";
 
-        private bool IsPaused => PauseMenu.GameIsPaused;
+        private bool IsPaused => LevelManager.Instance.IsPaused;
 
         public bool GetJumpInput()
         {

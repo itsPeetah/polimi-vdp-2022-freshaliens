@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Freshaliens.UI
 {
-    public class LevelUIScreen : MonoBehaviour
+    public class UIScreen : MonoBehaviour
     {
         [SerializeField] protected GameObject root;
 

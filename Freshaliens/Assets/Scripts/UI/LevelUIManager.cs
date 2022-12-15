@@ -11,7 +11,7 @@ namespace Freshaliens
             [System.Serializable]
             public struct HUD {
                 public LevelManager.LevelPhase displayWhen;
-                public LevelUIScreen screenObject;
+                public UIScreen screenObject;
 
                 public void Toggle(LevelManager.LevelPhase currentPhase) {
                     if(screenObject!=null) screenObject.SetActive((currentPhase & displayWhen) != 0);

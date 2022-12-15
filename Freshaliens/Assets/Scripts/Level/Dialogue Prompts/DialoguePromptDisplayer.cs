@@ -6,7 +6,7 @@ using TMPro;
 using Freshaliens.Management;
 namespace Freshaliens.UI
 {
-    public class DialoguePromptDisplayer : LevelUIScreen
+    public class DialoguePromptDisplayer : UIScreen
     {
         private static DialoguePromptDisplayer instance;
         public static DialoguePromptDisplayer Instance => instance;
