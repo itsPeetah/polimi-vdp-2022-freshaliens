@@ -34,7 +34,7 @@ namespace Freshaliens.Enemy.Components
         [Header("Behaviors")]
         [SerializeField] private bool canChasePlayer = false;
         private bool canBeStunned = false;
-        private Stun stunComponent = null;
+        private EnemyStun stunComponent = null;
         
         private Vector3 currentTargetPosition = Vector3.zero;
 

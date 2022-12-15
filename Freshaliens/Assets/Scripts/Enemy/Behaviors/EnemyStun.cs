@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 using Freshaliens.Interaction;
@@ -9,12 +7,11 @@ using Freshaliens.Player.Components;
 namespace Freshaliens.Enemy.Components
 {
 
-    public class Stun : Interactable
+    public class EnemyStun : Interactable
     {
         [SerializeField] private float stunTime = 1;
-        [SerializeField] private bool isShoot= false;
+        [SerializeField] private bool isShoot = false;
         private AIAttack attacker;
-        private AIPatrol enemyInt;
         private float remainingTime;
         private bool isStunned;
 
@@ -22,7 +19,6 @@ namespace Freshaliens.Enemy.Components
 
         private void Start()
         {
-            enemyInt = GetComponent<AIPatrol>();
             if (isShoot)
             {
                 attacker = GetComponent<AIAttack>();
@@ -33,8 +29,6 @@ namespace Freshaliens.Enemy.Components
         {
             FairyMovementController.Instance.SetLockOnTarget(transform);
 
-            //StopCoroutine(InteractCoroutine());
-            //StartCoroutine(InteractCoroutine());
             if (remainingTime > 0)
             {
                 remainingTime = stunTime;
@@ -48,28 +42,25 @@ namespace Freshaliens.Enemy.Components
 
         IEnumerator InteractCoroutine()
         {
-            // enemyInt.setStun(true);
             isStunned = true;
             if (isShoot)
             {
-                attacker.setStun(true);
+                attacker.SetStunned(true);
             }
             while (remainingTime > 0)
             {
                 remainingTime -= Time.deltaTime;
                 yield return null;
             }
-            // yield return new WaitForSeconds(stunTime);
-            // enemyInt.setStun(false);
             isStunned = false;
             if (isShoot)
             {
-                attacker.setStun(false);
+                attacker.SetStunned(false);
             }
-            
+
             yield return null;
         }
-        
+
         public override void OnFairyExit()
         {
             remainingTime = 0;
