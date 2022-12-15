@@ -1,8 +1,54 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Freshaliens.Social {
+
+    public static class Leaderboard {
+        public const string API_URL = "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard";
+
+        public class LBRow : List<string> { }
+        public class LBTable : Dictionary<string, LBRow> { }
+
+        public static LBTable ParseJSONData(string jsonText) {
+
+            LBTable table = new LBTable();
+
+            using var reader = new JsonTextReader(new StringReader(jsonText));
+            string rowKey = "";
+            LBRow row = null;
+
+            while (reader.Read())
+            {
+                JsonToken tokenType = reader.TokenType;
+                object value = reader.Value;
+
+                switch (tokenType)
+                {
+                    case JsonToken.PropertyName:
+                        rowKey = value as string;
+                        break;
+                    case JsonToken.StartArray:
+                        row = new LBRow();
+                        row.Add(null); // Still using the "null" value for level 0
+                        break;
+                    case JsonToken.String:
+                        row?.Add(value as string);
+                        break;
+                    case JsonToken.EndArray:
+                        table.Add(rowKey, row);
+                        break;
+                }
+            }
+
+            return table;
+        }
+    }
+
+
     public class LeaderboardManager : MonoBehaviour
     {
         private const string API_URL = "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard";
