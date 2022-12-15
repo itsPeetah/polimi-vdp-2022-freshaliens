@@ -1,12 +1,10 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Freshaliens.Level.Components;
 
 
 using Freshaliens.Player.Components;
-using Newtonsoft.Json.Bson;
+using Freshaliens.Management;
 
 
 public class LivesManager : MonoBehaviour
@@ -41,6 +39,7 @@ public class LivesManager : MonoBehaviour
     private void PlayerHit(bool mustRespawn)
     {
         numberOfLives--;
+        LevelManager.Instance.DamagePlayer();
         if (numberOfLives == 0)
         {
             PlayerDeath();

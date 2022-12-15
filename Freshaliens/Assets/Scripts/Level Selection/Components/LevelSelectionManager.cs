@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.SceneManagement;
 using MenuManagement;
 namespace Freshaliens.LevelSelection.Components
 {

@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using MenuManagement;
-
+using Freshaliens.Management;
 namespace Freshaliens.Level.Components
 {
     /// <summary>
@@ -22,9 +19,8 @@ namespace Freshaliens.Level.Components
         private BoxCollider2D boxCollider = null;
 
         [Header("Interaction")]
-        [SerializeField] private bool isFinalCheckpoint = false;
-        [SerializeField] private bool isStartingCheckpoint = false;
         [SerializeField, Tooltip("Should the checkpoint be activated every time the player triggers it?")] private bool allowMultipleActivations = false;
+        private bool isFinalCheckpoint = false;
 
         private bool hasBeenActivated = false;
 
@@ -33,23 +29,11 @@ namespace Freshaliens.Level.Components
         private void Awake()
         {
             Setup();
-            
-            if (isStartingCheckpoint)
-            {
-                startingCheckpoint = this;
-                lastActiveCheckpoint = this;
-#if UNITY_EDITOR
-                if (isFinalCheckpoint) Debug.LogWarning("The starting checkpoint is also the final checkpoint...WTF?");
-#endif
-            }
 
             if (isFinalCheckpoint)
             {
                 allowMultipleActivations = false;
             }
-
-            
-            
         }
 
         private void Reset()
@@ -80,24 +64,28 @@ namespace Freshaliens.Level.Components
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            // if (hasBeenActivated && !allowMultipleActivations) return;
+            if (hasBeenActivated && !allowMultipleActivations) return;
+
             // HACK For now I'll just make a new layer that only collides with player 1
             if (isFinalCheckpoint && !hasBeenActivated)
             {
                 hasBeenActivated = true;
-                PlayerData.Instance.UnlockNextLevel();
-                LevelCompletedScreen.Open();
-                return;
+                LevelManager.Instance.TriggerGameOver(true);
             }
 
             // Not final checkpoint -> update last available checkpoint
-            lastActiveCheckpoint = this;
+            LevelManager.Instance.UnlockCheckpoint(this);
             hasBeenActivated = true;
         }
 
         public static void ResetStartingCheckpoint() {
 
             lastActiveCheckpoint = startingCheckpoint;
+        }
+
+        public void MarkAsFinal() {
+            isFinalCheckpoint = true;
+            allowMultipleActivations = false;
         }
     }
 }
