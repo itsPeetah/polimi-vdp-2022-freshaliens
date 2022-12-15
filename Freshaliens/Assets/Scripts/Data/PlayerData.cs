@@ -29,7 +29,6 @@ public class PlayerData
     private const string PP_LEADERBOARD_NAME = "LEADERBOARD:NAME";
     private const string PP_LEADERBOARD_NAME_DEFAULT = "";
 
-
     private static PlayerData instance;
     /// <summary>
     /// Main instance of the class. Used to access saved game data.
@@ -114,8 +113,12 @@ public class PlayerData
 
     public void GenerateName(string name)
     {
-        int random = UnityEngine.Random.Range(1000, 10000);
-        name = $"{name}#{random}";
+        //int random = UnityEngine.Random.Range(1000, 10000);
+
+        //int idx = name.IndexOf('#');
+        //if (idx >= 0) name = name.Substring(0, name.Length - idx);
+
+        //name = $"{name}#{random}";
         LeaderboardName = name;
         Save();
     }

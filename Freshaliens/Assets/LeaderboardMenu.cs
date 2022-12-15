@@ -14,24 +14,66 @@ namespace Freshaliens.UI
         private static bool isDownloading = false;
 
         [Header("UI Elements")]
-        [SerializeField] private GameObject namePickerWindow = null;
-        [SerializeField] private GameObject scoreboardWindow = null;
-        [SerializeField] private TMP_InputField nameInputField = null;
-        [SerializeField] private Button namePickButton = null;
         [SerializeField] private Button backButton = null;
+        [Header("Initial Name Picker")]
+        [SerializeField] private GameObject namePickerWindow = null;
+        [SerializeField] private TMP_InputField namePickInputField = null;
+        [SerializeField] private Button namePickButton = null;
+        [Header("Scoreboard")]
+        [SerializeField] private GameObject scoreboardWindow = null;
+        [SerializeField] private TMP_InputField nameChangeInputField = null;
+        [SerializeField] private Button nameChangeButton = null;
+        [SerializeField] private TextMeshProUGUI nameLabel = null;
+
+        private int currentlySelectedLevel = 1;
+
+        private event System.Action<string> onNameChanged;
+        private event System.Action<int> onDisplayedLevelChanged;
+        private event System.Action onDataAvailable;
+
+        protected override void Start()
+        {
+            base.Start();
+
+            onDataAvailable += () => {
+                onDisplayedLevelChanged?.Invoke(currentlySelectedLevel);
+            };
+            onNameChanged += (n) =>
+            {
+                namePickerWindow.SetActive(false);
+                scoreboardWindow.SetActive(true);
+                nameLabel.SetText($"Hello, {n}!");
+            };
+            onDisplayedLevelChanged += (l) =>
+            {
+                ReloadDisplayedScores();
+            };
+            
+        }
 
         private void Update()
         {
             backButton.interactable = !isDownloading;
-            namePickButton.interactable = nameInputField.text.Length > 0;
+            namePickButton.interactable = namePickInputField.text.Length > 0;
+            nameChangeButton.interactable = nameChangeInputField.text.Length > 0;
         }
 
-        public void SubmitName() {
-            string name = nameInputField.text;
+        public void SubmitName()
+        {
+            string name = namePickInputField.text;
             if (name.Length < 1) return;
             PlayerData.Instance.GenerateName(name);
-            namePickerWindow.SetActive(false);
-            scoreboardWindow.SetActive(true);
+            // TODO Upload existing times
+            onNameChanged?.Invoke(PlayerData.Instance.LeaderboardName);
+        }
+
+        // This has a little duplication but I'm too tired rn
+        public void ChangeName()
+        {
+            string name = nameChangeInputField.text;
+            if (name.Length < 1) return;
+            PlayerData.Instance.GenerateName(name);
+            onNameChanged?.Invoke(PlayerData.Instance.LeaderboardName);
         }
 
         public void OnBackPressed()
@@ -51,9 +93,14 @@ namespace Freshaliens.UI
                 }
 
                 // Pick name if needed
-                bool nameNotPickedYet = PlayerData.Instance.LeaderboardName.Equals(string.Empty);
-                namePickerWindow.SetActive(nameNotPickedYet);
-                scoreboardWindow.SetActive(!nameNotPickedYet);
+                if (PlayerData.Instance.LeaderboardName.Equals(string.Empty))
+                {
+                    namePickerWindow.SetActive(true);
+                    scoreboardWindow.SetActive(false);
+                }
+                else {
+                    onNameChanged?.Invoke(PlayerData.Instance.LeaderboardName);
+                }
             }
         }
 
@@ -75,6 +122,15 @@ namespace Freshaliens.UI
             dataAsJSONString = jsonText;
             leaderboardData = Leaderboard.ParseJSONData(jsonText);
             dataAlreadyDownloaded = true;
+        }
+
+        private void SelectLevelToDisplay(int level) {
+            currentlySelectedLevel = level;
+            onDisplayedLevelChanged?.Invoke(level);
+        }
+
+        private void ReloadDisplayedScores() {
+
         }
     }
 }
