@@ -7,7 +7,7 @@ using Freshaliens.Player.Components;
 namespace Freshaliens.Enemy.Components
 {
 
-    public class Stun : Interactable
+    public class StunEnemy : Interactable
     {
         [SerializeField] private float stunTime = 1;
         [SerializeField] private bool isShoot= false;
