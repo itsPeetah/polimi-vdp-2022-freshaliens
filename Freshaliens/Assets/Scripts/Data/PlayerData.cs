@@ -115,17 +115,6 @@ public class PlayerData
         PlayerPrefs.SetFloat(k, time);
     }
 
-    public void GenerateName(string name)
-    {
-        //int random = UnityEngine.Random.Range(1000, 10000);
-
-        //int idx = name.IndexOf('#');
-        //if (idx >= 0) name = name.Substring(0, name.Length - idx);
-
-        //name = $"{name}#{random}";
-        LeaderboardName = name;
-        Save();
-    }
 
 #if UNITY_EDITOR
     [MenuItem("Freshaliens/Data/Erase Player Prefs")]
