@@ -293,6 +293,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root: {fileID: 5391719996918264033}
   timeLabel: {fileID: 3640285244396206643}
+  nicknameField: {fileID: 1290217565486132624}
+  submitButton: {fileID: 580670805432608298}
+  continueButton: {fileID: 5687691803379670734}
+  restartButton: {fileID: 337780794242459922}
 --- !u!1 &2798770359168159879
 GameObject:
   m_ObjectHideFlags: 0
