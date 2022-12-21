@@ -74,10 +74,6 @@ public class PlayerData
         pd.musicVolume = PlayerPrefs.GetFloat(PP_MUSIC_VOLUME_KEY, PP_MUSIC_DEFAULT);
         pd.leaderboardName = PlayerPrefs.GetString(PP_LEADERBOARD_NAME, PP_LEADERBOARD_NAME_DEFAULT);
 
-        if (pd.leaderboardName.Length <= 1) {
-            pd.leaderboardName = "Anonymous Player #" + Random.Range(100, 1000).ToString();
-        }
-
         // Session data
         pd.lastLevelChosen = pd.lastUnlockedLevel;
         return pd;
