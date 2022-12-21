@@ -16,10 +16,6 @@ namespace Freshaliens.UI
 
         [Header("UI Elements")]
         [SerializeField] private Button backButton = null;
-        [Header("Initial Name Picker")]
-        [SerializeField] private GameObject namePickerWindow = null;
-        [SerializeField] private TMP_InputField namePickInputField = null;
-        [SerializeField] private Button namePickButton = null;
         [Header("Scoreboard")]
         [SerializeField] private GameObject scoreboardWindow = null;
         [SerializeField] private Transform recordContainer = null;
@@ -30,7 +26,6 @@ namespace Freshaliens.UI
         private int currentlySelectedLevel = 1;
         private LeaderboardEntry[] recordObjects = null;
 
-        private event System.Action<string> onNameChanged;
         private event System.Action<int> onDisplayedLevelChanged;
         private event System.Action onDataAvailable;
 
@@ -40,11 +35,6 @@ namespace Freshaliens.UI
 
             onDataAvailable += () => {
                 onDisplayedLevelChanged?.Invoke(currentlySelectedLevel);
-            };
-            onNameChanged += (n) =>
-            {
-                namePickerWindow.SetActive(false);
-                scoreboardWindow.SetActive(true);
             };
             onDisplayedLevelChanged += (l) =>
             {
@@ -57,16 +47,6 @@ namespace Freshaliens.UI
         private void Update()
         {
             backButton.interactable = !isDownloading;
-            namePickButton.interactable = namePickInputField.text.Length > 0;
-        }
-
-        public void SubmitName()
-        {
-            string name = namePickInputField.text;
-            if (name.Length < 1) return;
-            PlayerData.Instance.GenerateName(name);
-            // TODO Upload existing times
-            onNameChanged?.Invoke(PlayerData.Instance.LeaderboardName);
         }
 
         public void OnBackPressed()
@@ -85,15 +65,7 @@ namespace Freshaliens.UI
                     StartCoroutine(nameof(DownloadData));
                 }
 
-                // Pick name if needed
-                if (PlayerData.Instance.LeaderboardName.Equals(string.Empty))
-                {
-                    namePickerWindow.SetActive(true);
-                    scoreboardWindow.SetActive(false);
-                }
-                else {
-                    onNameChanged?.Invoke(PlayerData.Instance.LeaderboardName);
-                }
+                scoreboardWindow.SetActive(active);                
             }
         }
 

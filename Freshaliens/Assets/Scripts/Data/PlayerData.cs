@@ -75,6 +75,10 @@ public class PlayerData
         pd.musicVolume = PlayerPrefs.GetFloat(PP_MUSIC_VOLUME_KEY, PP_MUSIC_DEFAULT);
         pd.leaderboardName = PlayerPrefs.GetString(PP_LEADERBOARD_NAME, PP_LEADERBOARD_NAME_DEFAULT);
 
+        if (pd.leaderboardName.Length <= 1) {
+            pd.leaderboardName = "Anonymous Player #" + UnityEngine.Random.Range(100, 1000).ToString();
+        }
+
         // Session data
         pd.lastLevelChosen = pd.lastUnlockedLevel;
         return pd;
@@ -127,7 +131,6 @@ public class PlayerData
     [MenuItem("Freshaliens/Data/Erase Player Prefs")]
     public static void ErasePlayerPrefs()
     {
-
         PlayerPrefs.DeleteAll();
     }
 #endif
