@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -76,7 +75,7 @@ public class PlayerData
         pd.leaderboardName = PlayerPrefs.GetString(PP_LEADERBOARD_NAME, PP_LEADERBOARD_NAME_DEFAULT);
 
         if (pd.leaderboardName.Length <= 1) {
-            pd.leaderboardName = "Anonymous Player #" + UnityEngine.Random.Range(100, 1000).ToString();
+            pd.leaderboardName = "Anonymous Player #" + Random.Range(100, 1000).ToString();
         }
 
         // Session data
