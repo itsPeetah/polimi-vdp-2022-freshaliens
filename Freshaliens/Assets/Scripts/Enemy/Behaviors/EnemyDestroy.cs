@@ -3,10 +3,10 @@ using UnityEngine;
 public class EnemyDestroy : MonoBehaviour
 {
     [SerializeField] private LayerMask hitLayers = -1;
-    [SerializeField] private GameObject enemy;
     [SerializeField] private int numberOfLives = 3;
-    private bool  hit = false;
-
+    private bool hit = false;
+    
+    
     private void Update()
     {
         if (hit)
@@ -22,7 +22,7 @@ public class EnemyDestroy : MonoBehaviour
         numberOfLives--;
         if (numberOfLives == 0)
         {
-            Destroy(enemy);
+            gameObject.SetActive(false);
         }
     }
 
