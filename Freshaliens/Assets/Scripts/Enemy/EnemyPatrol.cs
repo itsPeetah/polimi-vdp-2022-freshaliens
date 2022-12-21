@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Freshaliens.Interaction;
 using Freshaliens.Player.Components;
 using Unity.VisualScripting;
 
@@ -33,6 +34,7 @@ namespace Freshaliens.Enemy.Components
         
         [Header("Behaviors")]
         [SerializeField] private bool canChasePlayer = false;
+        private bool canBeStunned = false;
 
         private bool isStunned = false;
         private EnemyStun stunComponent = null;
@@ -69,6 +71,8 @@ namespace Freshaliens.Enemy.Components
         {
             playerMovementController = PlayerMovementController.Instance;
             rbody = GetComponent<Rigidbody2D>();
+            stunComponent = GetComponent<EnemyStun>();
+            canBeStunned = stunComponent != null;
 
             currentState = State.MovingTowardsEndPosition;
 
@@ -84,9 +88,13 @@ namespace Freshaliens.Enemy.Components
         private void Update()
         {
             // Prevent movement when stunned
-            if (isStunned) return;
+            if (canBeStunned && stunComponent.IsStunned)
+            {
+                rbody.velocity = Vector2.zero;
+                return;
+            }
 
-                // Movement assessment
+            // Movement assessment
             Vector3 position = rbody.position;
             Vector3 directionFromMidPoint = (movementSpeed * Time.deltaTime) * (midPointInPath - position).normalized;
             float distanceFromMidPoint = Vector3.Distance(position - directionFromMidPoint, midPointInPath);

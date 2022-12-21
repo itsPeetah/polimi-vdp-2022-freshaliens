@@ -10,19 +10,13 @@ namespace Freshaliens.Enemy.Components
     public class EnemyStun : Interactable
     {
         [SerializeField] private float stunTime = 1;
-        [SerializeField] private bool isShoot = false;
         private EnemyPatrol enemyPatrol;
         private float remainingTime;
-        private bool isStunned;
-
-        public bool IsStunned => isStunned;
+        public bool IsStunned => remainingTime > 0;
 
         private void Start()
         {
-            if (isShoot)
-            {
-                enemyPatrol = GetComponent<EnemyPatrol>();
-            }
+            enemyPatrol = GetComponent<EnemyPatrol>();
         }
 
         public override void OnInteract()
@@ -42,15 +36,13 @@ namespace Freshaliens.Enemy.Components
 
         IEnumerator InteractCoroutine()
         {
-            isStunned = true;
-            enemyPatrol.SetStunned(true);
+            //enemyPatrol.SetStunned(true);
             while (remainingTime > 0)
             {
                 remainingTime -= Time.deltaTime;
                 yield return null;
             }
-            isStunned = false;
-            enemyPatrol.SetStunned(false);
+            //enemyPatrol.SetStunned(false);
 
             yield return null;
         }

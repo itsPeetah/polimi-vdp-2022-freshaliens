@@ -42,7 +42,11 @@ namespace Freshaliens.Player.Components
         /// <returns>Whether the collision is to be considered by the interaction system</returns>
         private bool CheckInteractable(Collider2D collision, out Interactable interactable)
         {
-            collision.gameObject.TryGetComponent(out interactable);
+            if (!collision.gameObject.TryGetComponent(out interactable))
+            {
+                //Quedta roba fa schifo ma risolve l'edge case che abbiamo
+                interactable = collision.GetComponentInParent<Interactable>();
+            }
             if (CheckLayer(collision.gameObject.layer))
                 return true;
             return false;
@@ -54,20 +58,6 @@ namespace Freshaliens.Player.Components
         /// </summary>
         private bool CheckLayer(int layer)
         {
-            /**
-             * Flag explanation
-             * 
-             * go.layer = 7 (int)
-             * lm = uint 101011 (bitmask)
-             * 5 -> 000101
-             * 
-             * 000101 (layer = 5)
-             * 100000 (layermask = 5)
-             * 
-             * 1 -> 000001
-             * 1 << layer -> 1 << 5 -> 100000
-             * 
-             */
             return ((1 << layer) & interactableLayers) != 0;
         }
 
@@ -78,7 +68,6 @@ namespace Freshaliens.Player.Components
                 if (interactable.ShouldBeStored)
                 {   
                     storedInteractable = interactable;
-                 
                 }
                 //check if can change animation
                 if (!collision.CompareTag( "Player" ) || (collision.CompareTag( "Player" ) && collision.gameObject.GetComponent<PlayerMovementController>().RemainingAirJupms > 0))
@@ -109,7 +98,6 @@ namespace Freshaliens.Player.Components
                 if (interactable.ShouldBeStored)
                 {
                     storedInteractable = null;
-                    
                 }
                 interactable.OnFairyExit();
             }
