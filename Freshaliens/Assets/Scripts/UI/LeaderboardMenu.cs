@@ -69,6 +69,7 @@ namespace Freshaliens.UI
             }
         }
 
+        // TODO Move this to leaderboard class
         private IEnumerator DownloadData() {
             UnityWebRequest www = UnityWebRequest.Get(Leaderboard.API_URL);
             isDownloading = true;
@@ -84,7 +85,7 @@ namespace Freshaliens.UI
         }
 
         private void SaveData(string jsonText) {
-            Debug.Log(jsonText);
+            //Debug.Log(jsonText);
             dataAsJSONString = jsonText;
             leaderboardData = Leaderboard.ParseJSONData(jsonText);
             dataAlreadyDownloaded = true;
