@@ -69,6 +69,7 @@ namespace Freshaliens.Management
             }
         }
         public bool IsPlayingDialogue => currentPhase == LevelPhase.Dialogue;
+        public int CurrentLevel => PlayerData.Instance.LastLevelSelected;
         public int MaxPlayerHP => maxPlayerHP;
         public int CurrentPlayerHP
         {
