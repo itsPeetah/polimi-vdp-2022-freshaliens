@@ -22,19 +22,13 @@ namespace Freshaliens.UI
         [SerializeField] private Button namePickButton = null;
         [Header("Scoreboard")]
         [SerializeField] private GameObject scoreboardWindow = null;
-        [SerializeField] private TMP_InputField nameChangeInputField = null;
-        [SerializeField] private Button nameChangeButton = null;
-        [SerializeField] private TextMeshProUGUI nameLabel = null;
-        [SerializeField] private Transform entryNameColumn = null;
-        [SerializeField] private Transform entryTimeColumn = null;
-        [Header("Pooling")]
-        [SerializeField] private int entryPoolSize = 50;
-        [SerializeField] private GameObject entryNamePrefab = null;
-        [SerializeField] private GameObject entryTimePrefab = null;
+        [SerializeField] private Transform recordContainer = null;
+        [Header("Record Pooling")]
+        [SerializeField] private int recordPoolSize = 50;
+        [SerializeField] private GameObject recordObjectPrefab = null;
 
         private int currentlySelectedLevel = 1;
-        private TextMeshProUGUI[] entryNameLabels = null;
-        private TextMeshProUGUI[] entryTimeLabels = null;
+        private LeaderboardEntry[] recordObjects = null;
 
         private event System.Action<string> onNameChanged;
         private event System.Action<int> onDisplayedLevelChanged;
@@ -51,7 +45,6 @@ namespace Freshaliens.UI
             {
                 namePickerWindow.SetActive(false);
                 scoreboardWindow.SetActive(true);
-                nameLabel.SetText($"Hello, {n}!");
             };
             onDisplayedLevelChanged += (l) =>
             {
@@ -65,7 +58,6 @@ namespace Freshaliens.UI
         {
             backButton.interactable = !isDownloading;
             namePickButton.interactable = namePickInputField.text.Length > 0;
-            nameChangeButton.interactable = nameChangeInputField.text.Length > 0;
         }
 
         public void SubmitName()
@@ -74,15 +66,6 @@ namespace Freshaliens.UI
             if (name.Length < 1) return;
             PlayerData.Instance.GenerateName(name);
             // TODO Upload existing times
-            onNameChanged?.Invoke(PlayerData.Instance.LeaderboardName);
-        }
-
-        // This has a little duplication but I'm too tired rn
-        public void ChangeName()
-        {
-            string name = nameChangeInputField.text;
-            if (name.Length < 1) return;
-            PlayerData.Instance.GenerateName(name);
             onNameChanged?.Invoke(PlayerData.Instance.LeaderboardName);
         }
 
@@ -141,18 +124,11 @@ namespace Freshaliens.UI
         }
 
         private void InitializeEntryPool() {
+            recordObjects = new LeaderboardEntry[recordPoolSize];
 
-            entryNameLabels = new TextMeshProUGUI[entryPoolSize];
-            entryTimeLabels = new TextMeshProUGUI[entryPoolSize];
-
-            for (int i = 0; i < entryPoolSize; i++) {
-                entryNameLabels[i] = Instantiate(entryNamePrefab, entryNameColumn).GetComponentInChildren<TextMeshProUGUI>();
-                entryTimeLabels[i] = Instantiate(entryTimePrefab, entryTimeColumn).GetComponentInChildren<TextMeshProUGUI>();
-
-                // This code sucks and is repeated a lot, but again I am too tired for this shit that is already overscoped enough
-                // I can't even blame it on anyone, really, it's my idea...
-                entryNameLabels[i].transform.parent.gameObject.SetActive(false);
-                entryTimeLabels[i].transform.parent.gameObject.SetActive(false);
+            for (int i = 0; i < recordPoolSize; i++) {
+                recordObjects[i] = Instantiate(recordObjectPrefab, recordContainer).GetComponentInChildren<LeaderboardEntry>();
+                recordObjects[i].SetActive(false);
             }
         }
 
@@ -161,21 +137,16 @@ namespace Freshaliens.UI
             if (!dataAlreadyDownloaded) return;
 
             List<(string, string)> levelTimes = leaderboardData.GetTimes(currentlySelectedLevel);
-            int maxEntriesDisplayed = Mathf.Min(entryPoolSize, levelTimes.Count);
+            int maxEntriesDisplayed = Mathf.Min(recordPoolSize, levelTimes.Count);
 
-            for (int i = 0; i < entryPoolSize; i++) {
+            for (int i = 0; i < recordPoolSize; i++) {
                 // Hide all entries that do not have data associated with them
                 if (i >= maxEntriesDisplayed) {
-                    entryNameLabels[i].transform.parent.gameObject.SetActive(false);
-                    entryTimeLabels[i].transform.parent.gameObject.SetActive(false);
+                    recordObjects[i].SetActive(false);
                     continue;
                 }
-                (string pName, string lTime) = levelTimes[i];
-                entryNameLabels[i].SetText(pName);
-                entryTimeLabels[i].SetText(lTime);
-
-                entryNameLabels[i].transform.parent.gameObject.SetActive(true);
-                entryTimeLabels[i].transform.parent.gameObject.SetActive(true);
+                recordObjects[i].SetText(levelTimes[i]);
+                recordObjects[i].SetActive(true);
             }
         }
     }
