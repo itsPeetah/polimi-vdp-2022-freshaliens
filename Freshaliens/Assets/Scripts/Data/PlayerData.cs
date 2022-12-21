@@ -59,7 +59,7 @@ public class PlayerData
     public float MasterVolume { get => masterVolume; set => masterVolume = value; }
     public float SFXVolume { get => sfxVolume; set => sfxVolume = value; }
     public float MusicVolume { get => musicVolume; set => musicVolume = value; }
-    public string LeaderboardName { get => leaderboardName; private set => leaderboardName = value; }
+    public string LeaderboardName { get => leaderboardName; set => leaderboardName = value; }
 
     public int LastLevelSelected { get => lastLevelChosen; set => lastLevelChosen = value; }
     public bool HasPlayedBefore => lastUnlockedLevel > PP_LEVEL_DEFAULT;
