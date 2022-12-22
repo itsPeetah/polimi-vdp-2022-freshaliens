@@ -80,5 +80,9 @@ namespace Freshaliens.LevelSelection.Components
             SetFaderAlpha(to);
             onFinished?.Invoke();
         }
+
+        public void OnBackButtonPressed() {
+            FadeScreen(0, 1, SceneLoadingManager.LoadMainMenuLevel);
+        }
     }
 }
