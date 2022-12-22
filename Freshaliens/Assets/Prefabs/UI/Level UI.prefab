@@ -124,7 +124,7 @@ MonoBehaviour:
   screens:
   - displayWhen: 25
     screenObject: {fileID: 2086962170706594679}
-  - displayWhen: 9
+  - displayWhen: 25
     screenObject: {fileID: 3695886862603859567}
   - displayWhen: 8
     screenObject: {fileID: 602145928348789406}
