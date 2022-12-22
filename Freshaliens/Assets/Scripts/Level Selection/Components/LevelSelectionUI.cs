@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -80,6 +79,10 @@ namespace Freshaliens.LevelSelection.Components
             }
             SetFaderAlpha(to);
             onFinished?.Invoke();
+        }
+
+        public void OnBackButtonPressed() {
+            FadeScreen(0, 1, SceneLoadingManager.LoadMainMenuLevel);
         }
     }
 }

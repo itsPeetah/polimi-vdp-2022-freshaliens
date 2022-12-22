@@ -46,16 +46,13 @@ namespace Freshaliens.Enemy.Components
         // Update is called once per frame
         void Update()
         {
-
             if (stunned)
             {
                 rb.velocity = Vector2.zero;
                 return;
             }
-
             mustPatrol = true;
             distToPlayer = Vector2.Distance(transform.position, player.position);
-            
             groundRayright = Physics2D.Raycast(rb.position, Vector2.right, 2, groundLayer);
             groundRayleft = Physics2D.Raycast(rb.position, Vector2.left, 2, groundLayer);
 
@@ -73,7 +70,6 @@ namespace Freshaliens.Enemy.Components
             }
 
         }
-
         private void FixedUpdate()
         {
             if (mustPatrol)
@@ -81,21 +77,17 @@ namespace Freshaliens.Enemy.Components
                 mustTurn = !Physics2D.OverlapCircle(groundCheckPos.position, 1.0f, groundLayer);
             }
         }
-
+        
         void PatrolShooter()
         {
             if (mustPatrol)
             {
                 rb.velocity = new Vector2(walkSpeed, rb.velocity.y);
             }
-
-
             if (mustTurn == true || ownCollider.IsTouchingLayers(groundLayer))
             {
                 Flip();
             }
-
-
         }
 
         void PatrolFighter() //to patrol blob just set aggrorange to 0

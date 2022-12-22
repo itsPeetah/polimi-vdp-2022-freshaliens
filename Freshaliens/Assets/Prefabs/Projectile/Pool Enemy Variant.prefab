@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2107253596732774826, guid: d9da8296e4c53420b97e2e70db24a3b7, type: 3}
       propertyPath: poolSize
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2107253596732774826, guid: d9da8296e4c53420b97e2e70db24a3b7, type: 3}
       propertyPath: pooledPrefab

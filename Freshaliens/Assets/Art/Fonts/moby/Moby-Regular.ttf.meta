@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 918c6eebd228c4e59918289891f0e178
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Moby
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 011641555fb2845328c4fb88762c1974, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
