@@ -15,8 +15,8 @@ namespace Freshaliens.Player.Components
         [SerializeField] private float movementDeceleration = 20f;
 
         [Header("External Control")]
-        [SerializeField] private float maxDistanceBeforeReturn = 30f;
-        [SerializeField] private float returnDistance = 15f;
+        [SerializeField] private float maxOffScreenDistanceBeforeReturn = 1f;
+        [SerializeField] private float returnOnScreenDistance = 2f;
         [SerializeField] private float returnAcceleration = 40f;
         [SerializeField] private float maxReturnSpeed = 10f;
         [SerializeField] private float verticalDistanceAtRespawn = 3f;
@@ -34,6 +34,11 @@ namespace Freshaliens.Player.Components
         private bool isReturningToPlayer = false;
         private bool isLockingOnTarget = true;
         private bool lockOnTargetAssigned = false;
+        
+        private float _maxCameraSize;
+        private float _minCameraSize;
+        private float _cameraVerticalOffset;
+        private float _cameraHorizontalOffset;
 
         // Components
         private PlayerInputHandler input = null;
@@ -62,9 +67,17 @@ namespace Freshaliens.Player.Components
             ownTransform = transform;
 
             _camInstance = CameraManager.Instance;
-            float respawnHorizontalOffset = _camInstance._maxCameraSize * 16 / 9 + horizontalDistanceAtRespawn;
-            float respawnVerticalOffset = _camInstance._maxCameraSize + verticalDistanceAtRespawn;
+            
+            _maxCameraSize = _camInstance.getMaxCameraSize();
+            _minCameraSize = _camInstance.getMinCameraSize();
+            _cameraVerticalOffset = _camInstance.getVerticalOffset();
+            _cameraHorizontalOffset = _camInstance.getHorizontalOffset();
+            
+            float respawnHorizontalOffset = _maxCameraSize * 16 / 9 + horizontalDistanceAtRespawn;
+            float respawnVerticalOffset = _minCameraSize + verticalDistanceAtRespawn;
             _fairyRespawnOffset = new Vector3(respawnHorizontalOffset, respawnVerticalOffset, 0);
+            
+            
 
         }
 
@@ -86,8 +99,19 @@ namespace Freshaliens.Player.Components
             float currentMaxSpeed = maxSpeed;
 
             // Should the fairy return towards the player?
-            float distanceFromPlayer = Vector2.Distance(ownTransform.position, PlayerMovementController.Instance.Position);
-            isReturningToPlayer = distanceFromPlayer >= maxDistanceBeforeReturn || (isReturningToPlayer && distanceFromPlayer > returnDistance);
+            
+            // float distanceFromPlayer = Vector2.Distance(ownTransform.position, PlayerMovementController.Instance.Position);
+            // isReturningToPlayer = distanceFromPlayer >= maxDistanceBeforeReturn || (isReturningToPlayer && distanceFromPlayer > returnDistance);
+
+            
+            Vector3 cameraPosition = _camInstance.getCameraPosition();
+            float distanceFromCameraX = Mathf.Abs(ownTransform.position.x - cameraPosition.x);
+            float distanceFromCameraY = Mathf.Abs(ownTransform.position.y - cameraPosition.y);
+            bool tooDistantX = distanceFromCameraX >= _maxCameraSize * 16 / 9 + maxOffScreenDistanceBeforeReturn;
+            bool tooDistantY = distanceFromCameraY >= _maxCameraSize + maxOffScreenDistanceBeforeReturn;
+            bool tooDistant = tooDistantX || tooDistantY;
+            isReturningToPlayer = tooDistant || (isReturningToPlayer && 
+                                  (distanceFromCameraX > _maxCameraSize*16/9-returnOnScreenDistance || distanceFromCameraY > _maxCameraSize-returnOnScreenDistance));
 
             // Is the fairy locking onto a target?
             bool wasLockingOnTarget = isLockingOnTarget;
@@ -172,7 +196,7 @@ namespace Freshaliens.Player.Components
             if ((xFairy - xNinja) > _fairyRespawnOffset.x)
             {
                 // The fairy is too right
-                newXfairy = xNinja + _fairyRespawnOffset.x + _camInstance._horizontalOffset;
+                newXfairy = xNinja + _fairyRespawnOffset.x + _cameraHorizontalOffset;
             }
             else if ((xNinja - xFairy) > _fairyRespawnOffset.x)
             {
@@ -188,7 +212,7 @@ namespace Freshaliens.Player.Components
             if ((yFairy - yNinja) > _fairyRespawnOffset.y)
             {
                 // The fairy is too high
-                newYfairy = yNinja + _fairyRespawnOffset.y + _camInstance._verticalOffset;
+                newYfairy = yNinja + _fairyRespawnOffset.y + _cameraVerticalOffset;
             }
             else if ((yNinja - yFairy) > _fairyRespawnOffset.y)
             {
