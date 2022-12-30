@@ -202,5 +202,27 @@ namespace Freshaliens.Player.Components
 
             return new Vector3(newXfairy, newYfairy, currentFairyPosition.z);
         }
+        //((CLA)) fairy knockback
+        
+        /// <summary>
+        /// ((CLA))
+        /// knockback logic. 
+        /// </summary>
+        //public function for a knockback when damage is taken
+        [Header("Knockback")]
+        //how strong the knockback is at the beginning
+        [SerializeField] private float _knockbackThrust = 1f;
+        //how fast the knockback g
+        private float _knockbackSpeed ;
+        //the "smoothness" of the knockback
+        private float _knockSmoothness = 0.125f;
+        //how long it lasts
+        [SerializeField] private float _knockbackTime = 5f ;
+
+        public float KnockbackTime()
+        {
+           return _knockbackTime; 
+        }
+        public void Knockback(Vector3 obstaclePosition){}
     }
 }

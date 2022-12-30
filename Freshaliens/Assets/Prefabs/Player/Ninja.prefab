@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 340bdab859b2c4e3385145493d9648f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  persistSceneLoad: 0
   _animator: {fileID: 7327822579666905758}
   movementSpeedStart: 5
   movementSpeedMax: 6
@@ -351,11 +352,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4255132e5ec14a7cb90d3ed82e44c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialNumberOfLives: 3
   hitLayers:
     serializedVersion: 2
     m_Bits: 32768
   deathLayer: 16
+  _animator: {fileID: 7327822579666905758}
 --- !u!95 &7327822579666905758
 Animator:
   serializedVersion: 4

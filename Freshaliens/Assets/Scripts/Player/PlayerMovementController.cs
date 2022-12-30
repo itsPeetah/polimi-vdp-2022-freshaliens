@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 
 using Freshaliens.Management;
+using Unity.Mathematics;
+
 namespace Freshaliens.Player.Components
 {
     /// <summary>
@@ -192,9 +194,26 @@ namespace Freshaliens.Player.Components
             }
             else rbody.gravityScale = gravityScaleDefault;
 
-            // Apply movement
-            rbody.position += groundVelocity;
-            rbody.velocity = velocity;
+            // Apply movement 
+            //((Cla))just if it isn't knocked back
+            if (_knockbackCount <= 0)
+            {
+                rbody.position += groundVelocity;
+                rbody.velocity = velocity;
+                
+            }
+            else
+            {
+                //((Cla))
+                //the knockback need another calculation
+                _knockbackCount -= Time.deltaTime;
+                velocity.x = _knockbackDirection * _knockbackSpeed;
+                velocity.y = _knockbackSpeed;
+                rbody.velocity = velocity;
+                rbody.position += (velocity*Time.deltaTime);
+               // _knockbackSpeed -= _knockSmoothness;
+
+            }
 
             // Persist state
             wasGrounded = isGrounded;
@@ -249,6 +268,36 @@ namespace Freshaliens.Player.Components
         {
             movementAudioSource.pitch = 1;
             movementAudioSource.PlayOneShot(jumpAudioClip);
+        }
+        /// <summary>
+        /// ((CLA))
+        /// knockback logic. 
+        /// </summary>
+        //public function for a knockback when damage is taken
+        [Header("Knockback")]
+        //how strong the knockback is at the beginning
+        [SerializeField] private float _knockbackThrust = 1f;
+        //how fast the knockback g
+        private float _knockbackSpeed ;
+        //the "smoothness" of the knockback
+        private float _knockSmoothness = 0.125f;
+        //how long it lasts
+        [SerializeField] private float _knockbackTime = 5f ;
+
+        public float KnockbackTime()
+        {
+            return _knockbackTime; 
+        }
+        private float _knockbackCount;
+        //direction of the knockback: in the ninja we want left (-1) or right (1)
+        private int _knockbackDirection = 1;
+
+        public void Knockback(Vector3 obstaclePosition)
+        {
+            _knockbackDirection =   (obstaclePosition.x-rbody.position.x >= 0)? -1:1;
+            _knockbackSpeed = _knockbackThrust;
+            _knockbackCount = _knockbackTime;
+            _knockSmoothness = _knockbackTime / _knockbackSpeed;
         }
     }
 }
