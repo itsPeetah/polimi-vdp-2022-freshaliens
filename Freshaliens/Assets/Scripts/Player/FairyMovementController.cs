@@ -130,6 +130,8 @@ namespace Freshaliens.Player.Components
             Vector2 targetVelocity = movementDirection.normalized * maxSpeed;
             Vector2 deltaVelocity = targetVelocity - currentVelocity;
             float dampen = Mathf.Clamp01(acceleration * Time.deltaTime / currentMaxSpeed);
+
+            // TODO Apply stored knockback
             rbody.velocity = currentVelocity + dampen * deltaVelocity;
         }
 
