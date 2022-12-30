@@ -30,7 +30,6 @@ namespace Freshaliens.Management
         [SerializeField] private Checkpoint startingCheckpoint = null;
         [SerializeField] private Checkpoint finalCheckpoint = null;
 
-
         // Level state
         private Checkpoint latestCheckpoint = null;
         private readonly LevelPhase startingPhase = LevelPhase.Playing;
@@ -69,6 +68,7 @@ namespace Freshaliens.Management
             }
         }
         public bool IsPlayingDialogue => currentPhase == LevelPhase.Dialogue;
+        public bool PlayerIsInvulnerable => playerIsInvulnerable;
         public int CurrentLevel => PlayerData.Instance.LastLevelSelected;
         public int MaxPlayerHP => maxPlayerHP;
         public int CurrentPlayerHP
@@ -106,6 +106,12 @@ namespace Freshaliens.Management
             {
                 TogglePause();
             }
+
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.Alpha9)){
+                currentPlayerHP = CurrentPlayerHP + 1;
+            }
+#endif
 
             if (!IsPaused && !GameOver)
             {

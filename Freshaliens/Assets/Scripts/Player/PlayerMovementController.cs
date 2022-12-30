@@ -83,6 +83,19 @@ namespace Freshaliens.Player.Components
         public int RemainingAirJupms => remainingAirJumps;
         public Vector3 EnemyProjectileTarget => enemyProjectileTarget.position;
 
+        [Header("Knockback")]
+        [SerializeField] private float knockbackThrust = 1f; //how strong the knockback is at the beginning
+        [SerializeField] private float knockbackDuration = 5f; //how long it lasts
+        [SerializeField, Range(0f, 45f)] private float knockbackAngle = 30f;
+        private bool storedKnockback = false;
+        private float knockbackSpeed; //how fast the knockback g
+        private float knockSmoothness = 0.125f; //the "smoothness" of the knockback
+        private float knockbackTimer = 0;
+        private float knockbackDirection = 0; //direction of the knockback: in the ninja we want left (-1) or right (1)
+
+        private bool IsBeingKnockedBack { get => knockbackTimer > 0; set => knockbackTimer = value ? knockbackDuration : 0; }
+
+
         private void Start()
         {
             input = GetComponent<PlayerInputHandler>();
@@ -107,6 +120,7 @@ namespace Freshaliens.Player.Components
                 rbody.velocity = Vector2.zero;
                 return;
             }
+
 
             // Input
 
@@ -139,7 +153,8 @@ namespace Freshaliens.Player.Components
             }
 
             // Ignore input direction if walljumping, apply it if not within the ignore input time frame
-            velocity.x = direction * currentSpeed;
+            if(!IsBeingKnockedBack)
+                velocity.x = direction * currentSpeed;
 
             Vector2 groundVelocity = Vector2.zero;
             if (isGrounded)
@@ -153,7 +168,8 @@ namespace Freshaliens.Player.Components
                     if (!hasChangedGroundTransform) // Not the best fix for the trapdoor glitch but OK for now
                         groundVelocity = groundTransform.position - previousGroundPosition;
                 }
-                else {
+                else
+                {
                     onLand?.Invoke();
                 }
 
@@ -194,29 +210,21 @@ namespace Freshaliens.Player.Components
             }
             else rbody.gravityScale = gravityScaleDefault;
 
-            // Apply movement 
-            //((Cla))just if it isn't knocked back
-            if (_knockbackCount <= 0)
+            // Check for stored knockback
+            if (storedKnockback)
             {
-                rbody.position += groundVelocity;
-                rbody.velocity = velocity;
-                
+                IsBeingKnockedBack = true;
+                storedKnockback = false;
+                ApplyKnockbackToVelocity(ref velocity, knockbackDirection);
             }
-            else
-            {
-                //((Cla))
-                //the knockback need another calculation
-                _knockbackCount -= Time.deltaTime;
-                velocity.x = _knockbackDirection * _knockbackSpeed;
-                velocity.y = _knockbackSpeed;
-                rbody.velocity = velocity;
-                rbody.position += (velocity*Time.deltaTime);
-               // _knockbackSpeed -= _knockSmoothness;
 
-            }
+            // Apply movement 
+            rbody.position += groundVelocity;
+            rbody.velocity = velocity;
 
             // Persist state
             wasGrounded = isGrounded;
+            knockbackTimer -= Time.deltaTime;
 
             //animation update
             _animator.SetBool("IsJumping", !isGrounded);
@@ -242,21 +250,12 @@ namespace Freshaliens.Player.Components
 
         private bool CanJump()
         {
+            if (IsBeingKnockedBack) return false;
             if (isGrounded) return (rbody.velocity.y <= minVerticalVelocityForJump);
 
             bool canAirJump = remainingAirJumps > 0 && fairyDetector.CanFairyJump;
             return isWithinCoyoteTime || canAirJump;
         }
-
-        //private void OnDrawGizmos()
-        //{
-        //    int l = groundChecks.Length;
-        //        Gizmos.color = Color.yellow;
-        //    for (int i = 0; i < l; i++)
-        //    {
-        //        Gizmos.DrawWireSphere(groundChecks[i].position, groundCheckRadius);
-        //    }
-        //}
 
         public void PlayStepSound()
         {
@@ -269,35 +268,38 @@ namespace Freshaliens.Player.Components
             movementAudioSource.pitch = 1;
             movementAudioSource.PlayOneShot(jumpAudioClip);
         }
-        /// <summary>
-        /// ((CLA))
-        /// knockback logic. 
-        /// </summary>
-        //public function for a knockback when damage is taken
-        [Header("Knockback")]
-        //how strong the knockback is at the beginning
-        [SerializeField] private float _knockbackThrust = 1f;
-        //how fast the knockback g
-        private float _knockbackSpeed ;
-        //the "smoothness" of the knockback
-        private float _knockSmoothness = 0.125f;
-        //how long it lasts
-        [SerializeField] private float _knockbackTime = 5f ;
 
         public float KnockbackTime()
         {
-            return _knockbackTime; 
+            return knockbackDuration;
         }
-        private float _knockbackCount;
-        //direction of the knockback: in the ninja we want left (-1) or right (1)
-        private int _knockbackDirection = 1;
 
+
+        /// <summary>
+        //public function for a knockback when damage is taken
+        /// </summary>
         public void Knockback(Vector3 obstaclePosition)
         {
-            _knockbackDirection =   (obstaclePosition.x-rbody.position.x >= 0)? -1:1;
-            _knockbackSpeed = _knockbackThrust;
-            _knockbackCount = _knockbackTime;
-            _knockSmoothness = _knockbackTime / _knockbackSpeed;
+            knockbackDirection = obstaclePosition.x >= rbody.position.x ? -1f : 1f;
+            storedKnockback = true;
+        }
+
+        private void ApplyKnockbackToVelocity(ref Vector2 velocity, float direction) {
+
+            // Calculate knockback
+            float angle = knockbackAngle * Mathf.Deg2Rad;
+            float power = knockbackThrust;
+
+            Vector2 knockbackForce = new()
+            {
+                x = Mathf.Cos(angle) * power * direction,
+                y = Mathf.Sin(angle) * power,
+                //x = power * direction,
+                //y = 0,
+            };
+
+            velocity.x = knockbackForce.x;
+            velocity.y = knockbackForce.y;
         }
     }
 }

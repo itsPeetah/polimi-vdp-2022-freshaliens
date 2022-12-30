@@ -23,6 +23,9 @@ public class LivesManager : MonoBehaviour
         invincible = false;
         _damageAnimationTime = gameObject.GetComponent<IMovementController>().KnockbackTime();
     }
+
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         int layer = collision.gameObject.layer;
@@ -53,7 +56,7 @@ public class LivesManager : MonoBehaviour
      }
      else
      {
-         StartCoroutine(hittenAnimation()); 
+         StartCoroutine(HittenAnimation()); 
          gameObject.GetComponent<IMovementController>().Knockback(obstaclePosition);
      }
     }
@@ -83,7 +86,7 @@ public class LivesManager : MonoBehaviour
         Debug.Log("3invincible è "+ invincible);
             yield return null;
     }
-    IEnumerator hittenAnimation()
+    IEnumerator HittenAnimation()
     {
         Debug.Log("tempo animazione danno dura " + _damageAnimationTime);
         _animator.SetBool("isHitten", true);
