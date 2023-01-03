@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 7327822579666905758}
   - component: {fileID: 3332434577073933169}
   - component: {fileID: 4386012166611936910}
+  - component: {fileID: 1909283023}
   m_Layer: 7
   m_Name: Ninja
   m_TagString: Player
@@ -326,6 +327,9 @@ MonoBehaviour:
   movementAudioSource: {fileID: 4386012166611936910}
   stepAudioClip: {fileID: 8300000, guid: 67fe9fe2605c24f7cad5044684b35983, type: 3}
   jumpAudioClip: {fileID: 8300000, guid: 6b4037d8ae3fe40aa9b4825839a44022, type: 3}
+  knockbackThrust: 6
+  knockbackDuration: 1
+  knockbackAngle: 30
 --- !u!114 &7654560649549969166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,9 +358,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitLayers:
     serializedVersion: 2
-    m_Bits: 32768
+    m_Bits: 40960
   deathLayer: 16
-  _animator: {fileID: 7327822579666905758}
 --- !u!95 &7327822579666905758
 Animator:
   serializedVersion: 4
@@ -489,6 +492,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1909283023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3332434578813053514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc720534e9a8ff4e9dcd43f51fb3c7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 7327822579666905758}
+  flashingInterval: 0.181
 --- !u!1 &3332434579030872623
 GameObject:
   m_ObjectHideFlags: 0

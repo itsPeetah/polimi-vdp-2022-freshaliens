@@ -50,6 +50,7 @@ namespace Freshaliens.Player.Components
 
         // State
         private bool isMoving = false;
+        private bool wasMoving = false;
         private bool isGrounded = false;
         private bool wasGrounded = false;
         private bool isWithinCoyoteTime = false;
@@ -76,6 +77,8 @@ namespace Freshaliens.Player.Components
         public event Action onJumpWhileGrounded;
         public event Action onJumpWhileAirborne;
         public event Action onLand;
+        public event Action<float> onChangeDirection;
+        public event Action<bool> onMovement;
 
         // Properties
         public Vector3 Position => ownTransform.position;
@@ -125,9 +128,14 @@ namespace Freshaliens.Player.Components
             // Input
 
             float direction = input.GetHorizontal();
-            if (direction != 0) lastFacedDirection = direction;
+            
+            if (direction != 0)
+            {
+                if (lastFacedDirection - direction < Single.Epsilon) onChangeDirection?.Invoke(direction);
+                lastFacedDirection = direction;
+            }
             //animation update
-            _animator.SetFloat("DirectionR", lastFacedDirection);
+            // _animator.SetFloat("DirectionR", lastFacedDirection);
 
             if (input.GetJumpInput())
             {
@@ -141,18 +149,21 @@ namespace Freshaliens.Player.Components
             // Walking
             isMoving = Mathf.Abs(direction) > 0f;
             //changing animation state
-            _animator.SetBool("IsMoving", isMoving);
+           // _animator.SetBool("IsMoving", isMoving);
+            if (wasMoving != isMoving) onMovement?.Invoke(isMoving);
             if (isMoving)
             {
                 // Accelerate until max speed
                 currentSpeed = Mathf.Clamp(currentSpeed + walkAcceleration * Time.deltaTime, movementSpeedStart, movementSpeedMax);
+                
             }
             else
             {
                 currentSpeed = 0;
             }
 
-            // Ignore input direction if walljumping, apply it if not within the ignore input time frame
+            wasMoving = isMoving;
+            // Ignore input direction if walljumping or if is being knocked back, apply it if not within the ignore input time frame
             if(!IsBeingKnockedBack)
                 velocity.x = direction * currentSpeed;
 
@@ -227,7 +238,7 @@ namespace Freshaliens.Player.Components
             knockbackTimer -= Time.deltaTime;
 
             //animation update
-            _animator.SetBool("IsJumping", !isGrounded);
+           // _animator.SetBool("IsJumping", !isGrounded);
 
         }
 

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Freshaliens.Management;
 
@@ -9,21 +10,42 @@ namespace Freshaliens.Player.Components
     [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerInputHandler))]
     public class FairyMovementController : SingletonMonobehaviour<FairyMovementController>, IMovementController
     {
-        [Header("Player Controlled Movement")]
-        [SerializeField] private float maxSpeed = 6f;
+        [Header("Player Controlled Movement")] [SerializeField]
+        private float maxSpeed = 6f;
+
         [SerializeField] private float movementAcceleration = 5f;
         [SerializeField] private float movementDeceleration = 20f;
 
-        [Header("External Control")]
-        [SerializeField] private float maxDistanceBeforeReturn = 30f;
+        [Header("External Control")] [SerializeField]
+        private float maxDistanceBeforeReturn = 30f;
+
         [SerializeField] private float returnDistance = 15f;
         [SerializeField] private float returnAcceleration = 40f;
         [SerializeField] private float maxReturnSpeed = 10f;
         [SerializeField] private float verticalDistanceAtRespawn = 3f;
         [SerializeField] private float horizontalDistanceAtRespawn = 8f;
 
-        [Header("World Interaction")]
-        [SerializeField] private float stunDuration = 3f;
+        [Header("World Interaction")] [SerializeField]
+        private float stunDuration = 3f;
+
+        [Header("Knockback")] [SerializeField]
+        private float knockbackThrust = 1f; //how strong the knockback is at the beginning
+
+        [SerializeField] private float knockbackDuration = 5f; //how long it lasts
+
+        //[SerializeField, Range(0f, 45f)] private float knockbackAngle = 30f;
+        private bool storedKnockback = false;
+        private float knockbackSpeed; //how fast the knockback g
+        private float knockSmoothness = 0.125f; //the "smoothness" of the knockback
+        private float knockbackTimer = 0;
+        private Vector2 knockbackDirection = Vector2.zero; //direction of the knockback
+
+        private bool IsBeingKnockedBack
+        {
+            get => knockbackTimer > 0;
+            set => knockbackTimer = value ? knockbackDuration : 0;
+        }
+
 
         // State
         private Vector2 movementDirection = Vector2.zero;
@@ -34,6 +56,8 @@ namespace Freshaliens.Player.Components
         private bool isReturningToPlayer = false;
         private bool isLockingOnTarget = true;
         private bool lockOnTargetAssigned = false;
+
+       
 
         // Components
         private PlayerInputHandler input = null;
@@ -86,12 +110,15 @@ namespace Freshaliens.Player.Components
             float currentMaxSpeed = maxSpeed;
 
             // Should the fairy return towards the player?
-            float distanceFromPlayer = Vector2.Distance(ownTransform.position, PlayerMovementController.Instance.Position);
-            isReturningToPlayer = distanceFromPlayer >= maxDistanceBeforeReturn || (isReturningToPlayer && distanceFromPlayer > returnDistance);
+            float distanceFromPlayer =
+                Vector2.Distance(ownTransform.position, PlayerMovementController.Instance.Position);
+            isReturningToPlayer = distanceFromPlayer >= maxDistanceBeforeReturn ||
+                                  (isReturningToPlayer && distanceFromPlayer > returnDistance);
 
             // Is the fairy locking onto a target?
             bool wasLockingOnTarget = isLockingOnTarget;
-            isLockingOnTarget = lockOnTargetAssigned && Vector2.Distance(ownTransform.position, lockOnTarget.position) > 0.01f;
+            isLockingOnTarget = lockOnTargetAssigned &&
+                                Vector2.Distance(ownTransform.position, lockOnTarget.position) > 0.01f;
             if (!isLockingOnTarget)
             {
                 if (wasLockingOnTarget && lockOnTargetAssigned)
@@ -124,9 +151,20 @@ namespace Freshaliens.Player.Components
                 acceleration = 0;
                 stunTimer -= Time.deltaTime;
             }
-
             // Calculate change in velocity
             currentVelocity = rbody.velocity;
+            if (storedKnockback)
+            {
+                Debug.Log("knockback!!");
+                IsBeingKnockedBack = true;
+                storedKnockback = false;
+                ApplyKnockbackToVelocity(ref currentVelocity, knockbackDirection);
+                Debug.Log("movementDirection was "+ movementDirection);
+                movementDirection = knockbackDirection;
+                Debug.Log("movementDirection NOW IS "+ movementDirection);
+            }
+
+
             Vector2 targetVelocity = movementDirection.normalized * maxSpeed;
             Vector2 deltaVelocity = targetVelocity - currentVelocity;
             float dampen = Mathf.Clamp01(acceleration * Time.deltaTime / currentMaxSpeed);
@@ -205,26 +243,46 @@ namespace Freshaliens.Player.Components
             return new Vector3(newXfairy, newYfairy, currentFairyPosition.z);
         }
         //((CLA)) fairy knockback
-        
+
         /// <summary>
         /// ((CLA))
         /// knockback logic. 
         /// </summary>
         //public function for a knockback when damage is taken
-        [Header("Knockback")]
-        //how strong the knockback is at the beginning
-        [SerializeField] private float _knockbackThrust = 1f;
-        //how fast the knockback g
-        private float _knockbackSpeed ;
-        //the "smoothness" of the knockback
-        private float _knockSmoothness = 0.125f;
-        //how long it lasts
-        [SerializeField] private float _knockbackTime = 5f ;
-
+   
         public float KnockbackTime()
         {
-           return _knockbackTime; 
+            return knockbackDuration;
         }
-        public void Knockback(Vector3 obstaclePosition){}
+
+        public void Knockback(Vector3 obstaclePosition)
+        {
+            Debug.Log("obstacleposition"+ (Vector2)obstaclePosition);
+            Debug.Log("rbody position"+ rbody.position);
+            
+            knockbackDirection = (Vector2)obstaclePosition - rbody.position;
+            
+            storedKnockback = true;
+        }
+
+        private void ApplyKnockbackToVelocity(ref Vector2 velocity, Vector2 direction)
+        {
+            float power = knockbackThrust;
+            
+            float angle = Vector2.Angle(Vector2.right, direction) * Mathf.Deg2Rad;
+            
+            // Calculate knockback
+            // float angle = knockbackAngle * Mathf.Deg2Rad;
+            
+
+            Vector2 knockbackForce = new()
+            {
+                 x = Mathf.Cos(angle) * power,
+                 y = Mathf.Sin(angle) * power,
+                //x = power * direction,
+                //y = 0,
+            };
+            velocity = knockbackForce;
+        }
     }
 }

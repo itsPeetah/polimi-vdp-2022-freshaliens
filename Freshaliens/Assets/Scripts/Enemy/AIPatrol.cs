@@ -111,6 +111,7 @@ namespace Freshaliens.Enemy.Components
 
         void Flip()
         {
+            Debug.Log("flip works!");
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
             walkSpeed *= -1;
             mustTurn = false;
