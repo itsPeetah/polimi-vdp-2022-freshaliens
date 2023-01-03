@@ -14,7 +14,7 @@ namespace Freshaliens.Enemy.Components
         [SerializeField] private float firePower = 10f;
         private Quaternion _rotation;
         private Rigidbody2D _rb;
-
+        
         [SerializeField, Tooltip("Projectile spawn point")] private Transform weaponMuzzle;
 
         private ProjectilePool projectiles;
