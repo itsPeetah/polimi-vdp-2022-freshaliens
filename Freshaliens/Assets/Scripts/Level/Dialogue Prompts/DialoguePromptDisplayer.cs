@@ -21,6 +21,7 @@ namespace Freshaliens.UI
 
         // State
         private bool isDisplayingText = false;
+        private bool skipTextQueued = false;
 
         // Properties
         private bool IsDisplayingText { set { isDisplayingText = value; root.SetActive(value); } }
@@ -34,6 +35,13 @@ namespace Freshaliens.UI
         {
             base.Start();
             IsDisplayingText = false;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.S)) {
+                skipTextQueued = true;
+            }
         }
 
         public void DisplayDialoguePrompt(DialoguePromptData dialogue, bool overwriteExistingDialogue = false)
@@ -67,21 +75,35 @@ namespace Freshaliens.UI
                     textLineSoFar += line[j];
                     dialogueText.SetText(textLineSoFar);
 
-                    if (Input.GetKeyDown(KeyCode.S)) break;
+                    if (skipTextQueued)
+                    {
+                        skipTextQueued = false;
+                        break;
+                    }
 
                     yield return new WaitForSeconds(characterTypeTime);
                 }
                 dialogueText.SetText(line);
 
-                float t = 0;
-                while (t <= lineDelayTime)
+                //float t = 0;
+                //while (t <= lineDelayTime)
+                //{
+                //    t += Time.deltaTime;
+
+                //    if (skipTextQueued)
+                //    {
+                //        skipTextQueued = false;
+                //        break;
+                //    }
+
+                //    yield return null;
+                //}
+
+                while (!skipTextQueued)
                 {
-                    t += Time.deltaTime;
-
-                    if (Input.GetKeyDown(KeyCode.S)) break;
-
                     yield return null;
                 }
+                skipTextQueued = false;
 
 
                 dialogueText.SetText("");
