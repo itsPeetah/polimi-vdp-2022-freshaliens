@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3637740608284479707}
   - component: {fileID: 3637740608284479705}
   - component: {fileID: 3637740608284479706}
-  - component: {fileID: 4460725716223897651}
+  - component: {fileID: 8271305463608780865}
   m_Layer: 13
   m_Name: Laser
   m_TagString: Untagged
@@ -129,8 +129,8 @@ MonoBehaviour:
   _ninjaLayer: 7
   _fairyLayer: 8
   _target: 2
-  _isEnemy: 0
---- !u!95 &4460725716223897651
+  triggerRespawnWhenHittingPlayer: 0
+--- !u!95 &8271305463608780865
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0

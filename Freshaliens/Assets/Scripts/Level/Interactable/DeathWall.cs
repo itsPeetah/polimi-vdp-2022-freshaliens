@@ -16,7 +16,7 @@ namespace Freshaliens.Interaction
             LivesManager livesManager = playerObject.GetComponent<LivesManager>();
             if (livesManager != null && ((1 << playerObject.layer) & playerLayer) != 0)
             {
-                livesManager.HitPlayer(true);
+                livesManager.HitPlayer(true, Vector3.zero);
             }
                 
         }

@@ -28,6 +28,9 @@ namespace Freshaliens.Interaction
 
 
             GameObject playerObject = collider.gameObject;
+            ///((CLA)) we get our position for the animation
+            Vector3 obstaclePosition =gameObject.transform.position;
+            //--------------------------------
             int colliderLayer = playerObject.layer;
             LivesManager livesManager = playerObject.GetComponent<LivesManager>();
 
@@ -36,20 +39,30 @@ namespace Freshaliens.Interaction
                 case Target.Ninja:
                     if (colliderLayer == _ninjaLayer)
                     {
-                        livesManager.HitPlayer(triggerRespawnWhenHittingPlayer);
+                        //livesManager.HitPlayer(triggerRespawnWhenHittingPlayer);
+                        ///((CLA))
+                        livesManager.HitPlayer(triggerRespawnWhenHittingPlayer,obstaclePosition);
+                        //-----------------------------
                     }
                     break;
                 case Target.Fairy:
                     if (colliderLayer == _fairyLayer)
                     {
-                        livesManager.HitPlayer(false);
+                        //livesManager.HitPlayer(false);
+                        ///((CLA))
+                        livesManager.HitPlayer(false,obstaclePosition);
+                        //-----------------------------
                     }
                     break;
                 case Target.Both:
-                    livesManager.HitPlayer(triggerRespawnWhenHittingPlayer);
+                    //livesManager.HitPlayer(triggerRespawnWhenHittingPlayer);
+                    ///((CLA))
+                    livesManager.HitPlayer(triggerRespawnWhenHittingPlayer,obstaclePosition);
+                    //-----------------------------
                     break;
             }
         }
+      
     
     }
 
