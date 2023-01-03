@@ -14,7 +14,7 @@ namespace Freshaliens.Enemy.Components
         [SerializeField] private float firePower = 10f;
         private Quaternion _rotation;
         private Rigidbody2D _rb;
-
+        
         [SerializeField, Tooltip("Projectile spawn point")] private Transform weaponMuzzle;
 
         private ProjectilePool projectiles;
@@ -22,6 +22,8 @@ namespace Freshaliens.Enemy.Components
         [SerializeField] private float fireInterval;
         
         private bool canBeStunned = false;
+
+        [SerializeField] private bool shootToPlayer = false;
         
         float weaponAngleRadians = 0;
         float fireTimer = 0;
@@ -45,7 +47,7 @@ namespace Freshaliens.Enemy.Components
             Vector3 target = PlayerMovementController.Instance.EnemyProjectileTarget;
             float distToPlayer = Vector3.Distance(transform.position, target);
             float dx = ownTransform.position.x - target.x;
-            float dy = ownTransform.position.y - target.y;
+            float dy = shootToPlayer ? ownTransform.position.y - target.y : 0;
             weaponAngleRadians = Mathf.Atan2(dy, dx);
             if (distToPlayer < _attackRange)
             {

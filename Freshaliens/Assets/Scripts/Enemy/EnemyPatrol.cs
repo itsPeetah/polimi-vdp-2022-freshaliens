@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using Freshaliens.Interaction;
@@ -16,11 +17,13 @@ namespace Freshaliens.Enemy.Components
             MovingTowardsEndPosition,
             Chasing,
         }
-
+        public event Action onFlipDirection;
+        
+        
         private Rigidbody2D rbody = null;
         
         private PlayerMovementController playerMovementController;
-
+        
         [Header("Path")] 
         [SerializeField] private Vector3 startPositionOS = Vector3.left, endPositionOS = Vector3.right;
         [SerializeField] private bool allowFloating = false;
@@ -38,7 +41,8 @@ namespace Freshaliens.Enemy.Components
 
         private bool isStunned = false;
         private EnemyStun stunComponent = null;
-
+        private bool isFacingLeft = false;
+        private bool wasFacingLeft;
         private Vector3 currentTargetPosition = Vector3.zero;
 
         public Vector3 StartPosition
@@ -83,6 +87,8 @@ namespace Freshaliens.Enemy.Components
 
             currentTargetPosition = endPositionWS;
             SetPosition(startPositionWS);
+            isFacingLeft = CheckFaceDirection();
+            wasFacingLeft = isFacingLeft;
         }
 
         private void Update()
@@ -107,17 +113,23 @@ namespace Freshaliens.Enemy.Components
             }
 
             // Calculate movement
-            if (currentState == State.MovingTowardsStartPosition && distanceFromMidPoint >= pathChaseRadius)
+            if(distanceFromMidPoint >= pathChaseRadius)
             {
-                currentTargetPosition = endPositionWS;
-                currentState = State.MovingTowardsEndPosition;
+                
+                if (currentState == State.MovingTowardsStartPosition)
+                {
+                    currentTargetPosition = endPositionWS;
+                    currentState = State.MovingTowardsEndPosition;
+                
+                }
+                else if (currentState == State.MovingTowardsEndPosition )
+                {
+                    currentTargetPosition = startPositionWS;
+                    currentState = State.MovingTowardsStartPosition; 
+                }
+                
+            }
 
-            }
-            else if (currentState == State.MovingTowardsEndPosition && distanceFromMidPoint >= pathChaseRadius)
-            {
-                currentTargetPosition = startPositionWS;
-                currentState = State.MovingTowardsStartPosition;
-            }
             if (currentState == State.Chasing)
             {
                 Vector3 closest = playerMovementController.Position;
@@ -148,6 +160,13 @@ namespace Freshaliens.Enemy.Components
 
             Vector2 velocity = direction.normalized * movementSpeed;
             rbody.velocity = velocity;
+            //to see if it changed from facing left to facing right and viceversa
+            isFacingLeft = CheckFaceDirection();
+            if (isFacingLeft != wasFacingLeft)
+            {
+                onFlipDirection?.Invoke();
+                wasFacingLeft = isFacingLeft;
+            }
         }
 
         private void SetPosition(Vector3 position)
@@ -164,7 +183,12 @@ namespace Freshaliens.Enemy.Components
         {
             return Vector3.Distance(playerMovementController.Position, midPointInPath) <= pathChaseRadius;
         }
-        
+
+        private bool CheckFaceDirection()
+        {
+           return (rbody.position.x - currentTargetPosition.x) > 0 ? true : false;
+        }
+
         public void SetStunned(bool stun)
         {
             isStunned = stun;
