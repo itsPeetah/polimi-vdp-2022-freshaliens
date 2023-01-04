@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 using Freshaliens.Interaction;
@@ -12,8 +13,10 @@ namespace Freshaliens.Player.Components
     {
         [Header("Settings")]
         [SerializeField] private LayerMask interactableLayers = -1;
+        
+        public event Action<bool> onInteract;
         //animation for the shining
-        private Animator _animator;
+        //private Animator _animator;
         // State
         private Interactable storedInteractable = null;
 
@@ -23,7 +26,7 @@ namespace Freshaliens.Player.Components
         private void Start()
         {
             input = GetComponent<PlayerInputHandler>();
-            _animator = GetComponent<Animator>();
+         //   _animator = GetComponent<Animator>();
         }
 
         private void Update()
@@ -72,7 +75,8 @@ namespace Freshaliens.Player.Components
                 //check if can change animation
                 if (!collision.CompareTag( "Player" ) || (collision.CompareTag( "Player" ) && collision.gameObject.GetComponent<PlayerMovementController>().RemainingAirJupms > 0))
                 {
-                    _animator.SetBool("canLight", true);
+                    onInteract?.Invoke(true);
+                    //_animator.SetBool("canLight", true);
                 }
                 interactable.OnFairyEnter();
             }
@@ -94,7 +98,8 @@ namespace Freshaliens.Player.Components
             {
          
                 //end light animation
-                _animator.SetBool("canLight",false);
+               // _animator.SetBool("canLight",false);
+                onInteract?.Invoke(false);
                 if (interactable.ShouldBeStored)
                 {
                     storedInteractable = null;

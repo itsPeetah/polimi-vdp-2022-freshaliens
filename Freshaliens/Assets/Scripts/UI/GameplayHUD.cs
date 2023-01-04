@@ -40,7 +40,7 @@ namespace Freshaliens.UI
             }
         }
 
-        private void UpdateHPDisplay() {
+        private void UpdateHPDisplay( GameObject playerDamaged) {
 
             int currentHP = level.CurrentPlayerHP;
             for (int i = 0; i < hpDisplayIcons.Length; i++) {
