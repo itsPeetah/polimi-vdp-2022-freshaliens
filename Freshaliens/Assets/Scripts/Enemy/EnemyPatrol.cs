@@ -17,7 +17,7 @@ namespace Freshaliens.Enemy.Components
             MovingTowardsEndPosition,
             Chasing,
         }
-        public event Action onFlipDirection;
+       // public event Action onFlipDirection;
         
         
         private Rigidbody2D rbody = null;
@@ -44,7 +44,7 @@ namespace Freshaliens.Enemy.Components
         private bool isFacingLeft = false;
         private bool wasFacingLeft;
         private Vector3 currentTargetPosition = Vector3.zero;
-
+        private EnemyAnimationControl animationController;
         public Vector3 StartPosition
         {
             get => transform.TransformPoint(startPositionOS);
@@ -73,6 +73,8 @@ namespace Freshaliens.Enemy.Components
 
         private void Start()
         {
+            animationController = gameObject.GetComponent<EnemyAnimationControl>();
+            
             playerMovementController = PlayerMovementController.Instance;
             rbody = GetComponent<Rigidbody2D>();
             stunComponent = GetComponent<EnemyStun>();
@@ -164,7 +166,9 @@ namespace Freshaliens.Enemy.Components
             isFacingLeft = CheckFaceDirection();
             if (isFacingLeft != wasFacingLeft)
             {
-                onFlipDirection?.Invoke();
+               // onFlipDirection?.Invoke();
+               if (animationController != null)
+                   animationController.EnemyFlip();
                 wasFacingLeft = isFacingLeft;
             }
         }

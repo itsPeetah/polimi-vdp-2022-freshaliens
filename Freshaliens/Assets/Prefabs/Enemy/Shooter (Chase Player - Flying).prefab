@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4789177737515338308}
   - component: {fileID: 4789177737515338309}
   - component: {fileID: 4789177737515338314}
+  - component: {fileID: -3635095404685898397}
   m_Layer: 10
   m_Name: Shooter (Chase Player - Flying)
   m_TagString: Untagged
@@ -142,6 +143,21 @@ MonoBehaviour:
   weaponMuzzle: {fileID: 4789177738501176930}
   projectilePoolId: Enemy
   fireInterval: 2
+  shootToPlayer: 0
+--- !u!114 &-3635095404685898397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4789177737515338428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70319d82b164ecb4abdaca3c5fdc0186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 4789177738528048103}
+  fireInterval: 0.25
 --- !u!1 &4789177738501176925
 GameObject:
   m_ObjectHideFlags: 0
