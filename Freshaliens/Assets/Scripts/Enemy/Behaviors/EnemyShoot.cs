@@ -77,6 +77,7 @@ namespace Freshaliens.Enemy.Components
             Vector3 pos = weaponMuzzle.position;
             Vector3 vel = new Vector3(-Mathf.Cos(weaponAngleRadians), -Mathf.Sin(weaponAngleRadians)) * firePower;
             projectiles.Spawn(pos, _rotation, vel);
+            AudioManager1.instance.PlaySFX("nemico");
 
         }
     }

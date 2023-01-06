@@ -149,7 +149,7 @@ namespace Freshaliens.Management
         public void DamagePlayer( GameObject playerDamaged, int damageAmount = 1, bool skipInvulnerableCheck = false)
         {
             if (playerIsInvulnerable && !skipInvulnerableCheck) return;
-
+            
             CurrentPlayerHP -= damageAmount;
             StopCoroutine(nameof(DoInvulnerabilityCoundown));
             StartCoroutine(nameof(DoInvulnerabilityCoundown));
@@ -158,6 +158,7 @@ namespace Freshaliens.Management
             if (CurrentPlayerHP < 1) {
                 TriggerGameOver(false);
             }
+            AudioManager1.instance.PlaySFX("hit");
         }
 
         public void RespawnPlayer()

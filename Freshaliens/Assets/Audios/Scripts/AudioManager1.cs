@@ -6,28 +6,15 @@ using UnityEngine;
 using UnityEngine.Audio;
 
 public class AudioManager1 : MonoBehaviour
-{   
-    [SerializeField] private AudioMixer audioMixer; 
+{
     public static AudioManager1 instance;
     public Sound[] musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource;
-    private bool useMixer = true;
     private Dictionary<string, AudioClip> sfxClips;
     private Dictionary<string, AudioClip> musicClips;
-
-
-    [Range(-80f,20f)]
-    public float SfxMaxDb = 0f;
-
-    [Range(-80f,20f)]
-    public float MusicMaxDb = 0f;
-
-    [Range(-80f,20f)]
-    public float MasterMaxDb = 0f;
-
+    
     private void Awake()
     {
-        
         instance = this;
         InitializeClipDictionaries();
     }
