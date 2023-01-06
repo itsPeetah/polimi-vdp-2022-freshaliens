@@ -118,16 +118,16 @@ namespace Freshaliens.Player.Components
         private void Update()
         {
             // TODO Ugly, fix state
+            float xInputMultiplier = 1;
             if (!LevelManager.Instance.IsPlaying)
             {
-                rbody.velocity = Vector2.zero;
-                return;
+                xInputMultiplier = 0;
             }
 
 
             // Input
 
-            float direction = input.GetHorizontal();
+            float direction = input.GetHorizontal() * xInputMultiplier;
             
             if (direction != 0)
             {
