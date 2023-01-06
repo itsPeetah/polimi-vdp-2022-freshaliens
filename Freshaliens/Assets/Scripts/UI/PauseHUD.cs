@@ -23,10 +23,10 @@ namespace Freshaliens.UI
         }
 
         
-        private void EnterPause()
+        private void OnEnable()
         {
             currentPauseState = PauseState.Pause;
-            
+            UpdateScreensVisibility();
         }
 
         private void UpdateScreensVisibility() {
@@ -43,7 +43,14 @@ namespace Freshaliens.UI
         }
 
         public void OnSettingsPressed() {
-            Debug.Log("Pressed settings button!");
+            currentPauseState = PauseState.Settings;
+            UpdateScreensVisibility();
+
+        }
+
+        public void CloseSettings() {
+            currentPauseState = PauseState.Pause;
+            UpdateScreensVisibility();
         }
 
         public void OnBackPressed() {
