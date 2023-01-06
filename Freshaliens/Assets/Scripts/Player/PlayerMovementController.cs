@@ -115,16 +115,16 @@ namespace Freshaliens.Player.Components
         private void Update()
         {
             // TODO Ugly, fix state
-            float xInputMultiplier = 1;
+            float playingMultipler = 1;
             if (!LevelManager.Instance.IsPlaying)
             {
-                xInputMultiplier = 0;
+                playingMultipler = 0;
             }
 
 
             // Input
 
-            float direction = input.GetHorizontal() * xInputMultiplier;
+            float direction = input.GetHorizontal() * playingMultipler;
             
             if (direction != 0)
             {
@@ -188,7 +188,7 @@ namespace Freshaliens.Player.Components
 
             // Jumping
             isWithinCoyoteTime = Time.time - lastGroundedTimestamp <= coyoteTimeFrame && !hasJumpedSinceGrounded; // Remove AND to re-introduce jump bug
-            if (jumpQueued && CanJump())
+            if (jumpQueued && CanJump() && playingMultipler > 0)
             {
                 jumpQueued = false;
 
