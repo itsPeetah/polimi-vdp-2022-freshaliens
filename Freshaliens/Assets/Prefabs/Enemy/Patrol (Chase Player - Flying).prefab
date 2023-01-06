@@ -235,8 +235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f147a63556544499b69de96c50ba5b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPositionOS: {x: -10, y: 0, z: 0}
-  endPositionOS: {x: -10, y: 10, z: 0}
+  startPositionOS: {x: -3.827591, y: 2.5311322, z: 0}
+  endPositionOS: {x: 3.5140038, y: -1.177468, z: 0}
   allowFloating: 1
   movementSpeed: 3
   canChasePlayer: 1
