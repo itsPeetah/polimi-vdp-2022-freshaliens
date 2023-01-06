@@ -47,6 +47,7 @@ namespace Freshaliens.LevelSelection.Components
             currentlySelectedLevel = PlayerData.Instance.LastLevelSelected;
             InstantiateMapLines();
             UpdateMapLineState();
+            AudioManager1.instance.PlayMusic("musicamenu");
 
             // Subscribe events
             onLevelSelected += ui.UpdateLevelInfoDisplay;

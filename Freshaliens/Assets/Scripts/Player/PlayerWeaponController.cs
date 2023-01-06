@@ -58,6 +58,8 @@ namespace Freshaliens.Player.Components
             Vector3 vel = Vector3.right * (playerMovementController.LastFacedDirection * firePower);
             
             projectiles.Spawn(pos, vel);
+            AudioManager1.instance.PlaySFX("shot");
+            
         }
     }
 }

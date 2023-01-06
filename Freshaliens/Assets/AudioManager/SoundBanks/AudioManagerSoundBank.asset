@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: AudioManagerSoundBank
   m_EditorClassIdentifier: 
   MenuMusicLoop: []
-  GameMusicLoop: []
-  SFX:
+  GameMusicLoop:
   - {fileID: 0}

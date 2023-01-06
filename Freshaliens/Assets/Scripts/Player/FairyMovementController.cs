@@ -117,6 +117,10 @@ namespace Freshaliens.Player.Components
             // Input
             movementDirection = new Vector2(input.GetHorizontal(), input.GetVertical());
             isMoving = movementDirection != Vector2.zero;
+            if (isMoving)
+            {
+                PlaySound();
+            }
 
             // Calculate acceleration based on whether the player wants to move or stop
             float acceleration = !isMoving ? movementDeceleration : movementAcceleration;
@@ -203,6 +207,11 @@ namespace Freshaliens.Player.Components
         {
             // TODO Move the fairy away to avoid stun locking?
             stunTimer = stunDuration + extraTime;
+        }
+
+        public void PlaySound()
+        {
+            AudioManager1.instance.PlaySFX("fata1");
         }
 
         /// <summary>
