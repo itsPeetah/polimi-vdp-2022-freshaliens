@@ -9,7 +9,7 @@ using System.Linq;
 namespace Freshaliens.Social {
 
     public static class Leaderboard {
-        public const string API_URL = "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard";
+        public const string API_URL = "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard/official";
 
         public class LBRow : List<string> { }
         public class LBTable : Dictionary<string, LBRow>
