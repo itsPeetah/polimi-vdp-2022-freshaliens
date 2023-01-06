@@ -8,6 +8,7 @@ namespace Freshaliens.Enemy.Components
 {
     public class EnemyShoot : MonoBehaviour
     {
+        private EnemyAnimationControl animationControl;
         private EnemyStun stunComponent = null;
         [SerializeField] public float _attackRange;
         [SerializeField] public int _damage;
@@ -31,7 +32,8 @@ namespace Freshaliens.Enemy.Components
         private Transform ownTransform = null;
 
         private void Start()
-        {   
+        {
+            animationControl = gameObject.GetComponent<EnemyAnimationControl>();
             _rb = GetComponent<Rigidbody2D>();
             projectiles = ProjectilePool.GetByID(projectilePoolId);
             stunComponent = GetComponent<EnemyStun>();
@@ -58,6 +60,10 @@ namespace Freshaliens.Enemy.Components
                 {
                    // Debug.Log("shoot");
                     fireTimer = fireInterval;
+                    if (animationControl != null)
+                    {
+                        animationControl.HasShoot();
+                    }
                     Shoot();
                 }
             }

@@ -157,6 +157,7 @@ GameObject:
   - component: {fileID: 9208331279952635258}
   - component: {fileID: 9208331279952635259}
   - component: {fileID: 9208331279952635252}
+  - component: {fileID: -1949989338483751237}
   m_Layer: 10
   m_Name: Shooter (Flying)
   m_TagString: Untagged
@@ -284,3 +285,18 @@ MonoBehaviour:
   weaponMuzzle: {fileID: 9208331279302152540}
   projectilePoolId: Enemy
   fireInterval: 2
+  shootToPlayer: 0
+--- !u!114 &-1949989338483751237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9208331279952635266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70319d82b164ecb4abdaca3c5fdc0186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 9208331279325605081}
+  fireInterval: 0.25
