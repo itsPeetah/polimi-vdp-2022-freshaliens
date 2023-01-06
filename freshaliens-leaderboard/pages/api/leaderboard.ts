@@ -12,7 +12,11 @@ export default async function handler(
 ) {
   const app = initializeApp(firebaseConfig);
 
-  res.status(404);
+  res
+    .status(301)
+    .send(
+      "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboards/official"
+    );
   return;
 
   if (req.method === "GET") {
