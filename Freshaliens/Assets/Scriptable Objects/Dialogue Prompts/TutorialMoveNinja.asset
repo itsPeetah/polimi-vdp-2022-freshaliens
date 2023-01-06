@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faceSprite: {fileID: 21300000, guid: 89e2b4f83b3204d6fa30694acff4ea96, type: 3}
   dialogueText:
-  - 'Welcome to Freshaliens'' tutorial! Usually tutorials are very boring, but not
-    this one! '
-  - You wonder why? BECAUSE YES!
+  - "Welcome to Freshaliens' tutorial! \nUsually tutorials are very boring, but not
+    this one! \nYou wonder why? BECAUSE YES!"
   - First of all, try to move using 'A' and 'D'...

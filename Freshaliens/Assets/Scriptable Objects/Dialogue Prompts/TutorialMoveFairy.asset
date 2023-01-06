@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faceSprite: {fileID: 21300000, guid: 89e2b4f83b3204d6fa30694acff4ea96, type: 3}
   dialogueText:
-  - Did you know I can move too using 'IJKL' or arrows!?
+  - Ehy! I can move too! Use 'I-J-K-L' or directional arrows...

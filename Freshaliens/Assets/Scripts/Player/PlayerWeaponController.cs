@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 namespace Freshaliens.Player.Components
 {
@@ -7,6 +8,7 @@ namespace Freshaliens.Player.Components
     {
         [Header("Weapon")]
         [SerializeField, Tooltip("Projectile spawn point")] private Transform weaponMuzzle;
+        [SerializeField] private SpriteRenderer weaponMuzzleSprite;
         
         [Header("Fire")]
         [SerializeField] private float fireInterval = 0.5f;
@@ -15,8 +17,11 @@ namespace Freshaliens.Player.Components
 
         // State
         float fireTimer = 0;
-
         private Vector3 muzzleOffset;
+
+        private bool _isJumping = false;
+        
+        
         // Components
         private PlayerInputHandler input;
 
@@ -30,14 +35,24 @@ namespace Freshaliens.Player.Components
             projectiles = ProjectilePool.GetByID(projectilePoolId);
             playerMovementController = GetComponent<PlayerMovementController>();
             muzzleOffset = weaponMuzzle.position - transform.position;
+            
+            PlayerMovementController.Instance.onJumpWhileGrounded += () => { _isJumping = true; };
+            PlayerMovementController.Instance.onLand += () => { _isJumping = false; };
 
         }
 
         private void Update()
         {
 
-            Vector3 actualOffset = new Vector3(muzzleOffset.x * playerMovementController.LastFacedDirection,
+            weaponMuzzleSprite.flipX = playerMovementController.LastFacedDirection < 0;
+
+            // Vector3 actualOffset = new Vector3(muzzleOffset.x * playerMovementController.LastFacedDirection,
+                // muzzleOffset.y, muzzleOffset.z);
+            
+            Vector3 actualOffset = _isJumping ? new Vector3((muzzleOffset.x + 0.07f)  * playerMovementController.LastFacedDirection,
+                muzzleOffset.y + 0.25f, muzzleOffset.z) : new Vector3(muzzleOffset.x * playerMovementController.LastFacedDirection,
                 muzzleOffset.y, muzzleOffset.z);
+            
             weaponMuzzle.localPosition = actualOffset;
             // Shoot
             bool wantsToFire = input.GetActionInput();
@@ -52,14 +67,25 @@ namespace Freshaliens.Player.Components
 
         private void Shoot()
         {
-            
-            Vector3 pos = weaponMuzzle.position;
+            weaponMuzzleSprite.enabled = true;
+
+            Vector3 pos = weaponMuzzle.position + new Vector3(playerMovementController.LastFacedDirection*0.3f,0,0);
             
             Vector3 vel = Vector3.right * (playerMovementController.LastFacedDirection * firePower);
             
             projectiles.Spawn(pos, vel);
             AudioManager1.instance.PlaySFX("shot");
             
+            StopAllCoroutines();
+            StartCoroutine(OnShoot());
+
+        }
+
+
+        private IEnumerator OnShoot()
+        {
+            yield return new WaitForSeconds(2);
+            weaponMuzzleSprite.enabled = false;
         }
     }
 }

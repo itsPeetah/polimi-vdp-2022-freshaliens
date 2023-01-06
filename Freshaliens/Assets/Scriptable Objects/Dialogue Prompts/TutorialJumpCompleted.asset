@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faceSprite: {fileID: 21300000, guid: 89e2b4f83b3204d6fa30694acff4ea96, type: 3}
   dialogueText:
-  - Nice! You're very skilled! Or maybe I'm just flattering you because I need a
-    good rate ;)
+  - "Nice! You're very skilled! \nOr maybe I'm just flattering you because I need
+    a good rate ;)"
