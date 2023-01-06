@@ -79,19 +79,19 @@ const Home = () => {
         } | text-white | overflow-scroll`}
       >
         {!router.query["embed"] && (
-          <div className="text-center mb-6">
+          <div className="text-center">
             <h1 className="text-6xl my-10">Freshaliens Leaderboard</h1>
-            <Link href="/classic">
-              <a className="group hover:underline">
-                &lt;Go to the&nbsp;
-                <span className="text-yellow-400 group-hover:text-blue-500">
-                  classic&nbsp;
-                </span>
-                leaderboard &gt;
-              </a>
-            </Link>
           </div>
         )}
+        <Link href="/classic">
+          <a className="group hover:underline my-2">
+            &lt;Go to the&nbsp;
+            <span className="text-yellow-400 group-hover:text-blue-500">
+              classic&nbsp;
+            </span>
+            leaderboard &gt;
+          </a>
+        </Link>
         <div className="flex flex-row | p-2 items-center">
           <LevelButton
             level="1"
