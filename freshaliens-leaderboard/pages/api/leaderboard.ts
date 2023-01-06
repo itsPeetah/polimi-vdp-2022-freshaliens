@@ -11,6 +11,10 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const app = initializeApp(firebaseConfig);
+
+  res.status(404);
+  return;
+
   if (req.method === "GET") {
     const lbref = ref(getDatabase(app), dbroot);
     const data = (await (await get(lbref)).val()) as any;
