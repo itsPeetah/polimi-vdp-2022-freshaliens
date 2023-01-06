@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1577162689509018499}
   - component: {fileID: 1577162689509018508}
   m_Layer: 16
-  m_Name: Tutorial
+  m_Name: TutorialJump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,10 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb75849081e7395468da412617cb25e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialoguePrompts:
-  - {fileID: 11400000, guid: 6b5eb74d5c551574d84dcfa2e3bc436a, type: 2}
-  - {fileID: 11400000, guid: 6dfe893b9442eef4b9dad550046a5345, type: 2}
-  - {fileID: 11400000, guid: 978e4c9366b171d4fb74f69daa92379f, type: 2}
+  dialogueStartTutorial: {fileID: 11400000, guid: 9ea09317a6d5b3c4f96123fee33f6f85, type: 2}
+  dialogueCompletedTutorial: {fileID: 11400000, guid: 4e8c0e3a29617cb4881fb0ba76aeb0dc, type: 2}
+  _neededEvent: 1
 --- !u!61 &1577162689509018508
 BoxCollider2D:
   m_ObjectHideFlags: 0
