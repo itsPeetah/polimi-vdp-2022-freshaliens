@@ -10,80 +10,60 @@ namespace Freshaliens.UI
 {
     public class TutorialManager : MonoBehaviour
     {
-        [SerializeField] private DialoguePromptData[] dialoguePrompts;
-        private Object box;
-        private enum State
+        [SerializeField] private DialoguePromptData dialogueStartTutorial;
+        [SerializeField] private DialoguePromptData dialogueCompletedTutorial;
+        [SerializeField] private NeededEvent _neededEvent;
+        private enum NeededEvent
         {
-            START,
-            MUSTJUMP,
-            MUSTJUMPONFAIRY,
-            FINISHED
+            Nothing,
+            onJumpWhileGrounded,
+            onJumpWhileAirborne,
         }
-        private State _currentState;
 
-        private void Start()
+        private void StartTutorial()
         {
-            _currentState = State.START;
-            box = GetComponent<BoxCollider2D>();
+            Destroy(GetComponent<BoxCollider2D>());
+            LevelManager.Instance.StartDialogue(dialogueStartTutorial);
+            AddEventListener();
         }
         
-        private void NextTutorial()
+        private void CompletedTutorial()
         {
-            StartDialog();
-            ChangeEventListener();
-            _currentState += 1;
+            if(dialogueCompletedTutorial)
+                LevelManager.Instance.StartDialogue(dialogueCompletedTutorial);
+            RemoveEventListener();
+            // Destroy(gameObject);
+        }
         
-            if (_currentState == State.FINISHED)
+        private void AddEventListener()
+        {
+            switch (_neededEvent)
             {
-                Destroy(gameObject);
-            }
-        }
-        // private void NextTutorial()
-        // {
-        //     StartCoroutine(OnNextTutorial());
-        // }
-        //
-        // private IEnumerator OnNextTutorial()
-        // {
-        //     // yield return new WaitForSeconds(1);
-        //     StartDialog();
-        //     ChangeEventListener();
-        //     _currentState += 1;
-        //
-        //     if (_currentState == State.FINISHED)
-        //     {
-        //         Destroy(gameObject);
-        //     }
-        //
-        //     yield return null;
-        // }
-        
-        private void StartDialog()
-        {
-            LevelManager.Instance.StartDialogue(dialoguePrompts[(int)_currentState]);
-        }
-        
-        private void ChangeEventListener()
-        {
-            switch (_currentState)
-            {
-                case State.START:
-                    PlayerMovementController.Instance.onJumpWhileGrounded += NextTutorial;
+                case NeededEvent.onJumpWhileGrounded:
+                    PlayerMovementController.Instance.onJumpWhileGrounded += CompletedTutorial;
                     break;
-                case State.MUSTJUMP:
-                    PlayerMovementController.Instance.onJumpWhileGrounded -= NextTutorial;
-                    PlayerMovementController.Instance.onJumpWhileAirborne += NextTutorial;
-                    break;
-                case State.MUSTJUMPONFAIRY:
-                    PlayerMovementController.Instance.onJumpWhileAirborne -= NextTutorial;
+                case NeededEvent.onJumpWhileAirborne:
+                    PlayerMovementController.Instance.onJumpWhileAirborne += CompletedTutorial;
                     break;
             }
         }
-
+        
+        private void RemoveEventListener()
+        {
+            switch (_neededEvent)
+            {
+                case NeededEvent.onJumpWhileGrounded:
+                    PlayerMovementController.Instance.onJumpWhileGrounded -= CompletedTutorial;
+                    break;
+                case NeededEvent.onJumpWhileAirborne:
+                    PlayerMovementController.Instance.onJumpWhileAirborne -= CompletedTutorial;
+                    break;
+            }
+        }
+        
         private void OnTriggerEnter2D(Collider2D col)
         {
-            NextTutorial();
-            Destroy(box);
+            StartTutorial();
         }
     }
 }

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bd02b8fc2a42424084590b1d0cf33f1, type: 3}
-  m_Name: TutorialStart
+  m_Name: TutorialJumpOnFairy
   m_EditorClassIdentifier: 
   faceSprite: {fileID: 21300000, guid: 89e2b4f83b3204d6fa30694acff4ea96, type: 3}
   dialogueText:
-  - 'Welcome to Freshaliens'' tutorial! Usually tutorials are very boring, but not
-    this one! '
-  - You wonder why? BECAUSE YES!
-  - First of all, try to jump using 'W'...
+  - "Next step is a bit harder (not as much as in the prototype, though). \nYou must
+    jump on me while airborne."
+  - Press 'W' to jump and, while you are touching me, press 'W' again and I'll throw
+    you further.
