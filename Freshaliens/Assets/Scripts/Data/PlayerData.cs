@@ -14,22 +14,13 @@ public class PlayerData
     private const int PP_LEVEL_DEFAULT = 1;
 
     private const string PP_MASTER_VOLUME_KEY = "SETTINGS:VOLUME";
-    private const float PP_MASTER_VOLUME_DEFAULT = 0.5f;
+    private const float PP_MASTER_VOLUME_DEFAULT = 1f;
 
     private const string PP_SFX_VOLUME_KEY = "SETTINGS:SFX";
-    private const float PP_SFX_DEFAULT = 0.5f;
+    private const float PP_SFX_DEFAULT = 1.0f;
 
     private const string PP_MUSIC_VOLUME_KEY = "SETTINGS:MUSIC";
-    private const float PP_MUSIC_DEFAULT = 0.5f;
-
-    private const string PP_MASTER_MUTE_KEY = "SETTINGS:VOLUME_MUTE";
-    private const int PP_MASTER_MUTE_DEFAULT = 0;
-
-    private const string PP_MUSIC_MUTE_KEY = "SETTINGS:MUSIC_MUTE";
-    private const int PP_MUSIC_MUTE_DEFAULT = 0;
-
-    private const string PP_SFX_MUTE_KEY = "SETTINGS:SFX_MUTE";
-    private const int PP_SFX_MUTE_DEFAULT = 0;
+    private const float PP_MUSIC_DEFAULT = 1.0f;
 
     private const string PP_LEVEL_TIME_BASE_KEY = "LEADERBOARD:LEVEL_";
     private const float PP_LEVEL_TIME_DEFAULT = -1.0f;
@@ -59,9 +50,6 @@ public class PlayerData
     private float sfxVolume;
     private float musicVolume;
     private string leaderboardName;
-    private bool masterVolumeMuted;
-    private bool musicVolumeMuted;
-    private bool sfxVolumeMuted;
 
     // Session data (no need to save this)
     private int lastLevelChosen;
@@ -72,9 +60,6 @@ public class PlayerData
     public float SFXVolume { get => sfxVolume; set => sfxVolume = value; }
     public float MusicVolume { get => musicVolume; set => musicVolume = value; }
     public string LeaderboardName { get => leaderboardName; set => leaderboardName = value; }
-    public bool MuteMaster { get => masterVolumeMuted ; set => masterVolumeMuted = value; }
-    public bool MuteMusic { get => musicVolumeMuted; set => musicVolumeMuted = value; }
-    public bool MuteSFX { get => sfxVolumeMuted; set => sfxVolumeMuted = value; }
 
     public int LastLevelSelected { get => lastLevelChosen; set => lastLevelChosen = value; }
     public bool HasPlayedBefore => lastUnlockedLevel > PP_LEVEL_DEFAULT;
@@ -88,12 +73,9 @@ public class PlayerData
         pd.sfxVolume = PlayerPrefs.GetFloat(PP_SFX_VOLUME_KEY, PP_SFX_DEFAULT);
         pd.musicVolume = PlayerPrefs.GetFloat(PP_MUSIC_VOLUME_KEY, PP_MUSIC_DEFAULT);
         pd.leaderboardName = PlayerPrefs.GetString(PP_LEADERBOARD_NAME, PP_LEADERBOARD_NAME_DEFAULT);
-        pd.masterVolumeMuted = PlayerPrefs.GetInt(PP_MASTER_MUTE_KEY, PP_MASTER_MUTE_DEFAULT) > 0;
-        pd.musicVolumeMuted = PlayerPrefs.GetInt(PP_MUSIC_MUTE_KEY, PP_MUSIC_MUTE_DEFAULT) > 0; ;
-        pd.sfxVolumeMuted = PlayerPrefs.GetInt(PP_SFX_MUTE_KEY, PP_SFX_MUTE_DEFAULT) > 0; ;
 
-    // Session data
-    pd.lastLevelChosen = pd.lastUnlockedLevel;
+        // Session data
+        pd.lastLevelChosen = pd.lastUnlockedLevel;
         return pd;
     }
 
@@ -104,10 +86,6 @@ public class PlayerData
         PlayerPrefs.SetFloat(PP_SFX_VOLUME_KEY, sfxVolume);
         PlayerPrefs.SetFloat(PP_MUSIC_VOLUME_KEY, musicVolume);
         PlayerPrefs.SetString(PP_LEADERBOARD_NAME, leaderboardName);
-        PlayerPrefs.SetInt(PP_MASTER_MUTE_KEY, masterVolumeMuted ? 1 : 0);
-        PlayerPrefs.SetInt(PP_MUSIC_MUTE_KEY, musicVolumeMuted ? 1 : 0);
-        PlayerPrefs.SetInt(PP_SFX_MUTE_KEY, sfxVolumeMuted ? 1 : 0);
-
     }
 
     public static void ForceSaveToDisk()

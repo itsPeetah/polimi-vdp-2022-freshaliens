@@ -132,6 +132,8 @@ namespace Freshaliens.Player.Components
                 if (lastFacedDirection - direction < Mathf.Epsilon) onChangeDirection?.Invoke(direction);
                 lastFacedDirection = direction;
             }
+            //animation update
+            // _animator.SetFloat("DirectionR", lastFacedDirection);
 
             if (input.GetJumpInput())
             {
@@ -144,7 +146,8 @@ namespace Freshaliens.Player.Components
 
             // Walking
             isMoving = Mathf.Abs(direction) > 0f;
-            
+            //changing animation state
+           // _animator.SetBool("IsMoving", isMoving);
             if (wasMoving != isMoving) onMovement?.Invoke(isMoving);
             if (isMoving)
             {
@@ -231,6 +234,10 @@ namespace Freshaliens.Player.Components
             // Persist state
             wasGrounded = isGrounded;
             knockbackTimer -= Time.deltaTime;
+
+            //animation update
+           // _animator.SetBool("IsJumping", !isGrounded);
+
         }
 
         private void FixedUpdate()
@@ -262,6 +269,8 @@ namespace Freshaliens.Player.Components
         public void PlayStepSound()
         {
             onStep?.Invoke();
+            //movementAudioSource.pitch = UnityEngine.Random.Range(0.85f, 1.15f);
+            //movementAudioSource.PlayOneShot(stepAudioClip);
         }
 
         public void PlayJumpSound()
@@ -295,6 +304,8 @@ namespace Freshaliens.Player.Components
             {
                 x = Mathf.Cos(angle) * power * direction,
                 y = Mathf.Sin(angle) * power,
+                //x = power * direction,
+                //y = 0,
             };
 
             velocity.x = knockbackForce.x;

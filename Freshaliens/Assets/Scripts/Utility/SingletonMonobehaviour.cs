@@ -33,7 +33,7 @@ namespace Freshaliens
         [SerializeField] protected bool persistSceneLoad = false;
 
         protected virtual void Awake() {
-
+            Debug.Log("singleton awake "+ name);
             if (exists)
             {
                 Destroy(this.gameObject);
