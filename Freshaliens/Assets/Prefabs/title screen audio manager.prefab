@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7526943483468911936}
   - component: {fileID: 7526943483468911937}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: title screen audio manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: 7ac88b950f6184f8e80336b83e71137b, type: 2}
   musicSounds:
   - name: theme
-    clip: {fileID: 8300000, guid: 118aa1778036cb143919c990ddcfc2fc, type: 3}
+    clip: {fileID: 8300000, guid: 73c676bc51b29124d83ec5f26145b97d, type: 3}
   - name: musicamenu
     clip: {fileID: 8300000, guid: 516cb8d13a3422c4b822b3aa3bfb5638, type: 3}
   sfxSounds:
@@ -61,9 +61,15 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: f5dbb8eaa18f48a419827cf6acf848af, type: 3}
   - name: gameover
     clip: {fileID: 8300000, guid: 5cf66ef63d071a54eb4d57086b76b375, type: 3}
+  - name: button
+    clip: {fileID: 8300000, guid: 543077a1423d97446931728467b44f49, type: 3}
+  - name: fata1
+    clip: {fileID: 8300000, guid: 0a067c85ed4b9c549aa2f29f3e4c7098, type: 3}
   musicSource: {fileID: 1072890847279674296}
   sfxSource: {fileID: 7434447380023551802}
-  audioManagerSettings: {fileID: 0}
+  SfxMaxDb: 0
+  MusicMaxDb: 0
+  MasterMaxDb: 0
 --- !u!1001 &7526943483465851060
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74,6 +80,10 @@ PrefabInstance:
     - target: {fileID: 1106027027461261193, guid: 63a098829a13a164487fb1c1368c58dc, type: 3}
       propertyPath: m_Name
       value: SFXSource
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106027027461261198, guid: 63a098829a13a164487fb1c1368c58dc, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1106027027461261199, guid: 63a098829a13a164487fb1c1368c58dc, type: 3}
       propertyPath: m_RootOrder
@@ -140,7 +150,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7392306613379979860, guid: 7978c2c15ac3d7646b6209bb9c93aa98, type: 3}
       propertyPath: m_Volume
-      value: 0.07
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7392306613379979860, guid: 7978c2c15ac3d7646b6209bb9c93aa98, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 73c676bc51b29124d83ec5f26145b97d, type: 3}
+    - target: {fileID: 7392306613379979860, guid: 7978c2c15ac3d7646b6209bb9c93aa98, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7392306613379979861, guid: 7978c2c15ac3d7646b6209bb9c93aa98, type: 3}
       propertyPath: m_Name
