@@ -50,8 +50,9 @@ public class Projectile : MonoBehaviour
             Debug.Log($"Hit! {collision.gameObject.name}");
 
             ProjectileTarget target = collision.GetComponent<ProjectileTarget>();
-            
-            if (target != null) {
+           //Debug.Log("vediamo se target è null : "+ (target == null));
+           //((CLA)) there is no component ProjectileTarget in Ninja, neither in Fairy. target will be always null 
+           if (target != null) {
                 target.Hit();
                 
             }

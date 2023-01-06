@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Freshaliens.Interaction.Components
@@ -8,9 +9,8 @@ namespace Freshaliens.Interaction.Components
 
         //State
         private GameObject _gameObject;
-        private bool _isActive = false;
+        private bool _isDoorClosed = false;
         [SerializeField] private Animator _animator;
-
         [SerializeField] private DoorMode _currentDoorMode;
         private enum DoorMode
         {
@@ -24,42 +24,67 @@ namespace Freshaliens.Interaction.Components
             switch (_currentDoorMode)
             {
                 case DoorMode.NormalDoor:
-                    _isActive = true;
+                    _isDoorClosed = true;
                     break;
                 case DoorMode.TrapDoor:
-                    _isActive = false;
-                    gameObject.SetActive(false);
+                    _isDoorClosed = false;
+                    //we prefer to use the animation to make disappear the doors
+                    //gameObject.SetActive(false);
+                    _animator.SetBool("isDoorOpen",!_isDoorClosed);
                     break;
                 default:
-                    _isActive = true;
+                    _isDoorClosed = true;
                     break;
             }
-
+            //to get the duration of the animation (door get deactivated after the animation)
+            /*m_CurrentClipInfo = _animator.GetCurrentAnimatorClipInfo(0);
+      
+            Debug.Log(m_CurrentClipInfo[0].clip.name + "a");
+            Debug.Log(m_CurrentClipInfo[1].clip.name + "b");
+            m_CurrentClipLength = m_CurrentClipInfo[1].clip.length;*/
         }
         private void ToggleState()
         {
-            _isActive = !_isActive;
-            gameObject.SetActive(_isActive);
+            _isDoorClosed = !_isDoorClosed;
+           // gameObject.SetActive(_isDoorClosed);
         }
 
         public override void OnAction()
         {
-           
-            if (!_isActive)
+            if (!_isDoorClosed)
             {
                 //animation door closes
-              //  Debug.Log("apro portone");
-               // _animator.SetBool("isDoorOpen",false);
+               
+
+                _animator.SetBool("isDoorOpen",_isDoorClosed);
             }
             else
             {
-               // Debug.Log("chiud porta");
+            
                 //animation door opens
-             //   _animator.SetBool("isDoorOpen", true);
-               // StartCoroutine(DelayAction(1));
+                _animator.SetBool("isDoorOpen", _isDoorClosed);
+               // StartCoroutine(Wait1Second());
+               
+                
+                
             }
             ToggleState();
+            
         }
+
+        /*
+        IEnumerator  Wait1Second()
+        {  //Print the time of when the function is first called.
+            while (true)
+            {
+
+                Debug.Log(m_CurrentClipLength);
+                yield return new WaitForSeconds(m_CurrentClipLength );
+                ToggleState();
+                yield return null;
+            }
+        }
+        */
 
     }
 }

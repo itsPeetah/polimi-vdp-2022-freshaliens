@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyDestroy : MonoBehaviour
@@ -5,7 +6,7 @@ public class EnemyDestroy : MonoBehaviour
     [SerializeField] private LayerMask hitLayers = -1;
     [SerializeField] private int numberOfLives = 3;
     private bool hit = false;
-    
+    public event Action<GameObject> OnDestroyEnemy;
     
     private void Update()
     {
@@ -22,7 +23,8 @@ public class EnemyDestroy : MonoBehaviour
         numberOfLives--;
         if (numberOfLives == 0)
         {
-            gameObject.SetActive(false);
+            OnDestroyEnemy?.Invoke(gameObject);
+           // gameObject.SetActive(false);
         }
     }
 

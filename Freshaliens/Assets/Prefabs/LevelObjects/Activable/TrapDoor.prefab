@@ -43,6 +43,10 @@ PrefabInstance:
       propertyPath: _animator
       value: 
       objectReference: {fileID: 3221025170201614152}
+    - target: {fileID: 8157844462792629553, guid: a4ec91fcae5f2624780bfdf3cf33337c, type: 3}
+      propertyPath: _currentDoorMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9067299792637167185, guid: a4ec91fcae5f2624780bfdf3cf33337c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -115,7 +119,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083689775360752523}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 52a2cfaa335e9ab4bacda16a2c6f6f90, type: 2}
   m_CullingMode: 0

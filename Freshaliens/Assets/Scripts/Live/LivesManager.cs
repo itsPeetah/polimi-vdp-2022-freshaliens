@@ -11,21 +11,85 @@ public class LivesManager : MonoBehaviour
 {
     [SerializeField] private LayerMask hitLayers = -1;
     [SerializeField] private int deathLayer = 16;
-    
+   // [SerializeField] private Animator _animator;
+    //renderer of the hitten player
+    SpriteRenderer _sprite ;
+   // private float _damageAnimationTime ;
+
+
+    private void Start()
+    {   
+        _sprite = gameObject.GetComponent<SpriteRenderer>();
+        //_damageAnimationTime = gameObject.GetComponent<IMovementController>().KnockbackTime();
+    }
+
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         int layer = collision.gameObject.layer;
-
         if (( (1 << layer) & hitLayers) != 0) {
-            HitPlayer(false);
+            ///((CLA)) we get our position and the position of the player for the animation
+            Vector3 obstaclePosition = collision.gameObject.transform.position;
+            //--------------------------------
+      
+                HitPlayer(false,obstaclePosition);
+            
         }
     }
 
-    public void HitPlayer(bool triggerRespawn = false) {
-        LevelManager.Instance.DamagePlayer(skipInvulnerableCheck: triggerRespawn);
-        if (triggerRespawn && !LevelManager.Instance.GameOver) LevelManager.Instance.RespawnPlayer();
-    }
+    public void HitPlayer(bool triggerRespawn , Vector3 obstaclePosition){
     
+        LevelManager.Instance.DamagePlayer(gameObject ,1, skipInvulnerableCheck: triggerRespawn );
+        
+
+      //  StartCoroutine(FlashSprite());
+     if (triggerRespawn && !LevelManager.Instance.GameOver)
+     {
+         LevelManager.Instance.RespawnPlayer();
+     }
+     else
+     {
+       //  StartCoroutine(HittenAnimation()); 
+         gameObject.GetComponent<IMovementController>().Knockback(obstaclePosition);
+     }
+    }
+    /// <summary>(((CLA)))
+    /// To make add a flash of the sprite, during invincibility
+    /// </summary>
+    /// <param name="extraTime">Extra time to be added on top of the default stun time</param>
+    // IEnumerator FlashSprite()
+    // {
+    //     
+    //    // SpriteRenderer _sprite = gameObject.GetComponent<SpriteRenderer>();
+    //
+    //     //Debug.Log("sprite"+ _sprite.name);
+    //     for (int i = 0; i < 5; i++)
+    //     {
+    //         
+    //     
+    //         _sprite.enabled = false;
+    //         yield return new WaitForSeconds(.25f);
+    //         _sprite.enabled = true;
+    //         yield return new WaitForSeconds(.25f);
+    //        
+    //        
+    //     }
+    //
+    //  
+    //   
+    //         yield return null;
+    // }
+    // IEnumerator HitAnimation()
+    // {
+    //    // Debug.Log("tempo animazione danno dura " + _damageAnimationTime);
+    //     _animator.SetBool("isHitten", true);
+    //     yield return new WaitForSeconds(_damageAnimationTime);
+    //     _animator.SetBool("isHitten", false);
+    //    
+    //     yield return null;
+    // }
+    //
 }
         
 

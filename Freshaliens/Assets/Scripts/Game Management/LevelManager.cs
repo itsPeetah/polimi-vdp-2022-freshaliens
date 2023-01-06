@@ -30,7 +30,6 @@ namespace Freshaliens.Management
         [SerializeField] private Checkpoint startingCheckpoint = null;
         [SerializeField] private Checkpoint finalCheckpoint = null;
 
-
         // Level state
         private Checkpoint latestCheckpoint = null;
         private readonly LevelPhase startingPhase = LevelPhase.Playing;
@@ -69,6 +68,8 @@ namespace Freshaliens.Management
             }
         }
         public bool IsPlayingDialogue => currentPhase == LevelPhase.Dialogue;
+        public bool PlayerIsInvulnerable => playerIsInvulnerable;
+        public float InvulnerabilityDuration => invulnerabiltyDuration;
         public int CurrentLevel => PlayerData.Instance.LastLevelSelected;
         public int MaxPlayerHP => maxPlayerHP;
         public int CurrentPlayerHP
@@ -82,8 +83,8 @@ namespace Freshaliens.Management
 
         public event Action<LevelPhase> onLevelPhaseChange;
         public event Action<bool> onPauseToggle;
-        public event Action onPlayerHPChange;
-        public event Action onPlayerDamageTaken;
+        public event Action<GameObject> onPlayerHPChange;
+        public event Action<GameObject> onPlayerDamageTaken;
         public event Action onGameWon;
         public event Action onGameLost;
 
@@ -96,7 +97,7 @@ namespace Freshaliens.Management
             if (finalCheckpoint) finalCheckpoint.MarkAsFinal();
             latestCheckpoint = startingCheckpoint;
 
-            onPlayerDamageTaken += () => onPlayerHPChange?.Invoke();
+            onPlayerDamageTaken += (gameObject) => onPlayerHPChange?.Invoke(gameObject);
             onPauseToggle += (_) => onLevelPhaseChange?.Invoke(CurrentPhase);
         }
 
@@ -106,6 +107,12 @@ namespace Freshaliens.Management
             {
                 TogglePause();
             }
+
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.Alpha9)){
+                currentPlayerHP = CurrentPlayerHP + 1;
+            }
+#endif
 
             if (!IsPaused && !GameOver)
             {
@@ -137,14 +144,14 @@ namespace Freshaliens.Management
             latestCheckpoint = checkpoint;
         }
 
-        public void DamagePlayer(int damageAmount = 1, bool skipInvulnerableCheck = false)
+        public void DamagePlayer( GameObject playerDamaged, int damageAmount = 1, bool skipInvulnerableCheck = false)
         {
             if (playerIsInvulnerable && !skipInvulnerableCheck) return;
 
             CurrentPlayerHP -= damageAmount;
             StopCoroutine(nameof(DoInvulnerabilityCoundown));
             StartCoroutine(nameof(DoInvulnerabilityCoundown));
-            onPlayerDamageTaken?.Invoke();
+            onPlayerDamageTaken?.Invoke(playerDamaged);
 
             if (CurrentPlayerHP < 1) {
                 TriggerGameOver(false);

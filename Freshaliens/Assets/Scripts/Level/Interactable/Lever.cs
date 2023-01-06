@@ -1,3 +1,4 @@
+using System;
 using Freshaliens.Player.Components;
 using UnityEngine;
 
@@ -11,7 +12,15 @@ namespace Freshaliens.Interaction.Components
         [SerializeField] private bool isOn = false;
         [SerializeField] private Actionable _linkedObject;
         [SerializeField] private Animator _animator;
-        
+
+        private void Start()
+        {
+            if (isOn)
+            {
+                _linkedObject.OnAction();
+                _animator.SetBool("IsLeverOn",isOn);
+            }
+        }
         // //State                                                          ALL 
         // private bool _isActive;                                          THIS 
         //                                                                  STUFF 
