@@ -25,6 +25,7 @@ public class EnemyDestroy : MonoBehaviour
         {
             // TODO CHECK THIS WHAT
             OnDestroyEnemy?.Invoke(gameObject);
+            AudioManager1.instance.PlaySFX("nemicomorto");
            // gameObject.SetActive(false);
         }
     }
