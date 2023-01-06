@@ -11,14 +11,14 @@ public class EnemyAnimationControl : MonoBehaviour
     [SerializeField] private Animator animator; 
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] [ Range(0.20f, 0.90f)] private float fireInterval;
-    [SerializeField] private bool firstDirectionR = false;
+    [SerializeField] private bool firstDirection = false;
     private Rigidbody2D rbody;
     private bool directionR;
     // Start is called before the first frame update
     void Start()
     {
         rbody = gameObject.GetComponent<Rigidbody2D>();
-        directionR = firstDirectionR;
+        directionR = firstDirection;
         // gameObject.GetComponent<EnemyPatrol>().onFlipDirection += () =>
         // {
         //     Sprite.color = (DirectionL) ? Color.green : Color.yellow;
@@ -71,21 +71,29 @@ public class EnemyAnimationControl : MonoBehaviour
     private void FaceAnimation()
     {
         sprite.flipX = directionR;
-   //     sprite.color = (directionR) ? Color.green : Color.yellow;
+       //sprite.color = (directionR) ? Color.green : Color.yellow;
     }
-    public void HasShoot( )
+    public void HasShoot(float playerX, float myPositionX )
     {
-        StartCoroutine(FireAnim());
+       // StartCoroutine(FireAnim(playerX, myPositionX));
     }
 
-    IEnumerator FireAnim( )
+    IEnumerator FireAnim(float playerX, float myPositionX )
     {
-        var color = sprite.color;
-        sprite.color = Color.black;
-        yield return new WaitForSeconds(fireInterval);
-       FaceAnimation();
+        //if enemy is on the left of the player, and directionR is true, flips Sprite.
+        // if ((myPositionX - playerX) > 0)
+        // {
+        //     if (directionR) sprite.flipX = !directionR;
+        // }
+        // else
+        // {
+        //     //enemy is not on the left of the player, so if directionR is false , flips Sprite
+        //     if (!directionR) sprite.flipX = !directionR;
+        // }
+        // yield return new WaitForSeconds(fireInterval);
+       // FaceAnimation();
 
-
+       yield return null;   
     }
     // Update is called once per frame
  

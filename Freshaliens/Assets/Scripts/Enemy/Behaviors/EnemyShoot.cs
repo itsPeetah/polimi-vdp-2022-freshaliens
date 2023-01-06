@@ -34,9 +34,9 @@ namespace Freshaliens.Enemy.Components
         private void Start()
         {
             animationControl = gameObject.GetComponent<EnemyAnimationControl>();
-            _rb = GetComponent<Rigidbody2D>();
+            _rb = gameObject.GetComponent<Rigidbody2D>();
             projectiles = ProjectilePool.GetByID(projectilePoolId);
-            stunComponent = GetComponent<EnemyStun>();
+            stunComponent = gameObject.GetComponent<EnemyStun>();
             canBeStunned = stunComponent != null;
             ownTransform = transform;
         }
@@ -62,7 +62,7 @@ namespace Freshaliens.Enemy.Components
                     fireTimer = fireInterval;
                     if (animationControl != null)
                     {
-                        animationControl.HasShoot();
+                        animationControl.HasShoot(target.x,transform.position.x);
                     }
                     Shoot();
                 }
