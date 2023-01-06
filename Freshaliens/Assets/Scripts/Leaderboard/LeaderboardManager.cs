@@ -9,7 +9,7 @@ using System.Linq;
 namespace Freshaliens.Social {
 
     public static class Leaderboard {
-        public const string API_URL = "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard/official";
+        public const string API_URL = "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboards/official";
 
         public class LBRow : List<string> { }
         public class LBTable : Dictionary<string, LBRow>
@@ -83,8 +83,8 @@ namespace Freshaliens.Social {
 
     public class LeaderboardManager : MonoBehaviour
     {
-        private const string API_URL = "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboard";
-        //private const string API_URL = "http://localhost:3000/api/leaderboard";
+        private const string API_URL = "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboards/official";
+        //private const string API_URL = "http://localhost:3000/api/leaderboards/official";
 
         private static LeaderboardManager instance = null;
         public static LeaderboardManager Instance => instance;
