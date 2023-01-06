@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 
 using Freshaliens.Management;
-using Unity.Mathematics;
 
 namespace Freshaliens.Player.Components
 {
@@ -91,8 +90,6 @@ namespace Freshaliens.Player.Components
         [SerializeField] private float knockbackDuration = 5f; //how long it lasts
         [SerializeField, Range(0f, 45f)] private float knockbackAngle = 30f;
         private bool storedKnockback = false;
-        private float knockbackSpeed; //how fast the knockback g
-        private float knockSmoothness = 0.125f; //the "smoothness" of the knockback
         private float knockbackTimer = 0;
         private float knockbackDirection = 0; //direction of the knockback: in the ninja we want left (-1) or right (1)
 
@@ -118,20 +115,20 @@ namespace Freshaliens.Player.Components
         private void Update()
         {
             // TODO Ugly, fix state
-            float xInputMultiplier = 1;
+            float playingMultipler = 1;
             if (!LevelManager.Instance.IsPlaying)
             {
-                xInputMultiplier = 0;
+                playingMultipler = 0;
             }
 
 
             // Input
 
-            float direction = input.GetHorizontal() * xInputMultiplier;
+            float direction = input.GetHorizontal() * playingMultipler;
             
             if (direction != 0)
             {
-                if (lastFacedDirection - direction < Single.Epsilon) onChangeDirection?.Invoke(direction);
+                if (lastFacedDirection - direction < Mathf.Epsilon) onChangeDirection?.Invoke(direction);
                 lastFacedDirection = direction;
             }
             //animation update
@@ -191,7 +188,7 @@ namespace Freshaliens.Player.Components
 
             // Jumping
             isWithinCoyoteTime = Time.time - lastGroundedTimestamp <= coyoteTimeFrame && !hasJumpedSinceGrounded; // Remove AND to re-introduce jump bug
-            if (jumpQueued && CanJump())
+            if (jumpQueued && CanJump() && playingMultipler > 0)
             {
                 jumpQueued = false;
 
