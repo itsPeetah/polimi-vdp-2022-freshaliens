@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8486108799552749919}
   - component: {fileID: 3225072867818757776}
-  - component: {fileID: 655035546334766714}
+  - component: {fileID: 302568411}
   m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &655035546334766714
+--- !u!114 &302568411
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,11 +94,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4848111093155053560}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af59aa51d8c15486582fa191c6207b26, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a87f2ecf80e465f9d4d03aa009b6a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxAngle: 30
   maxPosDelta: 10
+  rigidBody: {fileID: 362147146708888317}
 --- !u!1 &6466322835681847265
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,9 +174,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00000027856365, y: 0.009325893}
+  m_Offset: {x: -0.0016403206, y: -0.025120325}
   serializedVersion: 2
-  m_Radius: 0.6066148
+  m_Radius: 0.6558244
 --- !u!114 &4274447891816621576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,8 +209,8 @@ MonoBehaviour:
   maxSpeed: 7
   movementAcceleration: 15
   movementDeceleration: 20
-  maxDistanceBeforeReturn: 18
-  returnDistance: 15
+  maxOffScreenDistanceBeforeReturn: 1
+  returnOnScreenDistance: 2
   returnAcceleration: 40
   maxReturnSpeed: 20
   verticalDistanceAtRespawn: 3
