@@ -89,12 +89,14 @@ namespace Freshaliens.Management
 
         private void Start()
         {
+            AudioManager1.instance.PlayMusic("theme");
             currentPhase = startingPhase;
             currentPlayerHP = startingPlayerHP;
             currentLevelTimer = 0;
 
             if (finalCheckpoint) finalCheckpoint.MarkAsFinal();
             latestCheckpoint = startingCheckpoint;
+            
 
             onPlayerDamageTaken += () => onPlayerHPChange?.Invoke();
             onPauseToggle += (_) => onLevelPhaseChange?.Invoke(CurrentPhase);
@@ -171,11 +173,13 @@ namespace Freshaliens.Management
                 PlayerData.Instance.SaveLevelTime(PlayerData.Instance.LastLevelSelected, currentLevelTimer);
                 PlayerData.Instance.UnlockNextLevel(true);
                 CurrentPhase = LevelPhase.GameWon;
+                AudioManager1.instance.PlaySFX("win");
                 onGameWon?.Invoke();
             }
             else
             {
                 CurrentPhase = LevelPhase.GameLost;
+                AudioManager1.instance.PlaySFX("gameover");
                 onGameLost?.Invoke();
             }
 

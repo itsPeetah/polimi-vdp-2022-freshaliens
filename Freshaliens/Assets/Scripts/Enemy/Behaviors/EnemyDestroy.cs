@@ -23,6 +23,7 @@ public class EnemyDestroy : MonoBehaviour
         if (numberOfLives == 0)
         {
             gameObject.SetActive(false);
+            
         }
     }
 
