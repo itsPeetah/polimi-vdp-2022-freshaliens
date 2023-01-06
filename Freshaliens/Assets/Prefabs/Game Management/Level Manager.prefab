@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2238861089736258457}
   - component: {fileID: 2238861089736258458}
+  - component: {fileID: 4947918864085036884}
   m_Layer: 0
   m_Name: Level Manager
   m_TagString: Untagged
@@ -47,3 +48,42 @@ MonoBehaviour:
   persistSceneLoad: 0
   maxPlayerHP: 3
   startingPlayerHP: 3
+  invulnerabiltyDuration: 1
+  startingCheckpoint: {fileID: 0}
+  finalCheckpoint: {fileID: 0}
+--- !u!114 &4947918864085036884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2238861089736258459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87916f6a03ae77846b7b68875bfe7a97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 7ac88b950f6184f8e80336b83e71137b, type: 2}
+  musicSounds:
+  - name: theme
+    clip: {fileID: 8300000, guid: 118aa1778036cb143919c990ddcfc2fc, type: 3}
+  - name: musicamenu
+    clip: {fileID: 8300000, guid: 516cb8d13a3422c4b822b3aa3bfb5638, type: 3}
+  sfxSounds:
+  - name: step
+    clip: {fileID: 8300000, guid: 67fe9fe2605c24f7cad5044684b35983, type: 3}
+  - name: jump
+    clip: {fileID: 8300000, guid: 6b4037d8ae3fe40aa9b4825839a44022, type: 3}
+  - name: shot
+    clip: {fileID: 8300000, guid: f5dbb8eaa18f48a419827cf6acf848af, type: 3}
+  - name: gameover
+    clip: {fileID: 8300000, guid: 5cf66ef63d071a54eb4d57086b76b375, type: 3}
+  - name: button
+    clip: {fileID: 8300000, guid: 543077a1423d97446931728467b44f49, type: 3}
+  - name: fata1
+    clip: {fileID: 8300000, guid: 0a067c85ed4b9c549aa2f29f3e4c7098, type: 3}
+  musicSource: {fileID: 0}
+  sfxSource: {fileID: 0}
+  SfxMaxDb: 0
+  MusicMaxDb: -10
+  MasterMaxDb: 10

@@ -35,6 +35,7 @@ namespace Freshaliens.UI
         private void Start()
         {
             ToggleScreens(currentView);
+            AudioManager1.instance.PlayMusic("musicamenu");
         }
 
         private void ToggleScreens(MenuView currentView)

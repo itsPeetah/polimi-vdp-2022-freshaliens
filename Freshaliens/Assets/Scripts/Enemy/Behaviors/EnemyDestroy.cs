@@ -23,6 +23,7 @@ public class EnemyDestroy : MonoBehaviour
         numberOfLives--;
         if (numberOfLives == 0)
         {
+            // TODO CHECK THIS WHAT
             OnDestroyEnemy?.Invoke(gameObject);
            // gameObject.SetActive(false);
         }

@@ -78,6 +78,7 @@ namespace Freshaliens.Player.Components
         public event Action onLand;
         public event Action<float> onChangeDirection;
         public event Action<bool> onMovement;
+        public event Action onStep;
 
         // Properties
         public Vector3 Position => ownTransform.position;
@@ -203,7 +204,7 @@ namespace Freshaliens.Player.Components
                 else onJumpWhileGrounded?.Invoke();
                 velocity.y = isGrounded ? jumpForceGrounded : jumpForceAirborne;
 
-                PlayJumpSound();
+                
             }
             else
             {
@@ -267,8 +268,9 @@ namespace Freshaliens.Player.Components
 
         public void PlayStepSound()
         {
-            movementAudioSource.pitch = UnityEngine.Random.Range(0.85f, 1.15f);
-            movementAudioSource.PlayOneShot(stepAudioClip);
+            onStep?.Invoke();
+            //movementAudioSource.pitch = UnityEngine.Random.Range(0.85f, 1.15f);
+            //movementAudioSource.PlayOneShot(stepAudioClip);
         }
 
         public void PlayJumpSound()

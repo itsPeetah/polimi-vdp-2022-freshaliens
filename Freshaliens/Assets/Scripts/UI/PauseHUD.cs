@@ -22,8 +22,11 @@ namespace Freshaliens.UI
             LevelManager.Instance.onPauseToggle += SetActive;
         }
 
-        private void EnterPause() {
+        
+        private void EnterPause()
+        {
             currentPauseState = PauseState.Pause;
+            
         }
 
         private void UpdateScreensVisibility() {
