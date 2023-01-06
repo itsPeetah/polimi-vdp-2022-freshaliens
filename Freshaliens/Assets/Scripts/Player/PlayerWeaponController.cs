@@ -46,12 +46,11 @@ namespace Freshaliens.Player.Components
 
             weaponMuzzleSprite.flipX = playerMovementController.LastFacedDirection < 0;
 
-            // Vector3 actualOffset = new Vector3(muzzleOffset.x * playerMovementController.LastFacedDirection,
-                // muzzleOffset.y, muzzleOffset.z);
-            
-            Vector3 actualOffset = _isJumping ? new Vector3((muzzleOffset.x + 0.07f)  * playerMovementController.LastFacedDirection,
-                muzzleOffset.y + 0.25f, muzzleOffset.z) : new Vector3(muzzleOffset.x * playerMovementController.LastFacedDirection,
-                muzzleOffset.y, muzzleOffset.z);
+            Vector3 actualOffset = new Vector3(muzzleOffset.x * playerMovementController.LastFacedDirection, muzzleOffset.y, muzzleOffset.z);
+            if (playerMovementController.IsMoving)
+                actualOffset = new Vector3((muzzleOffset.x) * playerMovementController.LastFacedDirection, muzzleOffset.y + 0.12f, muzzleOffset.z); 
+            if (!playerMovementController.IsGrounded)
+                actualOffset = new Vector3((muzzleOffset.x + 0.07f) * playerMovementController.LastFacedDirection, muzzleOffset.y + 0.25f, muzzleOffset.z); 
             
             weaponMuzzle.localPosition = actualOffset;
             // Shoot

@@ -86,6 +86,9 @@ namespace Freshaliens.Player.Components
         public int RemainingAirJupms => remainingAirJumps;
         public Vector3 EnemyProjectileTarget => enemyProjectileTarget.position;
 
+        public bool IsGrounded => isGrounded;
+        public bool IsMoving => isMoving;
+
         [Header("Knockback")]
         [SerializeField] private float knockbackThrust = 1f; //how strong the knockback is at the beginning
         [SerializeField] private float knockbackDuration = 5f; //how long it lasts
