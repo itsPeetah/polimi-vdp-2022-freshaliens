@@ -10,6 +10,8 @@ using UnityEditor;
 /// </summary>
 public class PlayerData
 {
+    public const int MAX_LEVEL = 6;
+
     private const string PP_LEVEL_KEY = "NEW:LAST_LEVEL";
     private const int PP_LEVEL_DEFAULT = 0;
 
@@ -118,8 +120,9 @@ public class PlayerData
 
     public void UnlockNextLevel(bool save = false)
     {
-        lastUnlockedLevel = lastLevelChosen + 1;
-        if (save) Save();
+        lastUnlockedLevel = Mathf.Clamp(lastLevelChosen + 1, PP_LEVEL_DEFAULT, MAX_LEVEL);
+        
+        /*if (save)*/Save();
     }
 
     public void GetLevelTime(int level) {
