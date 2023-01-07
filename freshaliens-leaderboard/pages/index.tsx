@@ -83,7 +83,7 @@ const Home = () => {
             <h1 className="text-6xl my-10">Freshaliens Leaderboard</h1>
           </div>
         )}
-        <Link href="/classic">
+        <Link href={`/classic${!router.query["embed"] ? "" : "?embed=true"}`}>
           <a className="group hover:underline my-2">
             &lt; Go to the&nbsp;
             <span className="text-yellow-400 group-hover:text-blue-500">
