@@ -43,13 +43,16 @@ namespace Freshaliens.UI
             LevelManager.Instance.ReloadLevel();
         }
 
-        public void SubmitTimeToLeaderboard() {
+        public void SubmitTimeToLeaderboard()
+        {
             if (nicknameField.text.Length < 1) return;
             string playerName = nicknameField.text;
             PlayerData.Instance.LeaderboardName = playerName;
             string playerTime = LevelManager.Instance.CurrentLevelTimerAsString;
             int currLevel = LevelManager.Instance.CurrentLevel;
-            PostTime(playerName, playerTime, currLevel);
+
+            if (currLevel > -1)
+                PostTime(playerName, playerTime, currLevel);
         }
 
         public void PostTime(string name, string time, int level)
