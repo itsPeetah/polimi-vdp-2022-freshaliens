@@ -82,7 +82,7 @@ const Home = () => {
           <div className="text-center">
             <h1 className="text-6xl my-10">
               Freshaliens Leaderboard{" "}
-              <span className="text-yellow-400">Classic!</span>
+              <span className="text-yellow-400">Classic</span>!
             </h1>
           </div>
         )}
