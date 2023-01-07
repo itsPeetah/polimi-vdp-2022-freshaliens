@@ -1,4 +1,5 @@
 using System;
+using Freshaliens.Management;
 using UnityEngine;
 
 public class EnemyDestroy : MonoBehaviour
@@ -8,6 +9,7 @@ public class EnemyDestroy : MonoBehaviour
     private bool hit = false;
     public event Action<GameObject> OnDestroyEnemy;
     public event Action OnDamageEnemy;
+    
     private void Update()
     {
         if (hit)
@@ -15,6 +17,8 @@ public class EnemyDestroy : MonoBehaviour
             EnemyHit();
         }
 
+        LevelManager levelManager = LevelManager.Instance;
+        
         hit = false;
     }
 
@@ -26,7 +30,7 @@ public class EnemyDestroy : MonoBehaviour
             // TODO CHECK THIS WHAT
             OnDestroyEnemy?.Invoke(gameObject);
             AudioManager1.instance.PlaySFX("nemicomorto");
-           // gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
         else
         {
