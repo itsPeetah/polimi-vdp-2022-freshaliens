@@ -12,6 +12,12 @@ public class VideoPlayerHandler : MonoBehaviour
     
     private void Start()
     {
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            // TODO Maybe change the video to url
+            OnVideoOver();
+        }
+
         if (LevelManager.Exists)
             LevelManager.Instance.PlayingIntroVideo = true;
         vp = GetComponent<VideoPlayer>();
