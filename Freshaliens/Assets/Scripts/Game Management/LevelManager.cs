@@ -40,6 +40,7 @@ namespace Freshaliens.Management
         private int currentPlayerHP = -1;
         private float currentLevelTimer = -1;
         private bool introVideoPlaying = false;
+        private bool gameover = false;
         // Properties
         public LevelPhase CurrentPhase
         {
@@ -154,7 +155,7 @@ namespace Freshaliens.Management
 
         public void DamagePlayer(GameObject playerDamaged, int damageAmount = 1, bool skipInvulnerableCheck = false)
         {
-            if (playerIsInvulnerable && !skipInvulnerableCheck) return;
+            if ((playerIsInvulnerable && !skipInvulnerableCheck) || gameover) return;
 
             CurrentPlayerHP -= damageAmount;
             StopCoroutine(nameof(DoInvulnerabilityCoundown));
@@ -184,6 +185,9 @@ namespace Freshaliens.Management
 
         public void TriggerGameOver(bool hasWon)
         {
+            if (gameover) return;
+            gameover = true;
+
             if (hasWon)
             {
                 PlayerData.Instance.SaveLevelTime(PlayerData.Instance.LastLevelSelected, currentLevelTimer);
