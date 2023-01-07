@@ -1783,6 +1783,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6747268788190462097, guid: 8573351bbc18741099c2913b72f2634f, type: 3}
   m_PrefabInstance: {fileID: 1512097350741296222}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8685218431607389165 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7814893942702129075, guid: 8573351bbc18741099c2913b72f2634f, type: 3}
+  m_PrefabInstance: {fileID: 1512097350741296222}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6243152910219274167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1793,6 +1798,22 @@ PrefabInstance:
     - target: {fileID: 1176211486200711767, guid: 33892619bd8ae4f21bd57b027cf3f4a3, type: 3}
       propertyPath: m_Name
       value: Tutorial Trigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789118534371870201, guid: 33892619bd8ae4f21bd57b027cf3f4a3, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8685218431607389165}
+    - target: {fileID: 1789118534371870201, guid: 33892619bd8ae4f21bd57b027cf3f4a3, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8685218431607389165}
+    - target: {fileID: 1789118534371870201, guid: 33892619bd8ae4f21bd57b027cf3f4a3, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789118534371870201, guid: 33892619bd8ae4f21bd57b027cf3f4a3, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 8563361125434014937, guid: 33892619bd8ae4f21bd57b027cf3f4a3, type: 3}
       propertyPath: m_Pivot.x
