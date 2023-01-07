@@ -51,6 +51,7 @@ MonoBehaviour:
   maxPlayerHP: 3
   startingPlayerHP: 3
   invulnerabiltyDuration: 1
+  currentLevel: -1
   startingCheckpoint: {fileID: 0}
   finalCheckpoint: {fileID: 0}
 --- !u!114 &4947918864085036884
@@ -67,7 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSounds:
   - name: theme
-    clip: {fileID: 8300000, guid: 73c676bc51b29124d83ec5f26145b97d, type: 3}
+    clip: {fileID: 8300000, guid: f8016f75beac748e3ab75a7d21afc40a, type: 3}
   - name: musicamenu
     clip: {fileID: 8300000, guid: 516cb8d13a3422c4b822b3aa3bfb5638, type: 3}
   sfxSounds:
