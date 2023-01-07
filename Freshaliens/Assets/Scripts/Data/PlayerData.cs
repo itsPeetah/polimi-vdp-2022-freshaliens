@@ -10,7 +10,7 @@ using UnityEditor;
 /// </summary>
 public class PlayerData
 {
-    public const int MAX_LEVEL = 6;
+    public const int MAX_LEVEL = 7;
 
     private const string PP_LEVEL_KEY = "NEW:LAST_LEVEL";
     private const int PP_LEVEL_DEFAULT = 0;
