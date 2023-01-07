@@ -20,7 +20,12 @@ export default async function handler(
     const name = req.body.name ?? "Anonymous";
     const time = req.body.time ?? "99:99.999";
     const level = req.body.level ?? 0;
-    const nameSanitized = (name as string).replaceAll(".", "");
+    const nameSanitized = (name as string)
+      .replaceAll(".", "")
+      .replaceAll("/", "")
+      .replaceAll("?", "")
+      .replaceAll("%", "")
+      .replaceAll("#", "");
     const lberef = ref(
       getDatabase(app),
       `${dbroot_new}/${nameSanitized}/${level}`
