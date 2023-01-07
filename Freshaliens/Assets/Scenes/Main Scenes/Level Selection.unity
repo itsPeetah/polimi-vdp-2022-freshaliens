@@ -488,7 +488,7 @@ PrefabInstance:
     - target: {fileID: 5233294359083805920, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: info
       value: 
-      objectReference: {fileID: 11400000, guid: 42c922cb220794a9884e1c6e42076a97, type: 2}
+      objectReference: {fileID: 11400000, guid: ed2b57388f67842b8b02972e7f57d932, type: 2}
     - target: {fileID: 5233294359083805923, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: m_Name
       value: Level POI (5)
@@ -1374,7 +1374,7 @@ PrefabInstance:
     - target: {fileID: 5233294359083805920, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: info
       value: 
-      objectReference: {fileID: 11400000, guid: 033756981d07042ba98d0208c9fb6861, type: 2}
+      objectReference: {fileID: 11400000, guid: 1c3a6f0cd482a4dc38a1e3a5e29871d0, type: 2}
     - target: {fileID: 5233294359083805923, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: m_Name
       value: Level POI (2)
@@ -1856,7 +1856,7 @@ PrefabInstance:
     - target: {fileID: 5233294359083805920, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: info
       value: 
-      objectReference: {fileID: 11400000, guid: 42c922cb220794a9884e1c6e42076a97, type: 2}
+      objectReference: {fileID: 11400000, guid: 711f860860c924ff69dd79f85861ecf7, type: 2}
     - target: {fileID: 5233294359083805923, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: m_Name
       value: Level POI (3)
@@ -2141,7 +2141,7 @@ PrefabInstance:
     - target: {fileID: 5233294359083805920, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: info
       value: 
-      objectReference: {fileID: 11400000, guid: 42c922cb220794a9884e1c6e42076a97, type: 2}
+      objectReference: {fileID: 11400000, guid: cb06585fb591848a6a47d4f5c6408e14, type: 2}
     - target: {fileID: 5233294359083805923, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: m_Name
       value: Level POI (4)
@@ -2296,7 +2296,7 @@ PrefabInstance:
     - target: {fileID: 5233294359083805920, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: info
       value: 
-      objectReference: {fileID: 11400000, guid: 2b08a16f71cad49e1aba3455b729d027, type: 2}
+      objectReference: {fileID: 11400000, guid: d65d9c6aa47c04df3aed98560e11baae, type: 2}
     - target: {fileID: 5233294359083805923, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: m_Name
       value: Level POI (1)
@@ -2424,6 +2424,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5233294359083805920, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
+      propertyPath: info
+      value: 
+      objectReference: {fileID: 11400000, guid: f7278c06059cb4f9b8f56a73891a4814, type: 2}
     - target: {fileID: 5233294359083805923, guid: 976c2d34cd76a45c091092bfde0b86b7, type: 3}
       propertyPath: m_Name
       value: Level POI
