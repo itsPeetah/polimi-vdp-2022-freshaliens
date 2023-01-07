@@ -85,11 +85,11 @@ const Home = () => {
         )}
         <Link href="/classic">
           <a className="group hover:underline my-2">
-            &lt;Go to the&nbsp;
+            &lt; Go to the&nbsp;
             <span className="text-yellow-400 group-hover:text-blue-500">
-              classic&nbsp;
+              classic
             </span>
-            leaderboard &gt;
+            &nbsp;leaderboard &gt;
           </a>
         </Link>
         <div className="flex flex-row | p-2 items-center">
