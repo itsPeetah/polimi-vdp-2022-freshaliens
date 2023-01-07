@@ -11,17 +11,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const app = initializeApp(firebaseConfig);
-  if (req.method === "GET") {
-    const lbref = ref(getDatabase(app), dbroot);
-    const data = (await (await get(lbref)).val()) as any;
-    res.status(200).json(data);
-  } else if (req.method === "POST") {
-    // curl -d "name=value1&time=value2&level=0" -X POST http://localhost:3000/api/leaderboard
-    const name = req.body.name ?? "Anonymous";
-    const time = req.body.time ?? "99:99.999";
-    const level = req.body.level ?? 0;
-    const lberef = ref(getDatabase(app), `${dbroot}/${name}/${level}`);
-    await set(lberef, time);
-    res.status(200).json("OK");
-  }
+  const newURL =
+    "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboards/official";
+  res.status(301).send(newURL);
 }

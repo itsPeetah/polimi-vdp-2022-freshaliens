@@ -13,7 +13,7 @@ const Home = () => {
   const router = useRouter();
 
   const apiURL =
-    "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboards/offical";
+    "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboards/classic";
 
   const [selectedLevel, setLevel] = useState("1");
   const [leaderboardData, setLeaderboardData] = useState({});
@@ -80,19 +80,22 @@ const Home = () => {
       >
         {!router.query["embed"] && (
           <div className="text-center">
-            <h1 className="text-6xl my-10">Freshaliens Leaderboard</h1>
+            <h1 className="text-6xl my-10">
+              Freshaliens Leaderboard{" "}
+              <span className="text-yellow-400">Classic</span>!
+            </h1>
           </div>
         )}
-        <Link href="/classic">
+        <Link href="/">
           <a className="group hover:underline my-2">
             &lt; Go to the&nbsp;
             <span className="text-yellow-400 group-hover:text-blue-500">
-              classic
+              official
             </span>
             &nbsp;leaderboard &gt;
           </a>
         </Link>
-        <div className="flex flex-row | p-2 items-center">
+        <div className="flex flex-row | items-center">
           <LevelButton
             level="1"
             currentLevel={selectedLevel}

@@ -57,7 +57,7 @@ namespace Freshaliens.UI
 
         public void PostTime(string name, string time, int level)
         {
-            Debug.Log("Posting time as " + name);
+            //Debug.Log("Posting time as " + name);
             WWWForm form = new WWWForm();
             form.AddField("name", name);
             form.AddField("time", time);
@@ -70,10 +70,10 @@ namespace Freshaliens.UI
             isUploadingData = true;
             UnityWebRequest www = UnityWebRequest.Post(Leaderboard.API_URL, /*payload*/ form);
             yield return www.SendWebRequest();
-            Debug.Log(www.result);
-            Debug.Log("Posted: " + form);
+            //Debug.Log(www.result);
+            //Debug.Log("Posted: " + form);
             www.Dispose();
-            Debug.Log("Disposed of www");
+            //Debug.Log("Disposed of www");
             isUploadingData = false;
         }
     }
