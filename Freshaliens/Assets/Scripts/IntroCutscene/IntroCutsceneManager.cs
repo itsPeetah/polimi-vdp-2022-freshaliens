@@ -6,35 +6,38 @@ namespace Freshaliens.CutScene
 {
     public class IntroCutsceneManager : MonoBehaviour
     {
-        [SerializeField] private CutsceneSlide[] slides = new CutsceneSlide[] { };
-
-        [Header("UI")]
-        [SerializeField] private TextMeshProUGUI text;
-        [SerializeField] private Image image;
-
-        private int currentSlide = 0;
+        [SerializeField] private float scrollSpeed = 100f;
+        [SerializeField] private float fastSpeedMultiplier = 4f;
+        [SerializeField] private float yThreshold = 1080f;
+        [SerializeField] private Transform scrollTransform = null;
+        [SerializeField] private AudioSource audioSource = null;
+        private bool done = false;
+        private bool speedUp = false;
 
         private void Start()
         {
-            currentSlide = 0;
-            if (slides.Length > 0) SetSlide(currentSlide);
+            PlayerData data = PlayerData.Instance;
+
+            if (data.MuteMaster || data.MuteMusic) audioSource.volume = 0;
+            else audioSource.volume *= data.MusicVolume * data.MasterVolume;
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space)) {
-                currentSlide++;
-                if (currentSlide >= slides.Length)
-                {
-                    SceneLoadingManager.LoadLevelSelection();
-                }
-                else SetSlide(currentSlide);
-            }
-        }
+            if (done) return;
 
-        private void SetSlide(int idx) {
-            text.SetText(slides[idx].Text);
-            image.sprite = slides[idx].Sprite;
+            if (Input.GetKeyDown(KeyCode.Space)) speedUp = !speedUp;
+
+            float speedMultiplier = speedUp ? fastSpeedMultiplier : 1f;
+            float speed = scrollSpeed * speedMultiplier * Time.deltaTime;
+            float y = scrollTransform.position.y;
+            
+            if (y > yThreshold)
+            {
+                done = true;
+                SceneLoadingManager.LoadLevelSelection();
+            }
+            else scrollTransform.Translate(Vector3.up * speed);
         }
     }
 }

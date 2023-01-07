@@ -27,6 +27,7 @@ namespace Freshaliens.Management
         [SerializeField] private float invulnerabiltyDuration = 1.0f;
 
         [Header("Level Settings")]
+        [SerializeField] private int currentLevel = -1;
         [SerializeField] private Checkpoint startingCheckpoint = null;
         [SerializeField] private Checkpoint finalCheckpoint = null;
 
@@ -38,7 +39,8 @@ namespace Freshaliens.Management
         private bool playerIsInvulnerable = false;
         private int currentPlayerHP = -1;
         private float currentLevelTimer = -1;
-
+        private bool introVideoPlaying = false;
+        private bool gameover = false;
         // Properties
         public LevelPhase CurrentPhase
         {
@@ -67,10 +69,12 @@ namespace Freshaliens.Management
                 }
             }
         }
+
         public bool IsPlayingDialogue => currentPhase == LevelPhase.Dialogue;
         public bool PlayerIsInvulnerable => playerIsInvulnerable;
+        public bool PlayingIntroVideo { get => introVideoPlaying; set => introVideoPlaying = value; }
         public float InvulnerabilityDuration => invulnerabiltyDuration;
-        public int CurrentLevel => PlayerData.Instance.LastLevelSelected;
+        public int CurrentLevel => /*PlayerData.Instance.LastLevelSelected*/ currentLevel;
         public int MaxPlayerHP => maxPlayerHP;
         public int CurrentPlayerHP
         {
@@ -90,6 +94,7 @@ namespace Freshaliens.Management
 
         private void Start()
         {
+            AudioManager1.instance.PlayMusic("theme");
             currentPhase = startingPhase;
             currentPlayerHP = startingPlayerHP;
             currentLevelTimer = 0;
@@ -97,24 +102,26 @@ namespace Freshaliens.Management
             if (finalCheckpoint) finalCheckpoint.MarkAsFinal();
             latestCheckpoint = startingCheckpoint;
 
+
             onPlayerDamageTaken += (gameObject) => onPlayerHPChange?.Invoke(gameObject);
             onPauseToggle += (_) => onLevelPhaseChange?.Invoke(CurrentPhase);
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+            if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && !GameOver)
             {
                 TogglePause();
             }
 
 #if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.Alpha9)){
+            if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
                 currentPlayerHP = CurrentPlayerHP + 1;
             }
 #endif
 
-            if (!IsPaused && !GameOver)
+            if (!IsPaused && !GameOver && !PlayingIntroVideo)
             {
                 float dt = Time.deltaTime;
 
@@ -136,26 +143,30 @@ namespace Freshaliens.Management
             SceneLoadingManager.ReloadLevel();
         }
 
-        public void QuitLevel() {
+        public void QuitLevel()
+        {
             SceneLoadingManager.LoadLevelSelection();
         }
 
-        public void UnlockCheckpoint(Checkpoint checkpoint) {
+        public void UnlockCheckpoint(Checkpoint checkpoint)
+        {
             latestCheckpoint = checkpoint;
         }
 
-        public void DamagePlayer( GameObject playerDamaged, int damageAmount = 1, bool skipInvulnerableCheck = false)
+        public void DamagePlayer(GameObject playerDamaged, int damageAmount = 1, bool skipInvulnerableCheck = false)
         {
-            if (playerIsInvulnerable && !skipInvulnerableCheck) return;
+            if ((playerIsInvulnerable && !skipInvulnerableCheck) || gameover) return;
 
             CurrentPlayerHP -= damageAmount;
             StopCoroutine(nameof(DoInvulnerabilityCoundown));
             StartCoroutine(nameof(DoInvulnerabilityCoundown));
             onPlayerDamageTaken?.Invoke(playerDamaged);
 
-            if (CurrentPlayerHP < 1) {
+            if (CurrentPlayerHP < 1)
+            {
                 TriggerGameOver(false);
             }
+            AudioManager1.instance.PlaySFX("hit");
         }
 
         public void RespawnPlayer()
@@ -165,7 +176,8 @@ namespace Freshaliens.Management
 
         }
 
-        private IEnumerator DoInvulnerabilityCoundown() {
+        private IEnumerator DoInvulnerabilityCoundown()
+        {
             playerIsInvulnerable = true;
             yield return new WaitForSeconds(invulnerabiltyDuration);
             playerIsInvulnerable = false;
@@ -173,31 +185,38 @@ namespace Freshaliens.Management
 
         public void TriggerGameOver(bool hasWon)
         {
+            if (gameover) return;
+            gameover = true;
+
             if (hasWon)
             {
                 PlayerData.Instance.SaveLevelTime(PlayerData.Instance.LastLevelSelected, currentLevelTimer);
                 PlayerData.Instance.UnlockNextLevel(true);
                 CurrentPhase = LevelPhase.GameWon;
+                AudioManager1.instance.PlaySFX("win");
                 onGameWon?.Invoke();
             }
             else
             {
                 CurrentPhase = LevelPhase.GameLost;
+                AudioManager1.instance.PlaySFX("gameover");
                 onGameLost?.Invoke();
             }
 
             onLevelPhaseChange?.Invoke(CurrentPhase);
         }
 
-        public void StartDialogue(DialoguePromptData prompt) {
+        public void StartDialogue(DialoguePromptData prompt)
+        {
             CurrentPhase = LevelPhase.Dialogue;
             DialoguePromptDisplayer.Instance.DisplayDialoguePrompt(prompt, true);
         }
 
-        public void EndDialogue() {
+        public void EndDialogue()
+        {
             CurrentPhase = LevelPhase.Playing;
         }
 
-        
+
     }
 }

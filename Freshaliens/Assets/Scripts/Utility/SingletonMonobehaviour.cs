@@ -33,6 +33,7 @@ namespace Freshaliens
         [SerializeField] protected bool persistSceneLoad = false;
 
         protected virtual void Awake() {
+
             if (exists)
             {
                 Destroy(this.gameObject);

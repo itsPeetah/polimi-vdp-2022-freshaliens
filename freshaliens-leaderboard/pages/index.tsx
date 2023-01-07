@@ -4,6 +4,7 @@ import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
 import { Leaderboard } from "src/types";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const { publicRuntimeConfig } = getConfig();
 const { name } = publicRuntimeConfig.site;
@@ -12,7 +13,7 @@ const Home = () => {
   const router = useRouter();
 
   const apiURL =
-    "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboards/classic";
+    "https://vdp22-freshaliens-leaderboard.vercel.app/api/leaderboards/offical";
 
   const [selectedLevel, setLevel] = useState("1");
   const [leaderboardData, setLeaderboardData] = useState({});
@@ -78,10 +79,20 @@ const Home = () => {
         } | text-white | overflow-scroll`}
       >
         {!router.query["embed"] && (
-          <h1 className="text-6xl my-10">Freshaliens Leaderboard</h1>
+          <div className="text-center">
+            <h1 className="text-6xl my-10">Freshaliens Leaderboard</h1>
+          </div>
         )}
-        <div className="flex flex-row | border-2 p-2 items-center">
-          <h1 className="mr-2">Classic: </h1>
+        <Link href="/classic">
+          <a className="group hover:underline my-2">
+            &lt; Go to the&nbsp;
+            <span className="text-yellow-400 group-hover:text-blue-500">
+              classic
+            </span>
+            &nbsp;leaderboard &gt;
+          </a>
+        </Link>
+        <div className="flex flex-row | p-2 items-center">
           <LevelButton
             level="1"
             currentLevel={selectedLevel}

@@ -37,6 +37,8 @@ namespace Freshaliens.LevelSelection.Components
             else queuedMovements.RemoveRange(existingIndex, queuedMovements.Count - existingIndex);
 
             if (!isMoving) StartCoroutine(nameof(MoveCursor));
+            
+            AudioManager1.instance.PlaySFX("levelselection");
         }
 
         private IEnumerator MoveCursor()

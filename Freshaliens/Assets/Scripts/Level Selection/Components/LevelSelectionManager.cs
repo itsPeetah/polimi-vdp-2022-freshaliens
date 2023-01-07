@@ -30,6 +30,9 @@ namespace Freshaliens.LevelSelection.Components
         private Transform levelMapLineContainer;
         private LevelMapLine[] mapLines = null;
 
+        [SerializeField] private string _password = "password";
+        private string _insertedKey;
+
         // Events
         public event Action<LevelInfo> onLevelSelected = null;
 
@@ -47,6 +50,7 @@ namespace Freshaliens.LevelSelection.Components
             currentlySelectedLevel = PlayerData.Instance.LastLevelSelected;
             InstantiateMapLines();
             UpdateMapLineState();
+            AudioManager1.instance.PlayMusic("musicamenu");
 
             // Subscribe events
             onLevelSelected += ui.UpdateLevelInfoDisplay;
@@ -77,6 +81,14 @@ namespace Freshaliens.LevelSelection.Components
                 UpdateMapLineState();
             }
 #endif
+            _insertedKey += Input.inputString.ToLower();
+            if (_insertedKey == _password)
+            {
+                PlayerData.Instance.LastUnlockedLevel = PlayerData.Instance.LastUnlockedLevel + 1;
+                UpdateMapLineState();
+            }
+            else if (_insertedKey.Length == _password.Length)
+                _insertedKey = _insertedKey.Substring(1);
         }
 
         private void SelectLevel(int index)

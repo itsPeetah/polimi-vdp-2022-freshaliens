@@ -19,11 +19,11 @@ public class CameraManager : MonoBehaviour
 
     [Header("Camera Parameters")]
     [SerializeField] private TrackingMode _currentTrackingMode;
-    public float _horizontalOffset = 2f;
-    public float _verticalOffset = 2f;
+    [SerializeField] private float _horizontalOffset = 2f;
+    [SerializeField] private float _verticalOffset = 2f;
     [SerializeField] private float _initialHorizontalOffset = 5f;
-    public float _minCameraSize = 6f;
-    public float _maxCameraSize = 12f;
+    [SerializeField] private float _minCameraSize = 6f;
+    [SerializeField] private float _maxCameraSize = 12f;
     [SerializeField] private float _playerMarginBeforeZoomOut = 2f;
     [SerializeField] private float _playerMarginBeforeZoomIn = 3.5f;
     [SerializeField] private float _cameraZoomSpeed = 4f;
@@ -75,6 +75,30 @@ public class CameraManager : MonoBehaviour
     private float _right;
     private float _rightCollision;
     private float _lastDistantMessageTime;
+
+    public float getMaxCameraSize()
+    {
+        return _maxCameraSize;
+    }
+    
+    public float getMinCameraSize()
+    {
+        return _minCameraSize;
+    }
+    
+    public float getVerticalOffset()
+    {
+        return _verticalOffset;
+    }
+    public float getHorizontalOffset()
+    {
+        return _horizontalOffset;
+    }
+    
+    public Vector3 getCameraPosition()
+    {
+        return _cameraTransform.position;
+    }
 
     private void Awake()
     {

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7254063892240167656}
   - component: {fileID: 7254063892240167657}
   - component: {fileID: -1238343818685292288}
+  - component: {fileID: 459273872354160349}
   m_Layer: 10
   m_Name: Patrol (Chase Player)
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -50.85289, y: -0.23845214, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7254063893785721677}
   - {fileID: 7254063893762000590}
@@ -136,7 +137,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70319d82b164ecb4abdaca3c5fdc0186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 7254063893785721675}
+  animator: {fileID: 459273872354160349}
+  sprite: {fileID: 7254063893785721675}
+  fireInterval: 0
+  firstDirectionR: 0
+--- !u!95 &459273872354160349
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7254063892240167440}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 518592efbf1966844b4fc31160bf17db, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7254063893762000625
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +204,7 @@ GameObject:
   - component: {fileID: 7254063893785721675}
   - component: {fileID: 7254063893785721674}
   m_Layer: 10
-  m_Name: Square
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,8 +266,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 67ca5a13bac1fc6429f5eb60cd31aec5, type: 3}
+  m_Color: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -266,16 +290,16 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0000019073486, y: 0.009351611}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.775, y: 1.125}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.7358665, y: 1.1057732}
   m_EdgeRadius: 0

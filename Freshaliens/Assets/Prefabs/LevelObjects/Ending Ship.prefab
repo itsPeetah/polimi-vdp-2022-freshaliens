@@ -204,6 +204,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1478067966427549465}
     m_Modifications:
+    - target: {fileID: 7066029023154156279, guid: 359f2a1fed5aa4a08a81820aa28a6c93, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7115225612822375455, guid: 359f2a1fed5aa4a08a81820aa28a6c93, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7115225612822375455, guid: 359f2a1fed5aa4a08a81820aa28a6c93, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.048
+      objectReference: {fileID: 0}
     - target: {fileID: 9142609577270910574, guid: 359f2a1fed5aa4a08a81820aa28a6c93, type: 3}
       propertyPath: m_Name
       value: CheckpointSpaceship

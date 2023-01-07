@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5999889201039882811}
   - component: {fileID: 5999889201039882810}
   - component: {fileID: 69097103276802368}
+  - component: {fileID: 4684006039055430927}
   m_Layer: 10
   m_Name: Patrol (Flying)
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -36.576515, y: -0.33092117, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5999889202425951134}
   - {fileID: 5999889202403249693}
@@ -136,7 +137,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70319d82b164ecb4abdaca3c5fdc0186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 5999889202425951128}
+  animator: {fileID: 4684006039055430927}
+  sprite: {fileID: 5999889202425951128}
+  fireInterval: 0.2
+  firstDirectionR: 0
+--- !u!95 &4684006039055430927
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5999889201039882947}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: be7a133b4dc3c974799956b2e839d19c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5999889202403249698
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +204,7 @@ GameObject:
   - component: {fileID: 5999889202425951128}
   - component: {fileID: 5999889202425951129}
   m_Layer: 10
-  m_Name: Square
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,12 +266,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ea93c3a0fb69ed4f8dcf99f01d50f2b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.4, y: 0.94}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -266,16 +290,16 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0017681122, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 1.4, y: 0.94}
+    newSize: {x: 1.4, y: 0.94}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.4065666, y: 1}
   m_EdgeRadius: 0
