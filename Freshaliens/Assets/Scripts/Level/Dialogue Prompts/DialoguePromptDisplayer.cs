@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+using Freshaliens.Player.Components;
 using Freshaliens.Management;
 namespace Freshaliens.UI
 {
@@ -85,24 +86,16 @@ namespace Freshaliens.UI
                 }
                 dialogueText.SetText(line);
 
-                //float t = 0;
-                //while (t <= lineDelayTime)
-                //{
-                //    t += Time.deltaTime;
-
-                //    if (skipTextQueued)
-                //    {
-                //        skipTextQueued = false;
-                //        break;
-                //    }
-
-                //    yield return null;
-                //}
+                bool lastLine = i == (lines.Length - 1);
+                if (lastLine) {
+                    
+                }
 
                 while (!skipTextQueued)
                 {
                     yield return null;
                 }
+
                 skipTextQueued = false;
 
 
@@ -112,7 +105,5 @@ namespace Freshaliens.UI
             IsDisplayingText = false;
             LevelManager.Instance.EndDialogue();
         }
-
-
     }
 }
