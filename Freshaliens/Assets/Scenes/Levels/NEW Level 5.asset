@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f113cc322823346d5b6cf3c6029bf83e, type: 3}
   m_Name: NEW Level 5
   m_EditorClassIdentifier: 
-  levelName: Muenov
+  levelName: 5 - Muenov
   sceneName: Level 5
-  levelDescription: This level looks familiar
+  levelDescription: This level looks familiar...just more dangerous...

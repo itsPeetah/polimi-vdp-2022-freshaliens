@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f113cc322823346d5b6cf3c6029bf83e, type: 3}
   m_Name: NEW Level 1
   m_EditorClassIdentifier: 
-  levelName: Kachaewei
+  levelName: 1 - Kachaewei
   sceneName: Level 1
   levelDescription: 'This is the first step of your adventure! Get acquainted with
     the controls and learn how to play.

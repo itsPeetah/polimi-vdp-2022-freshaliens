@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f113cc322823346d5b6cf3c6029bf83e, type: 3}
   m_Name: NEW Level 4
   m_EditorClassIdentifier: 
-  levelName: Haorilia
+  levelName: 4 - Haorilia
   sceneName: Level 4
   levelDescription: Whoever came to this planet before us has set it up in a way
     that makes it more dangerous to explore carelessly...we have to be careful!
