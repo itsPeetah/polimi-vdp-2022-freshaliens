@@ -7,7 +7,7 @@ public class EnemyDestroy : MonoBehaviour
     [SerializeField] private int numberOfLives = 3;
     private bool hit = false;
     public event Action<GameObject> OnDestroyEnemy;
-    
+    public event Action OnDamageEnemy;
     private void Update()
     {
         if (hit)
@@ -27,6 +27,11 @@ public class EnemyDestroy : MonoBehaviour
             OnDestroyEnemy?.Invoke(gameObject);
             AudioManager1.instance.PlaySFX("nemicomorto");
            // gameObject.SetActive(false);
+        }
+        else
+        {
+            OnDamageEnemy?.Invoke();
+            
         }
     }
 
