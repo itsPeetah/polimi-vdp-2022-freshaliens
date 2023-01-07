@@ -39,7 +39,7 @@ namespace Freshaliens.Management
         private bool playerIsInvulnerable = false;
         private int currentPlayerHP = -1;
         private float currentLevelTimer = -1;
-
+        private bool introVideoPlaying = false;
         // Properties
         public LevelPhase CurrentPhase
         {
@@ -71,6 +71,7 @@ namespace Freshaliens.Management
 
         public bool IsPlayingDialogue => currentPhase == LevelPhase.Dialogue;
         public bool PlayerIsInvulnerable => playerIsInvulnerable;
+        public bool PlayingIntroVideo { get => introVideoPlaying; set => introVideoPlaying = value; }
         public float InvulnerabilityDuration => invulnerabiltyDuration;
         public int CurrentLevel => /*PlayerData.Instance.LastLevelSelected*/ currentLevel;
         public int MaxPlayerHP => maxPlayerHP;
@@ -119,7 +120,7 @@ namespace Freshaliens.Management
             }
 #endif
 
-            if (!IsPaused && !GameOver)
+            if (!IsPaused && !GameOver && !PlayingIntroVideo)
             {
                 float dt = Time.deltaTime;
 
