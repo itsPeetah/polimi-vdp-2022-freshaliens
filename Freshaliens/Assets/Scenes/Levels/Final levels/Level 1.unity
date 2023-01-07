@@ -178,6 +178,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 4947918864085036884, guid: d164fd00c3a914243b34412d40e6f4d9, type: 3}
+      propertyPath: sfxSource
+      value: 
+      objectReference: {fileID: 1950135500}
+    - target: {fileID: 4947918864085036884, guid: d164fd00c3a914243b34412d40e6f4d9, type: 3}
+      propertyPath: musicSource
+      value: 
+      objectReference: {fileID: 227946636}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d164fd00c3a914243b34412d40e6f4d9, type: 3}
 --- !u!1 &68227327
@@ -332,6 +340,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1577162689509018498, guid: 807df7e5fccc1b84b970f64675afe428, type: 3}
   m_PrefabInstance: {fileID: 202846597}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &227946636 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3773507560068872941, guid: d164fd00c3a914243b34412d40e6f4d9, type: 3}
+  m_PrefabInstance: {fileID: 4661627}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &304802899
 PrefabInstance:
@@ -12815,6 +12828,11 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1577162689509018498, guid: c72954d2d7afb044694aa6652c9b923e, type: 3}
   m_PrefabInstance: {fileID: 1818977013}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1950135500 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1884368578234991435, guid: d164fd00c3a914243b34412d40e6f4d9, type: 3}
+  m_PrefabInstance: {fileID: 4661627}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2077024780
 GameObject:
