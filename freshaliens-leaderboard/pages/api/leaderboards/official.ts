@@ -20,7 +20,11 @@ export default async function handler(
     const name = req.body.name ?? "Anonymous";
     const time = req.body.time ?? "99:99.999";
     const level = req.body.level ?? 0;
-    const lberef = ref(getDatabase(app), `${dbroot_new}/${name}/${level}`);
+    const nameSanitized = (name as string).replaceAll(".", "");
+    const lberef = ref(
+      getDatabase(app),
+      `${dbroot_new}/${nameSanitized}/${level}`
+    );
     await set(lberef, time);
     res.status(200).json("OK");
   }
