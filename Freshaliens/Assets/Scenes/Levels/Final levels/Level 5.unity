@@ -3755,6 +3755,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2238861089736258458, guid: d164fd00c3a914243b34412d40e6f4d9, type: 3}
+      propertyPath: currentLevel
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2238861089736258458, guid: d164fd00c3a914243b34412d40e6f4d9, type: 3}
       propertyPath: finalCheckpoint
       value: 
       objectReference: {fileID: 187374474}
