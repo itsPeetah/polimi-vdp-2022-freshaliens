@@ -10,7 +10,7 @@ using UnityEditor;
 /// </summary>
 public class PlayerData
 {
-    private const string PP_LEVEL_KEY = "LAST_LEVEL";
+    private const string PP_LEVEL_KEY = "NEW:LAST_LEVEL";
     private const int PP_LEVEL_DEFAULT = 1;
 
     private const string PP_MASTER_VOLUME_KEY = "SETTINGS:VOLUME";
