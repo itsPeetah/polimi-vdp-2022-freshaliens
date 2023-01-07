@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &9208331279302152547
+--- !u!1 &3898219475724151398
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,21 +8,21 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9208331279302152540}
-  m_Layer: 10
+  - component: {fileID: 3556157524172553830}
+  m_Layer: 0
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9208331279302152540
+--- !u!4 &3556157524172553830
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9208331279302152547}
+  m_GameObject: {fileID: 3898219475724151398}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.57, y: 0.45, z: 10}
   m_LocalScale: {x: 0.99116, y: 0.99116, z: 0.99116}
@@ -177,10 +177,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -50.057777, y: -0.33092117, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 9208331279325605087}
-  - {fileID: 9208331279302152540}
+  - {fileID: 3556157524172553830}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPositionOS: {x: 4.8783836, y: -0.5158155, z: 0}
-  endPositionOS: {x: -4.0393677, y: 2.1235144, z: 0}
+  endPositionOS: {x: -4.4541245, y: 2.4345822, z: 0}
   allowFloating: 1
   movementSpeed: 3
   canChasePlayer: 0
@@ -284,7 +284,7 @@ MonoBehaviour:
   _attackRange: 10
   _damage: 1
   firePower: 10
-  weaponMuzzle: {fileID: 9208331279302152540}
+  weaponMuzzle: {fileID: 0}
   projectilePoolId: Enemy
   fireInterval: 2
   shootToPlayer: 1
@@ -317,7 +317,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 98fd60ff735a41a4eaf0437354e3441e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 

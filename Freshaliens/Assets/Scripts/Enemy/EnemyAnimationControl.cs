@@ -75,7 +75,7 @@ public class EnemyAnimationControl : MonoBehaviour
     }
     public void HasShoot(float playerX, float myPositionX )
     {
-       // StartCoroutine(FireAnim(playerX, myPositionX));
+        StartCoroutine(FireAnim(playerX, myPositionX));
     }
 
     IEnumerator FireAnim(float playerX, float myPositionX )
