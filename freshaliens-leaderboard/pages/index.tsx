@@ -108,6 +108,26 @@ const Home = () => {
             currentLevel={selectedLevel}
             onClick={() => setLevel("3")}
           />
+          <LevelButton
+            level="4"
+            currentLevel={selectedLevel}
+            onClick={() => setLevel("4")}
+          />
+          <LevelButton
+            level="5"
+            currentLevel={selectedLevel}
+            onClick={() => setLevel("5")}
+          />
+          <LevelButton
+            level="6"
+            currentLevel={selectedLevel}
+            onClick={() => setLevel("6")}
+          />
+          <LevelButton
+            level="7"
+            currentLevel={selectedLevel}
+            onClick={() => setLevel("7")}
+          />
         </div>
         <div className="w-full lg:w-[50%] mt-2 lg:border-2 p-10">
           <div className="flex flex-row justify-between text-yellow-400 mb-2">
