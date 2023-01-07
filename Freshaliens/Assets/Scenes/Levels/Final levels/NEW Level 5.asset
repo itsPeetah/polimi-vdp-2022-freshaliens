@@ -14,9 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Muenov
   sceneName: Level 5
-  levelDescription: 'This is the first step of your adventure! Get acquainted with
-    the controls and learn how to play.
-
-    If you want an extra challenge, you
-    can also try and beat the level in record times and compete for the top of the
-    leaderboard!'
+  levelDescription: This level looks familiar

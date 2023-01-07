@@ -14,9 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Covetera
   sceneName: Level 2
-  levelDescription: 'This is the first step of your adventure! Get acquainted with
-    the controls and learn how to play.
-
-    If you want an extra challenge, you
-    can also try and beat the level in record times and compete for the top of the
-    leaderboard!'
+  levelDescription: 'George has an idea: what if you could double jump? Try your
+    new found power out and conquer this planet!'
