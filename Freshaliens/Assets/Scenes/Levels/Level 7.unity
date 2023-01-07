@@ -2967,6 +2967,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Patrol (Chase Player)
       objectReference: {fileID: 0}
+    - target: {fileID: 7254063892240167440, guid: 07af1445c3b8249f9bfea0b5ad600dd7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7254063892240167441, guid: 07af1445c3b8249f9bfea0b5ad600dd7, type: 3}
       propertyPath: endPositionOS.x
       value: 7.1625977
