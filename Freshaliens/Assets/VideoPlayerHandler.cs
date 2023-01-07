@@ -16,6 +16,7 @@ public class VideoPlayerHandler : MonoBehaviour
         {
             // TODO Maybe change the video to url
             OnVideoOver();
+            return;
         }
 
         if (LevelManager.Exists)
