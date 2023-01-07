@@ -209,7 +209,7 @@ MonoBehaviour:
   maxSpeed: 7
   movementAcceleration: 15
   movementDeceleration: 20
-  maxOffScreenDistanceBeforeReturn: -1
+  maxOffScreenDistanceBeforeReturn: 0
   returnOnScreenDistance: 2
   returnAcceleration: 40
   maxReturnSpeed: 20
