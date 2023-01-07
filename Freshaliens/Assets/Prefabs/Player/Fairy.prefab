@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 9b7a8f922cd8c49759f30596abd70620, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -209,7 +209,7 @@ MonoBehaviour:
   maxSpeed: 7
   movementAcceleration: 15
   movementDeceleration: 20
-  maxOffScreenDistanceBeforeReturn: 1
+  maxOffScreenDistanceBeforeReturn: -1
   returnOnScreenDistance: 2
   returnAcceleration: 40
   maxReturnSpeed: 20
