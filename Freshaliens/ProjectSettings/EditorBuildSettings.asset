@@ -35,4 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Level 7.unity
     guid: 1bf3fcec7c2759b41a114cece3e3fcd6
+  - enabled: 1
+    path: Assets/Scenes/Levels/Game Beaten.unity
+    guid: ccc1c893d67804e71a90d002aaafe57b
   m_configObjects: {}
