@@ -3669,6 +3669,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 4947918864085036884, guid: d164fd00c3a914243b34412d40e6f4d9, type: 3}
+      propertyPath: sfxSource
+      value: 
+      objectReference: {fileID: 1309404011}
+    - target: {fileID: 4947918864085036884, guid: d164fd00c3a914243b34412d40e6f4d9, type: 3}
+      propertyPath: musicSource
+      value: 
+      objectReference: {fileID: 1784696443}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d164fd00c3a914243b34412d40e6f4d9, type: 3}
 --- !u!1001 &994374402
@@ -5170,6 +5178,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!82 &1309404011 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1884368578234991435, guid: d164fd00c3a914243b34412d40e6f4d9, type: 3}
+  m_PrefabInstance: {fileID: 923579984}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1336721193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8064,6 +8077,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!82 &1784696443 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3773507560068872941, guid: d164fd00c3a914243b34412d40e6f4d9, type: 3}
+  m_PrefabInstance: {fileID: 923579984}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1796846371
 GameObject:
   m_ObjectHideFlags: 0
