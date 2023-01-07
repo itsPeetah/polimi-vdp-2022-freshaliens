@@ -18,7 +18,7 @@ namespace Freshaliens.Interaction.Components
             gameObject.SetActive(_isActive);
         }
 
-        public void OnAction()
+        public override void OnAction()
         {
             ToggleState();
         }
