@@ -7,7 +7,8 @@ namespace Freshaliens.UI
     public class MainMenu : UIScreen
     {
         public void OnPlayPressed() {
-            SceneLoadingManager.LoadLevelSelection();
+            //SceneLoadingManager.LoadLevelSelection();
+            SceneLoadingManager.LoadFirstScene();
             PlayButtonSound();
         }
 
