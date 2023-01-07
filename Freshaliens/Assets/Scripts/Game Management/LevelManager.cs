@@ -27,6 +27,7 @@ namespace Freshaliens.Management
         [SerializeField] private float invulnerabiltyDuration = 1.0f;
 
         [Header("Level Settings")]
+        [SerializeField] private int currentLevel = -1;
         [SerializeField] private Checkpoint startingCheckpoint = null;
         [SerializeField] private Checkpoint finalCheckpoint = null;
 
@@ -67,10 +68,11 @@ namespace Freshaliens.Management
                 }
             }
         }
+
         public bool IsPlayingDialogue => currentPhase == LevelPhase.Dialogue;
         public bool PlayerIsInvulnerable => playerIsInvulnerable;
         public float InvulnerabilityDuration => invulnerabiltyDuration;
-        public int CurrentLevel => PlayerData.Instance.LastLevelSelected;
+        public int CurrentLevel => /*PlayerData.Instance.LastLevelSelected*/ currentLevel;
         public int MaxPlayerHP => maxPlayerHP;
         public int CurrentPlayerHP
         {
@@ -97,7 +99,7 @@ namespace Freshaliens.Management
 
             if (finalCheckpoint) finalCheckpoint.MarkAsFinal();
             latestCheckpoint = startingCheckpoint;
-            
+
 
             onPlayerDamageTaken += (gameObject) => onPlayerHPChange?.Invoke(gameObject);
             onPauseToggle += (_) => onLevelPhaseChange?.Invoke(CurrentPhase);
@@ -111,7 +113,8 @@ namespace Freshaliens.Management
             }
 
 #if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.Alpha9)){
+            if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
                 currentPlayerHP = CurrentPlayerHP + 1;
             }
 #endif
@@ -138,24 +141,27 @@ namespace Freshaliens.Management
             SceneLoadingManager.ReloadLevel();
         }
 
-        public void QuitLevel() {
+        public void QuitLevel()
+        {
             SceneLoadingManager.LoadLevelSelection();
         }
 
-        public void UnlockCheckpoint(Checkpoint checkpoint) {
+        public void UnlockCheckpoint(Checkpoint checkpoint)
+        {
             latestCheckpoint = checkpoint;
         }
 
-        public void DamagePlayer( GameObject playerDamaged, int damageAmount = 1, bool skipInvulnerableCheck = false)
+        public void DamagePlayer(GameObject playerDamaged, int damageAmount = 1, bool skipInvulnerableCheck = false)
         {
             if (playerIsInvulnerable && !skipInvulnerableCheck) return;
-            
+
             CurrentPlayerHP -= damageAmount;
             StopCoroutine(nameof(DoInvulnerabilityCoundown));
             StartCoroutine(nameof(DoInvulnerabilityCoundown));
             onPlayerDamageTaken?.Invoke(playerDamaged);
 
-            if (CurrentPlayerHP < 1) {
+            if (CurrentPlayerHP < 1)
+            {
                 TriggerGameOver(false);
             }
             AudioManager1.instance.PlaySFX("hit");
@@ -168,7 +174,8 @@ namespace Freshaliens.Management
 
         }
 
-        private IEnumerator DoInvulnerabilityCoundown() {
+        private IEnumerator DoInvulnerabilityCoundown()
+        {
             playerIsInvulnerable = true;
             yield return new WaitForSeconds(invulnerabiltyDuration);
             playerIsInvulnerable = false;
@@ -194,15 +201,17 @@ namespace Freshaliens.Management
             onLevelPhaseChange?.Invoke(CurrentPhase);
         }
 
-        public void StartDialogue(DialoguePromptData prompt) {
+        public void StartDialogue(DialoguePromptData prompt)
+        {
             CurrentPhase = LevelPhase.Dialogue;
             DialoguePromptDisplayer.Instance.DisplayDialoguePrompt(prompt, true);
         }
 
-        public void EndDialogue() {
+        public void EndDialogue()
+        {
             CurrentPhase = LevelPhase.Playing;
         }
 
-        
+
     }
 }
