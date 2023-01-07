@@ -33,7 +33,7 @@ public class LivesManager : MonoBehaviour
             Vector3 obstaclePosition = collision.gameObject.transform.position;
             //--------------------------------
       
-               // HitPlayer(false,obstaclePosition);
+                HitPlayer(false,obstaclePosition);
             
         }
     }
