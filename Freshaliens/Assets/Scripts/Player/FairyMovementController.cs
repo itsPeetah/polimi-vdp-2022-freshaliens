@@ -144,7 +144,7 @@ namespace Freshaliens.Player.Components
             // Is the fairy locking onto a target?
             bool wasLockingOnTarget = isLockingOnTarget;
             isLockingOnTarget = lockOnTargetAssigned &&
-                                Vector2.Distance(ownTransform.position, lockOnTarget.position) > 0.01f;
+                                Vector2.Distance(ownTransform.position, lockOnTarget.position) > 0.05f;
             if (!isLockingOnTarget)
             {
                 if (wasLockingOnTarget && lockOnTargetAssigned)
