@@ -39,6 +39,9 @@ public class PlayerData
     private const string PP_LEADERBOARD_NAME = "LEADERBOARD:NAME";
     private const string PP_LEADERBOARD_NAME_DEFAULT = "";
 
+    private const string PP_GAME_BEATEN_KEY = "NEW:BEATEN";
+    private const int PP_GAME_BEATEN_DEFAULT = 0;
+
     private static PlayerData instance;
     /// <summary>
     /// Main instance of the class. Used to access saved game data.
@@ -64,6 +67,7 @@ public class PlayerData
     private bool masterVolumeMuted;
     private bool musicVolumeMuted;
     private bool sfxVolumeMuted;
+    private bool gameBeaten;
 
     // Session data (no need to save this)
     private int lastLevelChosen;
@@ -77,7 +81,7 @@ public class PlayerData
     public bool MuteMaster { get => masterVolumeMuted ; set => masterVolumeMuted = value; }
     public bool MuteMusic { get => musicVolumeMuted; set => musicVolumeMuted = value; }
     public bool MuteSFX { get => sfxVolumeMuted; set => sfxVolumeMuted = value; }
-
+    public bool GameBeaten { get => gameBeaten; set => gameBeaten = value; }
     public int LastLevelSelected { get => lastLevelChosen; set => lastLevelChosen = value; }
     public bool HasPlayedBefore => lastUnlockedLevel > PP_LEVEL_DEFAULT;
 
@@ -93,9 +97,10 @@ public class PlayerData
         pd.masterVolumeMuted = PlayerPrefs.GetInt(PP_MASTER_MUTE_KEY, PP_MASTER_MUTE_DEFAULT) > 0;
         pd.musicVolumeMuted = PlayerPrefs.GetInt(PP_MUSIC_MUTE_KEY, PP_MUSIC_MUTE_DEFAULT) > 0; ;
         pd.sfxVolumeMuted = PlayerPrefs.GetInt(PP_SFX_MUTE_KEY, PP_SFX_MUTE_DEFAULT) > 0; ;
+        pd.sfxVolumeMuted = PlayerPrefs.GetInt(PP_GAME_BEATEN_KEY, PP_GAME_BEATEN_DEFAULT) > 0; ;
 
-    // Session data
-    pd.lastLevelChosen = pd.lastUnlockedLevel;
+        // Session data
+        pd.lastLevelChosen = pd.lastUnlockedLevel;
         return pd;
     }
 
@@ -109,6 +114,7 @@ public class PlayerData
         PlayerPrefs.SetInt(PP_MASTER_MUTE_KEY, masterVolumeMuted ? 1 : 0);
         PlayerPrefs.SetInt(PP_MUSIC_MUTE_KEY, musicVolumeMuted ? 1 : 0);
         PlayerPrefs.SetInt(PP_SFX_MUTE_KEY, sfxVolumeMuted ? 1 : 0);
+        PlayerPrefs.SetInt(PP_GAME_BEATEN_KEY, gameBeaten ? 1 : 0);
 
     }
 
