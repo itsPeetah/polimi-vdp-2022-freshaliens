@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Freshaliens.Management;
 namespace Freshaliens.Level.Components
@@ -76,6 +77,12 @@ namespace Freshaliens.Level.Components
             // Not final checkpoint -> update last available checkpoint
             LevelManager.Instance.UnlockCheckpoint(this);
             hasBeenActivated = true;
+            Animator anim = GetComponentInChildren<Animator>();
+            if (anim != null)
+            {
+                Debug.Log("Animator found");
+                anim.SetTrigger("Reached");
+            }
         }
 
         public static void ResetStartingCheckpoint() {
