@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faceSprite: {fileID: 21300000, guid: a12feb612a6cf4b6087a6ec23b40b9f0, type: 3}
   dialogueText:
-  - Congratulations you are in level 6! Beware of scary mons
+  - Congratulations you are in level 6! Beware of the scary monsters!
