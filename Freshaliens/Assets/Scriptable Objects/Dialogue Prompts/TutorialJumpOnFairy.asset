@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faceSprite: {fileID: 21300000, guid: 89e2b4f83b3204d6fa30694acff4ea96, type: 3}
   dialogueText:
-  - "Next step is a bit harder (not as much as in the prototype, though). \nYou must
-    jump on me while airborne."
+  - 'Next step is a bit harder!
+
+    You can jump on me while airborne.'
   - Press 'W' to jump and, while you are touching me, press 'W' again and I'll throw
     you further.
