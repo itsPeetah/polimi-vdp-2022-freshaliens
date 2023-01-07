@@ -30,7 +30,7 @@ namespace Freshaliens.LevelSelection.Components
         private Transform levelMapLineContainer;
         private LevelMapLine[] mapLines = null;
 
-        [SerializeField] private string _password = "figa";
+        [SerializeField] private string _password = "password";
         private string _insertedKey;
 
         // Events
