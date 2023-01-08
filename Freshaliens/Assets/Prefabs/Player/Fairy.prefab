@@ -216,8 +216,8 @@ MonoBehaviour:
   verticalDistanceAtRespawn: 3
   horizontalDistanceAtRespawn: 8
   stunDuration: 3
-  knockbackThrust: 1
-  knockbackDuration: 5
+  knockbackThrust: 6
+  knockbackDuration: 0.3
 --- !u!114 &555976789945125889
 MonoBehaviour:
   m_ObjectHideFlags: 0
