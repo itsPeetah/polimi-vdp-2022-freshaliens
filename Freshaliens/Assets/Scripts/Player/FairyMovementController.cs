@@ -178,17 +178,28 @@ namespace Freshaliens.Player.Components
                 stunTimer -= Time.deltaTime;
             }
             // Calculate change in velocity
-            currentVelocity = rbody.velocity;
+            if (!IsBeingKnockedBack)
+            {
+                currentVelocity = rbody.velocity;
+
+            }
             if (storedKnockback)
             {
-                Debug.Log("knockback!!");
+                
                 IsBeingKnockedBack = true;
                 storedKnockback = false;
                 ApplyKnockbackToVelocity(ref currentVelocity, knockbackDirection);
-                Debug.Log("movementDirection was "+ movementDirection);
-                movementDirection = knockbackDirection;
-                Debug.Log("movementDirection NOW IS "+ movementDirection);
             }
+            // if (storedKnockback)
+            // {
+            //     Debug.Log("knockback!!");
+            //     IsBeingKnockedBack = true;
+            //     storedKnockback = false;
+            //     ApplyKnockbackToVelocity(ref currentVelocity, knockbackDirection);
+            //     Debug.Log("movementDirection was "+ movementDirection);
+            //     movementDirection = knockbackDirection;
+            //     Debug.Log("movementDirection NOW IS "+ movementDirection);
+            // }
 
 
             Vector2 targetVelocity = movementDirection.normalized * maxSpeed;
@@ -197,6 +208,8 @@ namespace Freshaliens.Player.Components
 
             // TODO Apply stored knockback
             rbody.velocity = currentVelocity + dampen * deltaVelocity;
+            // Persist state
+            knockbackTimer -= Time.deltaTime;
         }
 
         /// <summary>
@@ -291,7 +304,7 @@ namespace Freshaliens.Player.Components
             Debug.Log("obstacleposition"+ (Vector2)obstaclePosition);
             Debug.Log("rbody position"+ rbody.position);
             
-            knockbackDirection = (Vector2)obstaclePosition - rbody.position;
+            knockbackDirection =   rbody.position -(Vector2)obstaclePosition;
             
             storedKnockback = true;
         }
